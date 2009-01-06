@@ -1,7 +1,7 @@
 Description
 ===========
 
-Autocompletes your most often used directories and files with ease.
+Autocomplete your most often used paths for any shell command.
 
 Install
 =======
