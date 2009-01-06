@@ -8,6 +8,8 @@ class PathCompletion < Completion
   def possible_completions
     dirs = directories_for_config_key(self.class.config_key)
     dirs.map {|e| Dir.entries(e)}.flatten.uniq - ['.','..']
+#    fullnames = dirs.map {|e| Dir.glob(e)}.flatten.uniq - ['.','..']
+#    fullnames.map {|e| File.basename(e) }
   end
 
   def directories_for_config_key(key)

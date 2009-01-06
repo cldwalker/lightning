@@ -36,6 +36,7 @@ to the path\_completer.rb script (step 3) and my bash function c.
 Todo
 ====
 
+* GEMify this!
 * Explore providing different completions for different arguments of a command.
 Could come in handy for autocompleting methods for my gri() function.
 * Allow for a basename occuring in multiple directories to be mapped to a specific directory.

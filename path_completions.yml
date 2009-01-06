@@ -24,3 +24,12 @@ gem_rdoc:
 ruby_core:
   - /Library/Ruby/Site/1.8/
   - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/
+
+osx_app:
+  - /Applications
+  - /Applications/Utilities
+
+rails_project:
+  - app/models/*.rb
+  - app/controllers/*.rb
+  - lib/**/*.rb
