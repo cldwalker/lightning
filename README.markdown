@@ -1,8 +1,7 @@
 Description
 ===========
 
-This directory contains some scripts to make autocompleting your most actively used
-directories and files cakewalk.
+Autocompletes your most often used directories and files with ease.
 
 Install
 =======
@@ -36,9 +35,12 @@ to the path\_completer.rb script (step 3) and my bash function c.
 Todo
 ====
 
+* Open up possible completions with Dir.glob .
 * GEMify this!
 * Explore providing different completions for different arguments of a command.
 Could come in handy for autocompleting methods for my gri() function.
 * Allow for a basename occuring in multiple directories to be mapped to a specific directory.
 * Add aliases in autocompletion.
-* Allow for optional full path autocompletion.
+* Rakefile for creating bash functions.
+* Create lightning binary which can bookmark directories ie add them to lightning.yml.
+Inspired by http://micans.org/apparix/.
