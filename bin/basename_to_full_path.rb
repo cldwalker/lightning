@@ -5,7 +5,7 @@
 # Directories can be specified after the basename:
 #   $0 dir.rb ~/apps ~/temp
 #
-# Or in the config file path_completions.yml and then reference the key of config hash:
+# Or in the config file lightning.yml and then reference the key of config hash:
 #   $0 -k code dir.rb
 #
 # Warning: Basenames that occur in multiple directories will return the first directory found.
@@ -21,7 +21,7 @@ def parse_argv
 
 	 opts.separator ""
 
-	opts.on("-k", "--key=key", String, "sets directories to key found in path_completions.yml") {|options[:key]|}
+	opts.on("-k", "--key=key", String, "sets directories to key found in lightning.yml") {|options[:key]|}
 	 opts.on("-h", "--help",
 		  "Show this help message.") { puts opts; exit }
 
@@ -42,7 +42,7 @@ end
 
 options = parse_argv()
 basename = ARGV.shift
-config_yaml_file = File.join(File.dirname(__FILE__), "path_completions.yml")
+config_yaml_file = File.join(File.dirname(__FILE__), "../lightning.yml")
 dirs = options[:key] ? YAML::load(File.new(config_yaml_file))[options[:key]] : ARGV
 
 if dirs.nil? || basename.nil?

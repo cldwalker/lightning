@@ -1,0 +1,50 @@
+#Change this to match this project's base directory
+LBIN_PATH="/home/bozo/code/gems/lightning/bin"
+#note: could use $(dirname $(readlink -f $0)) for above but doesn't work by default for mac
+
+#for my code directories
+c () {
+  cd `$LBIN_PATH/basename_to_full_path.rb -k code $@`
+}
+
+#for gem directories
+gcd () {
+  cd `$LBIN_PATH/basename_to_full_path.rb -k gem $@`
+}
+
+gm () {
+  mate `$LBIN_PATH/basename_to_full_path.rb -k gem $@`
+}
+
+grd () {
+  open `$LBIN_PATH/basename_to_full_path.rb -k gem_rdoc $@`/rdoc/index.html
+}
+
+gri () {
+  ri -d `$LBIN_PATH/basename_to_full_path.rb -k gem_rdoc $1`/ri ${@:2}
+}
+
+#for ruby core + standard libraries
+rcd () {
+ cd `$LBIN_PATH/basename_to_full_path.rb -k ruby_core $@` 
+}
+
+rcvi () {
+ vim `$LBIN_PATH/basename_to_full_path.rb -k ruby_core $@` 
+}
+
+rvi () {
+ vim `$LBIN_PATH/basename_to_full_path.rb -k rails_project $@` 
+}
+
+oa () {
+ open -a `$LBIN_PATH/basename_to_full_path.rb -k osx_app $@`
+}
+
+#Point shell functions to their autocompletions
+complete -o default -C "$LBIN_PATH/path_completer.rb code" c
+complete -o default -C "$LBIN_PATH/path_completer.rb gem" gcd gm
+complete -o default -C "$LBIN_PATH/path_completer.rb gem_rdoc" grd gri
+complete -o default -C "$LBIN_PATH/path_completer.rb ruby_core" rcd rcvi
+complete -o default -C "$LBIN_PATH/path_completer.rb osx_app" oa
+complete -o default -C "$LBIN_PATH/path_completer.rb rails_project" rvi

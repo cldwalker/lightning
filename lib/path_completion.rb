@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), 'completion')
 require 'yaml'
 
-# Supplies path completions under directories specified by a config key for path_completions.yml.
+# Supplies path completions under directories specified by a config key for lightning.yml.
 class PathCompletion < Completion
   class<<self; attr_accessor :config_key; end
 
@@ -13,7 +13,7 @@ class PathCompletion < Completion
   end
 
   def directories_for_config_key(key)
-    config_yaml_file = File.join(File.dirname(__FILE__), "path_completions.yml")
+    config_yaml_file = File.join(File.dirname(__FILE__), "../lightning.yml")
     YAML::load(File.new(config_yaml_file))[key]
   end
 
