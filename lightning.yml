@@ -4,30 +4,30 @@
 #completions.
 
 code:
-  - /Users/bozo/code/gems
-  - /Users/bozo/code/repo
-  - /Users/bozo/code/tds/gems
+  - /Users/bozo/code/gems/*
+  - /Users/bozo/code/repo/*
+  - /Users/bozo/code/tds/gems/*
 
 # to obtain your own paths to your ruby gems:
-# `gem environment path`.split(":").map {|e| e +"/gems" }
+# `gem environment path`.split(":").map {|e| e +"/gems/*" }
 gem:
-  - /Users/bozo/.gem/ruby/1.8/gems
-  - /Library/Ruby/Gems/1.8/gems
-  - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/gems
+  - /Users/bozo/.gem/ruby/1.8/gems/*
+  - /Library/Ruby/Gems/1.8/gems/*
+  - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/gems/*
 
 gem_rdoc:
-  - /Users/bozo/.gem/ruby/1.8/doc
-  - /Library/Ruby/Gems/1.8/doc
-  - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/doc
+  - /Users/bozo/.gem/ruby/1.8/doc/*
+  - /Library/Ruby/Gems/1.8/doc/*
+  - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/doc/*
 
 #picked from $LOAD_PATH
 ruby_core:
-  - /Library/Ruby/Site/1.8/
-  - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/
+  - /Library/Ruby/Site/1.8/*
+  - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/*
 
 osx_app:
-  - /Applications
-  - /Applications/Utilities
+  - /Applications/*.app
+  - /Applications/Utilities/*.app
 
 rails_project:
   - app/models/*.rb

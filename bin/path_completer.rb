@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
-require File.join(File.dirname(__FILE__), '../lib/path_completion')
+$:.unshift File.join(File.dirname(__FILE__), '../lib')
+require 'lightning'
 
-PathCompletion.config_key = ARGV.shift or raise "Path key needs to be specified"
-puts PathCompletion.new(ENV["COMP_LINE"]).matches
+key = ARGV.shift or raise "Path key needs to be specified"
+puts Lightning.possible_completions(ENV["COMP_LINE"], key)
 exit 0

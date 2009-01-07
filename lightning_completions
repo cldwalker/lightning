@@ -4,41 +4,41 @@ LBIN_PATH="/home/bozo/code/gems/lightning/bin"
 
 #for my code directories
 c () {
-  cd `$LBIN_PATH/basename_to_full_path.rb -k code $@`
+  cd `$LBIN_PATH/basename_to_full_path.rb code $@`
 }
 
 #for gem directories
 gcd () {
-  cd `$LBIN_PATH/basename_to_full_path.rb -k gem $@`
+  cd `$LBIN_PATH/basename_to_full_path.rb gem $@`
 }
 
 gm () {
-  mate `$LBIN_PATH/basename_to_full_path.rb -k gem $@`
+  mate `$LBIN_PATH/basename_to_full_path.rb gem $@`
 }
 
 grd () {
-  open `$LBIN_PATH/basename_to_full_path.rb -k gem_rdoc $@`/rdoc/index.html
+  open `$LBIN_PATH/basename_to_full_path.rb gem_rdoc $@`/rdoc/index.html
 }
 
 gri () {
-  ri -d `$LBIN_PATH/basename_to_full_path.rb -k gem_rdoc $1`/ri ${@:2}
+  ri -d `$LBIN_PATH/basename_to_full_path.rb gem_rdoc $1`/ri ${@:2}
 }
 
 #for ruby core + standard libraries
 rcd () {
- cd `$LBIN_PATH/basename_to_full_path.rb -k ruby_core $@` 
+ cd `$LBIN_PATH/basename_to_full_path.rb ruby_core $@` 
 }
 
 rcvi () {
- vim `$LBIN_PATH/basename_to_full_path.rb -k ruby_core $@` 
+ vim `$LBIN_PATH/basename_to_full_path.rb ruby_core $@` 
 }
 
 rvi () {
- vim `$LBIN_PATH/basename_to_full_path.rb -k rails_project $@` 
+ vim `$LBIN_PATH/basename_to_full_path.rb rails_project $@` 
 }
 
 oa () {
- open -a `$LBIN_PATH/basename_to_full_path.rb -k osx_app $@`
+ open -a `$LBIN_PATH/basename_to_full_path.rb osx_app $@`
 }
 
 #Point shell functions to their autocompletions
