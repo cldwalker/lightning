@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
-$:.unshift File.join(File.dirname(__FILE__), '../lib')
+
+require 'rubygems'
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 require 'lightning'
 
 key = ARGV.shift or raise "Path key needs to be specified"

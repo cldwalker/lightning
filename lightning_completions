@@ -33,8 +33,12 @@ rcvi () {
  vim `$LBIN_PATH/lightning-full_path.rb ruby_core $@` 
 }
 
-rvi () {
+rrvi () {
  vim `$LBIN_PATH/lightning-full_path.rb rails_project $@` 
+}
+
+rvi () {
+ vim `$LBIN_PATH/lightning-full_path.rb ruby_project $@` 
 }
 
 oa () {
@@ -47,4 +51,5 @@ complete -o default -C "$LBIN_PATH/lightning-complete.rb gem" gcd gm
 complete -o default -C "$LBIN_PATH/lightning-complete.rb gem_rdoc" grd gri
 complete -o default -C "$LBIN_PATH/lightning-complete.rb ruby_core" rcd rcvi
 complete -o default -C "$LBIN_PATH/lightning-complete.rb osx_app" oa
-complete -o default -C "$LBIN_PATH/lightning-complete.rb rails_project" rvi
+complete -o default -C "$LBIN_PATH/lightning-complete.rb rails_project" rrvi
+complete -o default -C "$LBIN_PATH/lightning-complete.rb ruby_project" rvi

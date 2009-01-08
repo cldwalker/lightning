@@ -30,6 +30,14 @@ osx_app:
   - /Applications/Utilities/*.app
 
 rails_project:
-  - app/models/**/*.rb
-  - app/controllers/**/*.rb
+  - config/**/*.rb
+  - app/**/*.{rb,erb,rhtml}
   - lib/**/*.rb
+  - test/**/*.rb
+  - spec/**/*.rb
+
+ruby_project:
+  - lib/**/*.rb
+  - test/**/*.rb
+  - spec/**/*.rb
+  - bin/**

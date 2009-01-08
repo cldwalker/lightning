@@ -1,7 +1,7 @@
 Description
 ===========
 
-Autocomplete your most often used paths for any shell command.
+Path completions for your shell that will let you navigate like lightning.
 
 Install
 =======

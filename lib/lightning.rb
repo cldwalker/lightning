@@ -3,7 +3,6 @@ require 'lightning/completion'
 require 'lightning/entry_hash'
 
 class Lightning
-  VERSION = '0.1.0'
   class<<self
     #should return array of globbable paths
     def config_entry(key)

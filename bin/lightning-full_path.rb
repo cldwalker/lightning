@@ -4,6 +4,7 @@
 # Used by path completion functions to return first possible full path which matches the given basename for the given key.
 # Warning: Basenames that occur in multiple directories will return the first directory found.
 
+require 'rubygems'
 $:.unshift File.join(File.dirname(__FILE__), '../lib')
 require 'lightning'
 
