@@ -25,7 +25,7 @@ begin
     s.authors = ["Gabriel Horner"]
     s.files =  FileList["[A-Za-z]*", "{bin,lib,test}/**/*"]
     s.has_rdoc = true
-    s.extra_rdoc_files = ["README.markdown", "LICENSE"]
+    s.extra_rdoc_files = ["README.markdown", "LICENSE.txt"]
   end
 
 rescue LoadError

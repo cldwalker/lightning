@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.description = %q{Path completions for your shell that will let you navigate like lightning.}
   s.email = %q{gabriel.horner@gmail.com}
   s.executables = ["lightning-complete.rb", "lightning-full_path.rb"]
-  s.extra_rdoc_files = ["README.markdown", "LICENSE"]
-  s.files = ["bin", "lib", "lightning-0.1.0.gem", "lightning.gemspec", "lightning.yml", "lightning_completions", "Rakefile", "README.markdown", "VERSION.yml", "bin/lightning-complete.rb", "bin/lightning-full_path.rb", "lib/lightning", "lib/lightning/completion.rb", "lib/lightning/entry_hash.rb", "lib/lightning.rb", "LICENSE"]
+  s.extra_rdoc_files = ["README.markdown", "LICENSE.txt"]
+  s.files = ["bin", "lib", "LICENSE.txt", "lightning-0.1.0.gem", "lightning.gemspec", "lightning.yml", "lightning_completions", "Rakefile", "README.markdown", "VERSION.yml", "bin/lightning-complete.rb", "bin/lightning-full_path.rb", "lib/lightning", "lib/lightning/completion.rb", "lib/lightning/entry_hash.rb", "lib/lightning.rb"]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/cldwalker/test}
   s.require_paths = ["lib"]
