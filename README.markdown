@@ -35,11 +35,8 @@ to the path\_completer.rb script (step 3) and my bash function c.
 Todo
 ====
 
+* Tests!
+* Handle duplicate basenames ie same basename but in multiple directories.
 * GEMify this!
-* Explore providing different completions for different arguments of a command.
-Could come in handy for autocompleting methods for my gri() function.
-* Allow for a basename occuring in multiple directories to be mapped to a specific directory.
-* Add aliases in autocompletion.
 * Rakefile for creating bash functions.
-* Create lightning binary which can bookmark directories ie add them to lightning.yml.
-Inspired by http://micans.org/apparix/.
+* Aliases for common autocompletions.

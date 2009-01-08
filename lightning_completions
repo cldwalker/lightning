@@ -4,47 +4,47 @@ LBIN_PATH="/home/bozo/code/gems/lightning/bin"
 
 #for my code directories
 c () {
-  cd `$LBIN_PATH/basename_to_full_path.rb code $@`
+  cd `$LBIN_PATH/lightning-full_path.rb code $@`
 }
 
 #for gem directories
 gcd () {
-  cd `$LBIN_PATH/basename_to_full_path.rb gem $@`
+  cd `$LBIN_PATH/lightning-full_path.rb gem $@`
 }
 
 gm () {
-  mate `$LBIN_PATH/basename_to_full_path.rb gem $@`
+  mate `$LBIN_PATH/lightning-full_path.rb gem $@`
 }
 
 grd () {
-  open `$LBIN_PATH/basename_to_full_path.rb gem_rdoc $@`/rdoc/index.html
+  open `$LBIN_PATH/lightning-full_path.rb gem_rdoc $@`/rdoc/index.html
 }
 
 gri () {
-  ri -d `$LBIN_PATH/basename_to_full_path.rb gem_rdoc $1`/ri ${@:2}
+  ri -d `$LBIN_PATH/lightning-full_path.rb gem_rdoc $1`/ri ${@:2}
 }
 
 #for ruby core + standard libraries
 rcd () {
- cd `$LBIN_PATH/basename_to_full_path.rb ruby_core $@` 
+ cd `$LBIN_PATH/lightning-full_path.rb ruby_core $@` 
 }
 
 rcvi () {
- vim `$LBIN_PATH/basename_to_full_path.rb ruby_core $@` 
+ vim `$LBIN_PATH/lightning-full_path.rb ruby_core $@` 
 }
 
 rvi () {
- vim `$LBIN_PATH/basename_to_full_path.rb rails_project $@` 
+ vim `$LBIN_PATH/lightning-full_path.rb rails_project $@` 
 }
 
 oa () {
- open -a `$LBIN_PATH/basename_to_full_path.rb osx_app $@`
+ open -a `$LBIN_PATH/lightning-full_path.rb osx_app $@`
 }
 
 #Point shell functions to their autocompletions
-complete -o default -C "$LBIN_PATH/path_completer.rb code" c
-complete -o default -C "$LBIN_PATH/path_completer.rb gem" gcd gm
-complete -o default -C "$LBIN_PATH/path_completer.rb gem_rdoc" grd gri
-complete -o default -C "$LBIN_PATH/path_completer.rb ruby_core" rcd rcvi
-complete -o default -C "$LBIN_PATH/path_completer.rb osx_app" oa
-complete -o default -C "$LBIN_PATH/path_completer.rb rails_project" rvi
+complete -o default -C "$LBIN_PATH/lightning-complete.rb code" c
+complete -o default -C "$LBIN_PATH/lightning-complete.rb gem" gcd gm
+complete -o default -C "$LBIN_PATH/lightning-complete.rb gem_rdoc" grd gri
+complete -o default -C "$LBIN_PATH/lightning-complete.rb ruby_core" rcd rcvi
+complete -o default -C "$LBIN_PATH/lightning-complete.rb osx_app" oa
+complete -o default -C "$LBIN_PATH/lightning-complete.rb rails_project" rvi

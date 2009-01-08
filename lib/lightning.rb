@@ -1,44 +1,34 @@
-require 'path_completion'
 require 'yaml'
+require 'lightning/completion'
+require 'lightning/entry_hash'
 
-module Lightning
+class Lightning
   VERSION = '0.1.0'
   class<<self
-    def config_key(key)
+    #should return array of globbable paths
+    def config_entry(key)
       config_yaml_file = File.join(File.dirname(__FILE__), "../lightning.yml")
       YAML::load(File.new(config_yaml_file))[key]
     end
     
-    def path_hash(key)
-      @path_hash ||= {}
-      @path_hash[key] ||= make_path_hash(key)
+    def exceptions
+      ['.', '..']
     end
     
-    def make_path_hash(key)
-      path_array = []
-      exceptions = ['.', '..']
-      config_key(key).each do |d|
-        #(Dir.entries(d)- ['.','..']).each do |e|
-          #path_array <<  [e, File.join(d,e)]
-        Dir.glob(d, File::FNM_DOTMATCH).each do |e|
-          basename = File.basename(e)
-          path_array << [basename, e] unless exceptions.include?(basename)
-        end
-      end
-      Hash[*path_array.flatten]
+    def completions_for_key(key)
+      entries[key].keys
     end
     
-    def entries_for_key(key)
-      path_hash(key).keys
+    def entries
+      @entry_hash ||= EntryHash.new
     end
     
     def possible_completions(text, key)
-      PathCompletion.config_key = key
-      PathCompletion.new(ENV["COMP_LINE"]).matches
+      Completion.new(ENV["COMP_LINE"], key).matches
     end
     
     def full_path_for_completion(basename, key)
-      path_hash(key)[basename]
+      entries[key][basename]
     end
   end
 end
