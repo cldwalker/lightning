@@ -24,6 +24,8 @@ begin
     s.description = "Path completions for your shell that will let you navigate like lightning."
     s.authors = ["Gabriel Horner"]
     s.files =  FileList["[A-Za-z]*", "{bin,lib,test}/**/*"]
+    s.has_rdoc = true
+    s.extra_rdoc_files = ["README.markdown", "LICENSE"]
   end
 
 rescue LoadError
