@@ -25,6 +25,10 @@ ruby_core:
   - /Library/Ruby/Site/1.8/**/*.rb
   - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/**/*.rb
 
+ruby_core_dir:
+  - /Library/Ruby/Site/1.8/**/
+  - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/**/
+
 osx_app:
   - /Applications/*.app
   - /Applications/Utilities/*.app

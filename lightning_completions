@@ -26,7 +26,7 @@ gri () {
 
 #for ruby core + standard libraries
 rcd () {
- cd `$LBIN_PATH/lightning-full_path.rb ruby_core $@` 
+ cd `$LBIN_PATH/lightning-full_path.rb ruby_core_dir $@` 
 }
 
 rcvi () {
@@ -49,7 +49,8 @@ oa () {
 complete -o default -C "$LBIN_PATH/lightning-complete.rb code" c
 complete -o default -C "$LBIN_PATH/lightning-complete.rb gem" gcd gm
 complete -o default -C "$LBIN_PATH/lightning-complete.rb gem_rdoc" grd gri
-complete -o default -C "$LBIN_PATH/lightning-complete.rb ruby_core" rcd rcvi
+complete -o default -C "$LBIN_PATH/lightning-complete.rb ruby_core" rcvi
+complete -o default -C "$LBIN_PATH/lightning-complete.rb ruby_core_dir" rcd
 complete -o default -C "$LBIN_PATH/lightning-complete.rb osx_app" oa
 complete -o default -C "$LBIN_PATH/lightning-complete.rb rails_project" rrvi
 complete -o default -C "$LBIN_PATH/lightning-complete.rb ruby_project" rvi
