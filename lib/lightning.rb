@@ -1,13 +1,34 @@
 require 'yaml'
 require 'lightning/completion'
 require 'lightning/entry_hash'
+require 'lightning/core_extensions'
+require 'lightning/generator'
 
 class Lightning
   class<<self
+    def config
+      unless @config
+        default_config = {:shell=>'bash', :generated_file=>'generated_lightning'}
+        config_yaml_file = File.join(File.dirname(__FILE__), "../lightning.yml")
+        @config = YAML::load(File.new(config_yaml_file))
+        @config = default_config.merge(@config.symbolize_keys)
+        add_command_paths(@config)
+      end
+      @config
+    end
+    
+    def add_command_paths(config)
+      config[:paths] ||= {}
+      config[:commands].each do |e|
+        path_key = "#{e['map_to']}-#{e['name']}"
+        e['path_key'] = path_key
+        config[:paths][path_key] = e['paths']
+      end
+    end
+    
     #should return array of globbable paths
     def config_entry(key)
-      config_yaml_file = File.join(File.dirname(__FILE__), "../lightning.yml")
-      YAML::load(File.new(config_yaml_file))[key]
+      config[:paths][key]
     end
     
     def exceptions
@@ -16,6 +37,15 @@ class Lightning
     
     def completions_for_key(key)
       entries[key].keys
+    end
+    
+    def generate_source_file(*commands)
+      # command_keys = config[:commands].keys if commands.empty?
+      # command_hash = config[:commands].slice(*command_keys)
+      command_hash = config[:commands]
+      output = Generator.generate(config[:shell], command_hash)
+      File.open(config[:generated_file], 'w'){|f| f.write(output) }
+      output
     end
     
     def entries

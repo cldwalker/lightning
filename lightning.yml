@@ -1,47 +1,62 @@
 ---
-#These entries should each map a unique key to a list of directories. When autocompleting, each
-#of the directories will provide the immediate files and directories under them as possible
-#completions.
+commands:
+    - name : ccc
+      map_to : cd
+      paths: 
+        - /Users/bozo/code/gems/*
+        - /Users/bozo/code/repo/*
+        - /Users/bozo/code/tds/gems/*
+    - name : gcd
+      map_to : cd
+      paths:
+        - /Users/bozo/.gem/ruby/1.8/gems/*
+        - /Library/Ruby/Gems/1.8/gems/*
+        - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/gems/*
+      
+paths: 
+    #These entries should each map a unique key to a list of directories. When autocompleting, each
+    #of the directories will provide the immediate files and directories under them as possible
+    #completions. The names of these paths should only be alphanumeric characters ie no special characters.
 
-code:
-  - /Users/bozo/code/gems/*
-  - /Users/bozo/code/repo/*
-  - /Users/bozo/code/tds/gems/*
+    code:
+      - /Users/bozo/code/gems/*
+      - /Users/bozo/code/repo/*
+      - /Users/bozo/code/tds/gems/*
 
-# to obtain your own paths to your ruby gems:
-# `gem environment path`.split(":").map {|e| e +"/gems/*" }
-gem:
-  - /Users/bozo/.gem/ruby/1.8/gems/*
-  - /Library/Ruby/Gems/1.8/gems/*
-  - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/gems/*
+    # to obtain your own paths to your ruby gems:
+    # `gem environment path`.split(":").map {|e| e +"/gems/*" }
+    gem:
+      - /Users/bozo/.gem/ruby/1.8/gems/*
+      - /Library/Ruby/Gems/1.8/gems/*
+      - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/gems/*
 
-gem_rdoc:
-  - /Users/bozo/.gem/ruby/1.8/doc/*
-  - /Library/Ruby/Gems/1.8/doc/*
-  - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/doc/*
+    gem_rdoc:
+      - /Users/bozo/.gem/ruby/1.8/doc/*
+      - /Library/Ruby/Gems/1.8/doc/*
+      - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/doc/*
 
-#picked from $LOAD_PATH
-ruby_core:
-  - /Library/Ruby/Site/1.8/**/*.rb
-  - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/**/*.rb
+    #picked from $LOAD_PATH
+    ruby_core:
+      - /Library/Ruby/Site/1.8/**/*.rb
+      - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/**/*.rb
 
-ruby_core_dir:
-  - /Library/Ruby/Site/1.8/**/
-  - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/**/
+    ruby_core_dir:
+      - /Library/Ruby/Site/1.8/**/
+      - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/**/
 
-osx_app:
-  - /Applications/*.app
-  - /Applications/Utilities/*.app
+    osx_app:
+      - /Applications/*.app
+      - /Applications/Utilities/*.app
 
-rails_project:
-  - config/**/*.rb
-  - app/**/*.{rb,erb,rhtml}
-  - lib/**/*.rb
-  - test/**/*.rb
-  - spec/**/*.rb
+    rails_project:
+      - config/**/*.rb
+      - app/**/*.{rb,erb,rhtml}
+      - lib/**/*.rb
+      - test/**/*.rb
+      - spec/**/*.rb
 
-ruby_project:
-  - lib/**/*.rb
-  - test/**/*.rb
-  - spec/**/*.rb
-  - bin/**
+    ruby_project:
+      - lib/**/*.rb
+      - test/**/*.rb
+      - spec/**/*.rb
+      - bin/**
