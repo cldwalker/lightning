@@ -20,9 +20,19 @@ class Lightning
     def add_command_paths(config)
       config[:paths] ||= {}
       config[:commands].each do |e|
-        path_key = "#{e['map_to']}-#{e['name']}"
-        e['path_key'] = path_key
-        config[:paths][path_key] = e['paths']
+        #mapping a referenced path
+        if e['paths'].is_a?(String)
+          e['path_key'] = e['paths'].dup
+          e['paths'] = config[:paths][e['paths'].strip] || []
+        end
+        #create a path entry + key if none exists
+        if e['path_key'].nil?
+          #extract command in case it has options after it
+          e['map_to'] =~ /\s*(\w+)/
+          path_key = "#{$1}-#{e['name']}"
+          e['path_key'] = path_key
+          config[:paths][path_key] = e['paths']
+        end
       end
     end
     

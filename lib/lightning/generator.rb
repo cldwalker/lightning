@@ -14,9 +14,10 @@ class Lightning
       INIT
       commands.each do |e|
         body += <<-EOS
-        
+          
+          ##{e['description'] if e['description']}
           #{e['name']} () {
-            #{e['map_to']} `$LBIN_PATH/lightning-full_path.rb #{e['path_key']} $@`
+            #{e['map_to']} `$LBIN_PATH/lightning-full_path.rb #{e['path_key']} $@`#{e['post_path'] if e['post_path']}
           }
           complete -o default -C "$LBIN_PATH/lightning-complete.rb #{e['path_key']}" #{e['name']}
         EOS
