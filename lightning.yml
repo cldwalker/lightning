@@ -1,4 +1,6 @@
 ---
+ignore:
+    - .DS_Store
 commands:
     - name : c
       map_to : cd

@@ -5,6 +5,7 @@ require 'lightning/core_extensions'
 require 'lightning/generator'
 
 class Lightning
+  TEST_FLAG = '-test'
   class<<self
     def config
       unless @config
@@ -42,7 +43,11 @@ class Lightning
     end
     
     def exceptions
-      ['.', '..']
+      unless @exceptions
+        @exceptions = ['.', '..']
+        @exceptions += config[:ignore] if !config[:ignore].empty?
+      end
+      @exceptions
     end
     
     def completions_for_key(key)
@@ -62,12 +67,14 @@ class Lightning
       @entry_hash ||= EntryHash.new
     end
     
-    def possible_completions(text, key)
-      Completion.new(ENV["COMP_LINE"], key).matches
+    def possible_completions(text_to_complete, path_key)
+      Completion.new(text_to_complete, path_key).matches
     end
     
-    def full_path_for_completion(basename, key)
-      entries[key][basename]
+    def full_path_for_completion(basename, path_key)
+      basename = basename.join(" ") if basename.is_a?(Array)
+      basename.gsub!(/\s*#{TEST_FLAG}\s*/,'')
+      entries[path_key][basename]
     end
   end
 end

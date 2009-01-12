@@ -9,6 +9,6 @@ $:.unshift File.join(File.dirname(__FILE__), '../lib')
 require 'lightning'
 
 key = ARGV.shift or raise "No key given"
-basename = ARGV.shift or raise "No basename given"
-puts Lightning.full_path_for_completion(basename, key) || ''
+raise "No basename given" if ARGV.empty?
+puts Lightning.full_path_for_completion(ARGV, key) || ''
 exit 0

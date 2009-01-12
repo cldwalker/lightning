@@ -13,7 +13,9 @@ class Lightning
     end
   
     def typed
-      @command[/\s(.+?)$/, 1] || ''
+      # @command[/\s(.+?)$/, 1] || ''
+      text = @command[/^(\w+)\s+(#{Lightning::TEST_FLAG})?\s*(.+?)$/, 3] || ''
+      text.strip
     end
   
     def possible_completions
