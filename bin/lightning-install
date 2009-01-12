@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+require 'lightning'
+Lightning::Generator.generate_completions

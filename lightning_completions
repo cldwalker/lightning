@@ -4,7 +4,7 @@ LBIN_PATH="/home/bozo/code/gems/lightning/bin"
        
 #my code directories
 c () {
-  FULL_PATH="`$LBIN_PATH/lightning-full_path.rb cd-c $@`"
+  FULL_PATH="`$LBIN_PATH/lightning-full_path cd-c $@`"
   if [ $1 == '-test' ]; then
     CMD="cd '$FULL_PATH'"
     echo $CMD
@@ -12,11 +12,11 @@ c () {
     cd "$FULL_PATH"
   fi
 }
-complete -o default -C "$LBIN_PATH/lightning-complete.rb cd-c" c
+complete -o default -C "$LBIN_PATH/lightning-complete cd-c" c
 
 
 gcd () {
-  FULL_PATH="`$LBIN_PATH/lightning-full_path.rb gem $@`"
+  FULL_PATH="`$LBIN_PATH/lightning-full_path gem $@`"
   if [ $1 == '-test' ]; then
     CMD="cd '$FULL_PATH'"
     echo $CMD
@@ -24,11 +24,11 @@ gcd () {
     cd "$FULL_PATH"
   fi
 }
-complete -o default -C "$LBIN_PATH/lightning-complete.rb gem" gcd
+complete -o default -C "$LBIN_PATH/lightning-complete gem" gcd
 
 
 gm () {
-  FULL_PATH="`$LBIN_PATH/lightning-full_path.rb gem $@`"
+  FULL_PATH="`$LBIN_PATH/lightning-full_path gem $@`"
   if [ $1 == '-test' ]; then
     CMD="mate '$FULL_PATH'"
     echo $CMD
@@ -36,11 +36,11 @@ gm () {
     mate "$FULL_PATH"
   fi
 }
-complete -o default -C "$LBIN_PATH/lightning-complete.rb gem" gm
+complete -o default -C "$LBIN_PATH/lightning-complete gem" gm
 
 #open gem's doc in browser
 grd () {
-  FULL_PATH="`$LBIN_PATH/lightning-full_path.rb gem_rdoc $@`/rdoc/index.html"
+  FULL_PATH="`$LBIN_PATH/lightning-full_path gem_rdoc $@`/rdoc/index.html"
   if [ $1 == '-test' ]; then
     CMD="open '$FULL_PATH'"
     echo $CMD
@@ -48,11 +48,11 @@ grd () {
     open "$FULL_PATH"
   fi
 }
-complete -o default -C "$LBIN_PATH/lightning-complete.rb gem_rdoc" grd
+complete -o default -C "$LBIN_PATH/lightning-complete gem_rdoc" grd
 
 #access ri documentation limited to this gem
 gri () {
-  FULL_PATH="`$LBIN_PATH/lightning-full_path.rb gem_rdoc $@`/ri"
+  FULL_PATH="`$LBIN_PATH/lightning-full_path gem_rdoc $@`/ri"
   if [ $1 == '-test' ]; then
     CMD="ri -d '$FULL_PATH' ${@:2}"
     echo $CMD
@@ -60,11 +60,11 @@ gri () {
     ri -d "$FULL_PATH" ${@:2}
   fi
 }
-complete -o default -C "$LBIN_PATH/lightning-complete.rb gem_rdoc" gri
+complete -o default -C "$LBIN_PATH/lightning-complete gem_rdoc" gri
 
 #ruby core files
 rcvi () {
-  FULL_PATH="`$LBIN_PATH/lightning-full_path.rb vim-rcvi $@`"
+  FULL_PATH="`$LBIN_PATH/lightning-full_path vim-rcvi $@`"
   if [ $1 == '-test' ]; then
     CMD="vim '$FULL_PATH'"
     echo $CMD
@@ -72,11 +72,11 @@ rcvi () {
     vim "$FULL_PATH"
   fi
 }
-complete -o default -C "$LBIN_PATH/lightning-complete.rb vim-rcvi" rcvi
+complete -o default -C "$LBIN_PATH/lightning-complete vim-rcvi" rcvi
 
 #ruby core directories
 rcd () {
-  FULL_PATH="`$LBIN_PATH/lightning-full_path.rb cd-rcd $@`"
+  FULL_PATH="`$LBIN_PATH/lightning-full_path cd-rcd $@`"
   if [ $1 == '-test' ]; then
     CMD="cd '$FULL_PATH'"
     echo $CMD
@@ -84,11 +84,11 @@ rcd () {
     cd "$FULL_PATH"
   fi
 }
-complete -o default -C "$LBIN_PATH/lightning-complete.rb cd-rcd" rcd
+complete -o default -C "$LBIN_PATH/lightning-complete cd-rcd" rcd
 
 #open mac applications
 oa () {
-  FULL_PATH="`$LBIN_PATH/lightning-full_path.rb open-oa $@`"
+  FULL_PATH="`$LBIN_PATH/lightning-full_path open-oa $@`"
   if [ $1 == '-test' ]; then
     CMD="open -a '$FULL_PATH'"
     echo $CMD
@@ -96,11 +96,11 @@ oa () {
     open -a "$FULL_PATH"
   fi
 }
-complete -o default -C "$LBIN_PATH/lightning-complete.rb open-oa" oa
+complete -o default -C "$LBIN_PATH/lightning-complete open-oa" oa
 
 #open files when in the base directory of a ruby gem project
 rvi () {
-  FULL_PATH="`$LBIN_PATH/lightning-full_path.rb vim-rvi $@`"
+  FULL_PATH="`$LBIN_PATH/lightning-full_path vim-rvi $@`"
   if [ $1 == '-test' ]; then
     CMD="vim '$FULL_PATH'"
     echo $CMD
@@ -108,11 +108,11 @@ rvi () {
     vim "$FULL_PATH"
   fi
 }
-complete -o default -C "$LBIN_PATH/lightning-complete.rb vim-rvi" rvi
+complete -o default -C "$LBIN_PATH/lightning-complete vim-rvi" rvi
 
 #open files when in the base directory of a rails project
 rrvi () {
-  FULL_PATH="`$LBIN_PATH/lightning-full_path.rb vim-rrvi $@`"
+  FULL_PATH="`$LBIN_PATH/lightning-full_path vim-rrvi $@`"
   if [ $1 == '-test' ]; then
     CMD="vim '$FULL_PATH'"
     echo $CMD
@@ -120,4 +120,4 @@ rrvi () {
     vim "$FULL_PATH"
   fi
 }
-complete -o default -C "$LBIN_PATH/lightning-complete.rb vim-rrvi" rrvi
+complete -o default -C "$LBIN_PATH/lightning-complete vim-rrvi" rrvi

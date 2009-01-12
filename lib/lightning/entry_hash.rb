@@ -10,7 +10,7 @@ class Lightning
   
     def create_entry(key)
       path_array = []
-      Lightning.config_entry(key).each do |d|
+      Lightning.paths_for_key(key).each do |d|
         #(Dir.entries(d)- ['.','..']).each do |e|
           #path_array <<  [e, File.join(d,e)]
         Dir.glob(d, File::FNM_DOTMATCH).each do |e|

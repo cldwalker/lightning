@@ -42,11 +42,6 @@ module Lightning::Config
     end
   end
   
-  #should return array of globbable paths
-  def config_entry(key)
-    config[:paths][key]
-  end
-  
   def exceptions
     unless @exceptions
       @exceptions = ['.', '..']

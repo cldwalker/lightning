@@ -1,36 +1,46 @@
 Description
 ===========
 
-Path completions for your shell that will let you navigate like lightning.
+Auto-complete files and directories for paths and commands you use often simply
+by referring to their basenames. Lightning maps the basenames to the correct full path.
+So instead of 
+
+  bash> cd /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/irb.rb
+
+you simply type or complete
+
+  bash> gcd irb.rb
+
+Lightning autocompletes a command based on a list of globble paths in your config file.
+Since these globs are interpreted by ruby's Dir.glob(), you can:
+
+1. Autocomplete files and directories that don't start with specific letters.
+   Dir.glob("[^ls]*") -> Matches anything not starting with l or s
+
+2. Autocomplete files ending with specific file extensions for a given directory.
+   Dir.glob("/painfully/long/path/*.{rb,erb}") -> Matches files ending with .rb or .erb
+
+3. Autocomplete all directories however many levels deep under the current directory.
+   Dir.glob("**/")
+
+`ri Dir.glob` for more examples.
 
 Install
 =======
 
-To make your own autocompleted command, you'll need to:
+To make your own commands, you'll need to:
 
-1. Make an entry in the config file, lightning.yml. This entry (or key)
-should list a set of directories whose contents you want to autocomplete for your shell command.
+1. Create your own ~/.lightning.yml, using lightning.yml.example as an example.
 
-2. Setup a shell function in a file which translates your autocompleted entry to a full path
-your command can use. The translation is done with the ruby script, basename\_to\_full\_path.rb
-See the lightning\_completions file for an example.
-Notice that you'll need to include the full path to that script as well as pass a -k option
-pointing to the key you used for step 1.
+2. lightning-install in your shell to generate your lightning_completions file from your config.
 
-3. In the same file, you need to point your key to your bash function using the complete command
-and the path\_completer.rb script. See the lightning\_completions file for an example.
+3. Source the generated file in your bashrc ie 'source [INSERT CURRENT DIRECTORY]/lightning_completions'.
 
-4. Make sure the file you've created is sourced in your bashrc.
 
-Example
-=======
+Configuration Options
+=====================
 
-To help with creating your own completions, I'll explain one of mine.
-In lightning.yml, I entered the key 'code' which lists my most active code-related directories
-(step 1). Since I wanted to get to those directories quickly, I made a bash c() function which
-cd's to them. In that function, I also call basename\_to\_full\_path.rb, passing the -k
-option my config key (step 2). In the same file, I also write a complete statement making sure to pass my key
-to the path\_completer.rb script (step 3) and my bash function c.
+TODO
 
 Todo
 ====
@@ -38,5 +48,4 @@ Todo
 * Tests!
 * Handle duplicate basenames ie same basename but in multiple directories.
 * GEMify this!
-* Rakefile for creating bash functions.
 * Aliases for common autocompletions.

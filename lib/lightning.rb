@@ -13,6 +13,11 @@ class Lightning
       entries[key].keys
     end
     
+    #should return array of globbable paths
+    def paths_for_key(key)
+      config[:paths][key]
+    end
+
     def entries
       @entry_hash ||= EntryHash.new
     end

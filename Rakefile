@@ -17,7 +17,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name = "lightning"
-    s.executables = ["lightning-complete.rb", "lightning-full_path.rb"]
+    s.executables = ["lightning-complete", "lightning-full_path", "lightning-install"]
     s.summary = "Path completions for your shell that will let you navigate like lightning."
     s.email = "gabriel.horner@gmail.com"
     s.homepage = "http://github.com/cldwalker/test"
