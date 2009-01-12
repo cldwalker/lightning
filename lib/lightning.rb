@@ -18,6 +18,18 @@ class Lightning
       @config
     end
     
+    def find_command(name)
+      config[:commands].find {|e| e['name'] == name} || {}
+    end
+    
+    def command_to_path_key(map_to_command, new_command)
+      "#{map_to_command}-#{new_command}"
+    end
+    
+    def path_key_to_command(path_key)
+      path_key.split("-")[1]
+    end
+    
     def add_command_paths(config)
       config[:paths] ||= {}
       config[:commands].each do |e|
@@ -30,7 +42,8 @@ class Lightning
         if e['path_key'].nil?
           #extract command in case it has options after it
           e['map_to'] =~ /\s*(\w+)/
-          path_key = "#{$1}-#{e['name']}"
+          path_key = command_to_path_key($1, e['name'])
+          # path_key = "#{$1}-#{e['name']}"
           e['path_key'] = path_key
           config[:paths][path_key] = e['paths']
         end
@@ -74,6 +87,9 @@ class Lightning
     def full_path_for_completion(basename, path_key)
       basename = basename.join(" ") if basename.is_a?(Array)
       basename.gsub!(/\s*#{TEST_FLAG}\s*/,'')
+      if (regex = find_command(path_key_to_command(path_key))['completion_regex'])
+        basename = basename[/#{regex}/]
+      end
       entries[path_key][basename]
     end
   end

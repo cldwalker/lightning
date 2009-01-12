@@ -27,8 +27,10 @@ commands:
     - name : gri
       map_to : ri -d
       description : access ri documentation limited to this gem
-      post_path : /ri ${@:2}
+      post_path : /ri
+      add_to_command: ${@:2}
       paths: gem_rdoc
+      completion_regex: ^\S+
     
     - name : rcvi
       map_to : vim

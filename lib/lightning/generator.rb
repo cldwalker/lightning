@@ -18,7 +18,7 @@ class Lightning
           ##{e['description'] if e['description']}
           #{e['name']} () {
             FULL_PATH=`$LBIN_PATH/lightning-full_path.rb #{e['path_key']} $@`
-            CMD="#{e['map_to']} $FULL_PATH#{e['post_path'] if e['post_path']}"
+            CMD="#{e['map_to']} '$FULL_PATH#{e['post_path'] if e['post_path']}'#{' '+ e['add_to_command'] if e['add_to_command']}"
             if [ $1 == '#{Lightning::TEST_FLAG}' ]; then
               echo $CMD
             else
@@ -28,7 +28,7 @@ class Lightning
           complete -o default -C "$LBIN_PATH/lightning-complete.rb #{e['path_key']}" #{e['name']}
         EOS
       end
-      body.gsub(/^([ \t\r\f])+/, '')
+      body.gsub(/^\s{6,10}/, '')
     end
   end
 end
