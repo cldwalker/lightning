@@ -46,4 +46,11 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
+desc "Generates completion file to be sourced by your shell"
+task :generate_completions do
+  $:.unshift 'lib'
+  require 'lightning'
+  Lightning::Generator.generate_completions
+end
+
 task :default => :test

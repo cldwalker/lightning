@@ -1,6 +1,7 @@
 ---
 ignore:
     - .DS_Store
+    - .git
 commands:
     - name : c
       map_to : cd
