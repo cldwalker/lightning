@@ -7,15 +7,15 @@ and you're ready to rock.
 
 So instead of carpal-typing
 
-  bash> vim /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/irb.rb
+  `bash> vim /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/irb.rb`
 
 you type or complete
 
-  bash> rvim irb.rb
+  `bash> rvim irb.rb`
 
 Uneasy about what lightning will execute? Test it out with a -test flag
 
-  bash> rvim -test irb.rb
+  `bash> rvim -test irb.rb`
   rvim '/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/irb.rb'
 
 As you can see, you only need to autocomplete the basenames of paths and lightning will resolve their
@@ -31,12 +31,12 @@ To make your own commands, you'll need to:
 1. Create ~/.lightning.yml or a lightning.yml in the current directory.
    Use the Configuration section below and the provided lightning.yml.example as guides.
 
-2. Execute `lightning-install` to generate ~/.lightning_completions from your config.
+2. Execute `lightning-install` to generate ~/.lightning\_completions from your config.
    There is a config option for changing the locating of the generated file. See Configuration
-   below. See lightning_completions.example for what would be generated for the enclosed example
+   below. See lightning\_completions.example for what would be generated for the enclosed example
    config.
 
-3. Source the generated file in your bashrc ie 'source ~/.lightning_completions'.
+3. Source the generated file in your bashrc ie 'source ~/.lightning\_completions'.
 
 
 Globbable paths
@@ -62,16 +62,16 @@ It helps to look at lightning.yml.example while reading this.
 
 Configuration options are:
 
-* generated_file: Location of shell script file generated from config. Defaults to
-  ~/.lightning_completions.
-* ignore_paths: List of paths to globally ignore when listing completions.
+* generated\_file: Location of shell script file generated from config. Defaults to
+  ~/.lightning\_completions.
+* ignore\_paths: List of paths to globally ignore when listing completions.
 * shell: Specifies shell script generator used for generating completions. Defaults to bash.
 * commands: A list of lightning commands. A lightning command is just a shell function
   which executes a specified shell function with a defined set of paths to autocomplete on.
   A command consists of the following options/keys:
   
   * name (required): Name of the lightning command you'll be typing.
-  * map_to (required): Shell command which the lightning command passes arguments to.
+  * map\_to (required): Shell command which the lightning command passes arguments to.
   * description: Description which is placed as a comment in the generated shell script.
   * paths (required): A list of globbable paths, whose basenames are autocompleted. You can also
     pass this a path name that has been defined in the paths option. 
@@ -97,7 +97,7 @@ Motivation
 I've seen dotfiles on github and on blogs which accomplish this kind of autocompletion for gem
 documentation. There's even a gem just for gem editing: http://gemedit.rubyforge.org/.
 But once I saw how easy it was to manipulate completion through ruby,
-http://github.com/ryanb/dotfiles/blob/master/bash/completion_scripts/project_completion,
+http://github.com/ryanb/dotfiles/blob/master/bash/completion\_scripts/project\_completion,
 I had to do something.
 
 Todo
