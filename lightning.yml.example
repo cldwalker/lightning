@@ -1,7 +1,10 @@
 ---
-ignore:
+generated_file: lightning_completions
+
+ignore_paths:
     - .DS_Store
     - .git
+
 commands:
     - name : c
       map_to : cd
@@ -25,14 +28,6 @@ commands:
       post_path : /rdoc/index.html
       paths: gem_rdoc
     
-    - name : gri
-      map_to : ri -d
-      description : access ri documentation limited to this gem
-      post_path : /ri
-      add_to_command: ${@:2}
-      paths: gem_rdoc
-      completion_regex: ^\S+
-    
     - name : rcvi
       map_to : vim
       description : ruby core files
@@ -40,6 +35,7 @@ commands:
       #picked from $LOAD_PATH
         - /Library/Ruby/Site/1.8/**/*.rb
         - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/**/*.rb
+
     - name : rcd
       map_to : cd
       description : ruby core directories
@@ -73,12 +69,7 @@ commands:
         - test/**/*.rb
         - spec/**/*.rb
       
-          
 paths: 
-    #These entries should each map a unique key to a list of directories. When autocompleting, each
-    #of the directories will provide the immediate files and directories under them as possible
-    #completions. The names of these paths should only be alphanumeric characters ie no special characters.
-
     # to obtain your own paths to your ruby gems:
     # `gem environment path`.split(":").map {|e| e +"/gems/*" }
     gem:

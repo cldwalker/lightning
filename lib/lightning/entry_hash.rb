@@ -10,12 +10,11 @@ class Lightning
   
     def create_entry(key)
       path_array = []
+      ignore_paths = ['.', '..'] + Lightning.ignore_paths
       Lightning.paths_for_key(key).each do |d|
-        #(Dir.entries(d)- ['.','..']).each do |e|
-          #path_array <<  [e, File.join(d,e)]
         Dir.glob(d, File::FNM_DOTMATCH).each do |e|
           basename = File.basename(e)
-          path_array << [basename, e] unless Lightning.exceptions.include?(basename)
+          path_array << [basename, e] unless ignore_paths.include?(basename)
         end
       end
       Hash[*path_array.flatten]
