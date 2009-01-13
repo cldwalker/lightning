@@ -47,5 +47,4 @@ Todo
 
 * Tests!
 * Handle duplicate basenames ie same basename but in multiple directories.
-* GEMify this!
 * Aliases for common autocompletions.

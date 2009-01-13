@@ -6,14 +6,14 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Gabriel Horner"]
-  s.date = %q{2009-01-08}
+  s.date = %q{2009-01-13}
   s.description = %q{Path completions for your shell that will let you navigate like lightning.}
   s.email = %q{gabriel.horner@gmail.com}
-  s.executables = ["lightning-complete.rb", "lightning-full_path.rb"]
+  s.executables = ["lightning-complete", "lightning-full_path", "lightning-install"]
   s.extra_rdoc_files = ["README.markdown", "LICENSE.txt"]
-  s.files = ["bin", "lib", "LICENSE.txt", "lightning-0.1.0.gem", "lightning.gemspec", "lightning.yml", "lightning_completions", "Rakefile", "README.markdown", "VERSION.yml", "bin/lightning-complete.rb", "bin/lightning-full_path.rb", "lib/lightning", "lib/lightning/completion.rb", "lib/lightning/entry_hash.rb", "lib/lightning.rb"]
+  s.files = ["README.markdown", "LICENSE.txt", "bin/lightning-complete", "bin/lightning-full_path", "bin/lightning-install", "lib/lightning", "lib/lightning/completion.rb", "lib/lightning/config.rb", "lib/lightning/core_extensions.rb", "lib/lightning/entry_hash.rb", "lib/lightning/generator.rb", "lib/lightning.rb"]
   s.has_rdoc = true
-  s.homepage = %q{http://github.com/cldwalker/test}
+  s.homepage = %q{http://github.com/cldwalker/lightning}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.1}
   s.summary = %q{Path completions for your shell that will let you navigate like lightning.}

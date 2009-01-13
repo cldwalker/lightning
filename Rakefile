@@ -20,10 +20,10 @@ begin
     s.executables = ["lightning-complete", "lightning-full_path", "lightning-install"]
     s.summary = "Path completions for your shell that will let you navigate like lightning."
     s.email = "gabriel.horner@gmail.com"
-    s.homepage = "http://github.com/cldwalker/test"
+    s.homepage = "http://github.com/cldwalker/lightning"
     s.description = "Path completions for your shell that will let you navigate like lightning."
     s.authors = ["Gabriel Horner"]
-    s.files =  FileList["[A-Za-z]*", "{bin,lib,test}/**/*"]
+    s.files =  FileList["README.markdown", "LICENSE.txt", "{bin,lib,test}/**/*"]
     s.has_rdoc = true
     s.extra_rdoc_files = ["README.markdown", "LICENSE.txt"]
   end

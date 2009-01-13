@@ -2,7 +2,7 @@ module Lightning::Config
   def config
     unless @config
       default_config = {:shell=>'bash', :generated_file=>'lightning_completions'}
-      config_yaml_file = File.join(File.dirname(__FILE__), "../../lightning.yml")
+      config_yaml_file = File.expand_path File.join("~",".lightning.yml")
       @config = YAML::load(File.new(config_yaml_file))
       @config = default_config.merge(@config.symbolize_keys)
       add_command_paths(@config)
