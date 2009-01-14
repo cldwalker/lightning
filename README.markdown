@@ -58,7 +58,7 @@ Since the globbable paths are interpreted by ruby's Dir.glob(), you can:
 
 `ri Dir.glob` for more examples.
 
-Configuration Options
+Configuration
 =====================
 
 It helps to look at lightning.yml.example while reading this.
@@ -84,12 +84,25 @@ Configuration options are:
   the path name defined here in the command's paths key.
   Note: path names should only be alphanumeric
 
+Duplicate Basenames
+===================
+
+So what happens when their are multiple matches for the same basename?
+Lightning appends a '/' + the full directory to each of the basenames.
+
+For example, if I autocomplete button.rb for my ruby standard libraries I get:
+
+  `bash> rvim button.rb`
+  button.rb//System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/tk
+  button.rb//System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/tkextlib/bwidget
+  button.rb//System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/tkextlib/blt/tile
+
+This isn't the prettiest completion but it resolves duplicates, displays the path differences
+between each and easily autocompletes. I'm open to suggestions on this syntax.
 
 Limitations
 ===========
 
-* Currently there isn't a way to resolve two basenames that are from different directories but this is
-on the todo list.
 * The generated shell scripts default to bash but could easily be extended for other shell languages. Patches welcome.
 * All arguments passed to a lightning command are considered part of the basename to resolve. So
   it's not yet possible to resolve some arguments and not others.
@@ -107,5 +120,5 @@ Todo
 ====
 
 * Tests!
-* Handle duplicate basenames ie same basename but in multiple directories.
 * Aliases for common autocompletions.
+* Allow lightning commands to only path-resolve one of multiple arguments given.
