@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Gabriel Horner"]
-  s.date = %q{2009-01-13}
+  s.date = %q{2009-01-14}
   s.description = %q{Path completions for your shell that will let you navigate like lightning.}
   s.email = %q{gabriel.horner@gmail.com}
   s.executables = ["lightning-complete", "lightning-full_path", "lightning-install"]

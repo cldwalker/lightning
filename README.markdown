@@ -45,12 +45,15 @@ Globbable paths
 Since the globbable paths are interpreted by ruby's Dir.glob(), you can:
 
 1. Autocomplete files and directories that don't start with specific letters.
+
    Dir.glob("[^ls]*") -> Matches anything not starting with l or s
 
 2. Autocomplete files ending with specific file extensions for a given directory.
+
    Dir.glob("/painfully/long/path/*.{rb,erb}") -> Matches files ending with .rb or .erb
 
 3. Autocomplete all directories however many levels deep under the current directory.
+
    Dir.glob("**/")
 
 `ri Dir.glob` for more examples.
