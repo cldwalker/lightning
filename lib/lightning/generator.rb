@@ -1,3 +1,4 @@
+#This class generates shell scripts from a configuration.
 class Lightning
   class Generator
     class<<self

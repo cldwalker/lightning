@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email = %q{gabriel.horner@gmail.com}
   s.executables = ["lightning-complete", "lightning-full_path", "lightning-install"]
   s.extra_rdoc_files = ["README.markdown", "LICENSE.txt"]
-  s.files = ["lightning_completions.example", "lightning.yml.example", "README.markdown", "LICENSE.txt", "bin/lightning-complete", "bin/lightning-full_path", "bin/lightning-install", "lib/lightning", "lib/lightning/completion.rb", "lib/lightning/config.rb", "lib/lightning/core_extensions.rb", "lib/lightning/entry_hash.rb", "lib/lightning/generator.rb", "lib/lightning.rb"]
+  s.files = ["lightning_completions.example", "lightning.yml.example", "README.markdown", "LICENSE.txt", "bin/lightning-complete", "bin/lightning-full_path", "bin/lightning-install", "lib/lightning", "lib/lightning/completion.rb", "lib/lightning/config.rb", "lib/lightning/core_extensions.rb", "lib/lightning/generator.rb", "lib/lightning/path_map.rb", "lib/lightning.rb"]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/cldwalker/lightning}
   s.require_paths = ["lib"]

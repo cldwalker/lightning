@@ -1,9 +1,10 @@
 # derived from http://github.com/ryanb/dotfiles/tree/master/bash/completion_scripts/project_completion
+#This class handles completions given a path key and the text already typed.
 class Lightning
   class Completion
-    def initialize(command, key)
-      @command = command
-      @key = key
+    def initialize(text_typed, path_key)
+      @text_typed = text_typed
+      @path_key = path_key
     end
   
     def matches
@@ -13,13 +14,13 @@ class Lightning
     end
   
     def typed
-      # @command[/\s(.+?)$/, 1] || ''
-      text = @command[/^(\w+)\s+(#{Lightning::TEST_FLAG})?\s*(.+?)$/, 3] || ''
+      # @text_typed[/\s(.+?)$/, 1] || ''
+      text = @text_typed[/^(\w+)\s+(#{Lightning::TEST_FLAG})?\s*(.+?)$/, 3] || ''
       text.strip
     end
   
     def possible_completions
-      Lightning.completions_for_key(@key)
+      Lightning.completions_for_key(@path_key)
     end    
   end
 end

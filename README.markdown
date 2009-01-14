@@ -84,6 +84,9 @@ Configuration options are:
   the path name defined here in the command's paths key.
   Note: path names should only be alphanumeric
 
+* post\_path: Text to add immediately after a resolved path. lightning.yml.example contains
+  an example used for opening gem documentation in your browser.
+
 Duplicate Basenames
 ===================
 

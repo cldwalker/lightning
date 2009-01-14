@@ -2,7 +2,7 @@ $:.unshift(File.dirname(__FILE__)) unless $:.include?(File.dirname(__FILE__))
 require 'yaml'
 require 'lightning/completion'
 require 'lightning/config'
-require 'lightning/entry_hash'
+require 'lightning/path_map'
 require 'lightning/core_extensions'
 require 'lightning/generator'
 
@@ -11,7 +11,7 @@ class Lightning
   extend Config
   class<<self    
     def completions_for_key(key)
-      entries[key].keys
+      path_map[key].keys
     end
     
     #should return array of globbable paths
@@ -19,8 +19,8 @@ class Lightning
       config[:paths][key]
     end
 
-    def entries
-      @entry_hash ||= EntryHash.new
+    def path_map
+      @path_map ||= PathMap.new
     end
     
     def possible_completions(text_to_complete, path_key)
@@ -33,7 +33,7 @@ class Lightning
       if (regex = config_command(path_key_to_command(path_key))['completion_regex'])
         basename = basename[/#{regex}/]
       end
-      entries[path_key][basename]
+      path_map[path_key][basename]
     end
   end
 end

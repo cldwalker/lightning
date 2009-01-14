@@ -1,14 +1,15 @@
+#This class maps completions to their full paths for a given path key.
 class Lightning
-  class EntryHash
+  class PathMap
     def initialize
-      @entries = {}
+      @maps = {}
     end
   
     def [](key)
-      @entries[key] ||= create_entry(key)
+      @maps[key] ||= create_map(key)
     end
   
-    def create_entry(key)
+    def create_map(key)
       path_hash = {}
       ignore_paths = ['.', '..'] + Lightning.ignore_paths
       Lightning.paths_for_key(key).each do |d|
