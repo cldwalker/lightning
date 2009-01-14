@@ -1,13 +1,17 @@
 module Lightning::Config
   def config
     unless @config
-      default_config = {:shell=>'bash', :generated_file=>File.expand_path(File.join('~', '.lightning_completions'))}
-      config_yaml_file = File.exists?('lightning.yml') ? 'lightning.yml' : File.expand_path(File.join("~",".lightning.yml"))
-      @config = YAML::load(File.new(config_yaml_file))
-      @config = default_config.merge(@config.symbolize_keys)
+      @config = read_config
       add_command_paths(@config)
     end
     @config
+  end
+  
+  def read_config(config_file=nil)
+    default_config = {:shell=>'bash', :generated_file=>File.expand_path(File.join('~', '.lightning_completions'))}
+    config_file ||= File.exists?('lightning.yml') ? 'lightning.yml' : File.expand_path(File.join("~",".lightning.yml"))
+    hash = YAML::load(File.new(config_file))
+    default_config.merge(hash.symbolize_keys)
   end
   
   def config_command(name)

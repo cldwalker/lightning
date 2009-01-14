@@ -1,0 +1,38 @@
+---
+generated_file: lightning_completions
+
+ignore_paths:
+    - .DS_Store
+    - .git
+
+commands:
+    - name : oa
+      map_to : open -a
+      description : open mac applications
+      paths:
+        - /Applications/*.app
+        - /Applications/Utilities/*.app
+      
+    - name : gcd
+      map_to : cd
+      paths: gem
+      
+    - name : rcd
+      map_to : cd
+      description : ruby core directories
+      paths:
+         - /Library/Ruby/Site/1.8/**/
+         - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/**/
+    
+paths: 
+    # to obtain your own paths to your ruby gems:
+    # `gem environment path`.split(":").map {|e| e +"/gems/*" }
+    gem:
+      - /Users/bozo/.gem/ruby/1.8/gems/*
+      - /Library/Ruby/Gems/1.8/gems/*
+      - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/gems/*
+
+    gem_rdoc:
+      - /Users/bozo/.gem/ruby/1.8/doc/*
+      - /Library/Ruby/Gems/1.8/doc/*
+      - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/doc/*
