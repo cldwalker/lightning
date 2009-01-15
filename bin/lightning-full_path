@@ -11,5 +11,5 @@ if ARGV.empty?
   puts "No arguments given" 
   exit 1
 end
-puts Lightning.full_path_for_completion(ARGV, key) || ''
+puts Lightning.bolts[key].resolve_completion(ARGV)
 exit 0

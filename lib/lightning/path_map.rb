@@ -1,21 +1,17 @@
 #This class maps completions to their full paths for a given path key.
 class Lightning
   class PathMap
-    def initialize
-      @maps = {}
-    end
-  
-    def [](key)
-      @maps[key] ||= create_map(key)
+    def initialize(globs)
+      @map = create_map_for_globs(globs)
     end
     
-    def completions(key)
-      self[key].keys
-    end
-    
-    def create_map(key)
-      create_map_for_globs(Lightning.globbable_paths_by_key(key))
-    end
+     def [](completion)
+       @map[completion]
+     end
+     
+     def keys
+       @map.keys
+     end
     
     #should return hash
     def create_map_for_globs(globs)

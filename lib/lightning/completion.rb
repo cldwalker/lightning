@@ -24,7 +24,7 @@ class Lightning
     end
   
     def possible_completions
-      Lightning.path_map.completions(@path_key)
+      Lightning.bolts[@path_key].completions
     end    
   end
 end

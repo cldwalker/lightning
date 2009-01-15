@@ -14,21 +14,12 @@ module Lightning::Config
     default_config.merge(hash.symbolize_keys)
   end
   
-  #should return array of globbable paths
-  def globbable_paths_by_key(key)
-    config[:paths][key] || []
-  end
-  
   def config_command(name)
     config[:commands].find {|e| e['name'] == name} || {}
   end
   
   def command_to_path_key(map_to_command, new_command)
     "#{map_to_command}-#{new_command}"
-  end
-  
-  def path_key_to_command(path_key)
-    path_key.split("-")[1]
   end
   
   def add_command_paths(config)
