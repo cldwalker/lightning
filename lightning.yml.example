@@ -5,6 +5,8 @@ ignore_paths:
     - .DS_Store
     - .git
 
+# You'll notice that most commands have the format of "#{original_command_alias}-#{path_alias}"
+# I recommend this for most of these commands as you can then easily autocomplete them for recall.
 commands:
     - name : c
       map_to : cd
@@ -14,21 +16,21 @@ commands:
         - /Users/bozo/code/repo/*
         - /Users/bozo/code/tds/gems/*
         
-    - name : gcd
+    - name : cd-g
       map_to : cd
       paths: gem
       
-    - name : gm
+    - name : m-g
       map_to : mate
       paths: gem
       
-    - name : grd
+    - name : o-g
       map_to : open
       description : open gem's doc in browser
       post_path : /rdoc/index.html
       paths: gem_rdoc
     
-    - name : rcvi
+    - name : v-r
       map_to : vim
       description : ruby core files
       paths: 
@@ -36,7 +38,7 @@ commands:
         - /Library/Ruby/Site/1.8/**/*.rb
         - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/**/*.rb
 
-    - name : rcd
+    - name : cd-r
       map_to : cd
       description : ruby core directories
       paths:
@@ -50,7 +52,7 @@ commands:
         - /Applications/*.app
         - /Applications/Utilities/*.app
         
-    - name : rvi
+    - name : v-g
       map_to : vim
       description : open files when in the base directory of a ruby gem project
       paths:
@@ -59,7 +61,7 @@ commands:
         - spec/**/*.rb
         - bin/**
     
-    - name : rrvi
+    - name : v-rr
       map_to : vim
       description: open files when in the base directory of a rails project
       paths:

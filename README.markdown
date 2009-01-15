@@ -7,16 +7,16 @@ and you're ready to rock.
 
 So instead of carpal-typing
 
-  `bash> vim /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/irb.rb`
+    bash> vim /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/irb.rb
 
 you type or complete
 
-  `bash> rvim irb.rb`
+    bash> rvim irb.rb
 
 Uneasy about what lightning will execute? Test it out with a -test flag
 
-  `bash> rvim -test irb.rb`
-  rvim '/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/irb.rb'
+    bash> rvim -test irb.rb
+    rvim '/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/irb.rb'
 
 As you can see, you only need to autocomplete the basenames of paths and lightning will resolve their
 full paths.  rvim is a lightning command configured to autocomplete a certain group of paths for vim.
@@ -32,11 +32,11 @@ To make your own commands, you'll need to:
    Use the Configuration section below and the provided lightning.yml.example as guides.
 
 2. Execute `lightning-install` to generate ~/.lightning\_completions from your config.
-   There is a config option for changing the locating of the generated file. See Configuration
+   There is a config option for changing the location of the generated file. See Configuration
    below. See lightning\_completions.example for what would be generated for the enclosed example
    config.
 
-3. Source the generated file in your bashrc ie 'source ~/.lightning\_completions'.
+3. Source the generated file in your bashrc ie `source ~/.lightning\_completions`.
 
 
 Globbable paths
@@ -95,10 +95,10 @@ Lightning appends a '/' + the full directory to each of the basenames.
 
 For example, if I autocomplete button.rb for my ruby standard libraries I get:
 
-  `bash> rvim button.rb`
-  button.rb//System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/tk
-  button.rb//System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/tkextlib/bwidget
-  button.rb//System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/tkextlib/blt/tile
+      bash> rvim button.rb
+      button.rb//System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/tk
+      button.rb//System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/tkextlib/bwidget
+      button.rb//System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/tkextlib/blt/tile
 
 This isn't the prettiest completion but it resolves duplicates, displays the path differences
 between each and easily autocompletes. I'm open to suggestions on this syntax.
