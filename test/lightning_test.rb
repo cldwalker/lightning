@@ -18,6 +18,10 @@ class LightningTest < Test::Unit::TestCase
       generated_command = <<-EOS.gsub(/^\s{6}/,'')
       #open mac applications
       oa () {
+        if [ -z "$1" ]; then
+          echo "No arguments given"
+          return
+        fi
         FULL_PATH="`${LBIN_PATH}lightning-full_path open-oa $@`"
         if [ $1 == '-test' ]; then
           CMD="open -a '$FULL_PATH'"
