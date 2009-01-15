@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'test/unit'
 require 'context' #gem
-require 'mocha' #gem
+require 'stump' #gem
 $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../lib')
 require 'lightning'
 

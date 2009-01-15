@@ -8,11 +8,15 @@ class Lightning
     def [](key)
       @maps[key] ||= create_map(key)
     end
-  
+    
     def create_map(key)
+      create_map_for_globs(Lightning.paths_for_key(key))
+    end
+    
+    def create_map_for_globs(globs)
       path_hash = {}
       ignore_paths = ['.', '..'] + Lightning.ignore_paths
-      Lightning.paths_for_key(key).each do |d|
+      globs.each do |d|
         Dir.glob(d, File::FNM_DOTMATCH).each do |e|
           basename = File.basename(e)
           unless ignore_paths.include?(basename)

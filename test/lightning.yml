@@ -5,6 +5,7 @@ ignore_paths:
     - .DS_Store
     - .git
 
+#only oa command is currently used
 commands:
     - name : oa
       map_to : open -a
