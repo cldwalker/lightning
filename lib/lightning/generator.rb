@@ -25,6 +25,10 @@ class Lightning
           
           #{'#' + e['description'] if e['description']}
           #{e['name']} () {
+            if [ -z "$1" ]; then
+              echo "No arguments given"
+              return
+            fi
             FULL_PATH="`${LBIN_PATH}lightning-full_path #{e['path_key']} $@`#{e['post_path'] if e['post_path']}"
             if [ $1 == '#{Lightning::TEST_FLAG}' ]; then
               CMD="#{e['map_to']} '$FULL_PATH'#{' '+ e['add_to_command'] if e['add_to_command']}"

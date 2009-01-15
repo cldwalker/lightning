@@ -7,6 +7,9 @@
 require File.expand_path(File.dirname(__FILE__) + "/../lib/lightning")
 
 key = ARGV.shift or raise "No key given"
-raise "No basename given" if ARGV.empty?
+if ARGV.empty?
+  puts "No arguments given" 
+  exit 1
+end
 puts Lightning.full_path_for_completion(ARGV, key) || ''
 exit 0

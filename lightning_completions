@@ -5,6 +5,10 @@ LBIN_PATH="$PWD/bin/" #only use for development
 #my code directories
 c () {
   FULL_PATH="`${LBIN_PATH}lightning-full_path cd-c $@`"
+  if [ -z "$1" ]; then
+    echo "No arguments given"
+    return
+  fi
   if [ $1 == '-test' ]; then
     CMD="cd '$FULL_PATH'"
     echo $CMD
