@@ -14,7 +14,7 @@ class LightningConfigTest < Test::Unit::TestCase
     
     should "have read supported keys" do
       supported_keys = [:generated_file, :commands, :ignore_paths, :paths, :shell]
-      assert (supported_keys - config.keys).empty?
+      assert_arrays_equal supported_keys, config.keys 
     end
     
     should "have a generated_file key which is a string" do

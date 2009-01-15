@@ -16,7 +16,7 @@ class Lightning
     
     #should return array of globbable paths
     def paths_for_key(key)
-      config[:paths][key]
+      config[:paths][key] || []
     end
 
     def path_map

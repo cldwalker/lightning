@@ -15,7 +15,7 @@ class Lightning
   
     def typed
       # @text_typed[/\s(.+?)$/, 1] || ''
-      text = @text_typed[/^(\w+)\s+(#{Lightning::TEST_FLAG})?\s*(.+?)$/, 3] || ''
+      text = @text_typed[/^(\S+)\s+(#{Lightning::TEST_FLAG})?\s*(.+?)$/, 3] || ''
       text.strip
     end
   

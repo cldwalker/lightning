@@ -13,6 +13,7 @@ class Lightning
       create_map_for_globs(Lightning.paths_for_key(key))
     end
     
+    #should return hash
     def create_map_for_globs(globs)
       path_hash = {}
       ignore_paths = ['.', '..'] + Lightning.ignore_paths
