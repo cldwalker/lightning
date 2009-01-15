@@ -2,6 +2,7 @@ require 'rubygems'
 require 'test/unit'
 require 'context' #gem
 require 'stump' #gem
+require 'pending' #gem
 $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../lib')
 require 'lightning'
 

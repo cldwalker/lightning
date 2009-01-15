@@ -36,4 +36,17 @@ class LightningTest < Test::Unit::TestCase
       assert output.include?(generated_command)
     end
   end
+  
+  test "creates bolt only once when accessing same bolt multiple times" do
+    pending "sometimes fails with rake task" do
+    # @map.expects(:create_map).once.returns({})
+    called = 0
+    # Lightning.reset_bolts
+    Lightning::Bolt.stub!(:new) { p "CALLED"; called += 1}
+    # @map.stub!(:create_map) {|e| called += 1; {}}
+    Lightning.bolts['blah']
+    Lightning.bolts['blah']
+    assert called == 1
+    end
+  end
 end
