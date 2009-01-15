@@ -122,6 +122,6 @@ I had to do something.
 Todo
 ====
 
-* Tests!
+* Clean up code to better test.
 * Aliases for common autocompletions.
 * Allow lightning commands to only path-resolve one of multiple arguments given.

@@ -36,11 +36,6 @@ class LightningConfigTest < Test::Unit::TestCase
     
     should "have an ignore_paths key which is an array" do
       assert config[:ignore_paths].is_a?(Array)
-    end
-    
-    context "with commands" do
-      should "have path key" do
-      end
-    end
+    end    
   end
 end

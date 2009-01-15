@@ -2,6 +2,10 @@
 #This class handles completions given a path key and the text already typed.
 class Lightning
   class Completion
+    def self.complete(text_to_complete, path_key)
+      new(text_to_complete, path_key).matches
+    end
+      
     def initialize(text_typed, path_key)
       @text_typed = text_typed
       @path_key = path_key
@@ -20,7 +24,7 @@ class Lightning
     end
   
     def possible_completions
-      Lightning.completions_for_key(@path_key)
+      Lightning.path_map.completions(@path_key)
     end    
   end
 end

@@ -14,6 +14,11 @@ module Lightning::Config
     default_config.merge(hash.symbolize_keys)
   end
   
+  #should return array of globbable paths
+  def globbable_paths_by_key(key)
+    config[:paths][key] || []
+  end
+  
   def config_command(name)
     config[:commands].find {|e| e['name'] == name} || {}
   end

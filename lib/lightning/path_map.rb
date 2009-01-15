@@ -9,8 +9,12 @@ class Lightning
       @maps[key] ||= create_map(key)
     end
     
+    def completions(key)
+      self[key].keys
+    end
+    
     def create_map(key)
-      create_map_for_globs(Lightning.paths_for_key(key))
+      create_map_for_globs(Lightning.globbable_paths_by_key(key))
     end
     
     #should return hash
@@ -48,5 +52,6 @@ class Lightning
         path_hash.delete(key)
       end
     end
+    
   end
 end

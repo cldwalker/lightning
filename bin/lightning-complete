@@ -3,5 +3,5 @@
 require File.expand_path(File.dirname(__FILE__) + "/../lib/lightning")
 
 key = ARGV.shift or raise "Path key needs to be specified"
-puts Lightning.possible_completions(ENV["COMP_LINE"], key)
+puts Lightning::Completion.complete(ENV["COMP_LINE"], key)
 exit 0

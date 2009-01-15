@@ -10,21 +10,8 @@ class Lightning
   TEST_FLAG = '-test'
   extend Config
   class<<self    
-    def completions_for_key(key)
-      path_map[key].keys
-    end
-    
-    #should return array of globbable paths
-    def paths_for_key(key)
-      config[:paths][key] || []
-    end
-
     def path_map
       @path_map ||= PathMap.new
-    end
-    
-    def possible_completions(text_to_complete, path_key)
-      Completion.new(text_to_complete, path_key).matches
     end
     
     def full_path_for_completion(basename, path_key)
