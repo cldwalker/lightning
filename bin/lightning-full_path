@@ -15,5 +15,5 @@ if ARGV.empty?
   puts "No arguments given" 
   exit 1
 end
-puts Lightning.bolts[key].resolve_completion(ARGV)
+puts Lightning.translate(key, ARGV)
 exit 0

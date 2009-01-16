@@ -1,13 +1,19 @@
 module Lightning::Config
-  def config
-    unless @config
-      @config = read_config
-      add_command_paths(@config)
-    end
-    @config
+  def load_config
+    @config = setup_config
   end
   
-  def read_config(config_file=nil)
+  def config
+    @config ||= setup_config
+  end
+  
+  def setup_config
+    hash = read_config_file
+    add_command_paths(hash)
+    hash
+  end
+  
+  def read_config_file(config_file=nil)
     default_config = {:shell=>'bash', :generated_file=>File.expand_path(File.join('~', '.lightning_completions'))}
     config_file ||= File.exists?('lightning.yml') ? 'lightning.yml' : File.expand_path(File.join("~",".lightning.yml"))
     hash = YAML::load(File.new(config_file))
@@ -18,7 +24,7 @@ module Lightning::Config
     config[:commands].find {|e| e['name'] == name} || {}
   end
   
-  def command_to_path_key(map_to_command, new_command)
+  def command_to_bolt_key(map_to_command, new_command)
     "#{map_to_command}-#{new_command}"
   end
   
@@ -27,16 +33,16 @@ module Lightning::Config
     config[:commands].each do |e|
       #mapping a referenced path
       if e['paths'].is_a?(String)
-        e['path_key'] = e['paths'].dup
+        e['bolt_key'] = e['paths'].dup
         e['paths'] = config[:paths][e['paths'].strip] || []
       end
       #create a path entry + key if none exists
-      if e['path_key'].nil?
+      if e['bolt_key'].nil?
         #extract command in case it has options after it
         e['map_to'] =~ /\s*(\w+)/
-        path_key = command_to_path_key($1, e['name'])
-        e['path_key'] = path_key
-        config[:paths][path_key] = e['paths']
+        bolt_key = command_to_bolt_key($1, e['name'])
+        e['bolt_key'] = bolt_key
+        config[:paths][bolt_key] = e['paths']
       end
     end
   end

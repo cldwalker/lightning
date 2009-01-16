@@ -11,7 +11,7 @@ class Lightning
     end
     
     def path_map
-      @path_map ||= Lightning::PathMap.new(self.globbable_paths)
+      @path_map ||= Lightning::PathMap.new(self.paths)
     end
     
     def resolve_completion(basename)
@@ -23,8 +23,8 @@ class Lightning
       path_map[basename] || ''
     end
     
-    def globbable_paths
-      Lightning.config[:paths][key] || []
+    def paths
+      @paths ||= Lightning.config[:paths][key] || []
     end
     
     def path_command

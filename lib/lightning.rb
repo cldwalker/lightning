@@ -12,6 +12,16 @@ class Lightning
   TEST_FLAG = '-test'
   extend Config
   class<<self
+    def complete(text_to_complete, bolt_key)
+      load_config
+      Complete.complete(text_to_complete, bolt_key)
+    end
+    
+    def translate(key, argv)
+      load_config
+      bolts[key].resolve_completion(argv)
+    end
+    
     def bolts
       @bolts ||= Bolts.new
     end
