@@ -26,6 +26,8 @@ In this case, rvim is configured to complete my ruby core and standard library f
 Install
 =======
 
+For newcomers to github, install this gem with: `gem install cldwalker-lightning -s http://gems.github.com`
+
 To make your own commands, you'll need to:
 
 1. Create ~/.lightning.yml or a lightning.yml in the current directory.
@@ -36,7 +38,7 @@ To make your own commands, you'll need to:
    below. See lightning\_completions.example for what would be generated for the enclosed example
    config.
 
-3. Source the generated file in your bashrc ie `source ~/.lightning\_completions`.
+3. Source the generated file in your bashrc ie `source ~/.lightning_completions`.
 
 
 Globbable paths
@@ -119,9 +121,9 @@ But once I saw how easy it was to manipulate completion through ruby,
 http://github.com/ryanb/dotfiles/blob/master/bash/completion\_scripts/project\_completion,
 I had to do something.
 
-Todo
-====
+Todo/Ideas
+==========
 
-* Clean up code to better test.
 * Aliases for common autocompletions.
 * Allow lightning commands to only path-resolve one of multiple arguments given.
+* Command interface to easily add/remove current directory or globs from a command

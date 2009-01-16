@@ -2,13 +2,13 @@
 #This class handles completions given a path key and the text already typed.
 class Lightning
   class Completion
-    def self.complete(text_to_complete, path_key)
-      new(text_to_complete, path_key).matches
+    def self.complete(text_to_complete, bolt_key)
+      new(text_to_complete, bolt_key).matches
     end
       
-    def initialize(text_typed, path_key)
+    def initialize(text_typed, bolt_key)
       @text_typed = text_typed
-      @path_key = path_key
+      @bolt_key = bolt_key
     end
   
     def matches
@@ -24,7 +24,7 @@ class Lightning
     end
   
     def possible_completions
-      Lightning.bolts[@path_key].completions
+      Lightning.bolts[@bolt_key].completions
     end    
   end
 end

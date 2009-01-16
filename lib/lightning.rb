@@ -12,10 +12,6 @@ class Lightning
   TEST_FLAG = '-test'
   extend Config
   class<<self
-    def reset_bolts
-      @bolts = {}
-    end
-    
     def bolts
       @bolts ||= Bolts.new
     end

@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
-require File.expand_path(File.dirname(__FILE__) + "/../lib/lightning")
+#  == Description
+#  Used to complete lightning commands.
+require File.expand_path(File.join(File.dirname(__FILE__), "..","lib","lightning"))
 
 key = ARGV.shift or raise "Path key needs to be specified"
 puts Lightning::Completion.complete(ENV["COMP_LINE"], key)

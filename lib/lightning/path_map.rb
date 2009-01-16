@@ -1,10 +1,11 @@
-#This class maps completions to their full paths for a given path key.
+#This class maps completions to their full paths for the given blobs
 class Lightning
   class PathMap
     attr_accessor :map
     
-    #takes array of globs
-    def initialize(globs)
+    def initialize(*globs)
+      #globs need to be an array
+      globs.flatten!
       @map = create_map_for_globs(globs)
     end
     

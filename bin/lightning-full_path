@@ -4,9 +4,13 @@
 # Used by path completion functions to return first possible full path which matches the given basename for the given key.
 # Warning: Basenames that occur in multiple directories will return the first directory found.
 
-require File.expand_path(File.dirname(__FILE__) + "/../lib/lightning")
+require File.expand_path(File.join(File.dirname(__FILE__), "..","lib","lightning"))
 
-key = ARGV.shift or raise "No key given"
+key = ARGV.shift 
+if key.nil?
+  puts "No key given"
+  exit 1
+end
 if ARGV.empty?
   puts "No arguments given" 
   exit 1

@@ -1,9 +1,9 @@
 # A bolt, referenced by a key, is the basic unit needed to access a lightning command's functionality.
 class Lightning
   class Bolt
-    attr_accessor :key
-    def initialize(path_key)
-      @key = path_key
+    attr_reader :key
+    def initialize(bolt_key)
+      @key = bolt_key
     end
     
     def completions
