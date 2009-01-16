@@ -5,7 +5,7 @@
 require File.expand_path(File.join(File.dirname(__FILE__), "..","lib","lightning"))
 
 if (command = ARGV.shift)
-  puts Lightning.complete(ENV["COMP_LINE"], key)
+  puts Lightning.complete(command, ENV["COMP_LINE"])
   exit 0
 else
   puts "No command given"

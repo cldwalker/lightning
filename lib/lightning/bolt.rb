@@ -17,19 +17,15 @@ class Lightning
     def resolve_completion(basename)
       basename = basename.join(" ") if basename.is_a?(Array)
       basename.gsub!(/\s*#{TEST_FLAG}\s*/,'')
-      if (regex = Lightning.config_command(self.path_command)['completion_regex'])
-        basename = basename[/#{regex}/]
-      end
+      #TODO
+      # if (regex = Lightning.config_command(Lightning.current_command)['completion_regex'])
+      #   basename = basename[/#{regex}/]
+      # end
       path_map[basename] || ''
     end
     
     def paths
       @paths ||= Lightning.config[:paths][key] || []
     end
-    
-    def path_command
-      key.split("-")[1]
-    end
-    
   end
 end

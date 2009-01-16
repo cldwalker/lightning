@@ -12,8 +12,10 @@ class Lightning
   TEST_FLAG = '-test'
   extend Config
   class<<self
-    def complete(text_to_complete, command)
+    attr_accessor :current_command
+    def complete(command, text_to_complete)
       load_config
+      @current_command = command
       if bolt_key = config_command(command)['bolt_key']
         Completion.complete(text_to_complete, bolt_key)
       else
@@ -23,6 +25,7 @@ class Lightning
     
     def translate(command, argv)
       load_config
+      @current_command = command
       if bolt_key = config_command(command)['bolt_key']
         bolts[bolt_key].resolve_completion(argv)
       else
