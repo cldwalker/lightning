@@ -5,7 +5,7 @@ class LightningPathMapTest < Test::Unit::TestCase
   context "PathMap" do    
     def create_map(path_hash)
       Dir.stub!(:glob) { path_hash.values }
-      @path_map = Lightning::PathMap.new(['blah']) 
+      @path_map = Lightning::PathMap.new('blah') 
     end
     
     test "creates basic map" do
