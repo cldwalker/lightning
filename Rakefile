@@ -47,11 +47,22 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-desc "Generates completion file to be sourced by your shell"
-task :generate_completions do
-  $:.unshift 'lib'
-  require 'lightning'
-  Lightning::Generator.generate_completions
+namespace :dev do
+  desc "Generates completion, modifies it for local development"
+  task :reload=>:generate_completions do
+    file = 'lightning_completions'
+    string = File.read(file)
+    string.sub!(/^LBIN_PATH/,'#LBIN_PATH')
+    string.sub!(/^#LBIN_PATH/,'LBIN_PATH')
+    File.open(file,'w') {|f| f.write(string) }
+  end
+
+  desc "Generates local completion file to be sourced by your shell"
+  task :generate_completions do
+    $:.unshift 'lib'
+    require 'lightning'
+    Lightning::Generator.generate_completions 'lightning_completions'
+  end
 end
 
 task :default => :test

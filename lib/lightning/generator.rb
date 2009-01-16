@@ -2,9 +2,10 @@
 class Lightning
   class Generator
     class<<self
-    def generate_completions
+    def generate_completions(generated_file=nil)
+      generated_file ||= Lightning.config[:generated_file]
       output = generate(Lightning.config[:shell], Lightning.config[:commands])
-      File.open(Lightning.config[:generated_file], 'w'){|f| f.write(output) }
+      File.open(generated_file, 'w'){|f| f.write(output) }
       output
     end
           
@@ -29,7 +30,7 @@ class Lightning
               echo "No arguments given"
               return
             fi
-            FULL_PATH="`${LBIN_PATH}lightning-full_path #{e['bolt_key']} $@`#{e['post_path'] if e['post_path']}"
+            FULL_PATH="`${LBIN_PATH}lightning-full_path #{e['name']} $@`#{e['post_path'] if e['post_path']}"
             if [ $1 == '#{Lightning::TEST_FLAG}' ]; then
               CMD="#{e['map_to']} '$FULL_PATH'#{' '+ e['add_to_command'] if e['add_to_command']}"
               echo $CMD
@@ -37,7 +38,7 @@ class Lightning
               #{e['map_to']} "$FULL_PATH"#{' '+ e['add_to_command'] if e['add_to_command']}
             fi
           }
-          complete -o default -C "${LBIN_PATH}lightning-complete #{e['bolt_key']}" #{e['name']}
+          complete -o default -C "${LBIN_PATH}lightning-complete #{e['name']}" #{e['name']}
         EOS
       end
       body.gsub(/^\s{6,10}/, '')

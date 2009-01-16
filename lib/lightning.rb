@@ -12,14 +12,22 @@ class Lightning
   TEST_FLAG = '-test'
   extend Config
   class<<self
-    def complete(text_to_complete, bolt_key)
+    def complete(text_to_complete, command)
       load_config
-      Complete.complete(text_to_complete, bolt_key)
+      if bolt_key = config_command(command)['bolt_key']
+        Completion.complete(text_to_complete, bolt_key)
+      else
+        ["Error: No paths found for this command.", "If this is a bug contact me."]
+      end
     end
     
-    def translate(key, argv)
+    def translate(command, argv)
       load_config
-      bolts[key].resolve_completion(argv)
+      if bolt_key = config_command(command)['bolt_key']
+        bolts[bolt_key].resolve_completion(argv)
+      else
+        'Error-no_paths_found_for_this_command'
+      end
     end
     
     def bolts

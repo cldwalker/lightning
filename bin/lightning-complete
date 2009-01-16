@@ -1,9 +1,13 @@
 #!/usr/bin/env ruby
 
 #  == Description
-#  Used to complete lightning commands.
+#  Used to complete a lightning command
 require File.expand_path(File.join(File.dirname(__FILE__), "..","lib","lightning"))
 
-key = ARGV.shift or raise "Path key needs to be specified"
-puts Lightning.complete(ENV["COMP_LINE"], key)
-exit 0
+if (command = ARGV.shift)
+  puts Lightning.complete(ENV["COMP_LINE"], key)
+  exit 0
+else
+  puts "No command given"
+  exit 1
+end

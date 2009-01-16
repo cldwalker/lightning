@@ -4,4 +4,4 @@
 # Used to generate shell file from configuration
 
 require File.expand_path(File.join(File.dirname(__FILE__), "..","lib","lightning"))
-Lightning::Generator.generate_completions
+Lightning::Generator.generate_completions ARGV.shift

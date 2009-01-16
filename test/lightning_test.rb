@@ -22,7 +22,7 @@ class LightningTest < Test::Unit::TestCase
           echo "No arguments given"
           return
         fi
-        FULL_PATH="`${LBIN_PATH}lightning-full_path open-oa $@`"
+        FULL_PATH="`${LBIN_PATH}lightning-full_path oa $@`"
         if [ $1 == '-test' ]; then
           CMD="open -a '$FULL_PATH'"
           echo $CMD
@@ -30,7 +30,7 @@ class LightningTest < Test::Unit::TestCase
           open -a "$FULL_PATH"
         fi
       }
-      complete -o default -C "${LBIN_PATH}lightning-complete open-oa" oa
+      complete -o default -C "${LBIN_PATH}lightning-complete oa" oa
       EOS
       output = File.read(@config_file)
       assert output.include?(generated_command)
