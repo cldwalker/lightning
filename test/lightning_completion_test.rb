@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/test_helper'
+require File.join(File.dirname(__FILE__), 'test_helper')
 
 class LightningCompletionTest < Test::Unit::TestCase
   context "Completion" do
