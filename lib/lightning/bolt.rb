@@ -7,11 +7,11 @@ class Lightning
     end
     
     def completions
-      path_map.keys
+      completion_map.keys
     end
     
-    def path_map
-      @path_map ||= Lightning::PathMap.new(self.paths)
+    def completion_map
+      @completion_map ||= Lightning::CompletionMap.new(self.paths)
     end
     
     def resolve_completion(basename)
@@ -21,7 +21,7 @@ class Lightning
       # if (regex = Lightning.config_command(Lightning.current_command)['completion_regex'])
       #   basename = basename[/#{regex}/]
       # end
-      path_map[basename] || ''
+      completion_map[basename] || ''
     end
     
     def paths

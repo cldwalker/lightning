@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-class LightningConfigTest < Test::Unit::TestCase
+class Lightning::ConfigTest < Test::Unit::TestCase
   context "A config" do
     before(:all) {
       @config = Lightning.read_config_file(File.dirname(__FILE__) + '/lightning.yml')

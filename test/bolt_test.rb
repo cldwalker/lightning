@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-class LightningBoltTest < Test::Unit::TestCase
+class Lightning::BoltTest < Test::Unit::TestCase
   context "Bolt" do
     before(:each) do
       @completion_map = {'path1'=>'/dir/path1','path2'=>'/dir/path2'}

@@ -4,7 +4,7 @@ require 'lightning/bolt'
 require 'lightning/bolts'
 require 'lightning/completion'
 require 'lightning/config'
-require 'lightning/path_map'
+require 'lightning/completion_map'
 require 'lightning/core_extensions'
 require 'lightning/generator'
 

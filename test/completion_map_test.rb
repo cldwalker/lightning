@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-class LightningCompletionMapTest < Test::Unit::TestCase
+class Lightning::CompletionMapTest < Test::Unit::TestCase
 
   context "CompletionMap" do    
     def create_map(path_hash)

@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-class LightningCompletionTest < Test::Unit::TestCase
+class Lightning::CompletionTest < Test::Unit::TestCase
   context "Completion" do
     before(:each) {
       @key = 'blah'; 

@@ -1,6 +1,6 @@
 #This class maps completions to their full paths for the given blobs
 class Lightning
-  class PathMap
+  class CompletionMap
     attr_accessor :map
     
     def initialize(*globs)
