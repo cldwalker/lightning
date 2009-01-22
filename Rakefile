@@ -24,7 +24,7 @@ begin
     s.homepage = "http://github.com/cldwalker/lightning"
     s.description = "Path completions for your shell that will let you navigate like lightning."
     s.authors = ["Gabriel Horner"]
-    s.files =  FileList["lightning_completions.example", "lightning.yml.example","README.markdown", "LICENSE.txt", "{bin,lib,test}/**/*"]
+    s.files =  FileList["Rakefile", "VERSION.yml", "lightning_completions.example", "lightning.yml.example","README.markdown", "LICENSE.txt", "{bin,lib,test}/**/*"]
     s.has_rdoc = true
     s.extra_rdoc_files = ["README.markdown", "LICENSE.txt"]
   end

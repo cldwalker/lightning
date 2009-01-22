@@ -13,14 +13,31 @@ you type or complete
 
     bash> rvim irb.rb
 
-Uneasy about what lightning will execute? Test it out with a -test flag
+Uneasy about what lightning will execute? Test/print it out with a -test flag
 
     bash> rvim -test irb.rb
     rvim '/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/irb.rb'
 
+Want to autocomplete but don't remember how the basename starts? Just use a ruby regular expression:
+
+    # *'s are converted to .*'s for convience sakes
+    bash> rvim *dialog [TAB TAB]
+    canvasprintdialog.rb
+    extfileselectiondialog.rb
+    dialog.rb//System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/tk
+    fileselectiondialog.rb
+    dialog.rb//System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/tkextlib/bwidget
+    finddialog.rb
+
+    #re-edit your line to narrow down your completion to one entry
+    bash> rvim ca*dialog [TAB TAB]
+
+    #once the basename completes, you can execute your command
+    bash> rvim canvasprintdialog.rb
+
 As you can see, you only need to autocomplete the basenames of paths and lightning will resolve their
-full paths.  rvim is a lightning command configured to autocomplete a certain group of paths for vim.
-In this case, rvim is configured to complete my ruby core and standard library files.
+full paths.  In these examples, rvim is a lightning command configured to autocomplete a certain group of paths for vim.
+In my case, rvim is configured to complete my ruby core and standard library files.
 
 
 Install
@@ -70,6 +87,12 @@ Configuration options are:
 * generated\_file: Location of shell script file generated from config. Defaults to
   ~/.lightning\_completions.
 * ignore\_paths: List of paths to globally ignore when listing completions.
+* complete\_regex: true or false (default is true)
+  Turns on/off Ruby regular expression matching when completing. One convience
+  is that a '*' is converted to '.*' ie glob-like behavior.
+
+  Note: Realize your regular expression normally just match the basename. However, since duplicates
+  list their full paths, their full paths are subject to regex matching.
 * shell: Specifies shell script generator used for generating completions. Defaults to bash.
 * commands: A list of lightning commands. A lightning command is just a shell function
   which executes a specified shell function with a defined set of paths to autocomplete on.
@@ -111,6 +134,8 @@ Limitations
 * The generated shell scripts default to bash but could easily be extended for other shell languages. Patches welcome.
 * All arguments passed to a lightning command are considered part of the basename to resolve. So
   it's not yet possible to resolve some arguments and not others.
+* When regular expression completing, I've noticed bash doesn't handle '^' well if it's the first of
+  a couple of characters in a completion.
 
 Motivation
 ==========

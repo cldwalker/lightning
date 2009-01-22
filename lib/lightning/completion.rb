@@ -12,9 +12,18 @@ class Lightning
     end
   
     def matches
-      possible_completions.select do |e|
-        e[0, typed.length] == typed
+      if Lightning.config[:complete_regex]
+        possible_completions.grep(/#{blob_to_regex(typed)}/)
+      else
+        possible_completions.select do |e|
+          e[0, typed.length] == typed
+        end
       end
+    end
+    
+    #just converts * to .*  to make a glob-like regex
+    def blob_to_regex(string)
+      string.gsub(/^\*|([^\.])\*/) {|e| $1 ? $1 + ".*" : ".*" }
     end
   
     def typed
