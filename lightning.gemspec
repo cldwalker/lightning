@@ -2,16 +2,16 @@
 
 Gem::Specification.new do |s|
   s.name = %q{lightning}
-  s.version = "0.1.2"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Gabriel Horner"]
-  s.date = %q{2009-01-22}
+  s.date = %q{2009-01-28}
   s.description = %q{Path completions for your shell that will let you navigate like lightning.}
   s.email = %q{gabriel.horner@gmail.com}
   s.executables = ["lightning-complete", "lightning-full_path", "lightning-install"]
   s.extra_rdoc_files = ["README.markdown", "LICENSE.txt"]
-  s.files = ["Rakefile", "VERSION.yml", "lightning_completions.example", "lightning.yml.example", "README.markdown", "LICENSE.txt", "bin/lightning-complete", "bin/lightning-full_path", "bin/lightning-install", "lib/lightning", "lib/lightning/bolt.rb", "lib/lightning/bolts.rb", "lib/lightning/completion.rb", "lib/lightning/completion_map.rb", "lib/lightning/config.rb", "lib/lightning/core_extensions.rb", "lib/lightning/generator.rb", "lib/lightning.rb", "test/lightning.yml", "test/lightning_bolt_test.rb", "test/lightning_completion_map_test.rb", "test/lightning_completion_test.rb", "test/lightning_config_test.rb", "test/lightning_test.rb", "test/test_helper.rb"]
+  s.files = ["Rakefile", "VERSION.yml", "lightning_completions.example", "lightning.yml.example", "README.markdown", "LICENSE.txt", "bin/lightning-complete", "bin/lightning-full_path", "bin/lightning-install", "lib/lightning", "lib/lightning/bolt.rb", "lib/lightning/bolts.rb", "lib/lightning/completion.rb", "lib/lightning/completion_map.rb", "lib/lightning/config.rb", "lib/lightning/core_extensions.rb", "lib/lightning/generator.rb", "lib/lightning.rb", "test/bolt_test.rb", "test/completion_map_test.rb", "test/completion_test.rb", "test/config_test.rb", "test/lightning.yml", "test/lightning_test.rb", "test/test_helper.rb"]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/cldwalker/lightning}
   s.require_paths = ["lib"]
