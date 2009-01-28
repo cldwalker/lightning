@@ -77,6 +77,12 @@ Since the globbable paths are interpreted by ruby's Dir.glob(), you can:
 
 `ri Dir.glob` for more examples.
 
+Aliases
+=======
+
+Lightning supports custom aliases for any path, globally and per command. So if there is some
+path that you access often but that's still too slow with completion, alias it away!
+
 Configuration
 =====================
 
@@ -94,6 +100,8 @@ Configuration options are:
   Note: Realize your regular expression normally just match the basename. However, since duplicates
   list their full paths, their full paths are subject to regex matching.
 * shell: Specifies shell script generator used for generating completions. Defaults to bash.
+* aliases: A hash (pairs) of custom aliases pointing to full paths. These aliases will be globally
+  recognized by any lightning command.
 * commands: A list of lightning commands. A lightning command is just a shell function
   which executes a specified shell function with a defined set of paths to autocomplete on.
   A command consists of the following options/keys:
@@ -103,6 +111,7 @@ Configuration options are:
   * description: Description which is placed as a comment in the generated shell script.
   * paths (required): A list of globbable paths, whose basenames are autocompleted. You can also
     pass this a path name that has been defined in the paths option. 
+  * aliases: A hash (pairs) of custom aliases and full paths only for this command.
 
 * paths: This takes a hash (pairs) of path names and globbable paths. This should be used when
   you have a group of paths that are used in multiple commands. When doing that, you would specify
@@ -134,8 +143,6 @@ Limitations
 * The generated shell scripts default to bash but could easily be extended for other shell languages. Patches welcome.
 * All arguments passed to a lightning command are considered part of the basename to resolve. So
   it's not yet possible to resolve some arguments and not others.
-* When regular expression completing, I've noticed bash doesn't handle '^' well if it's the first of
-  a couple of characters in a completion.
 
 Motivation
 ==========
@@ -149,6 +156,5 @@ I had to do something.
 Todo/Ideas
 ==========
 
-* Aliases for common autocompletions.
 * Allow lightning commands to only path-resolve one of multiple arguments given.
 * Command interface to easily add/remove current directory or globs from a command

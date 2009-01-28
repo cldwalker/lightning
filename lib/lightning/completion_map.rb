@@ -2,19 +2,21 @@
 class Lightning
   class CompletionMap
     attr_accessor :map
+    attr_reader :alias_map
     
     def initialize(*globs)
-      #globs need to be an array
+      options = globs[-1].is_a?(Hash) ? globs.pop : {}
       globs.flatten!
       @map = create_map_for_globs(globs)
+      @alias_map = (options[:global_aliases] || {}).merge(options[:aliases] || {})
     end
     
      def [](completion)
-       @map[completion]
+       @map[completion] || @alias_map[completion]
      end
      
      def keys
-       @map.keys
+       (@map.keys + @alias_map.keys).uniq
      end
     
     #should return hash

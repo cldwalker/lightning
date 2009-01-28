@@ -13,7 +13,11 @@ class Lightning
   
     def matches
       if Lightning.config[:complete_regex]
-        possible_completions.grep(/#{blob_to_regex(typed)}/)
+        begin 
+          possible_completions.grep(/#{blob_to_regex(typed)}/)
+        rescue RegexpError
+          ['Error: Invalid regular expression']
+        end
       else
         possible_completions.select do |e|
           e[0, typed.length] == typed

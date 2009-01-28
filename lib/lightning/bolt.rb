@@ -11,7 +11,9 @@ class Lightning
     end
     
     def completion_map
-      @completion_map ||= Lightning::CompletionMap.new(self.paths)
+      @completion_map ||= Lightning::CompletionMap.new(self.paths,
+        :global_aliases=>Lightning.config[:aliases], 
+        :aliases=>Lightning.config_command(Lightning.current_command)['aliases'])
     end
     
     def resolve_completion(basename)

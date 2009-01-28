@@ -29,6 +29,12 @@ class Lightning::CompletionTest < Test::Unit::TestCase
       @completion = Lightning::Completion.new('cd-test *', @key)
       assert_arrays_equal %w{at ap blah}, @completion.matches
     end
+    
+    test "with invalid regex is rescued" do
+      Lightning.config[:complete_regex] = true
+      @completion = Lightning::Completion.new('cd-test []', @key)
+      assert !@completion.matches.grep(/Error/).empty?
+    end
   end
   
   test "blob_to_regex converts * to .*" do

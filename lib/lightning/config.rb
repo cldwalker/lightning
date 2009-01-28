@@ -1,4 +1,5 @@
 module Lightning::Config
+  attr_accessor :config_file
   def load_config
     @config = setup_config
   end
@@ -7,17 +8,21 @@ module Lightning::Config
     @config ||= setup_config
   end
   
+  def config=(value)
+    @config = value
+  end
+  
   def setup_config
     hash = read_config_file
     configure_commands_and_paths(hash)
     hash
   end
   
-  def read_config_file(config_file=nil)
+  def read_config_file(file=nil)
     default_config = {:shell=>'bash', :generated_file=>File.expand_path(File.join('~', '.lightning_completions')), 
       :complete_regex=>true}
-    config_file ||= File.exists?('lightning.yml') ? 'lightning.yml' : File.expand_path(File.join("~",".lightning.yml"))
-    hash = YAML::load(File.new(config_file))
+    @config_file = file || @config_file || (File.exists?('lightning.yml') ? 'lightning.yml' : File.expand_path(File.join("~",".lightning.yml")))
+    hash = YAML::load(File.new(@config_file))
     default_config.merge(hash.symbolize_keys)
   end
   

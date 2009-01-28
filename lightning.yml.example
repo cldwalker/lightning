@@ -44,6 +44,8 @@ commands:
       paths:
          - /Library/Ruby/Site/1.8/**/
          - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/**/
+      aliases:
+        r1: /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8
     
     - name : oa
       map_to : open -a

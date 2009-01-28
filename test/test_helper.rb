@@ -5,6 +5,9 @@ require 'stump' #gem install jeremymcanally-stump -s http://gems.github.com
 require 'pending' #gem install jeremymcanally-pending -s http://gems.github.com
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'lightning'
+#set up valid global config file
+Lightning.config_file = File.join(File.dirname(__FILE__), 'lightning.yml') 
+
 
 class Test::Unit::TestCase
   def assert_arrays_equal(a1, a2)

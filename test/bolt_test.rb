@@ -24,4 +24,13 @@ class Lightning::BoltTest < Test::Unit::TestCase
       assert_equal @bolt.completion_map.object_id, @bolt.completion_map.object_id
     end
   end
+  
+  test "Bolt's completion_map sets up alias map with options" do
+    old_config = Lightning.config
+    Lightning.stub!(:current_command, :return=>'blah')
+    Lightning.config = {:aliases=>{'path1'=>'/dir1/path1'}, :commands=>[{'name'=>'blah'}], :paths=>{}}
+    @bolt = Lightning::Bolt.new('blah')
+    assert_equal({'path1'=>'/dir1/path1'}, @bolt.completion_map.alias_map)
+    Lightning.config = old_config
+  end
 end
