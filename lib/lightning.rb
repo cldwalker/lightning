@@ -13,6 +13,18 @@ class Lightning
   extend ConfigI
   class<<self
     attr_accessor :current_command
+    def config(options={})
+      @config ||= Config.create(options)
+    end
+    
+    def load_read_only_config
+      @config = Config.create(:read_only=>true)
+    end
+    
+    def config=(value)
+      @config = Config.new(value)
+    end
+    
     def complete(command, text_to_complete)
       load_read_only_config
       @current_command = command

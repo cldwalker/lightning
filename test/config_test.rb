@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 class Lightning::ConfigTest < Test::Unit::TestCase
   context "A config" do
     before(:all) {
-      @config = Lightning.read_config_file(File.dirname(__FILE__) + '/lightning.yml')
+      @config = Lightning::Config.read_config_file(File.dirname(__FILE__) + '/lightning.yml')
     }
     
     should "be a hash" do
@@ -44,19 +44,19 @@ class Lightning::ConfigTest < Test::Unit::TestCase
   context ":configure_commands_and_paths" do
     test "generates bolt key if none exists" do
       config = {:commands=>[{'name'=>'c1', 'map_to'=>'s1'}]}
-      assert ! Lightning.configure_commands_and_paths(config)[:commands][0]['bolt_key'].nil?
+      assert ! Lightning::Config.configure_commands_and_paths(config)[:commands][0]['bolt_key'].nil?
     end
     
     test "adds generated bolt key to config.paths if it didn't exist" do
       config = {:commands=>[{'name'=>'c1', 'map_to'=>'s1', 'paths'=>['*']}]}
-      new_config = Lightning.configure_commands_and_paths(config)
+      new_config = Lightning::Config.configure_commands_and_paths(config)
       bolt_key = new_config[:commands][0]['bolt_key']
       assert new_config[:paths].has_key?(bolt_key)
     end
     
     test "adds reference to bolt key if command.paths is a string" do
       config = {:commands=>[{'name'=>'c1', 'map_to'=>'s1', 'paths'=>'blah'}]}
-      assert_equal 'blah', Lightning.configure_commands_and_paths(config)[:commands][0]['bolt_key']
+      assert_equal 'blah', Lightning::Config.configure_commands_and_paths(config)[:commands][0]['bolt_key']
     end
   end
 end
