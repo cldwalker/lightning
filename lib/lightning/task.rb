@@ -3,7 +3,7 @@ class Task < Thor
   desc "lightning_command", "lightning_command"
   method_options :search=>:optional, :command=>:optional
   def lightning_command(*args)
-    puts "Commands"
+    puts "Lightning Commands"
     if options[:command]
       lightning_commands = Lightning.config[:commands].select {|e| e['map_to'] == options['command']}
     else
@@ -27,7 +27,7 @@ class Task < Thor
       puts Lightning.config_command_paths(command_name).join("\n")
     end
   end
-  
+    
   desc "alias", "alias"
   method_options :delete=>:boolean, :add=>:boolean, :global=>:boolean
   def alias(*args)
