@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 class Lightning::ConfigTest < Test::Unit::TestCase
   context "A config" do
     before(:all) {
-      @config = Lightning::Config.read_config_file(File.dirname(__FILE__) + '/lightning.yml')
+      @config = Lightning::Config.create
     }
     
     should "be a hash" do

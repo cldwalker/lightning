@@ -8,16 +8,17 @@ class Lightning
 
       def create(options={})
         hash = read_config_file
-        configure_commands_and_paths(hash) if options[:read_only]
-        new(hash)
+        obj = new(hash)
+        configure_commands_and_paths(obj) if options[:read_only]
+        obj
       end
     
       def read_config_file(file=nil)
-        default_config = {:shell=>'bash', :generated_file=>File.expand_path(File.join('~', '.lightning_completions')), 
-          :complete_regex=>true}
+        default_config = {'shell'=>'bash', 'generated_file'=>File.expand_path(File.join('~', '.lightning_completions')), 
+          'complete_regex'=>true}
         @config_file = file if file
         hash = YAML::load_file(config_file)
-        default_config.merge(hash.symbolize_keys)
+        default_config.merge(hash)
       end
       
       def commands_to_bolt_key(map_to_command, new_command)
@@ -51,7 +52,17 @@ class Lightning
     def initialize(hash)
       super
       replace(hash)
+      self.replace(self.symbolize_keys)
     end
+    
+    #from Rails' ActiveSupport
+    def symbolize_keys
+      inject({}) do |options, (key, value)|
+        options[(key.to_sym rescue key) || key] = value
+        options
+      end
+    end
+    
   end
 end
 
