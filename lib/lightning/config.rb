@@ -46,13 +46,18 @@ class Lightning
     end
     
     def save
-      File.open(self.class.config_file, "w") { |f| f.puts self.to_yaml }
+      File.open(self.class.config_file, "w") { |f| f.puts self.to_hash.to_yaml }
     end
 
     def initialize(hash)
       super
       replace(hash)
       self.replace(self.symbolize_keys)
+    end
+    
+    def to_hash
+      hash = Hash.new
+      hash.replace(self)
     end
     
     #from Rails' ActiveSupport

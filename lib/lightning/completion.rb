@@ -16,7 +16,7 @@ class Lightning
         begin 
           possible_completions.grep(/#{blob_to_regex(typed)}/)
         rescue RegexpError
-          ['Error: Invalid regular expression']
+          ['#Error: Invalid regular expression']
         end
       else
         possible_completions.select do |e|

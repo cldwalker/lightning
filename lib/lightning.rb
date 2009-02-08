@@ -30,7 +30,7 @@ class Lightning
       if bolt_key = config_command(command)['bolt_key']
         Completion.complete(text_to_complete, bolt_key)
       else
-        ["Error: No paths found for this command.", "If this is a bug contact me."]
+        ["#Error: No paths found for this command.", "If this is a bug contact me."]
       end
     end
     
@@ -40,7 +40,7 @@ class Lightning
       if bolt_key = config_command(command)['bolt_key']
         bolts[bolt_key].resolve_completion(argv)
       else
-        'Error-no_paths_found_for_this_command'
+        '#Error-no_paths_found_for_this_command'
       end
     end
     
