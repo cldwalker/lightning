@@ -26,6 +26,7 @@ begin
     s.authors = ["Gabriel Horner"]
     s.files =  FileList["Rakefile", "VERSION.yml", "lightning_completions.example", "lightning.yml.example","README.markdown", "LICENSE.txt", "{bin,lib,test}/**/*"]
     s.has_rdoc = true
+    s.add_dependency "thor"
     s.extra_rdoc_files = ["README.markdown", "LICENSE.txt"]
   end
 
