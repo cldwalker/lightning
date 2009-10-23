@@ -1,0 +1,13 @@
+== 0.2.1
+* Rubyforge release
+* Removed monkey patches
+
+== 0.2.0
+* Added regex completion
+* Added global and local aliases
+
+== 0.1.2
+* Major refactoring
+
+== 0.1.1
+* Initial release

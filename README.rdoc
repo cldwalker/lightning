@@ -1,5 +1,4 @@
-Description
-===========
+== Description
 
 Autocomplete a group of files and directories simply by listing their globbable paths
 in a config file. Generate completions from your config, source them into your shell
@@ -40,26 +39,24 @@ full paths.  In these examples, rvim is a lightning command configured to autoco
 In my case, rvim is configured to complete my ruby core and standard library files.
 
 
-Install
-=======
+== Install
 
-For newcomers to github, install this gem with: `gem install cldwalker-lightning -s http://gems.github.com`
+For newcomers to github, install this gem with: `gem install lightning`
 
 To make your own commands, you'll need to:
 
 1. Create ~/.lightning.yml or a lightning.yml in the current directory.
    Use the Configuration section below and the provided lightning.yml.example as guides.
 
-2. Execute `lightning-install` to generate ~/.lightning\_completions from your config.
+2. Execute `lightning-install` to generate ~/.lightning_completions from your config.
    There is a config option for changing the location of the generated file. See Configuration
-   below. See lightning\_completions.example for what would be generated for the enclosed example
+   below. See lightning_completions.example for what would be generated for the enclosed example
    config.
 
 3. Source the generated file in your bashrc ie `source ~/.lightning_completions`.
 
 
-Globbable paths
-===============
+== Globbable Paths
 
 Since the globbable paths are interpreted by ruby's Dir.glob(), you can:
 
@@ -77,23 +74,21 @@ Since the globbable paths are interpreted by ruby's Dir.glob(), you can:
 
 `ri Dir.glob` for more examples.
 
-Aliases
-=======
+== Aliases
 
 Lightning supports custom aliases for any path, globally and per command. So if there is some
 path that you access often but that's still too slow with completion, alias it away!
 
-Configuration
-=====================
+== Configuration
 
 It helps to look at lightning.yml.example while reading this.
 
 Configuration options are:
 
-* generated\_file: Location of shell script file generated from config. Defaults to
-  ~/.lightning\_completions.
-* ignore\_paths: List of paths to globally ignore when listing completions.
-* complete\_regex: true or false (default is true)
+* generated_file: Location of shell script file generated from config. Defaults to
+  ~/.lightning_completions.
+* ignore_paths: List of paths to globally ignore when listing completions.
+* complete_regex: true or false (default is true)
   Turns on/off Ruby regular expression matching when completing. One convience
   is that a '*' is converted to '.*' ie glob-like behavior.
 
@@ -107,7 +102,7 @@ Configuration options are:
   A command consists of the following options/keys:
   
   * name (required): Name of the lightning command you'll be typing.
-  * map\_to (required): Shell command which the lightning command passes arguments to.
+  * map_to (required): Shell command which the lightning command passes arguments to.
   * description: Description which is placed as a comment in the generated shell script.
   * paths (required): A list of globbable paths, whose basenames are autocompleted. You can also
     pass this a path name that has been defined in the paths option. 
@@ -118,11 +113,10 @@ Configuration options are:
   the path name defined here in the command's paths key.
   Note: path names should only be alphanumeric
 
-* post\_path: Text to add immediately after a resolved path. lightning.yml.example contains
+* post_path: Text to add immediately after a resolved path. lightning.yml.example contains
   an example used for opening gem documentation in your browser.
 
-Duplicate Basenames
-===================
+== Duplicate Basenames
 
 So what happens when their are multiple matches for the same basename?
 Lightning appends a '/' + the full directory to each of the basenames.
@@ -137,24 +131,20 @@ For example, if I autocomplete button.rb for my ruby standard libraries I get:
 This isn't the prettiest completion but it resolves duplicates, displays the path differences
 between each and easily autocompletes. I'm open to suggestions on this syntax.
 
-Limitations
-===========
-
+== Limitations
 * The generated shell scripts default to bash but could easily be extended for other shell languages. Patches welcome.
 * All arguments passed to a lightning command are considered part of the basename to resolve. So
   it's not yet possible to resolve some arguments and not others.
 
-Motivation
-==========
+== Motivation
 
 I've seen dotfiles on github and on blogs which accomplish this kind of autocompletion for gem
 documentation. There's even a gem just for gem editing: http://gemedit.rubyforge.org/.
 But once I saw how easy it was to manipulate completion through ruby,
-http://github.com/ryanb/dotfiles/blob/master/bash/completion\_scripts/project\_completion,
+http://github.com/ryanb/dotfiles/blob/master/bash/completion_scripts/project_completion,
 I had to do something.
 
-Todo/Ideas
-==========
-
+== Todo
+* Binary to interact with common config operations including add/remove current directory or globs from a command
 * Allow lightning commands to only path-resolve one of multiple arguments given.
-* Command interface to easily add/remove current directory or globs from a command
+* An irb generator
