@@ -9,7 +9,6 @@ require 'lightning/generator'
 
 class Lightning
   TEST_FLAG = '-test'
-  extend ConfigI
   class<<self
     attr_accessor :current_command
     def config(options={})
@@ -46,6 +45,24 @@ class Lightning
     
     def bolts
       @bolts ||= Bolts.new
+    end
+
+    def config_command(name, hardcheck=false)
+      command = config[:commands].find {|e| e['name'] == name} || {}
+      if hardcheck && command.empty?
+        puts "Command '#{name}' not found"
+        nil
+      else
+        command
+      end
+    end
+
+    def ignore_paths
+      unless @ignore_paths
+        @ignore_paths = []
+        @ignore_paths += config[:ignore_paths] if config[:ignore_paths] && !config[:ignore_paths].empty?
+      end
+      @ignore_paths
     end
   end
 end
