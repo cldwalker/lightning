@@ -1,12 +1,13 @@
-# A bolt, referenced by a key, is the basic unit needed to access a lightning command's functionality.
+# A bolt is a group of globbable paths referenced by a name. A bolt can resolve completions
+# for its paths by using a CompletionMap.
 class Lightning
   class Bolt
-    attr_reader :key
+    attr_reader :name
     attr_accessor :paths
-    def initialize(bolt_key)
-      @key = bolt_key
+    def initialize(name)
+      @name = name
       @paths = []
-      (Lightning.config[:bolts][@key] || {}).each do |k,v|
+      (Lightning.config[:bolts][@name] || {}).each do |k,v|
         instance_variable_set("@#{k}", v)
       end
     end
@@ -16,7 +17,7 @@ class Lightning
     end
     
     def completion_map
-      @completion_map ||= Lightning::CompletionMap.new(self.paths,
+      @completion_map ||= CompletionMap.new(self.paths,
         :global_aliases=>Lightning.config[:aliases],
         :aliases=>(cmd = Lightning.commands[Lightning.current_command]) && cmd['aliases'])
     end

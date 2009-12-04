@@ -1,14 +1,14 @@
 # derived from http://github.com/ryanb/dotfiles/tree/master/bash/completion_scripts/project_completion
-#This class handles completions given a path key and the text already typed.
+#This class handles completions given the text already typed and a bolt name.
 class Lightning
   class Completion
-    def self.complete(text_to_complete, bolt_key)
-      new(text_to_complete, bolt_key).matches
+    def self.complete(text_to_complete, bolt)
+      new(text_to_complete, bolt).matches
     end
       
-    def initialize(text_typed, bolt_key)
+    def initialize(text_typed, bolt)
       @text_typed = text_typed
-      @bolt_key = bolt_key
+      @bolt = bolt
     end
   
     def matches
@@ -37,7 +37,7 @@ class Lightning
     end
   
     def possible_completions
-      Lightning.bolts[@bolt_key].completions
+      Lightning.bolts[@bolt].completions
     end    
   end
 end

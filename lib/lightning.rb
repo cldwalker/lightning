@@ -23,8 +23,8 @@ class Lightning
     def complete(command, text_to_complete)
       read_config
       @current_command = command
-      if (cmd = commands[command]) && (bolt_key = cmd['bolt_key'])
-        Completion.complete(text_to_complete, bolt_key)
+      if (cmd = commands[command]) && cmd['bolt']
+        Completion.complete(text_to_complete, cmd['bolt'])
       else
         ["#Error: No paths found for this command.", "If this is a bug contact me."]
       end
@@ -33,8 +33,8 @@ class Lightning
     def translate(command, argv)
       read_config
       @current_command = command
-      if (cmd = commands[command]) && (bolt_key = cmd['bolt_key'])
-        bolts[bolt_key].resolve_completion(argv)
+      if (cmd = commands[command]) && cmd['bolt']
+        bolts[cmd['bolt']].resolve_completion(argv)
       else
         '#Error-no_paths_found_for_this_command'
       end
