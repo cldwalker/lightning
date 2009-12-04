@@ -15,7 +15,7 @@ class Lightning::CompletionMapTest < Test::Unit::TestCase
     end
     
     test "ignores paths from Lightning.ignore_paths" do
-      Lightning.stub!(:ignore_paths, :return=>['path1'])
+      Lightning::CompletionMap.stub!(:ignore_paths, :return=>['path1'])
       expected_map = {"path1"=>"/dir1/path1", "path2"=>"/dir1/path2"}
       create_map(expected_map)
       assert_equal expected_map.slice('path2'), @completion_map.map

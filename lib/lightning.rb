@@ -1,7 +1,6 @@
 $:.unshift(File.dirname(__FILE__)) unless $:.include?(File.dirname(__FILE__))
 require 'yaml'
 require 'lightning/bolt'
-require 'lightning/bolts'
 require 'lightning/completion'
 require 'lightning/config'
 require 'lightning/command'
@@ -45,19 +44,11 @@ class Lightning
     end
     
     def bolts
-      @bolts ||= Bolts.new
+      @bolts ||= Hash.new {|h,k| h[k] = Bolt.new(k) }
     end
 
     def commands
       @commands ||= {}
-    end
-
-    def ignore_paths
-      unless @ignore_paths
-        @ignore_paths = []
-        @ignore_paths += config[:ignore_paths] if config[:ignore_paths] && !config[:ignore_paths].empty?
-      end
-      @ignore_paths
     end
   end
 end

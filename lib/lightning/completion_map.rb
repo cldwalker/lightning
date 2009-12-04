@@ -1,6 +1,14 @@
 #This class maps completions to their full paths for the given blobs
 class Lightning
   class CompletionMap
+    def self.ignore_paths
+      unless @ignore_paths
+        @ignore_paths = []
+        @ignore_paths += Lightning.config[:ignore_paths] if Lightning.config[:ignore_paths]
+      end
+      @ignore_paths
+    end
+
     attr_accessor :map
     attr_reader :alias_map
     
@@ -22,7 +30,7 @@ class Lightning
     #should return hash
     def create_map_for_globs(globs)
       path_hash = {}
-      ignore_paths = ['.', '..'] + Lightning.ignore_paths
+      ignore_paths = ['.', '..'] + self.class.ignore_paths
       globs.each do |d|
         Dir.glob(d, File::FNM_DOTMATCH).each do |e|
           basename = File.basename(e)
