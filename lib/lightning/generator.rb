@@ -31,7 +31,7 @@ class Lightning
               echo "No arguments given"
               return
             fi
-            FULL_PATH="`${LBIN_PATH}lightning-full_path #{e['name']} $@`#{e['post_path'] if e['post_path']}"
+            FULL_PATH="`${LBIN_PATH}lightning-translate #{e['name']} $@`#{e['post_path'] if e['post_path']}"
             if [ $1 == '#{Lightning::TEST_FLAG}' ]; then
               CMD="#{e['map_to']} '$FULL_PATH'#{' '+ e['add_to_command'] if e['add_to_command']}"
               echo $CMD

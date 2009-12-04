@@ -21,7 +21,7 @@ class LightningTest < Test::Unit::TestCase
           echo "No arguments given"
           return
         fi
-        FULL_PATH="`${LBIN_PATH}lightning-full_path oa $@`"
+        FULL_PATH="`${LBIN_PATH}lightning-translate oa $@`"
         if [ $1 == '-test' ]; then
           CMD="open -a '$FULL_PATH'"
           echo $CMD
