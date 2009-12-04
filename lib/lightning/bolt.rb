@@ -2,6 +2,7 @@
 class Lightning
   class Bolt
     attr_reader :key
+    attr_accessor :paths
     def initialize(bolt_key)
       @key = bolt_key
     end

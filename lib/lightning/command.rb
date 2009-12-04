@@ -16,7 +16,7 @@ class Lightning
         e['map_to'] =~ /\s*(\w+)/
         bolt_key = commands_to_bolt_key($1, e['name'])
         e['bolt_key'] = bolt_key
-        Lightning.config[:paths][bolt_key] = e['paths'] || []
+        Lightning.bolts[bolt_key].paths = e['paths'] || []
       end
       e
     end
