@@ -5,9 +5,9 @@ class Lightning
     def lightning_command(*args)
       puts "Lightning Commands"
       if options[:command]
-        lightning_commands = Lightning.config[:commands].select {|e| e['map_to'] == options['command']}
+        lightning_commands = Lightning.commands.values.select {|e| e['map_to'] == options['command']}
       else
-        lightning_commands = Lightning.config[:commands]
+        lightning_commands = Lightning.commands.values
       end
       puts lightning_commands.map {|e| e['name'] }.join("\n")
     end
@@ -23,7 +23,7 @@ class Lightning
         add_path(command_name, args[0])
       else
         puts "Paths for command '#{command_name}'"
-        puts config_command_paths(command_name).join("\n")
+        puts command_paths(command_name).join("\n")
       end
     end
 
@@ -42,8 +42,8 @@ class Lightning
     end
 
     private
-    def config_command_paths(name)
-      if command = Lightning.config_command(name, true)
+    def command_paths(name)
+      if (command = Lightning.commands[command_name])
         if command['paths'].is_a?(String)
            Lightning.config[:paths][command['paths']]
         else
@@ -55,7 +55,7 @@ class Lightning
     end
 
     def add_command_alias(command_name, path_alias, path)
-      if (command = Lightning.config_command(command_name, true))
+      if (command = Lightning.commands[command_name])
         path = File.expand_path(path)
         command['aliases'][path_alias] = path
         Lightning.config.save
@@ -64,7 +64,7 @@ class Lightning
     end
 
     def delete_command_alias(command_name, path_alias)
-      if (command = Lightning.config_command(command_name, true))
+      if (command = Lightning.commands[command_name])
         command['aliases'].delete(path_alias)
         Lightning.config.save
         puts "Path alias '#{path_alias}' deleted"
@@ -72,18 +72,18 @@ class Lightning
     end
 
     def add_path(command_name, path)
-      if (command = Lightning.config_command(command_name, true))
+      if (command = Lightning.commands[command_name])
         path = File.expand_path(path)
-        config_command_paths(command_name) << path
+        command_paths(command_name) << path
         Lightning.config.save
         puts "Path '#{path}' added"
       end
     end
 
     def delete_path(command_name, path)
-      if (command = Lightning.config_command(command_name, true))
+      if (command = Lightning.commands[command_name])
         path = File.expand_path(path)
-        config_command_paths(command_name).delete(path)
+        command_paths(command_name).delete(path)
         Lightning.config.save
         puts "Path '#{path}' deleted"
       end

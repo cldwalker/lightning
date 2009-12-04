@@ -4,10 +4,9 @@ class LightningTest < Test::Unit::TestCase
   context "Generator" do
     before(:all) do
       @config_file =  File.dirname(__FILE__) + '/lightning_completions'
-      Lightning.config[:generated_file] = @config_file
-      Lightning::Generator.generate_completions
+      Lightning::Generator.generate_completions @config_file
     end
-    after(:all) {  FileUtils.rm_f(Lightning.config[:generated_file]) }
+    after(:all) {  FileUtils.rm_f(@config_file) }
     
     test "generates file in expected location" do
       assert File.exists?(@config_file)

@@ -12,15 +12,15 @@ class Lightning
     
     def completion_map
       @completion_map ||= Lightning::CompletionMap.new(self.paths,
-        :global_aliases=>Lightning.config[:aliases], 
-        :aliases=>Lightning.config_command(Lightning.current_command)['aliases'])
+        :global_aliases=>Lightning.config[:aliases],
+        :aliases=>(cmd = Lightning.commands[Lightning.current_command]) && cmd['aliases'])
     end
     
     def resolve_completion(basename)
       basename = basename.join(" ") if basename.is_a?(Array)
       basename.gsub!(/\s*#{TEST_FLAG}\s*/,'')
       #TODO
-      # if (regex = Lightning.config_command(Lightning.current_command)['completion_regex'])
+      # if (regex = Lightning.commands[Lightning.current_command]['completion_regex'])
       #   basename = basename[/#{regex}/]
       # end
       completion_map[basename] || ''

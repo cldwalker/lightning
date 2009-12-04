@@ -4,6 +4,7 @@ require 'lightning/bolt'
 require 'lightning/bolts'
 require 'lightning/completion'
 require 'lightning/config'
+require 'lightning/command'
 require 'lightning/completion_map'
 require 'lightning/generator'
 
@@ -26,7 +27,7 @@ class Lightning
     def complete(command, text_to_complete)
       load_read_only_config
       @current_command = command
-      if bolt_key = config_command(command)['bolt_key']
+      if (cmd = commands[command]) && (bolt_key = cmd['bolt_key'])
         Completion.complete(text_to_complete, bolt_key)
       else
         ["#Error: No paths found for this command.", "If this is a bug contact me."]
@@ -36,7 +37,7 @@ class Lightning
     def translate(command, argv)
       load_read_only_config
       @current_command = command
-      if bolt_key = config_command(command)['bolt_key']
+      if (cmd = commands[command]) && (bolt_key = cmd['bolt_key'])
         bolts[bolt_key].resolve_completion(argv)
       else
         '#Error-no_paths_found_for_this_command'
@@ -47,14 +48,8 @@ class Lightning
       @bolts ||= Bolts.new
     end
 
-    def config_command(name, hardcheck=false)
-      command = config[:commands].find {|e| e['name'] == name} || {}
-      if hardcheck && command.empty?
-        puts "Command '#{name}' not found"
-        nil
-      else
-        command
-      end
+    def commands
+      @commands ||= {}
     end
 
     def ignore_paths

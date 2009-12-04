@@ -8,6 +8,7 @@ class Lightning
 
       def create(options={})
         hash = read_config_file
+        hash[:paths] ||= {}
         obj = new(hash)
         configure_commands_and_paths(obj) if options[:read_only]
         obj
@@ -21,27 +22,10 @@ class Lightning
         default_config.merge(hash)
       end
       
-      def commands_to_bolt_key(map_to_command, new_command)
-        "#{map_to_command}-#{new_command}"
-      end
-
       def configure_commands_and_paths(hash)
-        hash[:paths] ||= {}
         hash[:commands].each do |e|
-          #mapping a referenced path
-          if e['paths'].is_a?(String)
-            e['bolt_key'] = e['paths'].dup
-          end
-          #create a path entry + key if none exists
-          if e['bolt_key'].nil?
-            #extract command in case it has options after it
-            e['map_to'] =~ /\s*(\w+)/
-            bolt_key = commands_to_bolt_key($1, e['name'])
-            e['bolt_key'] = bolt_key
-            hash[:paths][bolt_key] = e['paths'] || []
-          end
+          Lightning.commands[e['name']] = Command.new(e)
         end
-        hash
       end
     end
     

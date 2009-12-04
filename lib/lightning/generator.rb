@@ -3,8 +3,9 @@ class Lightning
   class Generator
     class<<self
     def generate_completions(generated_file=nil)
+      Lightning.load_read_only_config
       generated_file ||= Lightning.config[:generated_file]
-      output = generate(Lightning.config[:shell], Lightning.config[:commands])
+      output = generate(Lightning.config[:shell], Lightning.commands.values)
       File.open(generated_file, 'w'){|f| f.write(output) }
       output
     end
