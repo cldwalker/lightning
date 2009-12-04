@@ -1,5 +1,4 @@
 $:.unshift(File.dirname(__FILE__)) unless $:.include?(File.dirname(__FILE__))
-require 'yaml'
 require 'lightning/bolt'
 require 'lightning/completion'
 require 'lightning/config'

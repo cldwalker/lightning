@@ -5,6 +5,10 @@ class Lightning
     attr_accessor :paths
     def initialize(bolt_key)
       @key = bolt_key
+      @paths = []
+      (Lightning.config[:bolts][@key] || {}).each do |k,v|
+        instance_variable_set("@#{k}", v)
+      end
     end
     
     def completions
@@ -25,10 +29,6 @@ class Lightning
       #   basename = basename[/#{regex}/]
       # end
       completion_map[basename] || ''
-    end
-    
-    def paths
-      @paths ||= Lightning.config[:paths][key] || []
     end
   end
 end

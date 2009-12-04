@@ -15,7 +15,7 @@ class Lightning::ConfigTest < Test::Unit::TestCase
     end
     
     should "have read supported keys" do
-      supported_keys = [:generated_file, :commands, :ignore_paths, :paths, :shell, :complete_regex]
+      supported_keys = [:generated_file, :commands, :ignore_paths, :bolts, :shell, :complete_regex]
       assert_arrays_equal supported_keys, @config.keys 
     end
     
@@ -24,7 +24,7 @@ class Lightning::ConfigTest < Test::Unit::TestCase
     end
     
     should "have a paths key which is a hash" do
-      assert @config[:paths].is_a?(Hash)
+      assert @config[:bolts].is_a?(Hash)
     end
     
     should "have an ignore_paths key which is an array" do

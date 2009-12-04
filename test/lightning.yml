@@ -25,15 +25,17 @@ commands:
          - /Library/Ruby/Site/1.8/**/
          - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/**/
     
-paths: 
+bolts: 
     # to obtain your own paths to your ruby gems:
     # `gem environment path`.split(":").map {|e| e +"/gems/*" }
     gem:
+      paths:
       - /Users/bozo/.gem/ruby/1.8/gems/*
       - /Library/Ruby/Gems/1.8/gems/*
       - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/gems/*
 
     gem_rdoc:
+      paths:
       - /Users/bozo/.gem/ruby/1.8/doc/*
       - /Library/Ruby/Gems/1.8/doc/*
       - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/doc/*
