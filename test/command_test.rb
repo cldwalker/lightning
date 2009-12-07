@@ -13,11 +13,11 @@ class Lightning::CommandTest < Test::Unit::TestCase
     end
 
     test "resolves completion" do
-      assert_equal @completion_map['path1'], @bolt.resolve_completion('path1')
+      assert_equal @completion_map['path1'], @bolt.translate_completion('path1')
     end
 
     test "resolves completion with test flag" do
-      assert_equal @completion_map['path1'], @bolt.resolve_completion('-test path1')
+      assert_equal @completion_map['path1'], @bolt.translate_completion('-test path1')
     end
 
     test "creates completion_map only once" do

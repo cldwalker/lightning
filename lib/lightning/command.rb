@@ -14,7 +14,7 @@ class Lightning
         :aliases=>self['aliases'])
     end
 
-    def resolve_completion(basename)
+    def translate_completion(basename)
       basename = basename.join(" ") if basename.is_a?(Array)
       basename.gsub!(/\s*#{TEST_FLAG}\s*/,'')
       #TODO

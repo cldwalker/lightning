@@ -28,7 +28,7 @@ class Lightning
 
     def translate(command, argv)
       read_config
-      (cmd = commands[command]) ? cmd.resolve_completion(argv) :
+      (cmd = commands[command]) ? cmd.translate_completion(argv) :
         '#Error-no_paths_found_for_this_command'
     end
 
