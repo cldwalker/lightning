@@ -9,7 +9,7 @@ require 'lightning/generator'
 class Lightning
   TEST_FLAG = '-test'
   class<<self
-    attr_accessor :current_command, :config
+    attr_accessor :config
     def config
       @config ||= Config.new
     end
@@ -22,22 +22,14 @@ class Lightning
 
     def complete(command, text_to_complete)
       read_config
-      @current_command = command
-      if (cmd = commands[command]) && cmd['bolt']
-        Completion.complete(text_to_complete, cmd['bolt'])
-      else
+      (cmd = commands[command]) ? Completion.complete(text_to_complete, command) :
         ["#Error: No paths found for this command.", "If this is a bug contact me."]
-      end
     end
 
     def translate(command, argv)
       read_config
-      @current_command = command
-      if (cmd = commands[command]) && cmd['bolt']
-        bolts[cmd['bolt']].resolve_completion(argv)
-      else
+      (cmd = commands[command]) ? cmd.resolve_completion(argv) :
         '#Error-no_paths_found_for_this_command'
-      end
     end
 
     def bolts

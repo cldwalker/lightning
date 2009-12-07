@@ -1,10 +1,10 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-class Lightning::BoltTest < Test::Unit::TestCase
-  context "Bolt" do
+class Lightning::CommandTest < Test::Unit::TestCase
+  context "Command" do
     before(:each) do
       @completion_map = {'path1'=>'/dir/path1','path2'=>'/dir/path2'}
-      @bolt = Lightning::Bolt.new('blah')
+      @bolt = Lightning::Command.new('name'=>'blah', 'paths'=>[])
       @bolt.completion_map.map = @completion_map
     end
     
@@ -25,11 +25,10 @@ class Lightning::BoltTest < Test::Unit::TestCase
     end
   end
   
-  test "Bolt's completion_map sets up alias map with options" do
+  test "Command's completion_map sets up alias map with options" do
     old_config = Lightning.config
-    Lightning.stub!(:current_command, :return=>'blah')
     Lightning.config = Lightning::Config.new({:aliases=>{'path1'=>'/dir1/path1'}, :commands=>[{'name'=>'blah'}], :paths=>{}})
-    @bolt = Lightning::Bolt.new('blah')
+    @bolt = Lightning::Command.new('name'=>'blah', 'paths'=>[])
     assert_equal({'path1'=>'/dir1/path1'}, @bolt.completion_map.alias_map)
     Lightning.config = Lightning::Config.new(old_config)
   end
