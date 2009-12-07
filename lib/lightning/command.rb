@@ -13,7 +13,7 @@ class Lightning
       #create a path entry + key if none exists
       if e['bolt'].nil?
         #extract command in case it has options after it
-        e['map_to'] =~ /\s*(\w+)/
+        e['shell_command'] =~ /\s*(\w+)/
         bolt = command_to_bolt($1, e['name'])
         e['bolt'] = bolt
         Lightning.bolts[bolt].paths = e['paths'] || []
@@ -21,8 +21,8 @@ class Lightning
       e
     end
 
-    def command_to_bolt(map_to_command, new_command)
-      "#{map_to_command}-#{new_command}"
+    def command_to_bolt(shell_command, new_command)
+      "#{shell_command}-#{new_command}"
     end
   end
 end

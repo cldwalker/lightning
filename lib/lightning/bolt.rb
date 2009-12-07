@@ -3,11 +3,11 @@
 class Lightning
   class Bolt
     attr_reader :name
-    attr_accessor :paths, :shell_commands
+    attr_accessor :paths, :commands
     def initialize(name)
       @name = name
       @paths = []
-      @shell_commands = []
+      @commands = []
       (Lightning.config[:bolts][@name] || {}).each do |k,v|
         instance_variable_set("@#{k}", v)
       end
@@ -32,16 +32,18 @@ class Lightning
       # end
       completion_map[basename] || ''
     end
-  end
 
-  def create_command_name(shell_command)
-    "#{shell_command[/^\w+/]}-#{name}"
-  end
+    def create_command_name(shell_command)
+      "#{shell_command[/^\w+/]}-#{name}"
+    end
 
-  def create_commands
-    shell_commands.each do |hash|
-      hash = {'map_to'=>hash, 'bolt'=>name, 'paths'=>paths, 'name'=>create_command_name(hash, name)} unless hash.is_a?(Hash)
-      Command.new(hash)
+    def generate_commands
+      commands.map do |hash|
+        hash = {'shell_command'=>hash, 'name'=>create_command_name(hash)} unless hash.is_a?(Hash)
+        hash['paths'] ||= paths
+        hash['bolt'] ||= name
+        hash
+      end
     end
   end
 end

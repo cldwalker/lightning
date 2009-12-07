@@ -15,11 +15,12 @@ class Lightning
     end
     
     def read_config
-      config[:commands].each do |e|
-        commands[e['name']] = Command.new(e)
-      end
+      create_commands config[:commands]
+      Lightning.config[:bolts].each {|k,v|
+        create_commands bolts[k].generate_commands
+      }
     end
-    
+
     def complete(command, text_to_complete)
       read_config
       @current_command = command
@@ -46,6 +47,10 @@ class Lightning
 
     def commands
       @commands ||= {}
+    end
+
+    def create_commands(hash_array)
+      hash_array.each {|e| commands[e['name']] = Command.new(e) }
     end
   end
 end

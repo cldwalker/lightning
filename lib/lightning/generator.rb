@@ -33,10 +33,10 @@ class Lightning
             fi
             FULL_PATH="`${LBIN_PATH}lightning-translate #{e['name']} $@`#{e['post_path'] if e['post_path']}"
             if [ $1 == '#{Lightning::TEST_FLAG}' ]; then
-              CMD="#{e['map_to']} '$FULL_PATH'#{' '+ e['add_to_command'] if e['add_to_command']}"
+              CMD="#{e['shell_command']} '$FULL_PATH'#{' '+ e['add_to_command'] if e['add_to_command']}"
               echo $CMD
             else
-              #{e['map_to']} "$FULL_PATH"#{' '+ e['add_to_command'] if e['add_to_command']}
+              #{e['shell_command']} "$FULL_PATH"#{' '+ e['add_to_command'] if e['add_to_command']}
             fi
           }
           complete -o default -C "${LBIN_PATH}lightning-complete #{e['name']}" #{e['name']}
