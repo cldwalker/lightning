@@ -5,27 +5,15 @@ ignore_paths:
     - .DS_Store
     - .git
 
-#only oa command is currently used
-commands:
-    - name : oa
-      shell_command : open -a
-      description : open mac applications
+bolts: 
+    app:
+      commands:
+      - name : oa
+        shell_command : open -a
+        description : open mac applications
       paths:
         - /Applications/*.app
         - /Applications/Utilities/*.app
-      
-    - name : gcd
-      shell_command : cd
-      paths: gem
-      
-    - name : rcd
-      shell_command : cd
-      description : ruby core directories
-      paths:
-         - /Library/Ruby/Site/1.8/**/
-         - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/**/
-    
-bolts: 
     # to obtain your own paths to your ruby gems:
     # `gem environment path`.split(":").map {|e| e +"/gems/*" }
     gem:

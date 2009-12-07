@@ -15,7 +15,7 @@ class Lightning::ConfigTest < Test::Unit::TestCase
     end
     
     should "have read supported keys" do
-      supported_keys = [:generated_file, :commands, :ignore_paths, :bolts, :shell, :complete_regex]
+      supported_keys = [:generated_file, :ignore_paths, :bolts, :shell, :complete_regex]
       assert_arrays_equal supported_keys, @config.keys 
     end
     

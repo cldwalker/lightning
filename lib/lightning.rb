@@ -13,9 +13,8 @@ class Lightning
     def config
       @config ||= Config.new
     end
-    
+
     def read_config
-      create_commands config[:commands]
       Lightning.config[:bolts].each {|k,v|
         create_commands bolts[k].generate_commands
       }
@@ -30,7 +29,7 @@ class Lightning
         ["#Error: No paths found for this command.", "If this is a bug contact me."]
       end
     end
-    
+
     def translate(command, argv)
       read_config
       @current_command = command
@@ -40,7 +39,7 @@ class Lightning
         '#Error-no_paths_found_for_this_command'
       end
     end
-    
+
     def bolts
       @bolts ||= Hash.new {|h,k| h[k] = Bolt.new(k) }
     end

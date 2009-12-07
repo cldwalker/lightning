@@ -33,13 +33,19 @@ class Lightning
       completion_map[basename] || ''
     end
 
+    def alias_or_name
+      @alias || @name
+    end
+
     def create_command_name(shell_command)
-      "#{shell_command[/^\w+/]}-#{name}"
+      cmd = shell_command[/\w+/]
+      "#{Lightning.config[:shell_commands][cmd] || cmd}-#{alias_or_name}"
     end
 
     def generate_commands
       commands.map do |hash|
-        hash = {'shell_command'=>hash, 'name'=>create_command_name(hash)} unless hash.is_a?(Hash)
+        hash = {'shell_command'=>hash} unless hash.is_a?(Hash)
+        hash['name'] ||= create_command_name(hash['shell_command'])
         hash['paths'] ||= paths
         hash['bolt'] ||= name
         hash
