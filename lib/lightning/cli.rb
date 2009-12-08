@@ -1,6 +1,26 @@
 class Lightning
   module Cli
     extend self
+    def complete_command(command, comp_line = ENV["COMP_LINE"])
+      if command
+        puts complete(command, comp_line)
+        exit 0
+      else
+        puts "#No command given"
+        exit 1
+      end
+    end
+
+    def translate_command(argv)
+      if argv.size <= 1
+        puts "#Not enough arguments given"
+        exit 1
+      else
+        puts translate(command, argv)
+        exit 0
+      end
+    end
+
     def complete(command, text_to_complete)
       read_config
       (cmd = Lightning.commands[command]) ? Completion.complete(text_to_complete, command) :

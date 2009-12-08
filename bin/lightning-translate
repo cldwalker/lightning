@@ -5,14 +5,4 @@
 
 require File.expand_path(File.join(File.dirname(__FILE__), "..","lib","lightning"))
 
-command = ARGV.shift 
-if command.nil?
-  puts "No command given"
-  exit 1
-end
-if ARGV.empty?
-  puts "No arguments given" 
-  exit 1
-end
-puts Lightning.translate(command, ARGV)
-exit 0
+Lightning::Cli.translate_command ARGV
