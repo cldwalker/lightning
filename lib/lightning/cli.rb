@@ -16,7 +16,7 @@ class Lightning
         puts "#Not enough arguments given"
         exit 1
       else
-        puts translate(command, argv)
+        puts translate(argv.shift, argv)
         exit 0
       end
     end

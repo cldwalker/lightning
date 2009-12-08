@@ -2,7 +2,7 @@ module Commands
   def self.included(mod)
     require 'local_gem'
     LocalGem.local_require 'lightning'
-    Lightning.read_config
+    Lightning::Cli.read_config
   end
 
   # @render_options :fields=>[:name, :alias_or_name, :paths], :filters=>{:default=>{:paths=>:inspect}}

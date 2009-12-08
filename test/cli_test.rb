@@ -38,13 +38,13 @@ class Lightning
     end
   
     context "Shell Commands" do
-      # test "complete() returns correctly for valid command" do
-      #   Completion.stub!(:complete, :return=>'blah')
-      #   assert_equal 'blah', Cli.complete('oa', 'blah')
-      # end
+      test "complete() returns correctly for valid command" do
+        stub(Completion).complete { 'blah' }
+        assert_equal 'blah', Cli.complete('oa', 'blah')
+      end
 
       test "complete prints error for no command" do
-        Cli.stub!(:exit)
+        mock(Cli).exit(1)
         capture_stdout { Cli.complete_command(nil) }.should =~ /#No command given/
       end
 
@@ -57,12 +57,12 @@ class Lightning
       end
 
       test "translate prints error for no command" do
-        Cli.stub!(:exit)
+        mock(Cli).exit(1)
         capture_stdout { Cli.translate_command([]) }.should =~ /#Not enough arg/
       end
 
       test "translate prints error for one command" do
-        Cli.stub!(:exit)
+        mock(Cli).exit(1)
         capture_stdout { Cli.translate_command(['one']) }.should =~ /#Not enough arg/
       end
 

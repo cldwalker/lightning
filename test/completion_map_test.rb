@@ -4,7 +4,7 @@ class Lightning::CompletionMapTest < Test::Unit::TestCase
 
   context "CompletionMap" do    
     def create_map(path_hash, new_options={})
-      Dir.stub!(:glob) { path_hash.values }
+      stub(Dir).glob { path_hash.values }
       @completion_map = Lightning::CompletionMap.new('blah', new_options)
     end
     
@@ -15,7 +15,7 @@ class Lightning::CompletionMapTest < Test::Unit::TestCase
     end
     
     test "ignores paths from Lightning.ignore_paths" do
-      Lightning::CompletionMap.stub!(:ignore_paths, :return=>['path1'])
+      mock(Lightning::CompletionMap).ignore_paths { ['path1'] }
       expected_map = {"path1"=>"/dir1/path1", "path2"=>"/dir1/path2"}
       create_map(expected_map)
       assert_equal expected_map.slice('path2'), @completion_map.map

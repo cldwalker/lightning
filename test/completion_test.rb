@@ -4,7 +4,7 @@ class Lightning::CompletionTest < Test::Unit::TestCase
   context "Completion" do
     before(:each) {
       @key = 'blah'; 
-      Lightning.commands[@key].stub!(:completions, :return=>%w{at ap blah})
+      mock(Lightning.commands[@key]).completions { %w{at ap blah} }
       Lightning.config[:complete_regex] = true
     }
     test "from script matches" do
