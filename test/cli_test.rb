@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-class LightningTest < Test::Unit::TestCase
+class Lightning::CliTest < Test::Unit::TestCase
   context "Generator" do
     before(:all) do
       @config_file =  File.dirname(__FILE__) + '/lightning_completions'
@@ -36,22 +36,22 @@ class LightningTest < Test::Unit::TestCase
     end
   end
   
-  context "Lightning" do
-    test "complete() returns correctly for valid command" do
-      Lightning::Completion.stub!(:complete, :return=>'blah')
-      assert_equal 'blah', Lightning.complete('oa', 'blah')
-    end
+  context "Shell Commands" do
+    # test "complete() returns correctly for valid command" do
+    #   Lightning::Completion.stub!(:complete, :return=>'blah')
+    #   assert_equal 'blah', Lightning::Cli.complete('oa', 'blah')
+    # end
   
     test "complete() reports error for invalid command" do
-      assert ! Lightning.complete('invalid','invalid').grep(/Error/).empty?
+      assert ! Lightning::Cli.complete('invalid','invalid').grep(/Error/).empty?
     end
   
     test "translate() returns errorless for valid command" do
-      assert Lightning.translate('oa', 'blah').grep(/Error/).empty?
+      assert Lightning::Cli.translate('oa', 'blah').grep(/Error/).empty?
     end
     
     test "translate() reports error for invalid command" do
-      assert ! Lightning.translate('invalid', 'blah').grep(/Error/).empty?
+      assert ! Lightning::Cli.translate('invalid', 'blah').grep(/Error/).empty?
     end
   end
 end
