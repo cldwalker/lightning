@@ -1,7 +1,7 @@
 class Lightning
   module Cli
     extend self
-    def complete_command(command, comp_line = ENV["COMP_LINE"])
+    def complete_command(command, comp_line = ENV["COMP_LINE"] || ARGV.join(' '))
       if command
         puts complete(command, comp_line)
         exit 0

@@ -38,6 +38,13 @@ class Lightning
     end
   
     context "Shell Commands:" do
+      test "complete defaults to ARGV if no ENV['COMP_LINE']" do
+        ARGV.replace(['o-a', 'Col'])
+        mock(Cli).exit(0)
+        mock(Cli).complete('o-a', 'o-a Col')
+        capture_stdout { Cli.complete_command('o-a') }
+      end
+
       test "complete prints error for no command" do
         mock(Cli).exit(1)
         capture_stdout { Cli.complete_command(nil) }.should =~ /#No command given/
