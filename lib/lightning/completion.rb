@@ -12,19 +12,21 @@ class Lightning
     end
   
     def matches
+      get_matches.map {|e| Util.shellescape(e) }
+    rescue RegexpError
+      ['#Error: Invalid regular expression']
+    end
+
+    def get_matches
       if Lightning.config[:complete_regex]
-        begin 
           possible_completions.grep(/^#{blob_to_regex(typed)}/)
-        rescue RegexpError
-          ['#Error: Invalid regular expression']
-        end
       else
         possible_completions.select do |e|
           e[0, typed.length] == typed
         end
       end
     end
-    
+
     #just converts * to .*  to make a glob-like regex
     def blob_to_regex(string)
       string.gsub(/^\*|([^\.])\*/) {|e| $1 ? $1 + ".*" : ".*" }
@@ -38,6 +40,6 @@ class Lightning
   
     def possible_completions
       @command.completions
-    end    
+    end
   end
 end

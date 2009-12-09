@@ -6,6 +6,7 @@ require 'lightning/config'
 require 'lightning/command'
 require 'lightning/completion_map'
 require 'lightning/generator'
+require 'lightning/util'
 
 class Lightning
   TEST_FLAG = '-test'
