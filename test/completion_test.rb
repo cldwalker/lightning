@@ -20,8 +20,8 @@ class Lightning
         tab 'a', %w{at ap}
       end
     
-      test "for word and space matches" do
-        tab 'a ', %w{at ap}
+      test "ending with space matches everything" do
+        tab 'a ', ["at", "ap", "blah", "has\\ space"]
       end
     
       test "with test flag matches" do
@@ -37,8 +37,12 @@ class Lightning
           tab '[ab]*', %w{at ap blah}, true
         end
 
-        test "and completion with space matches" do
+        test "with space matches" do
           tab 'has', ['has\\ space']
+        end
+
+        test "with typed space matches" do
+          tab 'has\\ ', ['has\\ space']
         end
 
         test "which is invalid errors gracefully" do

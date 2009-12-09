@@ -1,3 +1,5 @@
+require 'shellwords'
+
 # derived from http://github.com/ryanb/dotfiles/tree/master/bash/completion_scripts/project_completion
 #This class handles completions given the text already typed and a command name.
 class Lightning
@@ -31,11 +33,10 @@ class Lightning
     def blob_to_regex(string)
       string.gsub(/^\*|([^\.])\*/) {|e| $1 ? $1 + ".*" : ".*" }
     end
-  
+
     def typed
-      # @text_typed[/\s(.+?)$/, 1] || ''
-      text = @text_typed[/^(\S+)\s+(#{Lightning::TEST_FLAG})?\s*(.+?)$/, 3] || ''
-      text.strip
+      args = Shellwords.shellwords(@text_typed)
+      !args[-1][/\s+/] && @text_typed[/\s+$/] ? '' : args[-1]
     end
   
     def possible_completions

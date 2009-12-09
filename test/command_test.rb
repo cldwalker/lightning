@@ -25,8 +25,8 @@ class Lightning
         translate '-test path1', @cmd.completion_map['path1']
       end
 
-      test "translates no completion to empty string" do
-        translate 'blah', ''
+      test "translates non-matching completion to same string" do
+        translate 'blah', 'blah'
       end
 
       test "translates alias" do

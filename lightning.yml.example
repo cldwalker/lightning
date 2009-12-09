@@ -10,15 +10,25 @@ bolts:
     app:
       alias: a
       commands:
-      - open -a
+      - shell_command: open -a
+        name: oa
       paths:
         - /Applications/*.app
         - /Applications/Utilities/*.app
+    ruby19_files:
+      alias: r9
+      commands:
+      - vim
+      - mate
+      - less
+      paths:
+      - /Users/bozo/.rvm/ruby-1.9.1-p243/lib/ruby/**/*.{rb,bundle,so,c}
     ruby_files:
       alias: r
       commands:
       - vim
       - mate
+      - less
       paths: 
       #picked from $LOAD_PATH
       - /Library/Ruby/Site/1.8/**/*.{rb,bundle,so}
@@ -39,6 +49,7 @@ bolts:
         - bin/**
       commands:
       - vim
+      - less
     code:
       alias: c
       commands:
@@ -84,13 +95,14 @@ bolts:
         shell_command : echo -n
         add_to_command: |pbcopy
       - mate
+      - grep
       - shell_command : cd
         aliases:
           g1: /Library/Ruby/Gems/1.8/gems
           g2: /Users/bozo/.gem/ruby/1.8/gems
           g3: /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/gems
     gem_rdoc:
-      alias: gr
+      alias: gd
       paths:
       - /Users/bozo/.gem/ruby/1.8/doc/*
       - /Library/Ruby/Gems/1.8/doc/*
@@ -108,3 +120,5 @@ shell_commands:
   mate: m
   vim: v
   open: o
+  less: l
+  grep: g

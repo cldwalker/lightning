@@ -14,14 +14,10 @@ class Lightning
         :aliases=>self['aliases'])
     end
 
-    def translate_completion(basename)
-      basename = basename.join(" ") if basename.is_a?(Array)
-      basename.gsub!(/\s*#{TEST_FLAG}\s*/,'')
-      #TODO
-      # if (regex = self['completion_regex'])
-      #   basename = basename[/#{regex}/]
-      # end
-      completion_map[basename] || ''
+    def translate_completion(args)
+      args = Array(args)
+      args.shift if args[0] == Lightning::TEST_FLAG
+      args.map {|e| completion_map[e] || e }.join(' ')
     end
   end
 end
