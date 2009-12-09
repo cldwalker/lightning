@@ -1,35 +1,39 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-class Lightning::CommandTest < Test::Unit::TestCase
-  context "Command" do
-    before(:each) do
-      @completion_map = {'path1'=>'/dir/path1','path2'=>'/dir/path2'}
-      @bolt = Lightning::Command.new('name'=>'blah', 'paths'=>[])
-      @bolt.completion_map.map = @completion_map
-    end
-    
-    test "fetches correct completions" do
-      assert_equal @bolt.completions, @completion_map.keys
-    end
+class Lightning
+  class CommandTest < Test::Unit::TestCase
+    context "Command" do
+      before(:each) do
+        @cmd = Command.new('name'=>'blah', 'paths'=>[])
+        @cmd.completion_map.map = {'path1'=>'/dir/path1','path2'=>'/dir/path2'}
+      end
 
-    test "resolves completion" do
-      assert_equal @completion_map['path1'], @bolt.translate_completion('path1')
-    end
+      def translate(input, expected)
+        Lightning.commands['blah'] = @cmd
+        mock(Cli).exit(0)
+        mock(Cli).puts(expected)
+        Cli.translate_command ['blah'] + input.split(' ')
+      end
 
-    test "resolves completion with test flag" do
-      assert_equal @completion_map['path1'], @bolt.translate_completion('-test path1')
-    end
+      test "translates completion" do
+        translate 'path1', @cmd.completion_map['path1']
+      end
 
-    test "creates completion_map only once" do
-      assert_equal @bolt.completion_map.object_id, @bolt.completion_map.object_id
+      test "translates completion with test flag" do
+        translate '-test path1', @cmd.completion_map['path1']
+      end
+
+      test "translates no completion to empty string" do
+        translate 'blah', ''
+      end
     end
-  end
   
-  test "Command's completion_map sets up alias map with options" do
-    old_config = Lightning.config
-    Lightning.config = Lightning::Config.new({:aliases=>{'path1'=>'/dir1/path1'}, :commands=>[{'name'=>'blah'}], :paths=>{}})
-    @bolt = Lightning::Command.new('name'=>'blah', 'paths'=>[])
-    assert_equal({'path1'=>'/dir1/path1'}, @bolt.completion_map.alias_map)
-    Lightning.config = Lightning::Config.new(old_config)
+    test "Command's completion_map sets up alias map with options" do
+      old_config = Lightning.config
+      Lightning.config = Config.new({:aliases=>{'path1'=>'/dir1/path1'}, :commands=>[{'name'=>'blah'}], :paths=>{}})
+      @cmd = Command.new('name'=>'blah', 'paths'=>[])
+      assert_equal({'path1'=>'/dir1/path1'}, @cmd.completion_map.alias_map)
+      Lightning.config = Config.new(old_config)
+    end
   end
 end
