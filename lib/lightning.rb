@@ -1,4 +1,4 @@
-$:.unshift(File.dirname(__FILE__)) unless $:.include?(File.dirname(__FILE__))
+$:.unshift(File.dirname(__FILE__)) unless $:.include? File.expand_path(File.dirname(__FILE__))
 require 'lightning/bolt'
 require 'lightning/cli'
 require 'lightning/completion'
