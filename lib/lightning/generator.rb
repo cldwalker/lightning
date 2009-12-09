@@ -1,7 +1,8 @@
 #This class generates shell scripts from a configuration.
 class Lightning
-  class Generator
-    class<<self
+  module Generator
+    extend self
+
     def generate_completions(generated_file=nil)
       Lightning::Cli.read_config
       generated_file ||= Lightning.config[:generated_file]
@@ -36,14 +37,13 @@ class Lightning
               CMD="#{e['shell_command']} '$FULL_PATH'#{' '+ e['add_to_command'] if e['add_to_command']}"
               echo $CMD
             else
-              #{e['shell_command']} "$FULL_PATH"#{' '+ e['add_to_command'] if e['add_to_command']}
+              #{e['shell_command']} $FULL_PATH#{' '+ e['add_to_command'] if e['add_to_command']}
             fi
           }
           complete -o default -C "${LBIN_PATH}lightning-complete #{e['name']}" #{e['name']}
         EOS
       end
       body.gsub(/^\s{6,10}/, '')
-    end
     end
   end
 end
