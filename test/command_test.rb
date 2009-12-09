@@ -3,10 +3,12 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 class Lightning
   class CommandTest < Test::Unit::TestCase
     context "Command" do
-      before(:each) do
-        @cmd = Command.new('name'=>'blah', 'paths'=>[])
+      before(:all) do
+        Lightning.config[:aliases] = {'a2'=>'/dir/a2'}
+        @cmd = Command.new('name'=>'blah', 'paths'=>[], 'aliases'=>{'a1'=>'/dir/a1'})
         @cmd.completion_map.map = {'path1'=>'/dir/path1','path2'=>'/dir/path2'}
       end
+      after(:all) { Lightning.config[:aliases] = []}
 
       def translate(input, expected)
         Lightning.commands['blah'] = @cmd
@@ -26,14 +28,14 @@ class Lightning
       test "translates no completion to empty string" do
         translate 'blah', ''
       end
-    end
-  
-    test "Command's completion_map sets up alias map with options" do
-      old_config = Lightning.config
-      Lightning.config = Config.new({:aliases=>{'path1'=>'/dir1/path1'}, :commands=>[{'name'=>'blah'}], :paths=>{}})
-      @cmd = Command.new('name'=>'blah', 'paths'=>[])
-      assert_equal({'path1'=>'/dir1/path1'}, @cmd.completion_map.alias_map)
-      Lightning.config = Config.new(old_config)
+
+      test "translates alias" do
+        translate 'a1', @cmd.completion_map['a1']
+      end
+
+      test "translates global alias" do
+        translate 'a2', @cmd.completion_map['a2']
+      end
     end
   end
 end
