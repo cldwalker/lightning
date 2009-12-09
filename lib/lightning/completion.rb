@@ -14,7 +14,7 @@ class Lightning
     def matches
       if Lightning.config[:complete_regex]
         begin 
-          possible_completions.grep(/#{blob_to_regex(typed)}/)
+          possible_completions.grep(/^#{blob_to_regex(typed)}/)
         rescue RegexpError
           ['#Error: Invalid regular expression']
         end
@@ -37,7 +37,7 @@ class Lightning
     end
   
     def possible_completions
-      Lightning.commands[@command].completions
+      @command.completions
     end    
   end
 end

@@ -1,49 +1,55 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-class Lightning::CompletionTest < Test::Unit::TestCase
+class Lightning
+  class CompletionTest < Test::Unit::TestCase
   context "Completion" do
     before(:each) {
-      @key = 'blah'; 
-      mock(Lightning.commands[@key]).completions { %w{at ap blah} }
-      Lightning.config[:complete_regex] = true
+      stub(Cli).exit(0)
+      @command = 'blah';
+      mock(cmd = Object.new).completions { %w{at ap blah} }
+      Lightning.commands[@command] = cmd
     }
+    def tab(input, expected, complete_regex=false)
+      Lightning.config[:complete_regex] = complete_regex
+      mock(Cli).puts(expected)
+      Cli.complete_command @command, input
+    end
+
     test "from script matches" do
-      Lightning.config[:complete_regex] = false
-      assert_arrays_equal %w{at ap}, Lightning::Completion.complete('cd-test a', @key)
+      tab 'cd-test a', %w{at ap}
     end
     
-    test "for basic case matches" do
-      Lightning.config[:complete_regex] = false
-      @completion = Lightning::Completion.new('cd-test a', @key)
-      assert_arrays_equal %w{at ap}, @completion.matches
+    test "for word with a space matches" do
+      tab 'cd-test a ', %w{at ap}
     end
     
     test "with test flag matches" do
-      Lightning.config[:complete_regex] = false
-      @completion = Lightning::Completion.new('cd-test -test a', @key)
-      assert_arrays_equal %w{at ap}, @completion.matches
+      tab 'cd-test -test a', %w{at ap}
     end
+
+    context "with a regex" do
+      test "matches starting letters" do
+        tab 'cd-test a', %w{at ap}, true
+      end
+
+      test "and asterisk matches" do
+        tab 'cd-test *', %w{at ap blah}, true
+      end
     
-    test "with complete_regex on matches" do
-      Lightning.config[:complete_regex] = true
-      @completion = Lightning::Completion.new('cd-test *', @key)
-      assert_arrays_equal %w{at ap blah}, @completion.matches
-    end
-    
-    test "with invalid regex is rescued" do
-      Lightning.config[:complete_regex] = true
-      @completion = Lightning::Completion.new('cd-test []', @key)
-      assert !@completion.matches.grep(/Error/).empty?
+      test "which is invalid errors gracefully" do
+        tab 'cd-test []', ['#Error: Invalid regular expression'], true
+      end
     end
   end
   
   test "blob_to_regex converts * to .*" do
-    @lc = Lightning::Completion.new('blah', @key)
+    @lc = Completion.new('blah', @key)
     assert_equal '.*a.*blah', @lc.blob_to_regex('*a*blah')
   end
   
   test "blob_to_regex doesn't modify .*" do
-    @lc = Lightning::Completion.new('blah', @key)
+    @lc = Completion.new('blah', @key)
     assert_equal '.*blah.*', @lc.blob_to_regex('.*blah.*')
+  end
   end
 end

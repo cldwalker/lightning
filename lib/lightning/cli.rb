@@ -23,8 +23,8 @@ class Lightning
 
     def complete(command, text_to_complete)
       read_config
-      (cmd = Lightning.commands[command]) ? Completion.complete(text_to_complete, command) :
-        ["#Error: No paths found for this command.", "If this is a bug contact me."]
+      (cmd = Lightning.commands[command]) ? Completion.complete(text_to_complete, cmd) :
+        ["#Error: No paths found for this command."]
     end
 
     def translate(command, argv)

@@ -37,22 +37,19 @@ class Lightning
       end
     end
   
-    context "Shell Commands" do
-      test "complete() returns correctly for valid command" do
-        stub(Completion).complete { 'blah' }
-        assert_equal 'blah', Cli.complete('oa', 'blah')
-      end
-
+    context "Shell Commands:" do
       test "complete prints error for no command" do
         mock(Cli).exit(1)
         capture_stdout { Cli.complete_command(nil) }.should =~ /#No command given/
       end
 
-      test "complete() reports error for invalid command" do
-        assert ! Cli.complete('invalid','invalid').grep(/Error/).empty?
+      test "complete reports error for invalid command" do
+        mock(Cli).exit(0)
+        mock(Cli).puts(["#Error: No paths found for this command."])
+        Cli.complete_command('invalid','invalid')
       end
   
-      test "translate() returns errorless for valid command" do
+      test "translate returns errorless for valid command" do
         assert Cli.translate('oa', 'blah').grep(/Error/).empty?
       end
 
