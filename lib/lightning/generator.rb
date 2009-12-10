@@ -32,12 +32,12 @@ class Lightning
               echo "No arguments given"
               return
             fi
-            FULL_PATH="`${LBIN_PATH}lightning-translate #{e['name']} $@`#{e['post_path'] if e['post_path']}"
+            FULL_PATH="`${LBIN_PATH}lightning-translate #{e['name']} $@`"
             if [ $1 == '#{Lightning::TEST_FLAG}' ]; then
-              CMD="#{e['shell_command']} '$FULL_PATH'#{' '+ e['add_to_command'] if e['add_to_command']}"
+              CMD="#{e['shell_command']} '$FULL_PATH'"
               echo $CMD
             else
-              #{e['shell_command']} $FULL_PATH#{' '+ e['add_to_command'] if e['add_to_command']}
+              #{e['shell_command']} $FULL_PATH
             fi
           }
           complete -o default -C "${LBIN_PATH}lightning-complete #{e['name']}" #{e['name']}

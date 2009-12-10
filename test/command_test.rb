@@ -2,22 +2,25 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 
 class Lightning
   class CommandTest < Test::Unit::TestCase
+    def create_command(attributes)
+      @cmd = Command.new({'name'=>'blah', 'paths'=>[]}.merge(attributes))
+      @cmd.completion_map.map = {'path1'=>'/dir/path1','path2'=>'/dir/path2','path3'=>'/dir/path3'}
+    end
+
+    def translate(input, expected)
+      Lightning.commands['blah'] = @cmd
+      mock(Cli).exit(0)
+      mock(Cli).puts(expected)
+      Cli.translate_command ['blah'] + input.split(' ')
+    end
+
     context "Command" do
       before(:all) do
         Lightning.config[:aliases] = {'g2'=>'/dir/g2', 'a2'=>'/dir/g2'}
-        @cmd = Command.new('name'=>'blah', 'paths'=>[], 'aliases'=>
-          {'a1'=>'/dir/a1', 'a2'=>'/dir/a2', 'path3'=>'/dir/a3'})
-        @cmd.completion_map.map = {'path1'=>'/dir/path1','path2'=>'/dir/path2','path3'=>'/dir/path3'}
+        create_command('aliases'=>{'a1'=>'/dir/a1', 'a2'=>'/dir/a2', 'path3'=>'/dir/a3'})
         @map = @cmd.completion_map
       end
-      after(:all) { Lightning.config[:aliases] = []}
-
-      def translate(input, expected)
-        Lightning.commands['blah'] = @cmd
-        mock(Cli).exit(0)
-        mock(Cli).puts(expected)
-        Cli.translate_command ['blah'] + input.split(' ')
-      end
+      after(:all) { Lightning.config[:aliases] = {}}
 
       test "has correct completions" do
         assert_arrays_equal %w{a1 a2 g2 path1 path2 path3}, @cmd.completions
@@ -58,6 +61,18 @@ class Lightning
 
       test "translates global alias" do
         translate 'g2', @map['g2']
+      end
+    end
+
+    context "command attributes:" do
+      test "post_path added after each translation" do
+        create_command 'post_path'=>'/rdoc/index.html'
+        translate '-r path1 path2', '-r /dir/path1/rdoc/index.html /dir/path2/rdoc/index.html'
+      end
+
+      test "add_to_command added after whole translation" do
+        create_command 'add_to_command'=>'| pbcopy'
+        translate '-r path1', '-r /dir/path1| pbcopy'
       end
     end
   end

@@ -17,7 +17,12 @@ class Lightning
     def translate_completion(args)
       args = Array(args)
       args.shift if args[0] == Lightning::TEST_FLAG
-      args.map {|e| completion_map[e] || e }.join(' ')
+      translated = args.map {|e|
+        new_val = completion_map[e] || e
+        new_val += self['post_path'] if self['post_path'] && new_val != e
+        new_val
+      }.join(' ')
+      self['add_to_command'] ? translated + self['add_to_command'] : translated
     end
   end
 end
