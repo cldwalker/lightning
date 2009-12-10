@@ -26,11 +26,9 @@ class Test::Unit::TestCase
     end
     fake.string
   end
-end
 
-#from ActiveSupport
-class Hash
-  def slice(*keys)
-    reject { |key,| !keys.include?(key) }
+  # from ActiveSupport
+  def slice_hash(*keys)
+    keys.shift.reject { |key,| !keys.include?(key) }
   end
 end

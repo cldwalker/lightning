@@ -4,9 +4,10 @@ class Lightning
   class CommandTest < Test::Unit::TestCase
     context "Command" do
       before(:all) do
-        Lightning.config[:aliases] = {'a2'=>'/dir/a2'}
-        @cmd = Command.new('name'=>'blah', 'paths'=>[], 'aliases'=>{'a1'=>'/dir/a1'})
-        @cmd.completion_map.map = {'path1'=>'/dir/path1','path2'=>'/dir/path2'}
+        Lightning.config[:aliases] = {'g2'=>'/dir/g2', 'a2'=>'/dir/g2'}
+        @cmd = Command.new('name'=>'blah', 'paths'=>[], 'aliases'=>
+          {'a1'=>'/dir/a1', 'a2'=>'/dir/a2', 'path3'=>'/dir/a3'})
+        @cmd.completion_map.map = {'path1'=>'/dir/path1','path2'=>'/dir/path2','path3'=>'/dir/path3'}
         @map = @cmd.completion_map
       end
       after(:all) { Lightning.config[:aliases] = []}
@@ -16,6 +17,10 @@ class Lightning
         mock(Cli).exit(0)
         mock(Cli).puts(expected)
         Cli.translate_command ['blah'] + input.split(' ')
+      end
+
+      test "has correct completions" do
+        assert_arrays_equal %w{a1 a2 g2 path1 path2 path3}, @cmd.completions
       end
 
       test "translates a completion" do
@@ -39,12 +44,20 @@ class Lightning
         translate '-r path1 doc/', "-r #{@map['path1']} doc/"
       end
 
+      test "translates completion over alias" do
+        translate 'path3', '/dir/path3'
+      end
+
+      test "translates alias over global alias" do
+        translate 'a2', '/dir/a2'
+      end
+
       test "translates alias" do
         translate 'a1', @map['a1']
       end
 
       test "translates global alias" do
-        translate 'a2', @map['a2']
+        translate 'g2', @map['g2']
       end
     end
   end
