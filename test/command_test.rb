@@ -30,10 +30,6 @@ class Lightning
         translate 'path1', @map['path1']
       end
 
-      test "translates a completion with test flag" do
-        translate '-test path1', @map['path1']
-      end
-
       test "translates multiple completions" do
         translate 'path1 path2', @map['path1'] + ' '+ @map['path2']
       end

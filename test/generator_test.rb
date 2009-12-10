@@ -19,17 +19,7 @@ class Lightning
         generated_command = <<-EOS.gsub(/^\s{8}/,'')
         #open mac applications
         oa () {
-          if [ -z "$1" ]; then
-            echo "No arguments given"
-            return
-          fi
-          FULL_PATH="`${LBIN_PATH}lightning-translate oa $@`"
-          if [ $1 == '-test' ]; then
-            CMD="open -a '$FULL_PATH'"
-            echo $CMD
-          else
-            open -a $FULL_PATH
-          fi
+          open -a `${LBIN_PATH}lightning-translate oa $@`
         }
         complete -o default -C "${LBIN_PATH}lightning-complete oa" oa
         EOS

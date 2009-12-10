@@ -9,7 +9,6 @@ require 'lightning/generator'
 require 'lightning/util'
 
 class Lightning
-  TEST_FLAG = '-test'
   class<<self
     attr_accessor :config
     def config

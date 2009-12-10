@@ -15,9 +15,7 @@ class Lightning
     end
 
     def translate_completion(args)
-      args = Array(args)
-      args.shift if args[0] == Lightning::TEST_FLAG
-      translated = args.map {|e|
+      translated = Array(args).map {|e|
         new_val = completion_map[e] || e
         new_val += self['post_path'] if self['post_path'] && new_val != e
         new_val

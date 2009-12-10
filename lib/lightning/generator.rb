@@ -28,17 +28,7 @@ class Lightning
           
           #{'#' + e['description'] if e['description']}
           #{e['name']} () {
-            if [ -z "$1" ]; then
-              echo "No arguments given"
-              return
-            fi
-            FULL_PATH="`${LBIN_PATH}lightning-translate #{e['name']} $@`"
-            if [ $1 == '#{Lightning::TEST_FLAG}' ]; then
-              CMD="#{e['shell_command']} '$FULL_PATH'"
-              echo $CMD
-            else
-              #{e['shell_command']} $FULL_PATH
-            fi
+            #{e['shell_command']} `${LBIN_PATH}lightning-translate #{e['name']} $@`
           }
           complete -o default -C "${LBIN_PATH}lightning-complete #{e['name']}" #{e['name']}
         EOS
