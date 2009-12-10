@@ -5,26 +5,25 @@ class Lightning
     context "Generator" do
       before(:all) do
         Lightning.instance_eval "@commands = {}" #reset because of mocks
-        @config_file =  File.dirname(__FILE__) + '/lightning_completions'
-        Generator.generate_completions @config_file
+        @source_file =  File.dirname(__FILE__) + '/lightning_completions'
+        Generator.run @source_file
       end
-      after(:all) {  FileUtils.rm_f(@config_file) }
+      # after(:all) {  FileUtils.rm_f(@source_file) }
     
       test "generates file in expected location" do
-        assert File.exists?(@config_file)
+        assert File.exists?(@source_file)
       end
 
-      #this depends on oa 
+      # depends on test/lightning.yml
       test "generates expected output for a command" do
-        generated_command = <<-EOS.gsub(/^\s{8}/,'')
+        expected = <<-EOS.gsub(/^\s{8}/,'')
         #open mac applications
         oa () {
           open -a `${LBIN_PATH}lightning-translate oa $@`
         }
         complete -o default -C "${LBIN_PATH}lightning-complete oa" oa
         EOS
-        output = File.read(@config_file)
-        assert output.include?(generated_command)
+        assert_equal Generator::HEADER + "\n\n"+ expected, File.read(@source_file)
       end
     end
   end
