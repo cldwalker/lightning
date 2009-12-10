@@ -1,7 +1,7 @@
 ---
 generated_file: lightning_completions
 
-ignore_paths:
+ignore_basenames:
     - .DS_Store
     - .git
 

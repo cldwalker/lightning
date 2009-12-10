@@ -14,8 +14,8 @@ class Lightning::CompletionMapTest < Test::Unit::TestCase
       assert_equal expected_map, @completion_map.map
     end
     
-    test "ignores paths from Lightning.ignore_paths" do
-      Lightning::CompletionMap.ignore_paths = ['path1']
+    test "ignores paths from Lightning.ignore_basenames" do
+      Lightning::CompletionMap.ignore_basenames = ['path1']
       expected_map = {"path1"=>"/dir1/path1", "path2"=>"/dir1/path2"}
       create_map(expected_map)
       assert_equal slice_hash(expected_map, 'path2'), @completion_map.map
