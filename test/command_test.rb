@@ -7,6 +7,7 @@ class Lightning
         Lightning.config[:aliases] = {'a2'=>'/dir/a2'}
         @cmd = Command.new('name'=>'blah', 'paths'=>[], 'aliases'=>{'a1'=>'/dir/a1'})
         @cmd.completion_map.map = {'path1'=>'/dir/path1','path2'=>'/dir/path2'}
+        @map = @cmd.completion_map
       end
       after(:all) { Lightning.config[:aliases] = []}
 
@@ -17,24 +18,33 @@ class Lightning
         Cli.translate_command ['blah'] + input.split(' ')
       end
 
-      test "translates completion" do
-        translate 'path1', @cmd.completion_map['path1']
+      test "translates a completion" do
+        translate 'path1', @map['path1']
       end
 
-      test "translates completion with test flag" do
-        translate '-test path1', @cmd.completion_map['path1']
+      test "translates a completion with test flag" do
+        translate '-test path1', @map['path1']
       end
 
-      test "translates non-matching completion to same string" do
+      test "translates multiple completions" do
+        translate 'path1 path2', @map['path1'] + ' '+ @map['path2']
+      end
+
+      test "translates non-completion to same string" do
         translate 'blah', 'blah'
       end
 
+      test "translates completion anywhere amongst non-completions" do
+        translate '-r path1', "-r #{@map['path1']}"
+        translate '-r path1 doc/', "-r #{@map['path1']} doc/"
+      end
+
       test "translates alias" do
-        translate 'a1', @cmd.completion_map['a1']
+        translate 'a1', @map['a1']
       end
 
       test "translates global alias" do
-        translate 'a2', @cmd.completion_map['a2']
+        translate 'a2', @map['a2']
       end
     end
   end

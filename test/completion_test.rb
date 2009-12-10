@@ -28,6 +28,22 @@ class Lightning
         tab '-test a', %w{at ap}
       end
 
+      test "has no matches" do
+        tab '-r', []
+      end
+
+      test "with multiple words matches last word" do
+        tab '-r b', ['blah']
+      end
+
+      test "with multiple words matches quoted last word" do
+        tab '-r "b"', ['blah']
+      end
+
+      test "with multiple words matches shell escaped last word" do
+        tab 'lib has\\ ', ['has\\ space']
+      end
+
       context "with a regex" do
         test "matches starting letters" do
           tab 'a', %w{at ap}, true
