@@ -1,6 +1,7 @@
 class Lightning
   class Command
-    attr_accessor :name, :paths, :aliases, :post_path, :add_to_command, :desc, :shell_command
+    ATTRIBUTES = :name, :paths, :aliases, :post_path, :add_to_command, :desc, :shell_command, :bolt
+    attr_accessor *ATTRIBUTES
     def initialize(hash)
       raise ArgumentError, "Command must have a name" unless hash['name']
       hash.each do |k,v|
