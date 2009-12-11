@@ -1,5 +1,4 @@
-# A bolt is a group of globbable paths referenced by a name. A bolt can resolve completions
-# for its paths by using a CompletionMap.
+# A bolt is a group of globbable paths referenced by a name.
 class Lightning
   class Bolt
     attr_reader :name

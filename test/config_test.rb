@@ -5,25 +5,21 @@ class Lightning::ConfigTest < Test::Unit::TestCase
     before(:all) {
       @config = Lightning::Config.new
     }
-    
-    should "be a hash" do
-      assert @config.is_a?(Hash)
-    end
-    
+
     should "have keys that are symbols" do
       assert @config.keys.all? {|e| e.is_a?(Symbol)}
     end
     
     should "have read supported keys" do
       supported_keys = [:generated_file, :ignore_basenames, :bolts, :complete_regex]
-      assert_arrays_equal supported_keys, @config.keys 
+      assert supported_keys.all? {|e| @config.key?(e) }
     end
     
     should "have a generated_file key which is a string" do
       assert @config[:generated_file].is_a?(String)
     end
     
-    should "have a paths key which is a hash" do
+    should "have a bolts key which is a hash" do
       assert @config[:bolts].is_a?(Hash)
     end
     

@@ -23,7 +23,7 @@ class Lightning
         }
         complete -o default -C "${LBIN_PATH}lightning-complete oa" oa
         EOS
-        assert_equal Generator::HEADER + "\n\n"+ expected, File.read(@source_file)
+        assert File.read(@source_file).include?(expected)
       end
     end
   end
