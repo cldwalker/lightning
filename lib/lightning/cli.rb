@@ -21,6 +21,11 @@ class Lightning
       end
     end
 
+    def generate_command(argv=ARGV)
+      Generator.can_generate? ? Generator.run(argv[0]) :
+        puts("No generator exists for #{Generator.shell} shell")
+    end
+
     def complete(command, text_to_complete)
       read_config
       (cmd = Lightning.commands[command]) ? Completion.complete(text_to_complete, cmd) :

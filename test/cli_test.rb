@@ -35,6 +35,12 @@ class Lightning
         mock(Cli).exit(0)
         capture_stdout { Cli.translate_command(%w{invalid blah}) }.should =~ /#Error/
       end
+
+      test "generator prints error when unable to generate" do
+        Lightning.config[:shell] = 'blah'
+        capture_stdout { Cli.generate_command }.should =~ /No.*exists.*blah shell/
+        Lightning.config[:shell] = nil
+      end
     end
   end
 end

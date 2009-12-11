@@ -6,9 +6,9 @@ class Lightning
       before(:all) do
         Lightning.instance_eval "@commands = {}" #reset because of mocks
         @source_file =  File.dirname(__FILE__) + '/lightning_completions'
-        Generator.run @source_file
+        Cli.generate_command [@source_file]
       end
-      # after(:all) {  FileUtils.rm_f(@source_file) }
+      after(:all) {  FileUtils.rm_f(@source_file) }
     
       test "generates file in expected location" do
         assert File.exists?(@source_file)

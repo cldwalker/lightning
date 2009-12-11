@@ -9,15 +9,23 @@ class Lightning
     LBIN_PATH=""
     INIT
 
-    def run(generated_file=nil)
-      Cli.read_config
+    def can_generate?
+      respond_to? "#{shell}_generator"
+    end
+
+    def shell
+      Lightning.config[:shell] || 'bash'
+    end
+
+    def run(generated_file)
       generated_file ||= Lightning.config[:generated_file]
-      output = generate(Lightning.config[:shell], Lightning.commands.values)
+      Cli.read_config
+      output = generate(Lightning.commands.values)
       File.open(generated_file, 'w'){|f| f.write(output) }
       output
     end
-          
-    def generate(shell, *args)
+
+    def generate(*args)
       HEADER + "\n\n" + send("#{shell}_generator", *args)
     end
     
