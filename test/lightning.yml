@@ -12,7 +12,7 @@ bolts:
       - vim
       - name : oa
         shell_command : open -a
-        description : open mac applications
+        desc : open mac applications
       paths:
         - /Applications/*.app
         - /Applications/Utilities/*.app

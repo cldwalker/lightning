@@ -32,11 +32,11 @@ class Lightning
     def bash_generator(commands)
       commands.map do |e|
         <<-EOS
-          #{'#' + e['description'] if e['description']}
-          #{e['name']} () {
-            #{e['shell_command']} `${LBIN_PATH}lightning-translate #{e['name']} $@`
+          #{'#' + e.desc if e.desc}
+          #{e.name} () {
+            #{e.shell_command} `${LBIN_PATH}lightning-translate #{e.name} $@`
           }
-          complete -o default -C "${LBIN_PATH}lightning-complete #{e['name']}" #{e['name']}
+          complete -o default -C "${LBIN_PATH}lightning-complete #{e.name}" #{e.name}
         EOS
       end.join("\n").gsub(/^\s{6,10}/, '')
     end

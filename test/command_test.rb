@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 class Lightning
   class CommandTest < Test::Unit::TestCase
     def create_command(attributes)
-      @cmd = Command.new({'name'=>'blah', 'paths'=>[]}.merge(attributes))
+      @cmd = Command.new({'name'=>'blah'}.merge(attributes))
       @cmd.completion_map.map = {'path1'=>'/dir/path1','path2'=>'/dir/path2','path3'=>'/dir/path3'}
     end
 
