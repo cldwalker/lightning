@@ -10,9 +10,9 @@ class Lightning
         capture_stdout { Cli.complete_command('o-a') }
       end
 
-      test "complete prints error for no command" do
+      test "complete prints usage for no arguments" do
         mock(Cli).exit(1)
-        capture_stdout { Cli.complete_command(nil) }.should =~ /#No command given/
+        capture_stdout { Cli.complete_command(nil) }.should =~ /^Usage/
       end
 
       test "complete prints error for invalid command" do
@@ -21,14 +21,14 @@ class Lightning
         Cli.complete_command('invalid','invalid')
       end
   
-      test "translate prints error for no command" do
+      test "translate prints usage for no arguments" do
         mock(Cli).exit(1)
-        capture_stdout { Cli.translate_command([]) }.should =~ /#Not enough arg/
+        capture_stdout { Cli.translate_command([]) }.should =~ /^Usage/
       end
 
-      test "translate prints error for one command" do
+      test "translate prints nothing for command with no arguments" do
         mock(Cli).exit(1)
-        capture_stdout { Cli.translate_command(['one']) }.should =~ /#Not enough arg/
+        capture_stdout { Cli.translate_command(['one']) }.should == ''
       end
 
       test "translate prints error for invalid command" do

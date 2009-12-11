@@ -9,7 +9,7 @@ class Lightning
       end
     end
 
-    DEFAULT = {:complete_regex=>true, :bolts=>{},
+    DEFAULT = {:complete_regex=>true, :bolts=>{}, :aliases=>{},
       :generated_file=>File.expand_path(File.join('~', '.lightning_completions'))}
 
     def initialize(hash=read_config_file)

@@ -6,14 +6,18 @@ class Lightning
         puts complete(command, comp_line)
         exit 0
       else
-        puts "#No command given"
+        puts "Usage: [command] [*arguments]",
+          "Prints a command's completions based on the last argument"
         exit 1
       end
     end
 
     def translate_command(argv)
-      if argv.size <= 1
-        puts "#Not enough arguments given"
+      if argv.size == 0
+        puts "Usage: [command] [*arguments]",
+          "Translates each command argument and prints the result"
+        exit 1
+      elsif argv.size == 1
         exit 1
       else
         puts translate(argv.shift, argv)

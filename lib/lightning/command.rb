@@ -17,15 +17,14 @@ class Lightning
     end
 
     def completion_map
-      @completion_map ||= CompletionMap.new(paths, :global_aliases=>Lightning.config[:aliases],
-        :aliases=>aliases)
+      @completion_map ||= CompletionMap.new(paths, :aliases=>aliases)
     end
 
     def translate_completion(args)
-      translated = Array(args).map {|e|
-        new_val = completion_map[e] || e
-        new_val += @post_path if @post_path && new_val != e
-        new_val
+      translated = Array(args).map {|arg|
+        new_arg = completion_map[arg] || arg
+        new_arg += @post_path if @post_path && new_arg != arg
+        new_arg
       }.join(' ')
       @add_to_command ? translated + @add_to_command : translated
     end
