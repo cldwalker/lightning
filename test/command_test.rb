@@ -42,6 +42,10 @@ class Lightning
         translate '-r path1 doc/', "-r #{@map['path1']} doc/"
       end
 
+      test "translates completion embedded in subdirectory completion" do
+        translate '-r path1/sub/dir', "-r #{@map['path1']}/sub/dir"
+      end
+
       test "translates completion over alias" do
         translate 'path3', '/dir/path3'
       end

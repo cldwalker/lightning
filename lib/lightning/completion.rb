@@ -14,19 +14,33 @@ class Lightning
     end
   
     def matches
-      get_matches.map {|e| Util.shellescape(e) }
+      matched = get_matches(possible_completions)
+      matched = match_when_completing_subdirectories(matched)
+      matched.map {|e| Util.shellescape(e) }
     rescue RegexpError
       ['#Error: Invalid regular expression']
     end
 
-    def get_matches
+    def get_matches(possible)
       if Lightning.config[:complete_regex]
-          possible_completions.grep(/^#{blob_to_regex(typed)}/)
+          possible.grep(/^#{blob_to_regex(typed)}/)
       else
-        possible_completions.select do |e|
-          e[0, typed.length] == typed
+        possible.select {|e| e[0, typed.length] == typed }
+      end
+    end
+
+    def match_when_completing_subdirectories(matched)
+      if matched.empty? && (top_dir = typed[/^([^\/]+)\//,1]) && !typed.include?('//')
+        matched = possible_completions.grep(/^#{top_dir}/)
+
+        if matched.size == 1 && (translated_dir = @command.translate_completion([top_dir]))
+          short_dir = typed.sub(/\/([^\/]+)?$/, '')
+          matched = Dir.entries(short_dir.sub(top_dir, translated_dir)).
+            delete_if {|e| %w{. ..}.include?(e) }.map {|f| File.join(short_dir,f) }
+          matched = get_matches(matched)
         end
       end
+      matched
     end
 
     #just converts * to .*  to make a glob-like regex
@@ -35,10 +49,12 @@ class Lightning
     end
 
     def typed
-      args = Shellwords.shellwords(@text_typed)
-      !args[-1][/\s+/] && @text_typed[/\s+$/] ? '' : args[-1]
+      @typed ||= begin
+        args = Shellwords.shellwords(@text_typed)
+        !args[-1][/\s+/] && @text_typed[/\s+$/] ? '' : args[-1]
+      end
     end
-  
+
     def possible_completions
       @command.completions
     end

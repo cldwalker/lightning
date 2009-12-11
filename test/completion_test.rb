@@ -5,7 +5,8 @@ class Lightning
     context "Completion" do
       before(:each) {
         @command = 'blah';
-        mock(cmd = Object.new).completions { ['at', 'ap', 'blah', 'has space'] }
+        cmd = Command.new 'name'=>'@command'
+        stub(cmd).completions { ['at', 'ap', 'blah', 'has space'] }
         Lightning.commands[@command] = cmd
       }
 
@@ -23,12 +24,12 @@ class Lightning
         tab 'a ', ["at", "ap", "blah", "has\\ space"]
       end
     
-      test "with test flag matches" do
-        tab '-test a', %w{at ap}
+      test "has no matches" do
+        tab 'zaza', []
       end
 
-      test "has no matches" do
-        tab '-r', []
+      test "has no matches for a local directory" do
+        tab 'bling/ok', []
       end
 
       test "with multiple words matches last word" do
@@ -41,6 +42,21 @@ class Lightning
 
       test "with multiple words matches shell escaped last word" do
         tab 'lib has\\ ', ['has\\ space']
+      end
+
+      test "in bolt subdirectory matches" do
+        mock(Dir).entries('at') { ['..', '.', 'f1']}
+        tab 'at/', ['at/f1']
+      end
+
+      test "in nested bolt subdirectory matches" do
+        mock(Dir).entries('at/the') { ['f1']}
+        tab 'at/the/', ['at/the/f1']
+      end
+
+      test "for file in bolt subdirectory matches" do
+        mock(Dir).entries('at/the') { %w{ab ge fe fi fo}}
+        tab 'at/the/f', ['at/the/fe', 'at/the/fi', 'at/the/fo']
       end
 
       context "with a regex" do

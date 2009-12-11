@@ -23,8 +23,11 @@ class Lightning
 
     def translate_completion(args)
       translated = Array(args).map {|arg|
-        new_arg = completion_map[arg] || arg
-        new_arg += @post_path if @post_path && new_arg != arg
+        new_arg = completion_map[arg] || arg.dup
+        new_arg << @post_path if @post_path && new_arg != arg
+        if new_arg == arg && (dir = new_arg[/^([^\/]+)\//,1]) && (full_dir = completion_map[dir])
+          new_arg.sub!(dir, full_dir)
+        end
         new_arg
       }.join(' ')
       @add_to_command ? translated + @add_to_command : translated
