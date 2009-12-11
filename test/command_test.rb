@@ -9,7 +9,6 @@ class Lightning
 
     def translate(input, expected)
       Lightning.commands['blah'] = @cmd
-      mock(Cli).exit(0)
       mock(Cli).puts(expected)
       Cli.translate_command ['blah'] + input.split(' ')
     end

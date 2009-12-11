@@ -4,7 +4,6 @@ class Lightning
   class CompletionTest < Test::Unit::TestCase
     context "Completion" do
       before(:each) {
-        stub(Cli).exit(0)
         @command = 'blah';
         mock(cmd = Object.new).completions { ['at', 'ap', 'blah', 'has space'] }
         Lightning.commands[@command] = cmd

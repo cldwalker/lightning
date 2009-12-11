@@ -4,24 +4,20 @@ class Lightning
     def complete_command(command, comp_line = ENV["COMP_LINE"] || ARGV.join(' '))
       if command
         puts complete(command, comp_line)
-        exit 0
       else
         puts "Usage: [command] [*arguments]",
           "Prints a command's completions based on the last argument"
-        exit 1
       end
     end
 
-    def translate_command(argv)
-      if argv.size == 0
+    def translate_command(argv=ARGV)
+      if argv.empty?
         puts "Usage: [command] [*arguments]",
           "Translates each command argument and prints the result"
-        exit 1
       elsif argv.size == 1
-        exit 1
+        # Do nothing since no translation line was given
       else
         puts translate(argv.shift, argv)
-        exit 0
       end
     end
 
@@ -33,13 +29,13 @@ class Lightning
     def complete(command, text_to_complete)
       read_config
       (cmd = Lightning.commands[command]) ? Completion.complete(text_to_complete, cmd) :
-        ["#Error: No paths found for this command."]
+        ["#Error: No command found to complete"]
     end
 
     def translate(command, argv)
       read_config
       (cmd = Lightning.commands[command]) ? cmd.translate_completion(argv) :
-        '#Error-no_paths_found_for_this_command'
+        '#Error-no_command_found_to_translate'
     end
 
     def read_config
