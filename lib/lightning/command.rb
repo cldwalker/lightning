@@ -3,7 +3,7 @@ class Lightning
     ATTRIBUTES = :name, :paths, :aliases, :post_path, :add_to_command, :desc, :shell_command, :bolt
     attr_accessor *ATTRIBUTES
     def initialize(hash)
-      raise ArgumentError, "Command must have a name" unless hash['name']
+      raise ArgumentError, "Command must have a name and bolt" unless hash['name'] && hash['bolt']
       hash.each do |k,v|
         instance_variable_set("@#{k}", v)
       end
@@ -14,7 +14,15 @@ class Lightning
     end
 
     def paths
-      @paths ||= []
+      @paths ||= @bolt.paths
+    end
+
+    def aliases
+      @aliases ||= @bolt.aliases
+    end
+
+    def desc
+      @desc ||= @bolt.desc
     end
 
     def completion_map

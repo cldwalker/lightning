@@ -2,8 +2,9 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 
 class Lightning
   class CommandTest < Test::Unit::TestCase
-    def create_command(attributes)
-      @cmd = Command.new({'name'=>'blah'}.merge(attributes))
+    def create_command(attributes={})
+      # bolt, path and aliases depend on test/lightning.yml
+      @cmd = Command.new({'name'=>'blah', 'bolt'=>Bolt.new('app')}.merge(attributes))
       @cmd.completion_map.map = {'path1'=>'/dir/path1','path2'=>'/dir/path2','path3'=>'/dir/path3'}
     end
 
@@ -16,13 +17,28 @@ class Lightning
     context "Command" do
       before(:all) do
         Lightning.config[:aliases] = {'g2'=>'/dir/g2', 'a2'=>'/dir/g2'}
-        create_command('aliases'=>{'a1'=>'/dir/a1', 'a2'=>'/dir/a2', 'path3'=>'/dir/a3'})
+        create_command
         @map = @cmd.completion_map
       end
       after(:all) { Lightning.config[:aliases] = {}}
 
       test "has correct completions" do
         assert_arrays_equal %w{a1 a2 g2 path1 path2 path3}, @cmd.completions
+      end
+
+      test "has bolt's paths" do
+        assert !@cmd.paths.empty?
+        @cmd.paths.should == @cmd.bolt.paths
+      end
+
+      test "has bolt's aliases" do
+        assert !@cmd.aliases.empty?
+        @cmd.aliases.should == @cmd.bolt.aliases
+      end
+
+      test "has bolt's desc" do
+        assert !@cmd.desc.empty?
+        @cmd.desc.should == @cmd.bolt.desc
       end
 
       test "translates a completion" do

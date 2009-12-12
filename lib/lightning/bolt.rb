@@ -1,12 +1,13 @@
 # A bolt is a group of globbable paths referenced by a name.
 class Lightning
   class Bolt
-    attr_reader :name
+    attr_reader :name, :aliases, :desc
     attr_accessor :paths, :commands
     def initialize(name)
       @name = name
       @paths = []
       @commands = []
+      @aliases = {}
       (Lightning.config[:bolts][@name] || {}).each do |k,v|
         instance_variable_set("@#{k}", v)
       end
@@ -24,9 +25,8 @@ class Lightning
     def generate_commands
       commands.map do |hash|
         hash = {'shell_command'=>hash} unless hash.is_a?(Hash)
+        hash['bolt'] = self
         hash['name'] ||= create_command_name(hash['shell_command'])
-        hash['paths'] ||= paths
-        hash['bolt'] ||= name
         hash
       end
     end

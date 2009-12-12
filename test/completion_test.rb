@@ -5,7 +5,7 @@ class Lightning
     context "Completion" do
       before(:each) {
         @command = 'blah';
-        cmd = Command.new 'name'=>'@command'
+        cmd = Command.new 'name'=>@command, 'bolt'=>Bolt.new('blah')
         stub(cmd).completions { ['at', 'ap', 'blah', 'has space'] }
         Lightning.commands[@command] = cmd
       }

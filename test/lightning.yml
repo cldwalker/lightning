@@ -13,6 +13,11 @@ bolts:
       - name : oa
         shell_command : open -a
         desc : open mac applications
+      aliases:
+        a1: /dir/a1
+        a2: /dir/a2
+        path3: /dir/a3
+      desc: Desktop applications
       paths:
         - /Applications/*.app
         - /Applications/Utilities/*.app
