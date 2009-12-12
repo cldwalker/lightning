@@ -58,6 +58,12 @@ class Lightning
         tab 'at/the/', ['at/the/f1']
       end
 
+      test "for directory in bolt subdirectory matches and appends / " do
+        stub(File).directory? { true }
+        mock(Dir).entries('at/the') { %w{ab lib}}
+        tab 'at/the/l', ['at/the/lib/']
+      end
+
       test "for file in bolt subdirectory matches" do
         mock(Dir).entries('at/the') { %w{ab ge fe fi fo}}
         tab 'at/the/f', ['at/the/fe', 'at/the/fi', 'at/the/fo']

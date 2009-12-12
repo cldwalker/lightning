@@ -35,10 +35,13 @@ class Lightning
       if matched.empty? && (top_dir = typed[/^([^\/]+)\//,1]) && !typed.include?('//')
         matched = possible_completions.grep(/^#{top_dir}/)
 
+        # for typed = some/dir/file, top_dir = path and translated_dir = /full/bolt/path
         if matched.size == 1 && (translated_dir = @command.translate_completion([top_dir]))
-          short_dir = typed.sub(/\/([^\/]+)?$/, '')
-          matched = Dir.entries(short_dir.sub(top_dir, translated_dir)).
-            delete_if {|e| %w{. ..}.include?(e) }.map {|f| File.join(short_dir,f) }
+          short_dir = typed.sub(/\/([^\/]+)?$/, '')  # some/dir
+          completed_dir = short_dir.sub(top_dir, translated_dir) #/full/bolt/path/some/dir
+          matched = Dir.entries(completed_dir).delete_if {|e| %w{. ..}.include?(e) }.map {|f|
+            File.directory?(completed_dir+'/'+f) ? File.join(short_dir,f) +'/' : File.join(short_dir,f)
+          }
           matched = get_matches(matched)
         end
       end
