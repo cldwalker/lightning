@@ -44,6 +44,10 @@ class Lightning
         tab 'lib has\\ ', ['has\\ space']
       end
 
+      test "in nonexistent subdirectory errors properly" do
+        tab 'at/', ["#Error: Nonexistent directory"]
+      end
+
       test "in bolt subdirectory matches" do
         mock(Dir).entries('at') { ['..', '.', 'f1']}
         tab 'at/', ['at/f1']

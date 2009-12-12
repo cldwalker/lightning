@@ -17,6 +17,8 @@ class Lightning
       matched = get_matches(possible_completions)
       matched = match_when_completing_subdirectories(matched)
       matched.map {|e| Util.shellescape(e) }
+    rescue SystemCallError
+      ["#Error: Nonexistent directory"]
     rescue RegexpError
       ['#Error: Invalid regular expression']
     end
