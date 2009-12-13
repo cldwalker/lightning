@@ -35,7 +35,7 @@ class Lightning
           next if self.class.ignore_basenames.include?(basename)
           if duplicates[basename]
             duplicates[basename] << file
-          elsif acc.key?(basename)
+          elsif acc.key?(basename) && acc[basename] != file
             duplicates[basename] = [acc.delete(basename), file]
           else
             acc[basename] = file
