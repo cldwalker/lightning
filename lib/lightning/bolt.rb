@@ -18,19 +18,25 @@ class Lightning
     end
 
     def create_command_name(shell_command)
-      cmd = shell_command[/\w+/]
+      cmd = only_command shell_command
       "#{Lightning.config.shell_commands[cmd] || cmd}-#{alias_or_name}"
     end
 
+    def only_command(shell_command)
+      shell_command[/\w+/]
+    end
+
     def generate_commands
-      generated = []
-      (Lightning.config.shell_commands.keys + @commands).each do |hash|
-        hash = {'shell_command'=>hash} unless hash.is_a?(Hash)
-        hash['bolt'] = self
-        hash['name'] ||= create_command_name(hash['shell_command'])
-        generated << hash
+      unique_commands = (@commands + Lightning.config.shell_commands.keys).inject({}) {|acc, e|
+        cmd = e.is_a?(Hash) ? e : {'shell_command'=>e}
+        acc[only_command(cmd['shell_command'])] ||= cmd
+        acc
+      }.values
+      unique_commands.map! do |cmd|
+        cmd['bolt'] = self
+        cmd['name'] ||= create_command_name(cmd['shell_command'])
+        cmd
       end
-      generated
     end
   end
 end

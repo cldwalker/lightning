@@ -8,7 +8,9 @@ ignore_basenames:
 bolts: 
     app:
       commands:
-      - open
+      - less
+      - shell_command: cd
+        name : c
       - name : oa
         shell_command : open -a
         desc : open mac applications
@@ -22,4 +24,5 @@ bolts:
         - /Applications/Utilities/*.app
 shell_commands:
 - vim: v
+- grep
 - cd
