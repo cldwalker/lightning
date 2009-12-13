@@ -4,19 +4,20 @@ require 'shellwords'
 #This class handles completions given the text already typed and a command name.
 class Lightning
   class Completion
-    def self.complete(text_to_complete, command)
-      new(text_to_complete, command).matches
+    def self.complete(text_to_complete, command, shellescape=true)
+      new(text_to_complete, command, shellescape).matches
     end
       
-    def initialize(text_typed, command)
+    def initialize(text_typed, command, shellescape=true)
       @text_typed = text_typed
       @command = command
+      @shellescape = shellescape
     end
   
     def matches
       matched = get_matches(possible_completions)
       matched = match_when_completing_subdirectories(matched)
-      matched.map {|e| Util.shellescape(e) }
+      @shellescape ? matched.map {|e| Util.shellescape(e) } : matched
     rescue SystemCallError
       ["#Error: Nonexistent directory"]
     rescue RegexpError

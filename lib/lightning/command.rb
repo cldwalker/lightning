@@ -31,7 +31,8 @@ class Lightning
 
     def translate_completion(args)
       translated = Array(args).map {|arg|
-        !completion_map[arg] && (new_arg = arg[/^(.*)\.\.$/,1]) ? Completion.complete(new_arg, self) : arg
+        !completion_map[arg] && (new_arg = arg[/^(.*)\.\.$/,1]) ?
+          Completion.complete(new_arg, self, false) : arg
       }.flatten.map {|arg|
         new_arg = completion_map[arg] || arg.dup
         new_arg << @post_path if @post_path && new_arg != arg

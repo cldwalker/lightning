@@ -5,7 +5,8 @@ class Lightning
     def create_command(attributes={})
       # bolt, path and aliases depend on test/lightning.yml
       @cmd = Command.new({'name'=>'blah', 'bolt'=>Bolt.new('app')}.merge(attributes))
-      @cmd.completion_map.map = {'path1'=>'/dir/path1','path2'=>'/dir/path2','path3'=>'/dir/path3'}
+      @cmd.completion_map.map = {'path1'=>'/dir/path1','path2'=>'/dir/path2',
+        'path3'=>'/dir/path3', 'file 1'=>'/dir/file 1'}
     end
 
     def translate(input, expected)
@@ -23,7 +24,7 @@ class Lightning
       after(:all) { Lightning.config[:aliases] = {}}
 
       test "has correct completions" do
-        assert_arrays_equal %w{a1 a2 g2 path1 path2 path3}, @cmd.completions
+        assert_arrays_equal %w{a1 a2}+['file 1']+%w{g2 path1 path2 path3}, @cmd.completions
       end
 
       test "has bolt's paths" do
@@ -49,8 +50,12 @@ class Lightning
         translate 'path1 path2', [@map['path1'], @map['path2']].join(' ')
       end
 
-      test "translates multiple completions at once with .. at the end" do
-        translate 'path..',  [@map['path1'], @map['path2'], @map['path3']].join(' ')
+      test "translates instant multiple completions (..)" do
+        translate 'path.. blah a1',  [@map['path1'], @map['path2'], @map['path3'], 'blah', @map['a1']].join(' ')
+      end
+
+      test "translates instant multiple completions containing spaces" do
+        translate 'file..', @map['file 1']
       end
 
       test "translates non-completion to same string" do
