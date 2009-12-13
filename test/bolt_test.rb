@@ -10,7 +10,11 @@ class Lightning
         assert Lightning.commands['open-app'].is_a?(Command)
       end
 
-      test "shell command that is aliased from config" do
+      test "shell command in config" do
+        assert Lightning.commands['cd-app'].is_a?(Command)
+      end
+
+      test "aliased shell command in config" do
         assert Lightning.commands['v-app'].is_a?(Command)
       end
 

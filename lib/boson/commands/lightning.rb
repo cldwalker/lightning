@@ -12,7 +12,7 @@ module Commands
   end
 
   # @render_options :fields=>{:default=>%w{name shell_command bolt paths}, :values=>%w{name shell_command bolt paths aliases}},
-  #  :filters=>{:default=>{'paths'=>:inspect, 'aliases'=>:inspect}}
+  #  :filters=>{:default=>{'paths'=>:inspect, 'aliases'=>:inspect, 'bolt'=>:alias_or_name}}
   # @config :alias=>'bcom'
   def bolt_commands
     Lightning.commands.values

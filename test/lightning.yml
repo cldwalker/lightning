@@ -9,7 +9,6 @@ bolts:
     app:
       commands:
       - open
-      - vim
       - name : oa
         shell_command : open -a
         desc : open mac applications
@@ -22,4 +21,5 @@ bolts:
         - /Applications/*.app
         - /Applications/Utilities/*.app
 shell_commands:
-  vim: v
+- vim: v
+- cd

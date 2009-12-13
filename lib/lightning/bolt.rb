@@ -19,16 +19,18 @@ class Lightning
 
     def create_command_name(shell_command)
       cmd = shell_command[/\w+/]
-      "#{Lightning.config[:shell_commands][cmd] || cmd}-#{alias_or_name}"
+      "#{Lightning.config.shell_commands[cmd] || cmd}-#{alias_or_name}"
     end
 
     def generate_commands
-      commands.map do |hash|
+      generated = []
+      (Lightning.config.shell_commands.keys + @commands).each do |hash|
         hash = {'shell_command'=>hash} unless hash.is_a?(Hash)
         hash['bolt'] = self
         hash['name'] ||= create_command_name(hash['shell_command'])
-        hash
+        generated << hash
       end
+      generated
     end
   end
 end

@@ -22,6 +22,14 @@ class Lightning
       Util.symbolize_keys YAML::load_file(self.class.config_file)
     end
 
+    def shell_commands
+      @shell_commands ||= begin
+        (self[:shell_commands] || []).inject({}) {|a,e|
+          e.is_a?(Hash) ? a.merge!(e) : a.merge!(e=>e)
+        }
+      end
+    end
+
     def save
       File.open(self.class.config_file, "w") { |f| f.puts self.to_yaml }
     end

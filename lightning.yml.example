@@ -9,82 +9,61 @@ ignore_basenames:
 bolts:
     app:
       alias: a
+      paths:
+      - /Applications/*.app
+      - /Applications/Utilities/*.app
       commands:
       - shell_command: open -a
         name: oa
-      paths:
-        - /Applications/*.app
-        - /Applications/Utilities/*.app
     ruby19_files:
       alias: r9
-      commands:
-      - vim
-      - mate
-      - less
       paths:
       - /Users/bozo/.rvm/ruby-1.9.1-p243/lib/ruby/**/*.{rb,bundle,so,c}
     ruby_files:
       alias: r
-      commands:
-      - vim
-      - mate
-      - less
       paths: 
       #picked from $LOAD_PATH
       - /Library/Ruby/Site/1.8/**/*.{rb,bundle,so}
       - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/**/*.{rb,bundle,so,c}
     ruby_dirs:
       alias : rd
-      commands:
-      - shell_command: cd
-        aliases:
-          r1: /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8
       paths:
        - /Library/Ruby/Site/1.8/**/
        - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/**/
+      aliases:
+        r1: /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8
     rb:
       desc : base directory of a ruby gem project
       paths:
         - **/*.rb
         - bin/**
-      commands:
-      - vim
-      - less
     code:
       alias: c
-      commands:
-      - mate
-      - name : c
-        shell_command : cd
-        desc : my code directories
-        aliases:
-          mc: /Users/bozo/code/gems/my_core
+      desc : my code directories
       paths: 
       - /Users/bozo/code/gems/*
       - /Users/bozo/code/repo/*
       - /Users/bozo/code/repo/priv/*
       - /Users/bozo/code/tds/gems/*
       - /Users/bozo/code/fork/*
+      aliases:
+        mc: /Users/bozo/code/gems/my_core
+      commands:
+      - name : c
+        shell_command : cd
     code_world:
       alias: cw
       paths:
       - /Users/bozo/code/world/*
-      commands:
-      - cd
-      - mate
     notes:
+      alias: n
       paths:
       - /Users/bozo/docs/notes/**/*.otl
-      alias: n
-      commands:
-      - vim
     ror:
-      desc: open files when in the base directory of a rails project
+      desc: access any files from the root of a rails project
       paths:
       - app/**/*.{rb,erb,rhtml}
       - **/*.rb
-      commands:
-      - vim
     # to obtain your own paths to your ruby gems:
     # `gem environment path`.split(":").map {|e| e +"/gems/*" }
     gem:
@@ -93,17 +72,14 @@ bolts:
       - /Users/bozo/.gem/ruby/1.8/gems/*
       - /Library/Ruby/Gems/1.8/gems/*
       - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/gems/*
+      aliases:
+        g1: /Library/Ruby/Gems/1.8/gems
+        g2: /Users/bozo/.gem/ruby/1.8/gems
+        g3: /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/gems
       commands:
       - name : pb-g
         shell_command : echo -n
-        add_to_command: |pbcopy
-      - mate
-      - grep
-      - shell_command : cd
-        aliases:
-          g1: /Library/Ruby/Gems/1.8/gems
-          g2: /Users/bozo/.gem/ruby/1.8/gems
-          g3: /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/gems
+        add_to_command: ' |pbcopy'
     gem_rdoc:
       alias: gd
       paths:
@@ -121,17 +97,16 @@ bolts:
       alias: w
       paths:
       - **/*
-      commands:
-      - cd
     wild_dir:
       alias : wd
       paths:
       - **/
-      commands:
-      - cd
 shell_commands:
-  mate: m
-  vim: v
-  open: o
-  less: l
-  grep: g
+- mate: m
+- vim: v
+- open: o
+- less: l
+- grep: g
+- echo: e
+- cd
+- ls
