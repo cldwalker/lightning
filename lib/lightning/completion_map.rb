@@ -29,17 +29,15 @@ class Lightning
     
     def create_globbed_map(globs)
       duplicates = {}
-      globs.inject({}) do |acc, glob|
-        file_to_basenames = Dir.glob(glob, File::FNM_DOTMATCH).map {|e| [e, File.basename(e)]}
-        file_to_basenames.each do |file, basename|
-          next if self.class.ignore_basenames.include?(basename)
-          if duplicates[basename]
-            duplicates[basename] << file
-          elsif acc.key?(basename) && acc[basename] != file
-            duplicates[basename] = [acc.delete(basename), file]
-          else
-            acc[basename] = file
-          end
+      globs.map {|e| Dir.glob(e, File::FNM_DOTMATCH)}.flatten.uniq.inject({}) do |acc, file|
+        basename = File.basename file
+        next acc if self.class.ignore_basenames.include?(basename)
+        if duplicates[basename]
+          duplicates[basename] << file
+        elsif acc.key?(basename)
+          duplicates[basename] = [acc.delete(basename), file]
+        else
+          acc[basename] = file
         end
         acc
       end.merge create_resolved_duplicates(duplicates)
