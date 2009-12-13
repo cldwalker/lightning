@@ -4,13 +4,13 @@ class Lightning
     class <<self
       attr_accessor :config_file
       def config_file
-        @config_file ||= (File.exists?('lightning.yml') ? 'lightning.yml' :
-          File.expand_path(File.join("~",".lightning.yml")))
+        @config_file ||= File.exists?('lightning.yml') ? 'lightning.yml' :
+          File.join(Util.find_home,".lightning.yml")
       end
     end
 
     DEFAULT = {:complete_regex=>true, :bolts=>{}, :aliases=>{},
-      :generated_file=>File.expand_path(File.join('~', '.lightning_completions'))}
+      :generated_file=>File.join(Util.find_home, '.lightning_completions') }
 
     def initialize(hash=read_config_file)
       hash = DEFAULT.merge hash

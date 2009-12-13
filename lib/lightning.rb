@@ -1,12 +1,12 @@
 $:.unshift(File.dirname(__FILE__)) unless $:.include? File.expand_path(File.dirname(__FILE__))
 require 'lightning/bolt'
+require 'lightning/util'
 require 'lightning/cli'
 require 'lightning/completion'
 require 'lightning/config'
 require 'lightning/command'
 require 'lightning/completion_map'
 require 'lightning/generator'
-require 'lightning/util'
 
 class Lightning
   class<<self
