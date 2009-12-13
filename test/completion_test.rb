@@ -93,12 +93,12 @@ class Lightning
     end
   
     test "blob_to_regex converts * to .*" do
-      @lc = Completion.new('blah', @key)
+      @lc = Completion.new('blah', nil)
       assert_equal '.*a.*blah', @lc.blob_to_regex('*a*blah')
     end
   
     test "blob_to_regex doesn't modify .*" do
-      @lc = Completion.new('blah', @key)
+      @lc = Completion.new('blah', nil)
       assert_equal '.*blah.*', @lc.blob_to_regex('.*blah.*')
     end
   end

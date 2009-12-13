@@ -45,8 +45,12 @@ class Lightning
         translate 'path1', @map['path1']
       end
 
-      test "translates multiple completions" do
-        translate 'path1 path2', @map['path1'] + ' '+ @map['path2']
+      test "translates multiple completions separately" do
+        translate 'path1 path2', [@map['path1'], @map['path2']].join(' ')
+      end
+
+      test "translates multiple completions at once with .. at the end" do
+        translate 'path..',  [@map['path1'], @map['path2'], @map['path3']].join(' ')
       end
 
       test "translates non-completion to same string" do

@@ -1,6 +1,6 @@
 class Lightning
   class Command
-    ATTRIBUTES = :name, :paths, :aliases, :post_path, :add_to_command, :desc, :shell_command, :bolt
+    ATTRIBUTES = :name, :post_path, :add_to_command, :shell_command, :bolt
     attr_accessor *ATTRIBUTES
     def initialize(hash)
       raise ArgumentError, "Command must have a name and bolt" unless hash['name'] && hash['bolt']
@@ -31,6 +31,8 @@ class Lightning
 
     def translate_completion(args)
       translated = Array(args).map {|arg|
+        !completion_map[arg] && (new_arg = arg[/^(.*)\.\.$/,1]) ? Completion.complete(new_arg, self) : arg
+      }.flatten.map {|arg|
         new_arg = completion_map[arg] || arg.dup
         new_arg << @post_path if @post_path && new_arg != arg
         if new_arg == arg && (dir = new_arg[/^([^\/]+)\//,1]) && (full_dir = completion_map[dir])
