@@ -34,6 +34,14 @@ class Lightning
         capture_stdout { Cli.build_command }.should =~ /No.*exists.*blah shell/
         Lightning.config[:shell] = nil
       end
+
+      test "builder prints usage with -h" do
+        capture_stdout { Cli.build_command '-h' }.should =~ /^Usage/
+      end
+
+      test "generator prints usage with -h" do
+        capture_stdout { Cli.generate_command '-h' }.should =~ /^Usage/
+      end
     end
   end
 end

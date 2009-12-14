@@ -19,7 +19,6 @@ class Lightning
 
     def run(source_file)
       source_file ||= Lightning.config[:source_file]
-      Cli.read_config
       output = build(Lightning.commands.values)
       File.open(source_file, 'w'){|f| f.write(output) }
       output

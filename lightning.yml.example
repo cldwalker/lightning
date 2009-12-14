@@ -1,8 +1,8 @@
 ---
 source_file: /Users/bozo/.bash/completion/lightning_completions
-ignore_basenames:
+ignore_paths:
     - .DS_Store
-    - .git
+    - .git/
 #These entries should each map a unique key to a list of directories. When autocompleting, each
 #of the directories will provide the immediate files and directories under them as possible
 #completions. The names of these paths should only be alphanumeric characters ie no special characters.
@@ -23,7 +23,7 @@ bolts:
       alias: r
       paths: 
       #picked from $LOAD_PATH
-      - /Library/Ruby/Site/1.8/**/*.{rb,bundle,so}
+      - /Library/Ruby/Site/1.8/**/*.{rb,bundle,so,c}
       - /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/**/*.{rb,bundle,so,c}
     ruby_dirs:
       alias : rd
@@ -62,7 +62,7 @@ bolts:
     ror:
       desc: access any files from the root of a rails project
       paths:
-      - app/**/*.{rb,erb,rhtml}
+      - {app,config}/**/*.{erb,rhtml,yaml,yml}
       - **/*.rb
     # to obtain your own paths to your ruby gems:
     # `gem environment path`.split(":").map {|e| e +"/gems/*" }
@@ -80,7 +80,7 @@ bolts:
       - name : pb-g
         shell_command : echo -n
         add_to_command: ' |pbcopy'
-    gem_rdoc:
+    gem_doc:
       alias: gd
       paths:
       - /Users/bozo/.gem/ruby/1.8/doc/*

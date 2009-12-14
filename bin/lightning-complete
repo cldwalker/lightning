@@ -1,7 +1,4 @@
 #!/usr/bin/env ruby
 
-#  == Description
-#  Used to complete a lightning command
 require File.expand_path(File.join(File.dirname(__FILE__), "..","lib","lightning"))
-
 Lightning::Cli.complete_command ARGV[0]

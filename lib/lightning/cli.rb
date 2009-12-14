@@ -22,8 +22,23 @@ class Lightning
     end
 
     def build_command(argv=ARGV)
-      Builder.can_build? ? Builder.run(argv[0]) :
-        puts("No builder exists for #{Builder.shell} shell")
+      if argv.include?('-h') || argv.include?('--help')
+        puts "Usage: [source_file]", 'Builds a shell file to be sourced based on '+
+          '~/.lightning.yml. Uses default file if none given.'
+      else
+        read_config
+        Builder.can_build? ? Builder.run(argv[0]) :
+          puts("No builder exists for #{Builder.shell} shell")
+      end
+    end
+
+    def generate_command(argv=ARGV)
+      if argv.include?('-h') || argv.include?('--help')
+        puts "Usage: [*generators]", "Generates bolts and places them in the config file." +
+          " With no arguments, generates default bolts."
+      else
+        Generator.run(*argv)
+      end
     end
 
     def complete(command, text_to_complete)
