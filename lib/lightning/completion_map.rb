@@ -1,6 +1,7 @@
 #This class maps completions to their full paths for the given blobs
 class Lightning
   class CompletionMap
+    DUPLICATE_DELIMITER = '//'
     def self.ignore_paths
       @ignore_paths ||= (Lightning.config[:ignore_paths] || []) + %w{/\.\.? \.\.?$}
     end
@@ -47,7 +48,7 @@ class Lightning
     
     def create_resolved_duplicates(duplicates)
       duplicates.inject({}) do |hash, (basename, paths)|
-        paths.each {|e| hash["#{basename}/#{File.dirname(e)}"] = e }; hash
+        paths.each {|e| hash["#{basename}#{DUPLICATE_DELIMITER}#{File.dirname(e)}"] = e }; hash
       end
     end
   end

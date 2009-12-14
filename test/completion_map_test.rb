@@ -23,7 +23,7 @@ class Lightning
       end
     
       test "creates map with duplicates" do
-        expected_map = {"path1//dir3"=>"/dir3/path1", "path2"=>"/dir1/path2", "path1//dir1"=>"/dir1/path1", "path1//dir2"=>"/dir2/path1"}
+        expected_map = {"path1///dir3"=>"/dir3/path1", "path2"=>"/dir1/path2", "path1///dir1"=>"/dir1/path1", "path1///dir2"=>"/dir2/path1"}
         create_map(expected_map)
         assert_equal expected_map, @completion_map.map
       end
