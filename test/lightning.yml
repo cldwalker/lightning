@@ -1,27 +1,27 @@
 ---
 generated_file: lightning_completions
 
-ignore_basenames:
-    - .DS_Store
-    - .git
+ignore_paths:
+- .DS_Store
+- .git
 
 bolts: 
-    app:
-      commands:
-      - less
-      - shell_command: cd
-        name : c
-      - name : oa
-        shell_command : open -a
-        desc : open mac applications
-      aliases:
-        a1: /dir/a1
-        a2: /dir/a2
-        path3: /dir/a3
-      desc: Desktop applications
-      paths:
-        - /Applications/*.app
-        - /Applications/Utilities/*.app
+  app:
+    commands:
+    - less
+    - shell_command: cd
+      name : c
+    - name : oa
+      shell_command : open -a
+      desc : open mac applications
+    aliases:
+      a1: /dir/a1
+      a2: /dir/a2
+      path3: /dir/a3
+    desc: Desktop applications
+    paths:
+      - /Applications/*.app
+      - /Applications/Utilities/*.app
 shell_commands:
 - vim: v
 - grep

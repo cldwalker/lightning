@@ -15,9 +15,9 @@ class Lightning
         assert_equal expected_map, @completion_map.map
       end
     
-      test "ignores paths from Lightning.ignore_basenames" do
-        CompletionMap.ignore_basenames = ['path1']
-        expected_map = {"path1"=>"/dir1/path1", "path2"=>"/dir1/path2"}
+      test "ignores paths from Lightning.ignore_paths" do
+        CompletionMap.ignore_paths = ['path1', 'dir2']
+        expected_map = {"path1"=>"/dir1/path1", "path2"=>"/dir1/path2", 'path3'=>'/dir2/path3'}
         create_map(expected_map)
         assert_equal slice_hash(expected_map, 'path2'), @completion_map.map
       end

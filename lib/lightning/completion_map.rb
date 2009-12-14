@@ -1,12 +1,12 @@
 #This class maps completions to their full paths for the given blobs
 class Lightning
   class CompletionMap
-    def self.ignore_basenames
-      @ignore_basenames ||= (Lightning.config[:ignore_basenames] || []) + ['.', '..']
+    def self.ignore_paths
+      @ignore_paths ||= (Lightning.config[:ignore_paths] || []) + %w{/\.\.? \.\.?$}
     end
 
-    def self.ignore_basenames=(val)
-      @ignore_basenames = val
+    def self.ignore_paths=(val)
+      @ignore_paths = val
     end
 
     attr_accessor :map
@@ -29,9 +29,11 @@ class Lightning
     
     def create_globbed_map(globs)
       duplicates = {}
-      globs.map {|e| Dir.glob(e, File::FNM_DOTMATCH)}.flatten.uniq.inject({}) do |acc, file|
+      ignore_regexp = /(#{self.class.ignore_paths.join('|')})/
+      globs.map {|e| Dir.glob(e, File::FNM_DOTMATCH)}.flatten.uniq.
+       inject({}) do |acc, file|
         basename = File.basename file
-        next acc if self.class.ignore_basenames.include?(basename)
+        next acc if file =~ ignore_regexp
         if duplicates[basename]
           duplicates[basename] << file
         elsif acc.key?(basename)
@@ -40,7 +42,7 @@ class Lightning
           acc[basename] = file
         end
         acc
-      end.merge create_resolved_duplicates(duplicates)
+       end.merge create_resolved_duplicates(duplicates)
     end
     
     def create_resolved_duplicates(duplicates)
