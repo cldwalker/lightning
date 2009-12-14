@@ -1,5 +1,5 @@
 ---
-generated_file: /Users/bozo/.bash/completion/lightning_completions
+source_file: /Users/bozo/.bash/completion/lightning_completions
 ignore_basenames:
     - .DS_Store
     - .git

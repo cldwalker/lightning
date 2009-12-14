@@ -1,5 +1,5 @@
 ---
-generated_file: lightning_completions
+source_file: lightning_completions
 
 ignore_paths:
 - .DS_Store

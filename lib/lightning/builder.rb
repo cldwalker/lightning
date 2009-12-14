@@ -17,11 +17,11 @@ class Lightning
       Lightning.config[:shell] || 'bash'
     end
 
-    def run(generated_file)
-      generated_file ||= Lightning.config[:generated_file]
+    def run(source_file)
+      source_file ||= Lightning.config[:source_file]
       Cli.read_config
       output = build(Lightning.commands.values)
-      File.open(generated_file, 'w'){|f| f.write(output) }
+      File.open(source_file, 'w'){|f| f.write(output) }
       output
     end
 

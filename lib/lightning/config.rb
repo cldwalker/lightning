@@ -10,7 +10,7 @@ class Lightning
     end
 
     DEFAULT = {:complete_regex=>true, :bolts=>{}, :aliases=>{},
-      :generated_file=>File.join(Util.find_home, '.lightning_completions') }
+      :source_file=>File.join(Util.find_home, '.lightning_completions') }
 
     def initialize(hash=read_config_file)
       hash = DEFAULT.merge hash
