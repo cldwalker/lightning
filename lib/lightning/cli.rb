@@ -21,9 +21,9 @@ class Lightning
       end
     end
 
-    def generate_command(argv=ARGV)
-      Generator.can_generate? ? Generator.run(argv[0]) :
-        puts("No generator exists for #{Generator.shell} shell")
+    def build_command(argv=ARGV)
+      Builder.can_build? ? Builder.run(argv[0]) :
+        puts("No builder exists for #{Builder.shell} shell")
     end
 
     def complete(command, text_to_complete)

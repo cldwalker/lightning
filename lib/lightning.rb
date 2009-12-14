@@ -6,7 +6,7 @@ require 'lightning/completion'
 require 'lightning/config'
 require 'lightning/command'
 require 'lightning/completion_map'
-require 'lightning/generator'
+require 'lightning/builder'
 
 class Lightning
   class<<self

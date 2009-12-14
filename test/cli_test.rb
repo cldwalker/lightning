@@ -29,9 +29,9 @@ class Lightning
         capture_stdout { Cli.translate_command(%w{invalid blah}) }.should =~ /#Error/
       end
 
-      test "generator prints error when unable to generate" do
+      test "builder prints error when unable to build" do
         Lightning.config[:shell] = 'blah'
-        capture_stdout { Cli.generate_command }.should =~ /No.*exists.*blah shell/
+        capture_stdout { Cli.build_command }.should =~ /No.*exists.*blah shell/
         Lightning.config[:shell] = nil
       end
     end
