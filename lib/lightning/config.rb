@@ -31,7 +31,7 @@ class Lightning
     end
 
     def save
-      File.open(self.class.config_file, "w") { |f| f.puts self.to_yaml }
+      File.open(self.class.config_file, "w") {|f| f.puts Hash.new.replace(self).to_yaml }
     end
   end
 end

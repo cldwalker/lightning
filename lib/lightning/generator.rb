@@ -1,6 +1,6 @@
 class Lightning
   class Generator
-    DEFAULT_GENERATORS = [:gem, :gem_doc, :system_ruby_file, :system_ruby_dir, :local_ruby]
+    DEFAULT_GENERATORS = %w{gem gem_doc system_ruby_file system_ruby_dir local_ruby wild wild_dir}
     include Generators
 
     def self.run(*gens)

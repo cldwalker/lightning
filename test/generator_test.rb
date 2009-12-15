@@ -7,9 +7,22 @@ class Lightning
         Cli.generate_command bolts
       end
 
-      test "defaults to all generators" do
-        mock(Generator).generate_bolts(Generator::DEFAULT_GENERATORS)
-        generate
+      def setup_config_file
+        old_config_file = Config.config_file
+        new_config_file = File.dirname(__FILE__) + '/another_lightning.yml'
+        Config.config_file = new_config_file
+        yield(new_config_file)
+        Config.config_file = old_config_file
+        FileUtils.rm_f new_config_file
+      end
+
+      test "generates all default generators" do
+        stub.instance_of(Generator).` { "path1:path2" } #`
+        setup_config_file do |config_file|
+          generate
+          config = YAML::load_file(config_file)
+          assert Generator::DEFAULT_GENERATORS.all? {|e| config[:bolts].key?(e) }
+        end
       end
 
       test "defaults to config :default_generators" do

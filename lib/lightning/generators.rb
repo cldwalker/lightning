@@ -1,7 +1,10 @@
 class Lightning
   module Generators
     def gem
-      `gem environment path`.split(":").map {|e| e +"/gems/*" }
+      {
+        :paths=>`gem environment path`.split(":").map {|e| e +"/gems/*" },
+        :desc=>"source code of gems"
+      }
     end
 
     def gem_doc
