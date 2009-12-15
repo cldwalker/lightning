@@ -3,7 +3,7 @@ class Lightning
   class CompletionMap
     DUPLICATE_DELIMITER = '//'
     def self.ignore_paths
-      @ignore_paths ||= (Lightning.config[:ignore_paths] || []) + %w{/\.\.? \.\.?$}
+      @ignore_paths ||= (Lightning.config[:ignore_paths] || []) + %w{\.\.?$}
     end
 
     def self.ignore_paths=(val)
