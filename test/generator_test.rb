@@ -16,6 +16,13 @@ class Lightning
         FileUtils.rm_f new_config_file
       end
 
+      test "loads plugin file if it exists" do
+        mock(Generator).run
+        mock(File).exists?(anything) {true}
+        mock(Cli).load anything
+        generate
+      end
+
       test "generates all default generators" do
         stub.instance_of(Generator).` { "path1:path2" } #`
         setup_config_file do |config_file|

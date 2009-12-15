@@ -37,6 +37,8 @@ class Lightning
         puts "Usage: [*generators]", "Generates bolts and places them in the config file." +
           " With no arguments, generates default bolts."
       else
+        plugin_file = File.join(Util.find_home, '.lightning.rb')
+        load plugin_file if File.exists? plugin_file
         Generator.run(*argv)
       end
     end

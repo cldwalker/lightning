@@ -31,11 +31,13 @@ class Lightning
 
     # From Rubygems, determine a user's home.
     def find_home
-      ['HOME', 'USERPROFILE'].each {|e| return ENV[e] if ENV[e] }
-      return "#{ENV['HOMEDRIVE']}#{ENV['HOMEPATH']}" if ENV['HOMEDRIVE'] && ENV['HOMEPATH']
-      File.expand_path("~")
-    rescue
-      File::ALT_SEPARATOR ? "C:/" : "/"
+      @find_home ||= begin
+        ['HOME', 'USERPROFILE'].each {|e| return ENV[e] if ENV[e] }
+        return "#{ENV['HOMEDRIVE']}#{ENV['HOMEPATH']}" if ENV['HOMEDRIVE'] && ENV['HOMEPATH']
+        File.expand_path("~")
+      rescue
+        File::ALT_SEPARATOR ? "C:/" : "/"
+      end
     end
 
     def symbolize_keys(hash)
