@@ -13,7 +13,9 @@ class Lightning
     end
 
     def print_usage
-      puts USAGE[@command]
+      usage_array = Array(USAGE[@command])
+      usage_array[0] = "Usage: #{usage_array[0]}"
+      puts usage_array
     end
 
     def usage(command, *args)

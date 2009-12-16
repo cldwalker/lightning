@@ -1,6 +1,6 @@
 class Lightning
   module Cli
-    usage :complete, "Usage: [command] [*arguments]",
+    usage :complete, "[command] [*arguments]",
       "Prints a command's completions based on the last argument"
     def complete_command(argv)
       return print_usage if argv.empty?
@@ -9,7 +9,7 @@ class Lightning
       puts complete(command, comp_line)
     end
 
-    usage :translate, "Usage: [command] [*arguments]",
+    usage :translate, "[command] [*arguments]",
       "Translates each command argument and prints the result"
     def translate_command(argv)
       return print_usage if argv.empty?
@@ -17,7 +17,7 @@ class Lightning
       puts translate(argv.shift, argv) if argv.size != 1
     end
 
-    usage :build, "Usage: [source_file]", 'Builds a shell file to be sourced based on '+
+    usage :build, "[source_file]", 'Builds a shell file to be sourced based on '+
       '~/.lightning.yml. Uses default file if none given.'
     def build_command(argv)
       read_config
@@ -25,7 +25,7 @@ class Lightning
         puts("No builder exists for #{Builder.shell} shell")
     end
 
-    usage :generate, "Usage: [*generators]", "Generates bolts and places them in the config file." +
+    usage :generate, "[*generators]", "Generates bolts and places them in the config file." +
       " With no arguments, generates default bolts."
     def generate_command(argv=ARGV)
       plugin_file = File.join(Util.find_home, '.lightning.rb')
