@@ -10,7 +10,7 @@ class Lightning
       else
         send("#{command}_command", argv)
       end
-    rescue
+    rescue StandardError, SyntaxError
       $stderr.puts "Error: "+ $!.message
     end
 
