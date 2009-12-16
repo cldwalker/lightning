@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 
 class Lightning
   class BoltTest < Test::Unit::TestCase
-    before(:all) { Cli.read_config }
+    before(:all) { Lightning.setup }
 
     # depends on test/lightning.yml
     context "Bolt generates correct command from" do

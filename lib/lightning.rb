@@ -14,16 +14,34 @@ require 'lightning/generator'
 class Lightning
   class<<self
     attr_accessor :config
+
+    # @return [Config]
     def config
       @config ||= Config.new
     end
 
+    # Maps bolt names to Bolt objects
+    # @return [Hash]
     def bolts
       @bolts ||= Hash.new {|h,k| h[k] = Bolt.new(k) }
     end
 
+    # Maps command names to Command objects
+    # @return [Hash]
     def commands
       @commands ||= {}
+    end
+
+    # Sets up lightning by generating bolts and commands from config
+    def setup
+      config[:bolts].each {|k,v|
+        create_commands bolts[k].generate_commands
+      }
+    end
+
+    protected
+    def create_commands(hash_array)
+      hash_array.each {|e| commands[e['name']] = Command.new(e) }
     end
   end
 end
