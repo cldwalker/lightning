@@ -4,9 +4,8 @@ class Lightning
   class BuilderTest < Test::Unit::TestCase
     context "Builder" do
       before(:all) do
-        Lightning.instance_eval "@commands = {}" #reset because of mocks
         @source_file =  File.dirname(__FILE__) + '/lightning_completions'
-        Cli.build_command [@source_file]
+        run_command :build, [@source_file]
       end
       after(:all) {  FileUtils.rm_f(@source_file) }
     

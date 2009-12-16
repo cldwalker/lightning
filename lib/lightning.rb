@@ -2,6 +2,7 @@ $:.unshift(File.dirname(__FILE__)) unless $:.include? File.expand_path(File.dirn
 require 'lightning/bolt'
 require 'lightning/util'
 require 'lightning/cli'
+require 'lightning/cli_commands'
 require 'lightning/completion'
 require 'lightning/config'
 require 'lightning/command'

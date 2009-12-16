@@ -4,4 +4,4 @@
 # Used to generate shell file from configuration
 
 require File.expand_path(File.join(File.dirname(__FILE__), "..","lib","lightning"))
-Lightning::Cli.build_command
+Lightning::Cli.run_command :build

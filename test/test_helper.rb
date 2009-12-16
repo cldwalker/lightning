@@ -12,6 +12,10 @@ Lightning::Config.config_file = File.join(File.dirname(__FILE__), 'lightning.yml
 class Test::Unit::TestCase
   include RR::Adapters::TestUnit
 
+  def run_command(*args)
+    Lightning::Cli.run_command(*args)
+  end
+
   def assert_arrays_equal(a1, a2)
     assert_equal a1.map {|e| e.to_s}.sort, a2.map{|e| e.to_s}.sort
   end

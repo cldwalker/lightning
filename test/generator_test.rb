@@ -4,10 +4,10 @@ class Lightning
   class GeneratorTest < Test::Unit::TestCase
     context "Generator" do
       def generate(*bolts)
-        Cli.generate_command bolts
+        run_command :generate, bolts
       end
 
-      def setup_config_file
+      def temporary_config_file
         old_config_file = Config.config_file
         new_config_file = File.dirname(__FILE__) + '/another_lightning.yml'
         Config.config_file = new_config_file
@@ -25,7 +25,7 @@ class Lightning
 
       test "generates all default generators" do
         stub.instance_of(Generator).` { "path1:path2" } #`
-        setup_config_file do |config_file|
+        temporary_config_file do |config_file|
           generate
           config = YAML::load_file(config_file)
           assert Generator::DEFAULT_GENERATORS.all? {|e| config[:bolts].key?(e) }

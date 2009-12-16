@@ -13,7 +13,7 @@ class Lightning
       def tab(input, expected, complete_regex=false)
         Lightning.config[:complete_regex] = complete_regex
         mock(Cli).puts(expected)
-        Cli.complete_command [@command, 'cd-test '+ input]
+        run_command :complete, [@command, 'cd-test '+ input]
       end
 
       test "from script matches" do
