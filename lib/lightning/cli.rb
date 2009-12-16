@@ -10,6 +10,8 @@ class Lightning
       else
         send("#{command}_command", argv)
       end
+    rescue
+      $stderr.puts "Error: "+ $!.message
     end
 
     def print_usage
