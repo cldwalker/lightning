@@ -37,7 +37,7 @@ class Lightning
         command_header(e) +
         <<-EOS.gsub(/^\s{10}/,'')
           #{e.name} () {
-            #{e.shell_command} $(${LBIN_PATH}lightning-translate #{e.name} $@)
+            #{e.shell_command} $( ${LBIN_PATH}lightning-translate #{e.name} $@ )
           }
           complete -o default -C "${LBIN_PATH}lightning-complete #{e.name}" #{e.name}
         EOS
@@ -49,10 +49,10 @@ class Lightning
         command_header(e) +
         <<-EOS.gsub(/^\s{10}/,'')
           #{e.name} () {
-            #{e.shell_command} $(${LBIN_PATH}lightning-translate #{e.name} $@)
+            #{e.shell_command} $( ${LBIN_PATH}lightning-translate #{e.name} $@ )
           }
           _#{e.name} () {
-            reply=($(${LBIN_PATH}lightning-complete #{e.name} "${words[-1]}"))
+            reply=($(${LBIN_PATH}lightning-complete #{e.name} ${@}))
           }
           compctl -K _#{e.name} #{e.name}
         EOS

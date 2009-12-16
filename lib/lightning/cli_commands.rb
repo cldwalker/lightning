@@ -4,9 +4,15 @@ class Lightning
       "Prints a command's completions based on the last argument"
     def complete_command(argv)
       return print_usage if argv.empty?
+      # this arg is needed by zsh in Complete
       command = argv[0]
-      comp_line = ENV["COMP_LINE"] || argv.join(' ')
-      puts complete(command, comp_line)
+      # bash hack: read ENV here because passing $COMP_LINE from the shell
+      # is a different incorrect buffer
+      buffer = ENV["COMP_LINE"] || argv.join(' ')
+      # zsh hack: when tabbing on blank space $@ is empty
+      # this ensures all completions
+      buffer += " " if argv.size == 1
+      puts complete(command, buffer)
     end
 
     usage :translate, "[command] [*arguments]",
