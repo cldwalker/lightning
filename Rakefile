@@ -18,9 +18,9 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name = "lightning"
-    s.executables = ["lightning-complete", "lightning-full_path", "lightning-install"]
-    s.summary = "Path completions for your shell that will let you navigate like lightning."
-    s.description = "Lightning creates shell commands that each autocomplete to a configured group of files and directories. Autocompleting is quick since you only need to type the basename and can even use regex completion." 
+    s.executables = ["lightning-complete", "lightning-translate", "lightning-build", "lightning-generate"]
+    s.summary = "Autocomplete paths and execute commands at the speed of light-ning.
+    s.description = "Lightning creates shell commands that autocomplete and alias configured group of files and directories. Autocompleting is quick since you only need to type the basename."
     s.email = "gabriel.horner@gmail.com"
     s.homepage = "http://github.com/cldwalker/lightning"
     s.authors = ["Gabriel Horner"]
