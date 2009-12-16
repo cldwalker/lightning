@@ -6,10 +6,10 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Gabriel Horner"]
-  s.date = %q{2009-10-23}
-  s.description = %q{Lightning creates shell commands that each autocomplete to a configured group of files and directories. Autocompleting is quick since you only need to type the basename and can even use regex completion.}
+  s.date = %q{2009-12-16}
+  s.description = %q{Lightning creates shell commands that autocomplete and alias configured group of files and directories. Autocompleting is quick since you only need to type the basename.}
   s.email = %q{gabriel.horner@gmail.com}
-  s.executables = ["lightning-complete", "lightning-full_path", "lightning-install"]
+  s.executables = ["lightning-complete", "lightning-translate", "lightning-build", "lightning-generate"]
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
@@ -20,25 +20,32 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION.yml",
+    "bin/lightning-build",
     "bin/lightning-complete",
-    "bin/lightning-full_path",
-    "bin/lightning-install",
+    "bin/lightning-generate",
+    "bin/lightning-translate",
     "lib/lightning.rb",
     "lib/lightning/bolt.rb",
-    "lib/lightning/bolts.rb",
-    "lib/lightning/commands.rb",
+    "lib/lightning/builder.rb",
+    "lib/lightning/cli.rb",
+    "lib/lightning/cli_commands.rb",
+    "lib/lightning/command.rb",
     "lib/lightning/completion.rb",
     "lib/lightning/completion_map.rb",
     "lib/lightning/config.rb",
     "lib/lightning/generator.rb",
+    "lib/lightning/generators.rb",
+    "lib/lightning/util.rb",
     "lightning.yml.example",
-    "lightning_completions.example",
     "test/bolt_test.rb",
+    "test/builder_test.rb",
+    "test/cli_test.rb",
+    "test/command_test.rb",
     "test/completion_map_test.rb",
     "test/completion_test.rb",
     "test/config_test.rb",
+    "test/generator_test.rb",
     "test/lightning.yml",
-    "test/lightning_test.rb",
     "test/test_helper.rb"
   ]
   s.homepage = %q{http://github.com/cldwalker/lightning}
@@ -46,13 +53,16 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{tagaholic}
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{Path completions for your shell that will let you navigate like lightning.}
+  s.summary = %q{Autocomplete paths and execute commands at the speed of light-ning.}
   s.test_files = [
     "test/bolt_test.rb",
+    "test/builder_test.rb",
+    "test/cli_test.rb",
+    "test/command_test.rb",
     "test/completion_map_test.rb",
     "test/completion_test.rb",
     "test/config_test.rb",
-    "test/lightning_test.rb",
+    "test/generator_test.rb",
     "test/test_helper.rb"
   ]
 
