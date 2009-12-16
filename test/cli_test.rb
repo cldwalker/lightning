@@ -4,17 +4,16 @@ class Lightning
   class CliTest < Test::Unit::TestCase
     context "Cli Commands:" do
       test "complete defaults to ARGV if no ENV['COMP_LINE']" do
-        ARGV.replace(['o-a', 'Col'])
         mock(Cli).complete('o-a', 'o-a Col')
-        capture_stdout { Cli.complete_command('o-a') }
+        capture_stdout { Cli.complete_command(['o-a', 'Col']) }
       end
 
       test "complete prints usage for no arguments" do
-        capture_stdout { Cli.complete_command(nil) }.should =~ /^Usage/
+        capture_stdout { Cli.complete_command([]) }.should =~ /^Usage/
       end
 
       test "complete prints error for invalid command" do
-        capture_stdout { Cli.complete_command('invalid','invalid') }.should =~ /#Error/
+        capture_stdout { Cli.complete_command(['invalid','invalid']) }.should =~ /#Error/
       end
   
       test "translate prints usage for no arguments" do
