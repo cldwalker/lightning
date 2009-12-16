@@ -4,7 +4,7 @@ class Lightning
     extend self
 
     HEADER = <<-INIT.gsub(/^\s+/,'')
-    #### This file was built by Lightning. ####
+    #### This file was built by lightning-build. ####
     #LBIN_PATH="$PWD/bin/" #only use for development
     LBIN_PATH=""
     INIT
@@ -27,17 +27,37 @@ class Lightning
     def build(*args)
       HEADER + "\n\n" + send("#{shell}_builder", *args)
     end
-    
+
+    def command_header(command)
+      (command.desc ? "##{command.desc}\n" : "")
+    end
+
     def bash_builder(commands)
       commands.map do |e|
-        <<-EOS
-          #{'#' + e.desc if e.desc}
+        command_header(e) +
+        <<-EOS.gsub(/^\s{10}/,'')
           #{e.name} () {
             #{e.shell_command} `${LBIN_PATH}lightning-translate #{e.name} $@`
           }
           complete -o default -C "${LBIN_PATH}lightning-complete #{e.name}" #{e.name}
         EOS
-      end.join("\n").gsub(/^\s{6,10}/, '')
+      end.join("\n")
     end
+
+    def zsh_builder(commands)
+      commands.map do |e|
+        command_header(e) +
+        <<-EOS.gsub(/^\s{10}/,'')
+          #{e.name} () {
+            #{e.shell_command} $(${LBIN_PATH}lightning-translate #{e.name} $@)
+          }
+          _#{e.name} () {
+            reply=(`${LBIN_PATH}lightning-complete #{e.name} .`)
+          }
+          compctl -K _#{e.name} #{e.name}
+        EOS
+      end.join("\n")
+    end
+
   end
 end
