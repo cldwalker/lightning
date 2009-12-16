@@ -8,6 +8,8 @@ ignore_paths:
 bolts: 
   app:
     commands:
+    - shell_command: more
+      name: bling
     - less
     - shell_command: cd
       name : c

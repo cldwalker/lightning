@@ -40,6 +40,12 @@ class Lightning
       end
     end
 
+    # Determines if a shell command exists by searching for it in ENV['PATH'].
+    def shell_command_exists?(command)
+      (@path ||= ENV['PATH'].split(File::PATH_SEPARATOR)).
+        any? {|d| File.exists? File.join(d, command) }
+    end
+
     def symbolize_keys(hash)
       hash.inject({}) do |h, (key, value)|
         h[key.to_sym] = value; h

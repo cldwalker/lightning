@@ -18,9 +18,10 @@ class Lightning
     end
 
     def run(source_file)
-      source_file ||= Lightning.config[:source_file]
-      output = build(Lightning.commands.values)
-      File.open(source_file, 'w'){|f| f.write(output) }
+      commands = Lightning.commands.values
+      check_for_existing_commands(commands)
+      output = build(commands)
+      File.open(source_file || Lightning.config[:source_file], 'w'){|f| f.write(output) }
       output
     end
 
@@ -59,5 +60,11 @@ class Lightning
       end.join("\n")
     end
 
+    def check_for_existing_commands(commands)
+      if !(existing_commands = commands.select {|e| Util.shell_command_exists?(e.name) }).empty?
+        puts "The following commands already exist in $PATH and are being generated: "+
+          "#{existing_commands.map {|e| e.name}.join(', ')}"
+      end
+    end
   end
 end
