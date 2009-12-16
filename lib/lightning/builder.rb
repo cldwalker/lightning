@@ -1,5 +1,6 @@
-#This class builds a shell scripts from a configuration.
 class Lightning
+  # Builds a shell file from bolts and shell commands in the config file. This file
+  # should be source in a user's shell. Currently supports bash and zsh shells.
   module Builder
     extend self
 
@@ -9,14 +10,17 @@ class Lightning
     LBIN_PATH=""
     INIT
 
+    # Determines if Builder can build a file for its current shell
     def can_build?
       respond_to? "#{shell}_builder"
     end
 
+    # Current shell, defaulting to 'bash'
     def shell
       Lightning.config[:shell] || 'bash'
     end
 
+    # Runs builder
     def run(source_file)
       commands = Lightning.commands.values
       check_for_existing_commands(commands)
@@ -25,10 +29,13 @@ class Lightning
       output
     end
 
+    # @param [Array] Command objects
+    # @return [String] Shell file string to be saved and sourced
     def build(*args)
       HEADER + "\n\n" + send("#{shell}_builder", *args)
     end
 
+    protected
     def command_header(command)
       (command.desc ? "##{command.desc}\n" : "")
     end

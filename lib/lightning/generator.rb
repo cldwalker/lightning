@@ -1,8 +1,12 @@
 class Lightning
+  # Generates hashes of bolt attributes using methods defined in Generators.
+  # Bolt hashes are inserted under config[:bolts] and Config.config_file is saved.
   class Generator
     DEFAULT_GENERATORS = %w{gem gem_doc system_ruby_file system_ruby_dir local_ruby wild wild_dir}
     include Generators
 
+    # Runs generator
+    # @param [Array] String which point to instance methods in Generators
     def self.run(*gens)
       gens = Lightning.config[:default_generators] || DEFAULT_GENERATORS if gens.empty?
       @generator = new
@@ -13,6 +17,7 @@ class Lightning
       $stderr.puts "Error: #{$!.message}"
     end
 
+    protected
     def self.generate_bolts(bolts)
       bolts.each do |e|
         if (bolt_attributes = @generator.send(e)).is_a?(Hash)

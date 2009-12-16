@@ -29,7 +29,7 @@ class Lightning
       end
     end
 
-    # From Rubygems, determine a user's home.
+    # Cross-platform way to determine a user's home. From Rubygems.
     def find_home
       @find_home ||= begin
         ['HOME', 'USERPROFILE'].each {|e| return ENV[e] if ENV[e] }
@@ -46,6 +46,7 @@ class Lightning
         any? {|d| File.exists? File.join(d, command) }
     end
 
+    # Symbolizes keys of given hash
     def symbolize_keys(hash)
       hash.inject({}) do |h, (key, value)|
         h[key.to_sym] = value; h

@@ -21,9 +21,10 @@ class Lightning
       replace(hash)
     end
 
+    # Global shell commands used to generate Commands for all Bolts.
+    # @return [Hash]
     # Maps shell command names to their aliases. Generated from the
     # config[:shell_commands] array.
-    # @return [Hash]
     def shell_commands
       @shell_commands ||= begin
         (self[:shell_commands] || []).inject({}) {|a,e|

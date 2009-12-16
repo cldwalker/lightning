@@ -1,5 +1,6 @@
-# A bolt is a group of globbable paths referenced by a name.
 class Lightning
+  # A bolt is a group of globbable paths (Dir.glob) used by a Command object
+  # to generate a CompletionMap.
   class Bolt
     attr_reader :name, :aliases, :desc
     attr_accessor :paths, :commands
@@ -12,20 +13,20 @@ class Lightning
         instance_variable_set("@#{k}", v)
       end
     end
-    
-    def alias_or_name
-      @alias || @name
-    end
 
+    # Creates a command name from its shell command and bolt i.e. "#{command}-#{bolt}".
+    # Uses aliases for either if they exist.
     def create_command_name(shell_command)
       cmd = only_command shell_command
       "#{Lightning.config.shell_commands[cmd] || cmd}-#{alias_or_name}"
     end
 
+    # Extracts shell command from a shell_command string
     def only_command(shell_command)
       shell_command[/\w+/]
     end
 
+    # Generates commands from a bolt's commands and global shell commands
     def generate_commands
       unique_commands = (@commands + Lightning.config.shell_commands.keys).inject({}) {|acc, e|
         cmd = e.is_a?(Hash) ? e : {'shell_command'=>e}
@@ -37,6 +38,11 @@ class Lightning
         cmd['name'] ||= create_command_name(cmd['shell_command'])
         cmd
       end
+    end
+
+    protected
+    def alias_or_name
+      @alias || @name
     end
   end
 end

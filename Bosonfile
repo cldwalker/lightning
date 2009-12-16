@@ -33,7 +33,7 @@ module Dev
   # @config :alias=>'b'
   # Lists bolts
   def bolts
-    Lightning::Cli.read_config
+    Lightning.setup
     Lightning.bolts.values
   end
 
@@ -42,7 +42,7 @@ module Dev
   # @config :alias=>'bcom'
   # Lists commands
   def bolt_commands
-    Lightning::Cli.read_config
+    Lightning.setup
     Lightning.commands.values
   end
 end

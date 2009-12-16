@@ -1,9 +1,10 @@
 require 'shellwords'
 
-# derived from http://github.com/ryanb/dotfiles/tree/master/bash/completion_scripts/project_completion
-#This class handles completions given the text already typed and a command name.
 class Lightning
+  # This class handles completions given the text already typed and a Command object.
+  # Inspired loosely by http://github.com/ryanb/dotfiles/tree/master/bash/completion_scripts/project_completion
   class Completion
+    # @return [Array]
     def self.complete(text_to_complete, command, shellescape=true)
       new(text_to_complete, command, shellescape).matches
     end
@@ -14,6 +15,7 @@ class Lightning
       @shellescape = shellescape
     end
   
+    # Main method used to find matches
     def matches
       matched = get_matches(possible_completions)
       matched = match_when_completing_subdirectories(matched)
@@ -24,6 +26,9 @@ class Lightning
       ['#Error: Invalid regular expression']
     end
 
+    # Filters array of possible matches using typed()
+    # @param [Array]
+    # @return [Array]
     def get_matches(possible)
       if Lightning.config[:complete_regex]
           possible.grep(/^#{blob_to_regex(typed)}/)
@@ -32,6 +37,7 @@ class Lightning
       end
     end
 
+    # Used to match when completing under a basename directory
     def match_when_completing_subdirectories(matched)
       if matched.empty? && (top_dir = typed[/^([^\/]+)\//,1]) && !typed.include?('//')
         matched = possible_completions.grep(/^#{top_dir}/)
@@ -49,11 +55,7 @@ class Lightning
       matched
     end
 
-    #just converts * to .*  to make a glob-like regex
-    def blob_to_regex(string)
-      string.gsub(/^\*|([^\.])\*/) {|e| $1 ? $1 + ".*" : ".*" }
-    end
-
+    # Last word typed by user
     def typed
       @typed ||= begin
         args = Shellwords.shellwords(@text_typed)
@@ -61,6 +63,12 @@ class Lightning
       end
     end
 
+    # Converts * to .*  to make a glob-like regex when in regex completion mode
+    def blob_to_regex(string)
+      string.gsub(/^\*|([^\.])\*/) {|e| $1 ? $1 + ".*" : ".*" }
+    end
+
+    protected
     def possible_completions
       @command.completions
     end
