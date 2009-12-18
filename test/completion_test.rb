@@ -6,7 +6,7 @@ class Lightning
       before(:each) {
         @command = 'blah';
         cmd = Command.new 'name'=>@command, 'bolt'=>Bolt.new('blah')
-        stub(cmd).completions { ['at', 'ap', 'blah', 'has space'] }
+        stub(cmd).completions { ['at', 'ap', 'blah.rb', 'has space'] }
         Lightning.commands[@command] = cmd
       }
 
@@ -21,7 +21,7 @@ class Lightning
       end
     
       test "ending with space matches everything" do
-        tab 'a ', ["at", "ap", "blah", "has\\ space"]
+        tab 'a ', ["at", "ap", "blah.rb", "has\\ space"]
       end
     
       test "has no matches" do
@@ -33,11 +33,11 @@ class Lightning
       end
 
       test "with multiple words matches last word" do
-        tab '-r b', ['blah']
+        tab '-r b', ['blah.rb']
       end
 
       test "with multiple words matches quoted last word" do
-        tab '-r "b"', ['blah']
+        tab '-r "b"', ['blah.rb']
       end
 
       test "with multiple words matches shell escaped last word" do
@@ -69,13 +69,25 @@ class Lightning
         tab 'at/the/f', ['at/the/fe', 'at/the/fi', 'at/the/fo']
       end
 
+      test "in bolt file's superdirectory matches" do
+        mock(File).expand_path('blah.rb/..') { '/dir' }
+        mock(Dir).entries('/dir') { ['f1', 'f2'] }
+        tab 'blah.rb/../', ['blah.rb/../f1', 'blah.rb/../f2']
+      end
+
+      test "in bolt file's superdirectory's subdirectory matches" do
+        mock(File).expand_path('blah.rb/../sub') { '/dir/sub' }
+        mock(Dir).entries('/dir/sub') { ['f1', 'f2'] }
+        tab 'blah.rb/../sub/', ['blah.rb/../sub/f1', 'blah.rb/../sub/f2']
+      end
+
       context "with a regex" do
         test "matches starting letters" do
           tab 'a', %w{at ap}, true
         end
 
         test "and asterisk matches" do
-          tab '[ab]*', %w{at ap blah}, true
+          tab '[ab]*', %w{at ap blah.rb}, true
         end
 
         test "with space matches" do

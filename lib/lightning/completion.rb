@@ -46,6 +46,7 @@ class Lightning
         if matched.size == 1 && (translated_dir = @command.translate_completion([top_dir]))
           short_dir = typed.sub(/\/([^\/]+)?$/, '')  # some/dir
           completed_dir = short_dir.sub(top_dir, translated_dir) #/full/bolt/path/some/dir
+          completed_dir = File.expand_path(completed_dir) if completed_dir[/\/\.\.($|\/)/]
           matched = Dir.entries(completed_dir).delete_if {|e| %w{. ..}.include?(e) }.map {|f|
             File.directory?(completed_dir+'/'+f) ? File.join(short_dir,f) +'/' : File.join(short_dir,f)
           }
