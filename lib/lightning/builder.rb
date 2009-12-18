@@ -65,9 +65,10 @@ class Lightning
             #{e.shell_command} "${arr[@]}"
           }
           _#{e.name} () {
-            reply=($(${LBIN_PATH}lightning-complete #{e.name} ${@}))
+            local IFS=$'\\n'
+            reply=( $(${LBIN_PATH}lightning-complete #{e.name} "${@}") )
           }
-          compctl -K _#{e.name} #{e.name}
+          compctl -QK _#{e.name} #{e.name}
         EOS
       end.join("\n")
     end
