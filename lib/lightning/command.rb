@@ -52,7 +52,7 @@ class Lightning
           new_arg.sub!(dir, full_dir)
         end
         new_arg
-      }.join(' ')
+      }.join("\n")
       @add_to_command ? translated + @add_to_command : translated
     end
   end

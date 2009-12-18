@@ -42,10 +42,15 @@ class Lightning
 
     def bash_builder(commands)
       commands.map do |e|
+        # #{e.name} () {
+        #   #{e.shell_command} $( ${LBIN_PATH}lightning-translate #{e.name} $@ )
+        # }
         command_header(e) +
         <<-EOS.gsub(/^\s{10}/,'')
           #{e.name} () {
-            #{e.shell_command} $( ${LBIN_PATH}lightning-translate #{e.name} $@ )
+            local IFS=$'\\n'
+            local arr=( $(${LBIN_PATH}lightning-translate #{e.name} $@) )
+            #{e.shell_command} "${arr[@]}"
           }
           complete -o default -C "${LBIN_PATH}lightning-complete #{e.name}" #{e.name}
         EOS
