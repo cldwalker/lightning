@@ -93,11 +93,6 @@ class Lightning
         create_command 'post_path'=>'/rdoc/index.html'
         translate '-r path1 path2', "-r", "/dir/path1/rdoc/index.html", "/dir/path2/rdoc/index.html"
       end
-
-      test "add_to_command added after whole translation" do
-        create_command 'add_to_command'=>'| pbcopy'
-        translate '-r path1', '-r', '/dir/path1| pbcopy'
-      end
     end
   end
 end

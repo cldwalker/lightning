@@ -3,7 +3,7 @@ class Lightning
   # translation of basenames to full path names. It depends on a Bolt object for
   # the globbable paths and a CompletionMap object to map basenames to full paths.
   class Command
-    ATTRIBUTES = :name, :post_path, :add_to_command, :shell_command, :bolt
+    ATTRIBUTES = :name, :post_path, :shell_command, :bolt
     attr_accessor *ATTRIBUTES
     def initialize(hash)
       raise ArgumentError, "Command must have a name and bolt" unless hash['name'] && hash['bolt']
@@ -53,7 +53,6 @@ class Lightning
         end
         new_arg
       }.join("\n")
-      @add_to_command ? translated + @add_to_command : translated
     end
   end
 end

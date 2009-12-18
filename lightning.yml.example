@@ -65,10 +65,6 @@
       g2: /Users/bozo/.gem/ruby/1.8/gems
       g3: /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8/gems
       g1: /Library/Ruby/Gems/1.8/gems
-    commands: 
-    - name: pb-g
-      add_to_command: " |pbcopy"
-      shell_command: echo -n
     alias: g
   notes: 
     paths: 
