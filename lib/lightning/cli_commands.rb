@@ -46,8 +46,7 @@ class Lightning
     protected
     def complete(command, text_to_complete)
       Lightning.setup
-      (cmd = Lightning.commands[command]) ? Completion.complete(text_to_complete, cmd) :
-        ["#Error: No command found to complete"]
+      Completion.complete(text_to_complete, Lightning.commands[command])
     end
 
     def translate(command, argv)

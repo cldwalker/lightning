@@ -45,7 +45,7 @@ class Lightning
       end
 
       test "in nonexistent subdirectory errors properly" do
-        tab 'at/', ["#Error: Nonexistent directory"]
+        tab 'at/', Completion.error_array("Nonexistent directory.")
       end
 
       test "in bolt subdirectory matches" do
@@ -99,7 +99,7 @@ class Lightning
         end
 
         test "which is invalid errors gracefully" do
-          tab '[]', ['#Error: Invalid regular expression'], true
+          tab '[]', Completion.error_array('Invalid regular expression.'), true
         end
       end
     end
@@ -112,6 +112,10 @@ class Lightning
     test "blob_to_regex doesn't modify .*" do
       @lc = Completion.new('blah', nil)
       assert_equal '.*blah.*', @lc.blob_to_regex('.*blah.*')
+    end
+
+    test "Completion error array must be more than one element to display and not complete error" do
+      Completion.error_array("testing").size.should > 1
     end
   end
 end

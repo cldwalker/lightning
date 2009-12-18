@@ -6,9 +6,14 @@ class Lightning
   class Completion
     # @return [Array]
     def self.complete(text_to_complete, command, shellescape=true)
+      return error_array("No command found to complete.") unless command
       new(text_to_complete, command, shellescape).matches
     end
       
+    def self.error_array(message)
+      ["#Error: #{message}", "Please open an issue."]
+    end
+
     def initialize(text_typed, command, shellescape=true)
       @text_typed = text_typed
       @command = command
@@ -21,9 +26,9 @@ class Lightning
       matched = match_when_completing_subdirectories(matched)
       @shellescape ? matched.map {|e| Util.shellescape(e) } : matched
     rescue SystemCallError
-      ["#Error: Nonexistent directory"]
+      self.class.error_array("Nonexistent directory.")
     rescue RegexpError
-      ['#Error: Invalid regular expression']
+      self.class.error_array("Invalid regular expression.")
     end
 
     # Filters array of possible matches using typed()

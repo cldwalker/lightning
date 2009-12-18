@@ -21,7 +21,7 @@ class Lightning
       end
 
       test "complete prints error for invalid command" do
-        capture_stdout { run_command(:complete, ['invalid','invalid']) }.should =~ /#Error/
+        capture_stdout { run_command(:complete, ['invalid','invalid']) }.should =~ /^#Error.*Please/m
       end
 
       test "translate prints usage for no arguments" do
