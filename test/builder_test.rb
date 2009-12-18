@@ -24,7 +24,9 @@ class Lightning
           expected = <<-EOS.gsub(/^\s{10}/,'')
           #open mac applications
           oa () {
-            open -a $( ${LBIN_PATH}lightning-translate oa $@ )
+            local IFS=$'\\n'
+            local arr=( $(${LBIN_PATH}lightning-translate oa $@) )
+            open -a "${arr[@]}"
           }
           complete -o default -C "${LBIN_PATH}lightning-complete oa" oa
           EOS

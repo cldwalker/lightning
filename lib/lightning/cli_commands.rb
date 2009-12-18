@@ -17,7 +17,7 @@ class Lightning
     end
 
     usage :translate, "[command] [*arguments]",
-      "Translates each command argument and prints the result"
+      "Translates each arguments and prints it on a separate line"
     # Runs bin/lightning-translate
     def translate_command(argv)
       return print_usage if argv.empty?
