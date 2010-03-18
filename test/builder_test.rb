@@ -1,19 +1,25 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-class Lightning
-  class BuilderTest < Test::Unit::TestCase
+# class Lightning
+#   class BuilderTest < Test::Unit::TestCase
+class Protest::TestCase
+    def self.build
+      Lightning::Cli.run_command :build, [@source_file]
+    end
+end
     context "Builder" do
-      before(:all) do
+      SOURCE_FILE = File.dirname(__FILE__) + '/lightning_completions'
+      setup do
         @source_file =  File.dirname(__FILE__) + '/lightning_completions'
       end
-      after(:all) {  FileUtils.rm_f(@source_file) }
+      global_teardown {  FileUtils.rm_f(SOURCE_FILE) }
 
       def build
         run_command :build, [@source_file]
       end
 
       context "with default shell" do
-        before(:all) { build }
+        global_setup { build }
 
         test "builds file in expected location" do
           assert File.exists?(@source_file)
@@ -36,16 +42,16 @@ class Lightning
 
       test "with non-default shell builds" do
         Lightning.config[:shell] = 'zsh'
-        mock(Builder).zsh_builder(anything) { '' }
+        mock(Lightning::Builder).zsh_builder(anything) { '' }
         build
         Lightning.config[:shell] = nil
       end
 
       test "warns about existing commands being overridden" do
-        mock(Util).shell_command_exists?('bling') { true }
-        stub(Util).shell_command_exists?(anything) { false }
+        mock(Lightning::Util).shell_command_exists?('bling') { true }
+        stub(Lightning::Util).shell_command_exists?(anything) { false }
         capture_stdout { build } =~ /following.*exist.*: bling$/
       end
     end
-  end
-end
+#   end
+# end

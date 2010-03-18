@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-class Lightning
-  class CliTest < Test::Unit::TestCase
+# class Lightning
+#   class CliTest < Test::Unit::TestCase
     context "Cli Commands:" do
       # this test seems to run much longer than expected i.e. 0.02
       # rr and raising?
@@ -50,5 +50,5 @@ class Lightning
         capture_stdout { run_command :generate, '-h' }.should =~ /^Usage/
       end
     end
-  end
-end
+#   end
+# end

@@ -1,15 +1,41 @@
 require 'rubygems'
-require 'test/unit'
-require 'context' #gem install jeremymcanally-context -s http://gems.github.com
+# require 'test/unit'
+# require 'context' #gem install jeremymcanally-context -s http://gems.github.com
+require 'protest'
+def context(*args,&block); Protest.context(*args,&block); end
 require 'rr'
-require 'matchy'
+# require 'matchy'
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'lightning'
 #set up valid global config file
 Lightning::Config.config_file = File.join(File.dirname(__FILE__), 'lightning.yml')
 
+class Object
+  def should(expectation)
+    expectation.match?(self)
+  end
+end
 
-class Test::Unit::TestCase
+module Matchers
+  class EqualityMatcher
+    def initialize(expected, test_case)
+      @expected = expected
+      @test_case = test_case
+    end
+
+    def match?(actual)
+      @test_case.assert(@expected == actual)
+    end
+  end
+
+  def equal(expected)
+    EqualityMatcher.new(expected, self)
+  end
+  alias_method :==, :equal
+end
+
+class Protest::TestCase
+  include Matchers
   include RR::Adapters::TestUnit
 
   def run_command(*args)

@@ -1,10 +1,10 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-class Lightning
-  class BoltTest < Test::Unit::TestCase
+# class Lightning
+#   class BoltTest < Test::Unit::TestCase
     # depends on test/lightning.yml
     context "Bolt generates correct command from" do
-      before(:all) { Lightning.setup }
+      global_setup { Lightning.setup }
 
       test "shell command" do
         assert Lightning.commands['less-app'].is_a?(Lightning::Command)
@@ -26,5 +26,5 @@ class Lightning
         assert Lightning.commands['c'].is_a?(Lightning::Command)
       end
     end
-  end
-end
+#   end
+# end
