@@ -15,6 +15,10 @@ module Helpers
   def run_command(*args)
     Lightning::Cli.run_command(*args)
   end
+  
+  def generate(*bolts)
+    run_command :generate, bolts
+  end
 
   def assert_arrays_equal(a1, a2)
     assert_equal a1.map {|e| e.to_s}.sort, a2.map{|e| e.to_s}.sort

@@ -1,18 +1,18 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-class Lightning
-  class CompletionTest < Test::Unit::TestCase
+# class Lightning
+#   class CompletionTest < Test::Unit::TestCase
     context "Completion" do
-      before(:each) {
+      before {
         @command = 'blah';
-        cmd = Command.new 'name'=>@command, 'bolt'=>Bolt.new('blah')
+        cmd = Lightning::Command.new 'name'=>@command, 'bolt'=>Lightning::Bolt.new('blah')
         stub(cmd).completions { ['at', 'ap', 'blah.rb', 'has space'] }
         Lightning.commands[@command] = cmd
       }
 
       def tab(input, expected, complete_regex=false)
         Lightning.config[:complete_regex] = complete_regex
-        mock(Cli).puts(expected)
+        mock(Lightning::Cli).puts(expected)
         run_command :complete, [@command, 'cd-test '+ input]
       end
 
@@ -99,23 +99,23 @@ class Lightning
         end
 
         test "which is invalid errors gracefully" do
-          tab '[]', Completion.error_array('Invalid regular expression.'), true
+          tab '[]', Lightning::Completion.error_array('Invalid regular expression.'), true
         end
       end
     end
   
     test "blob_to_regex converts * to .*" do
-      @lc = Completion.new('blah', nil)
+      @lc = Lightning::Completion.new('blah', nil)
       assert_equal '.*a.*blah', @lc.blob_to_regex('*a*blah')
     end
   
     test "blob_to_regex doesn't modify .*" do
-      @lc = Completion.new('blah', nil)
+      @lc = Lightning::Completion.new('blah', nil)
       assert_equal '.*blah.*', @lc.blob_to_regex('.*blah.*')
     end
 
     test "Completion error array must be more than one element to display and not complete error" do
-      Completion.error_array("testing").size.should > 1
+      Lightning::Completion.error_array("testing").size.should > 1
     end
-  end
-end
+#   end
+# end

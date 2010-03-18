@@ -1,67 +1,64 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-class Lightning
-  class GeneratorTest < Test::Unit::TestCase
+# class Lightning
+#   class GeneratorTest < Test::Unit::TestCase
     context "Generator" do
-      def generate(*bolts)
-        run_command :generate, bolts
-      end
 
       def temporary_config_file
-        old_config_file = Config.config_file
+        old_config_file = Lightning::Config.config_file
         new_config_file = File.dirname(__FILE__) + '/another_lightning.yml'
-        Config.config_file = new_config_file
+        Lightning::Config.config_file = new_config_file
         yield(new_config_file)
-        Config.config_file = old_config_file
+        Lightning::Config.config_file = old_config_file
         FileUtils.rm_f new_config_file
       end
 
       test "loads plugin file if it exists" do
-        mock(Generator).run
+        mock(Lightning::Generator).run
         mock(File).exists?(anything) {true}
-        mock(Cli).load anything
+        mock(Lightning::Cli).load anything
         generate
       end
 
       test "generates all default generators" do
-        stub.instance_of(Generator).` { "path1:path2" } #`
+        stub.instance_of(Lightning::Generator).` { "path1:path2" } #`
         temporary_config_file do |config_file|
           generate
           config = YAML::load_file(config_file)
-          assert Generator::DEFAULT_GENERATORS.all? {|e| config[:bolts].key?(e) }
+          assert Lightning::Generator::DEFAULT_GENERATORS.all? {|e| config[:bolts].key?(e) }
         end
       end
 
       test "defaults to config :default_generators" do
         Lightning.config[:default_generators] = ['gem']
-        mock(Generator).generate_bolts(['gem'])
+        mock(Lightning::Generator).generate_bolts(['gem'])
         generate
         Lightning.config[:default_generators] = nil
       end
 
       test "prints nonexistant generators while continuing with good generators" do
         mock($stdout).puts(/ignored: bad/)
-        mock(Generator).generate_bolts([:gem])
+        mock(Lightning::Generator).generate_bolts([:gem])
         generate :gem, :bad
       end
 
       test "handles invalid bolt returned by generator" do
-        Generators.send(:define_method, :returns_array) { ['not valid bolt']}
+        Lightning::Generators.send(:define_method, :returns_array) { ['not valid bolt']}
         mock(Lightning.config).save
         mock($stderr).puts(/^Error:.*'returns_array'/)
         generate :returns_array
       end
 
       test "handles unexpected error while generating bolts" do
-        mock(Generator).generate_bolts(anything) { raise "Totally unexpected" }
+        mock(Lightning::Generator).generate_bolts(anything) { raise "Totally unexpected" }
         mock($stderr).puts(/Error: Totally/)
         generate :gem
       end
 
       context "generates" do
-        before(:all) {
+        before_all {
           Lightning.config[:bolts]['wild_dir'] = {:paths=>['overwrite me']}
-          Generators.send(:define_method, :user_bolt) { {:paths=>['glob1', 'glob2']} }
+          Lightning::Generators.send(:define_method, :user_bolt) { {:paths=>['glob1', 'glob2']} }
           mock(Lightning.config).save
           generate 'wild', 'user_bolt', 'wild_dir'
         }
@@ -84,5 +81,5 @@ class Lightning
         end
       end
     end
-  end
-end
+#   end
+# end
