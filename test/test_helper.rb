@@ -58,9 +58,8 @@ class Bacon::Context
 		end
 	end
 
-  def before_all
-    yield
-  end
+  def before_all; yield; end
+  def after_all; yield; end
   alias_method :test, :it
   alias_method :context, :describe
   def assert(description, &block)
