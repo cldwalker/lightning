@@ -50,7 +50,10 @@ class Bacon::Context
 	def it(description)
 		old_it(description) do
 			RR.reset
+			# Add at least one requirement to ensure mock-only tests don't fail
+			Bacon::Counter[:requirements] += 1
 			yield
+			Bacon::Counter[:requirements] -= 1 if RR.double_injections.size.zero?
 			RR.verify
 		end
 	end
