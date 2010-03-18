@@ -1,18 +1,13 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
 context "Builder" do
-  # SOURCE_FILE = File.dirname(__FILE__) + '/lightning_completions'
-  # before_all { @source_file =  File.dirname(__FILE__) + '/lightning_completions' }
-
-  shared :builder do
-    def build
-      run_command :build, [source_file]
-    end
-    def source_file
-      @source_file ||= File.dirname(__FILE__) + '/lightning_completions'
-    end
+  def build
+    run_command :build, [source_file]
   end
-  behaves_like :builder
+
+  def source_file
+    @source_file ||= File.dirname(__FILE__) + '/lightning_completions'
+  end
 
   test "with non-default shell builds" do
     Lightning.config[:shell] = 'zsh'
@@ -28,7 +23,6 @@ context "Builder" do
   end
 
   context "with default shell" do
-    behaves_like :builder
     before_all { build }
 
     test "builds file in expected location" do

@@ -41,9 +41,32 @@ module Helpers
   end
 end
 
-class Bacon::Context
-  include Helpers
+module BaconExtensions
+  def before_all; yield; end
+  def after_all; yield; end
+  def assert(description, &block)
+    it(description) do
+      block.call.should == true
+    end
+  end
+end
 
+class Bacon::Context
+  # overrides describe to automatic inherited behaviors as methods
+  def describe(*args, &block)
+    context = Bacon::Context.new(args.join(' '), &block)
+    (parent_context = self).methods(false).each {|e|
+      class<<context; self end.send(:define_method, e) {|*args| parent_context.send(e, *args)}
+    }
+    @before.each { |b| context.before(&b) }
+    @after.each { |b| context.after(&b) }
+    context.run
+  end
+
+  include Helpers
+  include BaconExtensions
+
+  # RR adapter
   include RR::Adapters::RRMethods
   RR.trim_backtrace = true
   alias_method :old_it, :it
@@ -58,15 +81,8 @@ class Bacon::Context
 		end
 	end
 
-  def before_all; yield; end
-  def after_all; yield; end
   alias_method :test, :it
   alias_method :context, :describe
-  def assert(description, &block)
-    it(description) do
-      block.call.should == true
-    end
-  end
 end
 
 class <<self
