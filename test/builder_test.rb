@@ -2,11 +2,11 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 
 # class Lightning
 #   class BuilderTest < Test::Unit::TestCase
-class Protest::TestCase
-    def self.build
-      Lightning::Cli.run_command :build, [@source_file]
-    end
-end
+# class Protest::TestCase
+#     def self.build
+#       Lightning::Cli.run_command :build, [@source_file]
+#     end
+# end
     context "Builder" do
       SOURCE_FILE = File.dirname(__FILE__) + '/lightning_completions'
       setup do

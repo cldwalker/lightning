@@ -7,12 +7,12 @@ require File.join(File.dirname(__FILE__), 'test_helper')
       # rr and raising?
       test "run_command handles unexpected error" do
         mock($stderr).puts(/^Error: Unexpected/)
-        mock(Cli).complete_command(anything) { raise "Unexpected" }
+        mock(Lightning::Cli).complete_command(anything) { raise "Unexpected" }
         run_command :complete
       end
 
       test "complete defaults to ARGV if no ENV['COMP_LINE']" do
-        mock(Cli).complete('o-a', 'o-a Col')
+        mock(Lightning::Cli).complete('o-a', 'o-a Col')
         capture_stdout { run_command(:complete, ['o-a', 'Col']) }
       end
 

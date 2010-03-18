@@ -1,8 +1,9 @@
 require 'rubygems'
+require 'bacon'
 # require 'test/unit'
 # require 'context' #gem install jeremymcanally-context -s http://gems.github.com
-require 'protest'
-def context(*args,&block); Protest.context(*args,&block); end
+# require 'protest'
+# def context(*args,&block); Protest.context(*args,&block); end
 require 'rr'
 # require 'matchy'
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
@@ -10,6 +11,63 @@ require 'lightning'
 #set up valid global config file
 Lightning::Config.config_file = File.join(File.dirname(__FILE__), 'lightning.yml')
 
+module Helpers
+  def run_command(*args)
+    Lightning::Cli.run_command(*args)
+  end
+
+  def assert_arrays_equal(a1, a2)
+    assert_equal a1.map {|e| e.to_s}.sort, a2.map{|e| e.to_s}.sort
+  end
+
+  def capture_stdout(&block)
+    original_stdout = $stdout
+    $stdout = fake = StringIO.new
+    begin
+      yield
+    ensure
+      $stdout = original_stdout
+    end
+    fake.string
+  end
+
+  # from ActiveSupport
+  def slice_hash(*keys)
+    keys.shift.reject { |key,| !keys.include?(key) }
+  end
+end
+
+class Bacon::Context
+  include Helpers
+
+  include RR::Adapters::RRMethods
+  RR.trim_backtrace = true
+  alias_method :old_it, :it
+	def it(description)
+		old_it(description) do
+			RR.reset
+			yield
+			RR.verify
+		end
+	end
+
+  def before_all
+    yield
+  end
+  alias_method :test, :it
+  alias_method :context, :describe
+  def assert(description, &block)
+    it(description) do
+      block.call.should == true
+    end
+  end
+end
+
+class <<self
+  alias_method :context, :describe
+end
+
+__END__
 class Object
   def should(expectation)
     expectation.match?(self)
@@ -38,27 +96,4 @@ class Protest::TestCase
   include Matchers
   include RR::Adapters::TestUnit
 
-  def run_command(*args)
-    Lightning::Cli.run_command(*args)
-  end
-
-  def assert_arrays_equal(a1, a2)
-    assert_equal a1.map {|e| e.to_s}.sort, a2.map{|e| e.to_s}.sort
-  end
-
-  def capture_stdout(&block)
-    original_stdout = $stdout
-    $stdout = fake = StringIO.new
-    begin
-      yield
-    ensure
-      $stdout = original_stdout
-    end
-    fake.string
-  end
-
-  # from ActiveSupport
-  def slice_hash(*keys)
-    keys.shift.reject { |key,| !keys.include?(key) }
-  end
 end
