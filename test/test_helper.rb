@@ -71,14 +71,14 @@ class Bacon::Context
   RR.trim_backtrace = true
   alias_method :old_it, :it
 	def it(description)
-		old_it(description) do
-			RR.reset
-			# Add at least one requirement to ensure mock-only tests don't fail
-			Bacon::Counter[:requirements] += 1
-			yield
-			Bacon::Counter[:requirements] -= 1 if RR.double_injections.size.zero?
-			RR.verify
-		end
+    old_it(description) do
+      RR.reset
+      # Add at least one requirement to ensure mock-only tests don't fail
+      Bacon::Counter[:requirements] += 1
+      yield
+      Bacon::Counter[:requirements] -= 1 if RR.double_injections.size.zero?
+      RR.verify
+    end
 	end
 
   alias_method :test, :it
