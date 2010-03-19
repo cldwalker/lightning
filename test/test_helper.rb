@@ -17,7 +17,7 @@ module Helpers
   end
   
   def assert_arrays_equal(a1, a2)
-    assert_equal a1.map {|e| e.to_s}.sort, a2.map{|e| e.to_s}.sort
+    a1.map {|e| e.to_s}.sort.should == a2.map{|e| e.to_s}.sort
   end
 
   def capture_stdout(&block)
