@@ -16,10 +16,6 @@ module Helpers
     Lightning::Cli.run_command(*args)
   end
   
-  def generate(*bolts)
-    run_command :generate, bolts
-  end
-
   def assert_arrays_equal(a1, a2)
     assert_equal a1.map {|e| e.to_s}.sort, a2.map{|e| e.to_s}.sort
   end
@@ -42,6 +38,8 @@ module Helpers
 end
 
 module BaconExtensions
+  def xtest(*args); end
+  def xcontext(*args); end
   def before_all; yield; end
   def after_all; yield; end
   def assert(description, &block)

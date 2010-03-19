@@ -40,7 +40,8 @@ class Lightning
 
     protected
     def read_config_file
-      Util.symbolize_keys YAML::load_file(self.class.config_file)
+      File.exists?(self.class.config_file) ?
+        Util.symbolize_keys(YAML::load_file(self.class.config_file)) : {}
     end
   end
 end
