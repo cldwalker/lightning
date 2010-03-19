@@ -12,15 +12,15 @@ context "Bolt generates correct command from" do
     Lightning.commands['oa'].is_a?(Lightning::Command)
   end
 
-  test "global shell command" do
-    Lightning.commands['grep-app'].is_a?(Lightning::Command).should == true
+  assert "global shell command" do
+    Lightning.commands['grep-app'].is_a?(Lightning::Command)
   end
 
-  test "aliased global shell command in config" do
-    Lightning.commands['v-app'].is_a?(Lightning::Command).should == true
+  assert "aliased global shell command in config" do
+    Lightning.commands['v-app'].is_a?(Lightning::Command)
   end
 
-  test "global shell command which has a local config" do
-    Lightning.commands['c'].is_a?(Lightning::Command).should == true
+  assert "global shell command which has a local config" do
+    Lightning.commands['c'].is_a?(Lightning::Command)
   end
 end
