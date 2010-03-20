@@ -5,12 +5,12 @@ context "Cli Commands:" do
   # rr and raising?
   test "run_command handles unexpected error" do
     mock($stderr).puts(/^Error: Unexpected/)
-    mock(Lightning::Cli).complete_command(anything) { raise "Unexpected" }
+    mock(Cli).complete_command(anything) { raise "Unexpected" }
     run_command :complete
   end
 
   test "complete defaults to ARGV if no ENV['COMP_LINE']" do
-    mock(Lightning::Cli).complete('o-a', 'o-a Col')
+    mock(Cli).complete('o-a', 'o-a Col')
     capture_stdout { run_command(:complete, ['o-a', 'Col']) }
   end
 

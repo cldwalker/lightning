@@ -5,10 +5,11 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'lightning'
 #set up valid global config file
 Lightning::Config.config_file = File.join(File.dirname(__FILE__), 'lightning.yml')
+include Lightning
 
 module Helpers
   def run_command(*args)
-    Lightning::Cli.run_command(*args)
+    Cli.run_command(*args)
   end
   
   def assert_arrays_equal(a1, a2)

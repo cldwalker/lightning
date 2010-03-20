@@ -3,14 +3,14 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 context "Command" do
   def create_command(attributes={})
     # bolt, path and aliases depend on test/lightning.yml
-    @cmd = Lightning::Command.new({'name'=>'blah', 'bolt'=>Lightning::Bolt.new('app')}.merge(attributes))
+    @cmd = Command.new({'name'=>'blah', 'bolt'=>Bolt.new('app')}.merge(attributes))
     @cmd.completion_map.map = {'path1'=>'/dir/path1','path2'=>'/dir/path2',
       'path3'=>'/dir/path3', 'file 1'=>'/dir/file 1'}
   end
 
   def translate(input, *expected)
     Lightning.commands['blah'] = @cmd
-    mock(Lightning::Cli).puts(expected.join("\n"))
+    mock(Cli).puts(expected.join("\n"))
     run_command :translate, ['blah'] + input.split(' ')
   end
 

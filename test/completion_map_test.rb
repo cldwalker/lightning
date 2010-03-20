@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 context "CompletionMap" do
   def create_map(path_hash, new_options={})
     stub(Dir).glob('blah/*', File::FNM_DOTMATCH) { path_hash.values }
-    @completion_map = Lightning::CompletionMap.new('blah/*', new_options)
+    @completion_map = CompletionMap.new('blah/*', new_options)
   end
 
   test "creates basic map" do
@@ -13,11 +13,11 @@ context "CompletionMap" do
   end
 
   test "ignores paths from Lightning.ignore_paths" do
-    Lightning::CompletionMap.ignore_paths = ['path1', 'dir2', '\.\.?$']
+    CompletionMap.ignore_paths = ['path1', 'dir2', '\.\.?$']
     expected_map = {"path1"=>"/dir1/path1", "path2"=>"/dir1/path2", 'path3'=>'/dir2/path3', '.'=>'/dir1/path4/.'}
     create_map(expected_map)
     @completion_map.map.should == slice_hash(expected_map, 'path2')
-    Lightning::CompletionMap.ignore_paths = nil
+    CompletionMap.ignore_paths = nil
   end
 
   test "creates map with duplicates" do
@@ -29,7 +29,7 @@ context "CompletionMap" do
   test "ignores duplicate paths created by overlapping globs" do
     mock(Dir).glob('/usr/**', File::FNM_DOTMATCH) { ['/usr/lib/path1', '/usr/lib/path2'] }
     mock(Dir).glob('/usr/lib/*', File::FNM_DOTMATCH) { ['/usr/lib/path1'] }
-    @completion_map = Lightning::CompletionMap.new('/usr/**', '/usr/lib/*')
+    @completion_map = CompletionMap.new('/usr/**', '/usr/lib/*')
     @completion_map.map.should == {'path1'=>'/usr/lib/path1', 'path2'=>'/usr/lib/path2'}
   end
 end

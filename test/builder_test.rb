@@ -11,14 +11,14 @@ context "Builder" do
 
   test "with non-default shell builds" do
     Lightning.config[:shell] = 'zsh'
-    mock(Lightning::Builder).zsh_builder(anything) { '' }
+    mock(Builder).zsh_builder(anything) { '' }
     build
     Lightning.config[:shell] = nil
   end
 
   test "warns about existing commands being overridden" do
-    mock(Lightning::Util).shell_command_exists?('bling') { true }
-    stub(Lightning::Util).shell_command_exists?(anything) { false }
+    mock(Util).shell_command_exists?('bling') { true }
+    stub(Util).shell_command_exists?(anything) { false }
     capture_stdout { build } =~ /following.*exist.*: bling$/
   end
 

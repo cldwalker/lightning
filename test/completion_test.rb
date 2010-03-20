@@ -3,14 +3,14 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 context "Completion" do
   before {
     @command = 'blah';
-    cmd = Lightning::Command.new 'name'=>@command, 'bolt'=>Lightning::Bolt.new('blah')
+    cmd = Command.new 'name'=>@command, 'bolt'=>Bolt.new('blah')
     stub(cmd).completions { ['at', 'ap', 'blah.rb', 'has space'] }
     Lightning.commands[@command] = cmd
   }
 
   def tab(input, expected, complete_regex=false)
     Lightning.config[:complete_regex] = complete_regex
-    mock(Lightning::Cli).puts(expected)
+    mock(Cli).puts(expected)
     run_command :complete, [@command, 'cd-test '+ input]
   end
 
@@ -43,7 +43,7 @@ context "Completion" do
   end
 
   test "in nonexistent subdirectory errors properly" do
-    tab 'at/', Lightning::Completion.error_array("Nonexistent directory.")
+    tab 'at/', Completion.error_array("Nonexistent directory.")
   end
 
   test "in bolt subdirectory matches" do
@@ -97,23 +97,23 @@ context "Completion" do
     end
 
     test "which is invalid errors gracefully" do
-      tab '[]', Lightning::Completion.error_array('Invalid regular expression.'), true
+      tab '[]', Completion.error_array('Invalid regular expression.'), true
     end
   end
 end
 
 context "Completion misc" do
   test "blob_to_regex converts * to .*" do
-    @lc = Lightning::Completion.new('blah', nil)
+    @lc = Completion.new('blah', nil)
     @lc.blob_to_regex('*a*blah').should == '.*a.*blah'
   end
 
   test "blob_to_regex doesn't modify .*" do
-    @lc = Lightning::Completion.new('blah', nil)
+    @lc = Completion.new('blah', nil)
     @lc.blob_to_regex('.*blah.*').should == '.*blah.*'
   end
 
   test "Completion error array must be more than one element to display and not complete error" do
-    Lightning::Completion.error_array("testing").size.should > 1
+    Completion.error_array("testing").size.should > 1
   end
 end
