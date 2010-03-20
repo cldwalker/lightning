@@ -53,6 +53,11 @@ context "Cli Commands:" do
     Cli.run []
   end
 
+  test "run with -h prints usage" do
+    mock(Cli).print_global_usage
+    Cli.run ['-h']
+  end
+
   test "run with invalid command prints messaged and usage" do
     mock(Cli).print_global_usage
     capture_stdout { Cli.run ['blah'] }.should =~ /Command 'blah'/

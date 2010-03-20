@@ -21,7 +21,7 @@ module Lightning
       if argv[0] && commands.include?(argv[0].to_sym)
         run_command(argv.shift, argv)
       else
-        puts "Command '#{argv[0]}' not found.","\n" if argv[0]
+        puts "Command '#{argv[0]}' not found.","\n" if argv[0] && !%w{-h --help}.include?(argv[0])
         print_global_usage
       end
     end
