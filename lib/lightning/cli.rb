@@ -6,7 +6,7 @@ module Lightning
 
     # Used by bin/* to run commands
     def run_command(command, argv=ARGV)
-      @command = command
+      @command = command.to_sym
       if argv.include?('-h') || argv.include?('--help')
         print_usage
       else
@@ -16,7 +16,26 @@ module Lightning
       $stderr.puts "Error: "+ $!.message
     end
 
+    # Executes a command with given arguments
+    def run(argv=ARGV)
+      if argv[0] && commands.include?(argv[0].to_sym)
+        run_command(argv.shift, argv)
+      else
+        puts "Command '#{argv[0]}' not found.","\n" if argv[0]
+        print_global_usage
+      end
+    end
+
+    # Array of valid commands
+    def commands
+      @usage.keys
+    end
+
     private
+    def print_global_usage
+      puts "lightning [command] [arguments]"
+    end
+
     def print_usage
       usage_array = Array(@usage[@command])
       usage_array[0] = "Usage: #{usage_array[0]}"

@@ -47,4 +47,14 @@ context "Cli Commands:" do
   test "generator prints usage with -h" do
     capture_stdout { run_command :generate, '-h' }.should =~ /^Usage/
   end
+
+  test "run with no command prints usage" do
+    mock(Cli).print_global_usage
+    Cli.run []
+  end
+
+  test "run with invalid command prints messaged and usage" do
+    mock(Cli).print_global_usage
+    capture_stdout { Cli.run ['blah'] }.should =~ /Command 'blah'/
+  end
 end
