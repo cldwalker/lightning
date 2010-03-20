@@ -1,6 +1,4 @@
 require 'rake'
-require 'rake/testtask'
-require 'rake/rdoctask'
 begin
   require 'rcov/rcovtask'
 
@@ -11,7 +9,6 @@ begin
     t.verbose = true
   end
 rescue LoadError
-  puts "Rcov not available. Install it for rcov-related tasks with: sudo gem install rcov"
 end
 
 begin
@@ -34,36 +31,9 @@ rescue LoadError
   puts "Jeweler not available. Install it for jeweler-related tasks with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
 end
 
-Rake::TestTask.new do |t|
-  t.libs << 'lib'
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = false
-end
-
-Rake::RDocTask.new do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'test'
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-end
-
-namespace :dev do
-  desc "Generates completion, modifies it for local development"
-  task :reload=>:generate_completions do
-    file = 'lightning_completions'
-    string = File.read(file)
-    string.sub!(/^LBIN_PATH/,'#LBIN_PATH')
-    string.sub!(/^#LBIN_PATH/,'LBIN_PATH')
-    File.open(file,'w') {|f| f.write(string) }
-  end
-
-  desc "Generates local completion file to be sourced by your shell"
-  task :generate_completions do
-    $:.unshift 'lib'
-    require 'lightning'
-    Lightning::Generator.generate_completions 'lightning_completions'
-  end
-end
-
 task :default => :test
+
+desc 'Run specs with unit test style output'
+task :test do |t|
+  sh 'bacon -q test/*_test.rb'
+end
