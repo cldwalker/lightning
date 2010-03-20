@@ -20,6 +20,8 @@ module Lightning
     def run(argv=ARGV)
       if argv[0] && commands.include?(argv[0].to_sym)
         run_command(argv.shift, argv)
+      elsif %w{-v --version}.include?(argv[0])
+        puts VERSION
       else
         puts "Command '#{argv[0]}' not found.","\n" if argv[0] && !%w{-h --help}.include?(argv[0])
         print_global_usage

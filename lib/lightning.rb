@@ -10,6 +10,7 @@ require 'lightning/completion_map'
 require 'lightning/builder'
 require 'lightning/generators'
 require 'lightning/generator'
+require 'lightning/version'
 
 module Lightning
   class<<self
