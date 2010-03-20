@@ -7,7 +7,7 @@ module Lightning
     # Used by bin/* to run commands
     def run_command(command, argv=ARGV)
       @command = command.to_sym
-      if argv.include?('-h') || argv.include?('--help')
+      if %w{-h --help}.include?(argv[0])
         print_usage
       else
         send("#{command}_command", argv)

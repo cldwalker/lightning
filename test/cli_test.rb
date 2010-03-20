@@ -41,11 +41,11 @@ context "Cli Commands:" do
   end
 
   test "builder prints usage with -h" do
-    capture_stdout { run_command :build, '-h' }.should =~ /^Usage/
+    capture_stdout { run_command :build, ['-h'] }.should =~ /^Usage/
   end
 
   test "generator prints usage with -h" do
-    capture_stdout { run_command :generate, '-h' }.should =~ /^Usage/
+    capture_stdout { run_command :generate, ['-h'] }.should =~ /^Usage/
   end
 
   test "run with no command prints usage" do
@@ -61,5 +61,11 @@ context "Cli Commands:" do
   test "run with invalid command prints messaged and usage" do
     mock(Cli).print_global_usage
     capture_stdout { Cli.run ['blah'] }.should =~ /Command 'blah'/
+  end
+
+  test "command should be able to take -h as argument" do
+    mock(Cli).print_usage.never
+    mock(Cli).complete_command(['blah', '-h'])
+    Cli.run(['complete', 'blah', '-h'])
   end
 end
