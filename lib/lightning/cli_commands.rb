@@ -1,4 +1,4 @@
-class Lightning
+module Lightning
   module Cli
     usage :complete, "[command] [*arguments]",
       "Prints a command's completions based on the last argument"

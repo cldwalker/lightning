@@ -1,4 +1,4 @@
-class Lightning
+module Lightning
   module Util
     extend self
 

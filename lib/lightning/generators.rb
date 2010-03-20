@@ -1,4 +1,4 @@
-class Lightning
+module Lightning
   # This module contains methods which are used to generate bolts with lightning-generate.
   # Each method should return a hash of bolt attributes. A bolt hash should at least have a paths
   # attribute. The name of the method is the name given to the bolt.

@@ -1,4 +1,4 @@
-class Lightning
+module Lightning
   # Generates hashes of bolt attributes using methods defined in Generators.
   # Bolt hashes are inserted under config[:bolts] and Config.config_file is saved.
   class Generator
@@ -9,7 +9,7 @@ class Lightning
     # @param [Array] String which point to instance methods in Generators
     def self.run(*gens)
       gens = Lightning.config[:default_generators] || DEFAULT_GENERATORS if gens.empty?
-      @generator = new
+      @generator = self.new
       good, bad = gens.partition {|e| @generator.respond_to?(e) }
       $stdout.puts "The following generators don't exist and were ignored: #{bad.join(', ')}" unless bad.empty?
       generate_bolts good

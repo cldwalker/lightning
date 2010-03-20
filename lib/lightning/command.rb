@@ -1,4 +1,4 @@
-class Lightning
+module Lightning
   # A Command wraps around a shell command and provides autocompletion and
   # translation of basenames to full path names. It depends on a Bolt object for
   # the globbable paths and a CompletionMap object to map basenames to full paths.

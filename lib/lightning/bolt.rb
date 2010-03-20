@@ -1,4 +1,4 @@
-class Lightning
+module Lightning
   # A bolt is a group of globbable paths (Dir.glob) used by a Command object
   # to generate a CompletionMap.
   class Bolt

@@ -1,4 +1,4 @@
-class Lightning
+module Lightning
   # Maps completions (file basenames) and aliases to their full paths.
   class CompletionMap
     DUPLICATE_DELIMITER = '//'

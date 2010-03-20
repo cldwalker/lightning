@@ -1,4 +1,4 @@
-class Lightning
+module Lightning
   # Builds a shell file from bolts and shell commands in the config file. This file
   # should be source in a user's shell. Currently supports bash and zsh shells.
   module Builder

@@ -11,7 +11,7 @@ require 'lightning/builder'
 require 'lightning/generators'
 require 'lightning/generator'
 
-class Lightning
+module Lightning
   class<<self
     attr_accessor :config
 

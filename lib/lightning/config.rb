@@ -1,5 +1,5 @@
 require 'yaml'
-class Lightning
+module Lightning
   # Handles reading and writing of a config file used to generate bolts and commands and offer
   # custom Lightning behavior.
   class Config < ::Hash
