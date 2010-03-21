@@ -24,7 +24,7 @@ module Lightning
         puts VERSION
       else
         puts "Command '#{argv[0]}' not found.","\n" if argv[0] && !%w{-h --help}.include?(argv[0])
-        print_global_usage
+        print_help
       end
     end
 
@@ -34,8 +34,23 @@ module Lightning
     end
 
     private
-    def print_global_usage
-      puts "lightning [command] [arguments]"
+    def print_help
+      puts "lightning [command] [arguments]", ""
+      puts "Available commands:"
+      print_command_table
+      puts "\nFor more information on a command use:"
+      puts "  lightning [command] -h", "\n"
+      puts "Options: "
+      puts "  -h, --help     Show this help and exit"
+      puts "  -v, --version  Print current version and exit"
+    end
+
+    def print_command_table
+      offset = @usage.keys.map {|a| a.to_s.size }.max + 2
+      offset += 1 unless offset % 2 == 0
+      @usage.sort_by {|e| e.to_s}.each do |command, (usage, desc)|
+        puts "  #{command}" << ' ' * (offset - command.to_s.size) << desc.to_s
+      end
     end
 
     def print_usage

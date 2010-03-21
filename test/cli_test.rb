@@ -49,17 +49,17 @@ context "Cli Commands:" do
   end
 
   test "run with no command prints usage" do
-    mock(Cli).print_global_usage
+    mock(Cli).print_help
     Cli.run []
   end
 
   test "run with -h prints usage" do
-    mock(Cli).print_global_usage
+    mock(Cli).print_help
     Cli.run ['-h']
   end
 
   test "run with invalid command prints messaged and usage" do
-    mock(Cli).print_global_usage
+    mock(Cli).print_help
     capture_stdout { Cli.run ['blah'] }.should =~ /Command 'blah'/
   end
 
