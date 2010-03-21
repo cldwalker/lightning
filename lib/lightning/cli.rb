@@ -5,12 +5,12 @@ module Lightning
     extend self
 
     # Used by bin/* to run commands
-    def run_command(command, argv=ARGV)
+    def run_command(command, args)
       @command = command.to_sym
-      if %w{-h --help}.include?(argv[0])
+      if %w{-h --help}.include?(args[0])
         print_usage
       else
-        send("#{command}_command", argv)
+        send("#{command}_command", args)
       end
     rescue StandardError, SyntaxError
       $stderr.puts "Error: "+ $!.message

@@ -8,8 +8,8 @@ Lightning::Config.config_file = File.join(File.dirname(__FILE__), 'lightning.yml
 include Lightning
 
 module Helpers
-  def run_command(*args)
-    Cli.run_command(*args)
+  def run_command(command, args=[])
+    Cli.run([command] + args)
   end
   
   def assert_arrays_equal(a1, a2)
