@@ -55,7 +55,7 @@ module Lightning
 
     def print_usage
       usage_array = Array(@usage[@command])
-      usage_array[0] = "Usage: #{usage_array[0]}"
+      usage_array[0] = "Usage: lightning #{@command} #{usage_array[0]}"
       puts usage_array
     end
 
