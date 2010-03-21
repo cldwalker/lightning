@@ -18,13 +18,13 @@ begin
   Jeweler::Tasks.new do |s|
     s.name = "lightning"
     s.version = Lightning::VERSION
-    s.executables = ["lightning-complete", "lightning-translate", "lightning-build", "lightning-generate"]
+    s.executables = ['lightning', "lightning-complete", "lightning-translate", "lightning-build", "lightning-generate"]
     s.summary = "Autocomplete paths and execute commands at the speed of light-ning."
     s.description = "Lightning creates shell commands that autocomplete and alias configured group of files and directories. Autocompleting is quick since you only need to type the basename."
     s.email = "gabriel.horner@gmail.com"
     s.homepage = "http://github.com/cldwalker/lightning"
     s.authors = ["Gabriel Horner"]
-    s.files =  FileList["CHANGELOG.rdoc", "Rakefile", "VERSION.yml", "lightning_completions.example", "lightning.yml.example","README.rdoc", "LICENSE.txt", "{bin,lib,test}/**/*"]
+    s.files =  FileList["CHANGELOG.rdoc", "Rakefile", "lightning.yml.example","README.rdoc", "LICENSE.txt", "{bin,lib,test}/**/*"]
     s.has_rdoc = true
     s.rubyforge_project = 'tagaholic'
     s.extra_rdoc_files = ["README.rdoc", "LICENSE.txt"]
