@@ -6,7 +6,7 @@ module Lightning
 
     # Used by bin/* to run commands
     def run_command(command, args)
-      @command = command.to_sym
+      @command = command.to_s
       if %w{-h --help}.include?(args[0])
         print_command_help
       else
@@ -18,12 +18,12 @@ module Lightning
 
     # Executes a command with given arguments
     def run(argv=ARGV)
-      if argv[0] && commands.include?(argv[0].to_sym)
-        run_command(argv.shift, argv)
-      elsif %w{-v --version}.include?(argv[0])
+      if (command = argv.shift) && (actual_command = commands.sort.find {|e| e[/^#{command}/] })
+        run_command(actual_command, argv)
+      elsif %w{-v --version}.include?(command)
         puts VERSION
       else
-        puts "Command '#{argv[0]}' not found.","\n" if argv[0] && !%w{-h --help}.include?(argv[0])
+        puts "Command '#{command}' not found.","\n" if command && !%w{-h --help}.include?(command)
         print_help
       end
     end
@@ -46,10 +46,10 @@ module Lightning
     end
 
     def print_command_table
-      offset = @usage.keys.map {|a| a.to_s.size }.max + 2
+      offset = commands.map {|e| e.size }.max + 2
       offset += 1 unless offset % 2 == 0
-      @usage.sort_by {|e| e.to_s}.each do |command, (usage, desc)|
-        puts "  #{command}" << ' ' * (offset - command.to_s.size) << desc.to_s
+      @usage.sort.each do |command, (usage, desc)|
+        puts "  #{command}" << ' ' * (offset - command.size) << desc
       end
     end
 

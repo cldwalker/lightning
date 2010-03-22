@@ -53,6 +53,11 @@ context "Cli Commands:" do
     Cli.run []
   end
 
+  test "run with aliased command executes correct command" do
+    mock(Cli).run_command('build', [])
+    Cli.run ['b']
+  end
+
   test "run with -h prints usage" do
     mock(Cli).print_help
     Cli.run ['-h']
