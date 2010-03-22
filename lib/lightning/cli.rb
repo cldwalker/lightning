@@ -35,11 +35,11 @@ module Lightning
 
     private
     def print_help
-      puts "lightning [command] [arguments]", ""
+      puts "lightning COMMAND [arguments]", ""
       puts "Available commands:"
       print_command_table
-      puts "\nFor more information on a command use:"
-      puts "  lightning [command] -h", "\n"
+      puts "", "For more information on a command use:"
+      puts "  lightning COMMAND -h", ""
       puts "Options: "
       puts "  -h, --help     Show this help and exit"
       puts "  -v, --version  Print current version and exit"

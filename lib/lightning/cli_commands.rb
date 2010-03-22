@@ -1,6 +1,6 @@
 module Lightning
   module Cli
-    usage :complete, "[command] [*arguments]",
+    usage :complete, "COMMAND [arguments]",
       "Prints a command's completions based on the last argument"
     # Runs bin/lightning-complete
     def complete_command(argv)
@@ -16,8 +16,8 @@ module Lightning
       puts complete(command, buffer)
     end
 
-    usage :translate, "[command] [*arguments]",
-      "Translates each arguments and prints it on a separate line"
+    usage :translate, "COMMAND [arguments]",
+      "Translates each argument and prints it on a separate line"
     # Runs bin/lightning-translate
     def translate_command(argv)
       return print_usage if argv.empty?
@@ -34,7 +34,7 @@ module Lightning
         puts("No builder exists for #{Builder.shell} shell")
     end
 
-    usage :generate, "[*generators]", "Generates bolts and places them in the config file." +
+    usage :generate, "[generators]", "Generates bolts and places them in the config file." +
       " With no arguments, generates default bolts."
     # Runs bin/lightning-generate
     def generate_command(argv=ARGV)
