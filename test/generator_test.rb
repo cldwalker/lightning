@@ -18,10 +18,9 @@ context "Generator" do
   end
 
   test "loads plugin file if it exists" do
-    mock(Generator).run
     mock(File).exists?(anything) {true}
-    mock(Cli).load anything
-    generate
+    mock(Generator).load anything
+    Generator.setup
   end
 
   test "generates all default generators" do

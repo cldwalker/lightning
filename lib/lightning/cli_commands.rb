@@ -2,7 +2,7 @@ module Lightning
   module Cli
     usage 'complete', "COMMAND [arguments]",
       "Prints a command's completions based on the last argument"
-    # Runs bin/lightning-complete
+    # Runs lightning complete
     def complete_command(argv)
       return print_command_help if argv.empty?
       # this arg is needed by zsh in Complete
@@ -18,7 +18,7 @@ module Lightning
 
     usage 'translate', "COMMAND [arguments]",
       "Translates each argument and prints it on a separate line"
-    # Runs bin/lightning-translate
+    # Runs lightning translate
     def translate_command(argv)
       return print_command_help if argv.empty?
       # for one argument do nothing since no translation line was given
@@ -27,7 +27,7 @@ module Lightning
 
     usage 'build', "[source_file]", 'Builds a shell file to be sourced based on '+
       '~/.lightning.yml. Uses default file if none given.'
-    # Runs bin/lightning-build
+    # Runs lightning build
     def build_command(argv)
       Lightning.setup
       Builder.can_build? ? Builder.run(argv[0]) :
@@ -36,10 +36,8 @@ module Lightning
 
     usage 'generate', "[generators]", "Generates bolts and places them in the config file." +
       " With no arguments, generates default bolts."
-    # Runs bin/lightning-generate
+    # Runs lightning generate
     def generate_command(argv=ARGV)
-      plugin_file = File.join(Util.find_home, '.lightning.rb')
-      load plugin_file if File.exists? plugin_file
       Generator.run(*argv)
     end
 
