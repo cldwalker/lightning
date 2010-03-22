@@ -8,7 +8,7 @@ module Lightning
     def run_command(command, args)
       @command = command.to_sym
       if %w{-h --help}.include?(args[0])
-        print_usage
+        print_command_help
       else
         send("#{command}_command", args)
       end
@@ -53,7 +53,7 @@ module Lightning
       end
     end
 
-    def print_usage
+    def print_command_help
       usage_array = Array(@usage[@command])
       usage_array[0] = "Usage: lightning #{@command} #{usage_array[0]}"
       puts usage_array

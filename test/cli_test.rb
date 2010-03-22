@@ -64,7 +64,7 @@ context "Cli Commands:" do
   end
 
   test "command should be able to take -h as argument" do
-    mock(Cli).print_usage.never
+    mock(Cli).print_command_help.never
     mock(Cli).complete_command(['blah', '-h'])
     Cli.run(['complete', 'blah', '-h'])
   end

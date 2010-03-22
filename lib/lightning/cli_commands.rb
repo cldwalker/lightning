@@ -4,7 +4,7 @@ module Lightning
       "Prints a command's completions based on the last argument"
     # Runs bin/lightning-complete
     def complete_command(argv)
-      return print_usage if argv.empty?
+      return print_command_help if argv.empty?
       # this arg is needed by zsh in Complete
       command = argv[0]
       # bash hack: read ENV here because passing $COMP_LINE from the shell
@@ -20,7 +20,7 @@ module Lightning
       "Translates each argument and prints it on a separate line"
     # Runs bin/lightning-translate
     def translate_command(argv)
-      return print_usage if argv.empty?
+      return print_command_help if argv.empty?
       # for one argument do nothing since no translation line was given
       puts translate(argv.shift, argv) if argv.size != 1
     end
