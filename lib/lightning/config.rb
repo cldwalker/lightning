@@ -54,8 +54,8 @@ module Lightning
     end
 
     def delete_bolt(bolt)
-      if c[:bolts][bolt]
-        c[:bolts].delete(bolt)
+      if self[:bolts][bolt]
+        self[:bolts].delete(bolt)
         save
         puts "Deleted bolt '#{bolt}'"
       else

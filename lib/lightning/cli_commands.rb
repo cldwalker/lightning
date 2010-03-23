@@ -44,25 +44,17 @@ module Lightning
     usage 'bolt', "(list | add BOLT GLOBS | delete BOLT | generate BOLT [generator] | show BOLT)",
       "Commands for managing bolts. Defaults to listing them."
     def bolt_command(argv)
-      subcommand = argv.shift
-      if subcommand.nil? || subcommand == 'list'
-        puts Lightning.config[:bolts].keys.sort
-      else
-        subcommand = %w{add delete generate show}.find {|e| e[/^#{subcommand}/]} || subcommand
-        bolt_subcommand(subcommand, argv) if subcommand_has_required_args(subcommand, argv)
-      end
+      subcommand = argv.shift || 'list'
+      subcommand = %w{add delete generate list show}.find {|e| e[/^#{subcommand}/]} || subcommand
+      bolt_subcommand(subcommand, argv) if subcommand_has_required_args(subcommand, argv)
     end
 
     usage 'shell_command', '(list | add SHELL_COMMAND | delete SHELL_COMMAND)',
       'Commands for managing shell commands. Defaults to listing them.'
     def shell_command_command(argv)
-      subcommand = argv.shift
-      if subcommand.nil? || subcommand == 'list'
-        puts Lightning.config.shell_commands.keys.sort
-      else
-        subcommand = %w{add delete}.find {|e| e[/^#{subcommand}/]} || subcommand
-        shell_command_subcommand(subcommand, argv) if subcommand_has_required_args(subcommand, argv)
-      end
+      subcommand = argv.shift || 'list'
+      subcommand = %w{add delete list}.find {|e| e[/^#{subcommand}/]} || subcommand
+      shell_command_subcommand(subcommand, argv) if subcommand_has_required_args(subcommand, argv)
     end
 
     usage 'commands', '', 'Lists commands generated from shell_commands and bolts.'
@@ -74,10 +66,10 @@ module Lightning
     protected
 
     def shell_command_subcommand(subcommand, argv)
-      if subcommand == 'add'
-        Lightning.config.add_shell_command(argv[0])
-      elsif subcommand == 'delete'
-        Lightning.config.delete_shell_command(argv[0])
+      case subcommand
+      when 'list'   then   puts Lightning.config.shell_commands.keys.sort
+      when 'add'    then   Lightning.config.add_shell_command(argv[0])
+      when 'delete' then   Lightning.config.delete_shell_command(argv[0])
       else
         puts "Invalid subcommand '#{subcommand}'", ''
         print_command_help
@@ -86,13 +78,11 @@ module Lightning
 
     def bolt_subcommand(subcommand, argv)
       case subcommand
-      when 'add'
-        Lightning.config.add_bolt(argv.shift, argv)
-      when 'delete'
-        Lightning.config.delete_bolt(argv[0])
+      when 'list'     then    puts Lightning.config[:bolts].keys.sort
+      when 'add'      then    Lightning.config.add_bolt(argv.shift, argv)
+      when 'delete'   then    Lightning.config.delete_bolt(argv[0])
       when 'generate'
-      when 'show'
-        Lightning.config.show_bolt(argv[0])
+      when 'show'     then    Lightning.config.show_bolt(argv[0])
       else
         puts "Invalid subcommand '#{subcommand}'", ''
         print_command_help
