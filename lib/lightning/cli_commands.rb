@@ -41,14 +41,15 @@ module Lightning
       Generator.run(*argv)
     end
 
-    usage 'bolt', "(list | add BOLT GLOBS | delete BOLT GLOBS | generate BOLT [generator] | show BOLT)",
+    usage 'bolt', "(list | add BOLT GLOBS | delete BOLT | generate BOLT [generator] | show BOLT)",
       "Commands for managing bolts. Defaults to listing them."
     def bolt_command(argv)
       subcommand = argv.shift
       if subcommand.nil? || subcommand == 'list'
         puts Lightning.config[:bolts].keys.sort
       else
-        run_bolt_subcommand(subcommand, argv)
+        subcommand = %w{add delete generate show}.find {|e| e[/^#{subcommand}/]} || subcommand
+        run_bolt_subcommand(subcommand, argv) if subcommand_has_required_args(subcommand, argv)
       end
     end
 
@@ -66,7 +67,6 @@ module Lightning
     protected
 
     def run_bolt_subcommand(subcommand, argv)
-      subcommand = %w{add delete generate show}.find {|e| e[/^#{subcommand}/]} || subcommand
       case subcommand
       when 'add'
         Lightning.config.add_bolt(argv.shift, argv)

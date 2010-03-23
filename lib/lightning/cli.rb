@@ -34,6 +34,20 @@ module Lightning
     end
 
     private
+    def subcommand_required_args
+      Array(@usage[@command])[0].split('|').inject({}) {|a,e|
+        cmd, *args = e.strip.split(/\s+/)
+        a[cmd] = args.select {|e| e[/^[A-Z]/]}.size
+        a
+      }
+    end
+
+    def subcommand_has_required_args(subcommand, argv)
+      return true if argv.size >= (subcommand_required_args[subcommand] || 0)
+      puts "'lightning #{@command} #{subcommand}' was called incorrectly."
+      puts command_usage
+    end
+
     def print_help
       puts "lightning COMMAND [arguments]", ""
       puts "Available commands:"
@@ -53,11 +67,16 @@ module Lightning
       end
     end
 
+    def command_usage
+      "Usage: lightning #{@command} #{usage_array[0]}"
+    end
+
+    def usage_array
+      Array(@usage[@command])
+    end
+
     def print_command_help
-      usage_array = Array(@usage[@command])
-      usage_array[0] = "Usage: lightning #{@command} #{usage_array[0]}"
-      usage_array.insert(1, '')
-      puts usage_array
+      puts [command_usage, '', usage_array[1]]
     end
 
     def usage(command, *args)
