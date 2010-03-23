@@ -33,22 +33,34 @@ module Lightning
       end
     end
 
+    def add_shell_command(scmd)
+      write {|c| (c[:shell_commands] ||= []) << scmd }
+      puts "Added shell command '#{scmd}'"
+    end
+
+    def delete_shell_command(scmd)
+      if (self[:shell_commands] || []).include?(scmd)
+        self[:shell_commands].delete scmd
+        save
+        puts "Deleted shell command '#{scmd}'"
+      else
+        puts "Can't find shell command '#{scmd}'"
+      end
+    end
+
     def add_bolt(bolt, globs)
-      write {|c|
-        c[:bolts][bolt] = {'paths'=>globs.map {|e| File.expand_path(e) }}
-      }
+      write {|c| c[:bolts][bolt] = {'paths'=>globs.map {|e| File.expand_path(e) }} }
       puts "Added bolt '#{bolt}'"
     end
 
     def delete_bolt(bolt)
-      write {|c|
-        if c[:bolts][bolt]
-          c[:bolts].delete(bolt)
-          puts "Deleted bolt '#{bolt}'"
-        else
-          puts "Can't find bolt '#{bolt}'"
-        end
-      }
+      if c[:bolts][bolt]
+        c[:bolts].delete(bolt)
+        save
+        puts "Deleted bolt '#{bolt}'"
+      else
+        puts "Can't find bolt '#{bolt}'"
+      end
     end
 
     def show_bolt(bolt)
