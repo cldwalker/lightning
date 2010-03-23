@@ -41,6 +41,12 @@ module Lightning
       Generator.run(*argv)
     end
 
+    usage 'bolt', "[key]", "Manages bolts by listing, adding and removing them"
+    def bolt_command(argv)
+      Lightning.setup
+      puts Lightning.bolts.values.map {|e| e.name }.sort
+    end
+
     protected
     def complete(command, text_to_complete)
       Lightning.setup
