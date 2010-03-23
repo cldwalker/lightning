@@ -41,10 +41,15 @@ module Lightning
       Generator.run(*argv)
     end
 
-    usage 'bolt', "[key]", "Manages bolts by listing, adding and removing them"
+    usage 'bolt', "(list | add BOLT GLOBS | delete BOLT GLOBS | generate BOLT [generator] | show BOLT)",
+      "Commands for managing bolts. Defaults to listing them."
     def bolt_command(argv)
-      Lightning.setup
-      puts Lightning.bolts.values.map {|e| e.name }.sort
+      subcommand = argv.shift
+      if subcommand.nil? || subcommand == 'list'
+        puts Lightning.config[:bolts].keys.sort
+      else
+        run_bolt_subcommand(subcommand, argv)
+      end
     end
 
     usage 'shell_command', '', 'Manages shell commands by listing, adding and removing them'
@@ -59,6 +64,23 @@ module Lightning
     end
 
     protected
+
+    def run_bolt_subcommand(subcommand, argv)
+      subcommand = %w{add delete generate show}.find {|e| e[/^#{subcommand}/]} || subcommand
+      case subcommand
+      when 'add'
+        Lightning.config.add_bolt(argv.shift, argv)
+      when 'delete'
+        Lightning.config.delete_bolt(argv[0])
+      when 'generate'
+      when 'show'
+        Lightning.config.show_bolt(argv[0])
+      else
+        puts "Invalid subcommand '#{subcommand}'", ''
+        print_command_help
+      end
+    end
+
     def complete(command, text_to_complete)
       Lightning.setup
       Completion.complete(text_to_complete, Lightning.commands[command])

@@ -33,6 +33,37 @@ module Lightning
       end
     end
 
+    def add_bolt(bolt, globs)
+      write {|c|
+        c[:bolts][bolt] = {'paths'=>globs.map {|e| File.expand_path(e) }}
+      }
+      puts "Added bolt '#{bolt}'"
+    end
+
+    def delete_bolt(bolt)
+      write {|c|
+        if c[:bolts][bolt]
+          c[:bolts].delete(bolt)
+          puts "Deleted bolt '#{bolt}'"
+        else
+          puts "Can't find bolt '#{bolt}'"
+        end
+      }
+    end
+
+    def show_bolt(bolt)
+      if self[:bolts][bolt]
+        puts self[:bolts][bolt].to_yaml.sub("--- \n", '')
+      else
+        puts "Can't find bolt '#{bolt}'"
+      end
+    end
+
+    def write
+      yield(self)
+      save
+    end
+
     # Saves config to Config.config_file
     def save
       File.open(self.class.config_file, "w") {|f| f.puts Hash.new.replace(self).to_yaml }
