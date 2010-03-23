@@ -47,6 +47,17 @@ module Lightning
       puts Lightning.bolts.values.map {|e| e.name }.sort
     end
 
+    usage 'shell_command', '', 'Manages shell commands by listing, adding and removing them'
+    def shell_command_command(argv)
+      puts Lightning.config.shell_commands.keys.sort
+    end
+
+    usage 'commands', '', 'Lists commands generated from shell_commands and bolts'
+    def commands_command(argv)
+      Lightning.setup
+      puts Lightning.commands.keys.sort
+    end
+
     protected
     def complete(command, text_to_complete)
       Lightning.setup
