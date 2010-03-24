@@ -12,7 +12,7 @@ module Lightning
       end
     end
 
-    DEFAULT = {:complete_regex=>true, :bolts=>{}, :aliases=>{}, :shell_commands=>['cd', 'ls'],
+    DEFAULT = {:complete_regex=>true, :bolts=>{}, :aliases=>{}, :shell_commands=>{'cd'=>'cd', 'ls'=>'ls'},
       :source_file=>File.join(Util.find_home, '.lightning_completions') }
 
     def initialize(hash=read_config_file)
@@ -23,41 +23,39 @@ module Lightning
 
     # Global shell commands used to generate Commands for all Bolts.
     # @return [Hash]
-    # Maps shell command names to their aliases. Generated from the
-    # config[:shell_commands] array.
+    # Maps shell command names to their aliases using @config[:shell_commands]
     def shell_commands
-      @shell_commands ||= begin
-        (self[:shell_commands] || []).inject({}) {|a,e|
-          e.is_a?(Hash) ? a.merge!(e) : a.merge!(e=>e)
-        }
+      self[:shell_commands]
+    end
+
+    def add_shell_command(scmd, scmd_alias=nil)
+      scmd_alias ||= scmd
+      if shell_commands.values.include?(scmd_alias)
+        puts "Alias '#{scmd_alias}' already exists for shell command '#{shell_commands.invert[scmd_alias]}'"
+      else
+        shell_commands[scmd] = scmd_alias
+        save_and_say "Added shell command '#{scmd}'"
       end
     end
 
-    def add_shell_command(scmd)
-      write {|c| (c[:shell_commands] ||= []) << scmd }
-      puts "Added shell command '#{scmd}'"
-    end
-
     def delete_shell_command(scmd)
-      if (self[:shell_commands] || []).include?(scmd)
-        self[:shell_commands].delete scmd
-        save
-        puts "Deleted shell command '#{scmd}'"
+      if shell_commands[scmd]
+        shell_commands.delete scmd
+        save_and_say "Deleted shell command '#{scmd}'"
       else
         puts "Can't find shell command '#{scmd}'"
       end
     end
 
     def add_bolt(bolt, globs)
-      write {|c| c[:bolts][bolt] = {'paths'=>globs.map {|e| File.expand_path(e) }} }
-      puts "Added bolt '#{bolt}'"
+      self[:bolts][bolt] = { 'paths'=>globs.map {|e| File.expand_path(e) } }
+      save_and_say "Added bolt '#{bolt}'"
     end
 
     def alias_bolt(bolt, bolt_alias)
       if self[:bolts][bolt]
         self[:bolts][bolt]['alias'] = bolt_alias
-        save
-        puts "Aliased bolt '#{bolt}' to '#{bolt_alias}'"
+        save_and_say "Aliased bolt '#{bolt}' to '#{bolt_alias}'"
       else
         puts "Couldn't find bolt '#{bolt}'"
       end
@@ -66,8 +64,7 @@ module Lightning
     def delete_bolt(bolt)
       if self[:bolts][bolt]
         self[:bolts].delete(bolt)
-        save
-        puts "Deleted bolt '#{bolt}'"
+        save_and_say "Deleted bolt '#{bolt}'"
       else
         puts "Can't find bolt '#{bolt}'"
       end
@@ -81,17 +78,17 @@ module Lightning
       end
     end
 
-    def write
-      yield(self)
-      save
-    end
-
     # Saves config to Config.config_file
     def save
       File.open(self.class.config_file, "w") {|f| f.puts Hash.new.replace(self).to_yaml }
     end
 
     protected
+    def save_and_say(message)
+      save
+      puts message
+    end
+
     def read_config_file
       File.exists?(self.class.config_file) ?
         Util.symbolize_keys(YAML::load_file(self.class.config_file)) : {}

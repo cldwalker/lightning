@@ -25,6 +25,6 @@ bolts:
       - /Applications/*.app
       - /Applications/Utilities/*.app
 shell_commands:
-- vim: v
-- grep
-- cd
+  vim: v
+  grep: grep
+  cd: cd

@@ -44,7 +44,8 @@ module Lightning
       puts "Created #{Lightning.config[:source_file]}"
     end
 
-    usage 'bolt', "(list | add BOLT GLOBS | alias BOLT ALIAS | delete BOLT | generate BOLT [generator] | show BOLT)",
+    usage 'bolt',
+      "(list | add BOLT GLOBS | alias BOLT ALIAS | delete BOLT | generate BOLT [generator] | show BOLT)",
       "Commands for managing bolts. Defaults to listing them."
     def bolt_command(argv)
       subcommand = argv.shift || 'list'
@@ -52,7 +53,8 @@ module Lightning
       bolt_subcommand(subcommand, argv) if subcommand_has_required_args(subcommand, argv)
     end
 
-    usage 'shell_command', '(list | add SHELL_COMMAND | delete SHELL_COMMAND)',
+    usage 'shell_command',
+      '(list | add SHELL_COMMAND [alias]| delete SHELL_COMMAND)',
       'Commands for managing shell commands. Defaults to listing them.'
     def shell_command_command(argv)
       subcommand = argv.shift || 'list'
@@ -76,7 +78,7 @@ module Lightning
     def shell_command_subcommand(subcommand, argv)
       case subcommand
       when 'list'   then   puts Lightning.config.shell_commands.keys.sort
-      when 'add'    then   Lightning.config.add_shell_command(argv[0])
+      when 'add'    then   Lightning.config.add_shell_command(argv[0], argv[1])
       when 'delete' then   Lightning.config.delete_shell_command(argv[0])
       else
         puts "Invalid subcommand '#{subcommand}'", ''
