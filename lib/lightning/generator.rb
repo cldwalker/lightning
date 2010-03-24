@@ -18,6 +18,11 @@ module Lightning
       $stderr.puts "Error: #{$!.message}"
     end
 
+    def self.run_once(bolt, generator=nil)
+      @generator = self.new
+      generate_bolts(bolt=>generator || bolt)
+    end
+
     # Available generators
     def self.generators
       Generators.instance_methods(false)
@@ -30,11 +35,12 @@ module Lightning
     end
 
     def self.generate_bolts(bolts)
-      bolts.each do |e|
-        if (bolt_attributes = @generator.send(e)).is_a?(Hash)
-          Lightning.config[:bolts][e.to_s] = bolt_attributes
+      bolts = Hash[*bolts.zip(bolts).flatten] if bolts.is_a?(Array)
+      bolts.each do |bolt, gen|
+        if (bolt_attributes = @generator.send(gen)).is_a?(Hash)
+          Lightning.config[:bolts][bolt.to_s] = bolt_attributes
         else
-          $stderr.puts "Error: The generator '#{e}' did not return a hash as required"
+          $stderr.puts "Error: The generator '#{gen}' did not return a hash as required"
         end
       end
       Lightning.config.save

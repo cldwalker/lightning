@@ -81,7 +81,7 @@ module Lightning
       when 'list'     then    puts Lightning.config[:bolts].keys.sort
       when 'add'      then    Lightning.config.add_bolt(argv.shift, argv)
       when 'delete'   then    Lightning.config.delete_bolt(argv[0])
-      when 'generate'
+      when 'generate' then    Generator.run_once(argv[0], argv[1])
       when 'show'     then    Lightning.config.show_bolt(argv[0])
       else
         puts "Invalid subcommand '#{subcommand}'", ''
