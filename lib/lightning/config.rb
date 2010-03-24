@@ -53,6 +53,16 @@ module Lightning
       puts "Added bolt '#{bolt}'"
     end
 
+    def alias_bolt(bolt, bolt_alias)
+      if self[:bolts][bolt]
+        self[:bolts][bolt]['alias'] = bolt_alias
+        save
+        puts "Aliased bolt '#{bolt}' to '#{bolt_alias}'"
+      else
+        puts "Couldn't find bolt '#{bolt}'"
+      end
+    end
+
     def delete_bolt(bolt)
       if self[:bolts][bolt]
         self[:bolts].delete(bolt)
