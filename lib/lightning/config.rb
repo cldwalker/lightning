@@ -96,6 +96,8 @@ module Lightning
     def read_config_file
       File.exists?(self.class.config_file) ?
         Util.symbolize_keys(YAML::load_file(self.class.config_file)) : {}
+    rescue
+      raise $!.message.sub('syntax error', "Syntax error in '#{Config.config_file}'")
     end
   end
 end
