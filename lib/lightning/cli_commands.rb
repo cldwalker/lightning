@@ -44,8 +44,8 @@ module Lightning
       puts "Created #{Lightning.config[:source_file]}"
     end
 
-    usage 'bolt',
-      "(list | add BOLT GLOBS | alias BOLT ALIAS | delete BOLT | generate BOLT [generator] | show BOLT)",
+    usage 'bolt', "(list [-a|--alias] | add BOLT GLOBS | alias BOLT ALIAS | "+
+      "delete BOLT | generate BOLT [generator] | show BOLT)",
       "Commands for managing bolts. Defaults to listing them."
     def bolt_command(argv)
       subcommand = argv.shift || 'list'
@@ -54,7 +54,7 @@ module Lightning
     end
 
     usage 'shell_command',
-      '(list | add SHELL_COMMAND [alias]| delete SHELL_COMMAND)',
+      '(list [-a|--alias] | add SHELL_COMMAND [alias]| delete SHELL_COMMAND)',
       'Commands for managing shell commands. Defaults to listing them.'
     def shell_command_command(argv)
       subcommand = argv.shift || 'list'
@@ -77,7 +77,7 @@ module Lightning
     protected
     def shell_command_subcommand(subcommand, argv)
       case subcommand
-      when 'list'   then   puts Lightning.config.shell_commands.keys.sort
+      when 'list'   then   list_subcommand(:shell_commands, argv)
       when 'add'    then   Lightning.config.add_shell_command(argv[0], argv[1])
       when 'delete' then   Lightning.config.delete_shell_command(argv[0])
       else
@@ -86,9 +86,21 @@ module Lightning
       end
     end
 
+    def list_subcommand(list_type, argv)
+      if %w{-a --alias}.include?(argv[0])
+        puts Lightning.config.send(list_type).keys.sort.map {|e|
+          list_type == :shell_commands ?
+            "#{e}: #{Lightning.config.send(list_type)[e]}" :
+            "#{e}: #{Lightning.config.send(list_type)[e]['alias']}"
+        }
+      else
+        puts Lightning.config.send(list_type).keys.sort
+      end
+    end
+
     def bolt_subcommand(subcommand, argv)
       case subcommand
-      when 'list'     then    puts Lightning.config.bolts.keys.sort
+      when 'list'     then    list_subcommand(:bolts, argv)
       when 'add'      then    Lightning.config.add_bolt(argv.shift, argv)
       when 'alias'    then    Lightning.config.alias_bolt(argv[0], argv[1])
       when 'delete'   then    Lightning.config.delete_bolt(argv[0])
