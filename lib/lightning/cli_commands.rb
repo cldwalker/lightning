@@ -38,7 +38,6 @@ module Lightning
       "Bolts are generated with default generators if none given."
     # Runs lightning install
     def install_command(argv)
-      Lightning.config[:shell_commands] ||= ['cd', 'ls']
       Generator.run(*argv)
       puts "Created ~/.lightning.yml"
       build_command([])
