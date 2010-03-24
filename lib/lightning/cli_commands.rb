@@ -38,8 +38,11 @@ module Lightning
       "Bolts are generated with default generators if none given."
     # Runs lightning install
     def install_command(argv)
+      Lightning.config[:shell_commands] ||= ['cd', 'ls']
       Generator.run(*argv)
+      puts "Created ~/.lightning.yml"
       build_command([])
+      puts "Created #{Lightning.config[:source_file]}"
     end
 
     usage 'bolt', "(list | add BOLT GLOBS | delete BOLT | generate BOLT [generator] | show BOLT)",
@@ -64,7 +67,7 @@ module Lightning
       puts Lightning.commands.keys.sort
     end
 
-    usage 'generators', '', 'Lists available generators'
+    usage 'generators', '', 'Lists available generators.'
     def generators_command(argv)
       Generator.setup
       puts Generator.generators.sort
