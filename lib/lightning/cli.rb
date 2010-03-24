@@ -82,5 +82,16 @@ module Lightning
     def usage(command, *args)
       @usage[command] = args
     end
+
+    def parse_args(args)
+      options = args.select { |piece| piece =~ /^-/ }
+      args   -= options
+      options = options.inject({}) do |hash, flag|
+        key, value = flag.split('=')
+        hash[key.sub(/^--?/,'').intern] = value.nil? ? true : value
+        hash
+      end
+      [args, options]
+    end
   end
 end

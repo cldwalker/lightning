@@ -38,10 +38,12 @@ module Lightning
       "Bolts are generated with default generators if none given."
     # Runs lightning install
     def install_command(argv)
-      Generator.run(*argv)
-      puts "Created ~/.lightning.yml"
+      first_install = !File.exists?(Lightning::Config.config_file)
+      args, options = parse_args(argv)
+      Generator.run(options[:generators]) if first_install || options[:generators]
+      puts "Created ~/.lightning.yml" if first_install
       build_command([])
-      puts "Created #{Lightning.config[:source_file]}"
+      puts "Created #{Lightning.config[:source_file]}" if first_install
     end
 
     usage 'bolt', "(list [-a|--alias] | add BOLT GLOBS | alias BOLT ALIAS | "+

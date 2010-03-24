@@ -7,9 +7,9 @@ module Lightning
 
     # Runs generator
     # @param [Array] String which point to instance methods in Generators
-    def self.run(*gens)
+    def self.run(gens=[])
+      gens = DEFAULT_GENERATORS if Array(gens).empty?
       setup
-      gens = Lightning.config[:default_generators] || DEFAULT_GENERATORS if gens.empty?
       @generator = self.new
       good, bad = gens.partition {|e| @generator.respond_to?(e) }
       $stdout.puts "The following generators don't exist and were ignored: #{bad.join(', ')}" unless bad.empty?

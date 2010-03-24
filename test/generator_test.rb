@@ -14,7 +14,7 @@ context "Generator" do
   end
 
   def generate(*bolts)
-    Generator.run *bolts
+    Generator.run bolts
   end
 
   test "loads plugin file if it exists" do
@@ -23,7 +23,7 @@ context "Generator" do
     Generator.setup
   end
 
-  test "generates all default generators" do
+  test "generates default generators when none given" do
     stub.instance_of(Generator).` { "path1:path2" } #`
     temporary_config_file do |config_file|
       generate
@@ -32,11 +32,9 @@ context "Generator" do
     end
   end
 
-  test "defaults to config :default_generators" do
-    Lightning.config[:default_generators] = ['gem']
+  test "generates given generators" do
     mock(Generator).generate_bolts(['gem'])
-    generate
-    Lightning.config[:default_generators] = nil
+    generate 'gem'
   end
 
   test "prints nonexistant generators while continuing with good generators" do
