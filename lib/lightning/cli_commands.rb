@@ -88,7 +88,7 @@ module Lightning
 
     def bolt_subcommand(subcommand, argv)
       case subcommand
-      when 'list'     then    puts Lightning.config[:bolts].keys.sort
+      when 'list'     then    puts Lightning.config.bolts.keys.sort
       when 'add'      then    Lightning.config.add_bolt(argv.shift, argv)
       when 'alias'    then    Lightning.config.alias_bolt(argv[0], argv[1])
       when 'delete'   then    Lightning.config.delete_bolt(argv[0])

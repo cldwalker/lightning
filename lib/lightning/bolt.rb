@@ -9,7 +9,7 @@ module Lightning
       @paths = []
       @commands = []
       @aliases = {}
-      (Lightning.config[:bolts][@name] || {}).each do |k,v|
+      (Lightning.config.bolts[@name] || {}).each do |k,v|
         instance_variable_set("@#{k}", v)
       end
     end

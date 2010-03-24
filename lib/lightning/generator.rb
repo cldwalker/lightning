@@ -39,7 +39,7 @@ module Lightning
       bolts = Hash[*bolts.zip(bolts).flatten] if bolts.is_a?(Array)
       bolts.each do |bolt, gen|
         if (bolt_attributes = @generator.send(gen)).is_a?(Hash)
-          Lightning.config[:bolts][bolt.to_s] = bolt_attributes
+          Lightning.config.bolts[bolt.to_s] = bolt_attributes
         else
           $stderr.puts "Error: The generator '#{gen}' did not return a hash as required"
         end

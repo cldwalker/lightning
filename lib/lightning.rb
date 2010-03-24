@@ -35,7 +35,7 @@ module Lightning
 
     # Sets up lightning by generating bolts and commands from config
     def setup
-      config[:bolts].each {|k,v|
+      config.bolts.each {|k,v|
         create_commands bolts[k].generate_commands
       }
     end

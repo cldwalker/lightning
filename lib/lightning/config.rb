@@ -47,14 +47,18 @@ module Lightning
       end
     end
 
+    def bolts
+      self[:bolts]
+    end
+
     def add_bolt(bolt, globs)
-      self[:bolts][bolt] = { 'paths'=>globs.map {|e| File.expand_path(e) } }
+      bolts[bolt] = { 'paths'=>globs.map {|e| File.expand_path(e) } }
       save_and_say "Added bolt '#{bolt}'"
     end
 
     def alias_bolt(bolt, bolt_alias)
-      if self[:bolts][bolt]
-        self[:bolts][bolt]['alias'] = bolt_alias
+      if bolts[bolt]
+        bolts[bolt]['alias'] = bolt_alias
         save_and_say "Aliased bolt '#{bolt}' to '#{bolt_alias}'"
       else
         puts "Couldn't find bolt '#{bolt}'"
@@ -62,8 +66,8 @@ module Lightning
     end
 
     def delete_bolt(bolt)
-      if self[:bolts][bolt]
-        self[:bolts].delete(bolt)
+      if bolts[bolt]
+        bolts.delete(bolt)
         save_and_say "Deleted bolt '#{bolt}'"
       else
         puts "Can't find bolt '#{bolt}'"
@@ -71,8 +75,8 @@ module Lightning
     end
 
     def show_bolt(bolt)
-      if self[:bolts][bolt]
-        puts self[:bolts][bolt].to_yaml.sub("--- \n", '')
+      if bolts[bolt]
+        puts bolts[bolt].to_yaml.sub("--- \n", '')
       else
         puts "Can't find bolt '#{bolt}'"
       end
