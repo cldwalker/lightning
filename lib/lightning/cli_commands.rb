@@ -34,11 +34,12 @@ module Lightning
         puts("No builder exists for #{Builder.shell} shell")
     end
 
-    usage 'generate', "[generators]", "Generates bolts and places them in the config file." +
-      " With no arguments, generates default bolts."
-    # Runs lightning generate
-    def generate_command(argv=ARGV)
+    usage 'install', "[generators]", "Installs lightning for first-time users. " +
+      "Bolts are generated with default generators if none given."
+    # Runs lightning install
+    def install_command(argv)
       Generator.run(*argv)
+      build_command([])
     end
 
     usage 'bolt', "(list | add BOLT GLOBS | delete BOLT | generate BOLT [generator] | show BOLT)",

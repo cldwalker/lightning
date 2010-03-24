@@ -44,8 +44,8 @@ context "Cli Commands:" do
     capture_stdout { run_command :build, ['-h'] }.should =~ /^Usage/
   end
 
-  test "generator prints usage with -h" do
-    capture_stdout { run_command :generate, ['-h'] }.should =~ /^Usage/
+  test "install prints usage with -h" do
+    capture_stdout { run_command :install, ['-h'] }.should =~ /^Usage/
   end
 
   test "run with no command prints usage" do

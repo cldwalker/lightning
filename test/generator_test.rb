@@ -14,7 +14,7 @@ context "Generator" do
   end
 
   def generate(*bolts)
-    run_command :generate, bolts
+    Generator.run *bolts
   end
 
   test "loads plugin file if it exists" do
