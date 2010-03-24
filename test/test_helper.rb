@@ -65,6 +65,9 @@ class Bacon::Context
   include BaconExtensions
 
   # RR adapter
+  def self.silent?
+    @silent ||= class << Bacon; self; end.ancestors.include?(Bacon::TestUnitOutput)
+  end
   include RR::Adapters::RRMethods
   RR.trim_backtrace = true
   alias_method :old_it, :it
@@ -74,7 +77,7 @@ class Bacon::Context
       Bacon::Counter[:requirements] += 1
       yield
       Bacon::Counter[:requirements] -= 1 if RR.double_injections.size.zero?
-      RR.verify
+      RR.verify unless self.class.silent?
       RR.reset
     end
 	end
