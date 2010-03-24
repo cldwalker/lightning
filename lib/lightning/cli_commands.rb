@@ -80,9 +80,19 @@ module Lightning
       when 'list'   then   list_subcommand(:shell_commands, argv)
       when 'add'    then   Lightning.config.add_shell_command(argv[0], argv[1])
       when 'delete' then   Lightning.config.delete_shell_command(argv[0])
-      else
-        puts "Invalid subcommand '#{subcommand}'", ''
-        print_command_help
+      else  puts "Invalid subcommand '#{subcommand}'", command_usage
+      end
+    end
+
+    def bolt_subcommand(subcommand, argv)
+      case subcommand
+      when 'list'     then    list_subcommand(:bolts, argv)
+      when 'add'      then    Lightning.config.add_bolt(argv.shift, argv)
+      when 'alias'    then    Lightning.config.alias_bolt(argv[0], argv[1])
+      when 'delete'   then    Lightning.config.delete_bolt(argv[0])
+      when 'generate' then    Generator.run_once(argv[0], argv[1])
+      when 'show'     then    Lightning.config.show_bolt(argv[0])
+      else puts "Invalid subcommand '#{subcommand}'", command_usage
       end
     end
 
@@ -95,20 +105,6 @@ module Lightning
         }
       else
         puts Lightning.config.send(list_type).keys.sort
-      end
-    end
-
-    def bolt_subcommand(subcommand, argv)
-      case subcommand
-      when 'list'     then    list_subcommand(:bolts, argv)
-      when 'add'      then    Lightning.config.add_bolt(argv.shift, argv)
-      when 'alias'    then    Lightning.config.alias_bolt(argv[0], argv[1])
-      when 'delete'   then    Lightning.config.delete_bolt(argv[0])
-      when 'generate' then    Generator.run_once(argv[0], argv[1])
-      when 'show'     then    Lightning.config.show_bolt(argv[0])
-      else
-        puts "Invalid subcommand '#{subcommand}'", ''
-        print_command_help
       end
     end
 
