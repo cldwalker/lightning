@@ -19,6 +19,7 @@ module Lightning
     end
 
     def self.run_once(bolt, generator=nil)
+      setup
       @generator = self.new
       generate_bolts(bolt=>generator || bolt)
     end

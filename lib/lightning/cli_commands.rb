@@ -64,8 +64,13 @@ module Lightning
       puts Lightning.commands.keys.sort
     end
 
-    protected
+    usage 'generators', '', 'Lists available generators'
+    def generators_command(argv)
+      Generator.setup
+      puts Generator.generators.sort
+    end
 
+    protected
     def shell_command_subcommand(subcommand, argv)
       case subcommand
       when 'list'   then   puts Lightning.config.shell_commands.keys.sort
