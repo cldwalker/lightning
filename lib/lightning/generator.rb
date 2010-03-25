@@ -10,20 +10,17 @@ module Lightning
     def self.run(gens=[])
       gens = DEFAULT_GENERATORS if Array(gens).empty?
       setup
-      @generator = self.new
-      good, bad = gens.partition {|e| @generator.respond_to?(e) }
-      $stdout.puts "The following generators don't exist and were ignored: #{bad.join(', ')}" unless bad.empty?
-      generate_bolts good
+      generate_bolts gens
     rescue
       $stderr.puts "Error: #{$!.message}"
     end
 
     def self.run_once(bolt, generator=nil)
       setup
-      @generator = self.new
-      generate_bolts(bolt=>generator || bolt)
-      puts "Generated following paths for bolt '#{bolt}':"
-      puts Lightning.config.bolts[bolt][:paths].map {|e| "  "+e }
+      if generate_bolts(bolt=>generator || bolt)
+        puts "Generated following paths for bolt '#{bolt}':"
+        puts Lightning.config.bolts[bolt][:paths].map {|e| "  "+e }
+      end
     end
 
     # Available generators
@@ -35,18 +32,34 @@ module Lightning
     def self.setup
       plugin_file = File.join(Util.find_home, '.lightning.rb')
       load plugin_file if File.exists? plugin_file
+      @generator = self.new
     end
 
     def self.generate_bolts(bolts)
       bolts = Hash[*bolts.zip(bolts).flatten] if bolts.is_a?(Array)
-      bolts.each do |bolt, gen|
-        if (bolt_attributes = @generator.send(gen)).is_a?(Hash)
+      results = bolts.map {|bolt, gen|
+        (bolt_attributes = call_generator(gen)) &&
           Lightning.config.bolts[bolt.to_s] = bolt_attributes
-        else
-          $stderr.puts "Error: The generator '#{gen}' did not return a hash as required"
-        end
+      }
+      Lightning.config.save if results.any?
+      results.all?
+    end
+
+    def self.call_generator(gen)
+      raise "Generator method doesn't exist." unless @generator.respond_to?(gen)
+      (result = @generator.send(gen)).is_a?(Hash) ? result :
+        $stdout.puts("Generator '#{gen}' did not return a hash as required.")
+    rescue
+      $stdout.puts "Generator '#{gen}' failed with: #{$!.message}"
+    end
+
+    def `(*args)
+      cmd = args[0].split(/\s+/)[0] || ''
+      if Util.shell_command_exists?(cmd)
+        Kernel.`(*args)
+      else
+        raise "Command '#{cmd}' doesn't exist."
       end
-      Lightning.config.save
     end
   end
 end

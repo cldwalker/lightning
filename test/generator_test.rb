@@ -38,15 +38,16 @@ context "Generator" do
   end
 
   test "prints nonexistant generators while continuing with good generators" do
-    mock($stdout).puts(/ignored: bad/)
-    mock(Generator).generate_bolts([:gem])
-    generate :gem, :bad
+    stub.instance_of(Generator).` { {} } #`
+    capture_stdout {
+      generate :gem, :bad
+    }.should =~ /^Generator 'bad' failed/
   end
 
   test "handles invalid bolt returned by generator" do
     Generators.send(:define_method, :returns_array) { ['not valid bolt']}
-    mock(Lightning.config).save
-    mock($stderr).puts(/^Error:.*'returns_array'/)
+    mock(Lightning.config).save.never
+    mock($stdout).puts(/^Generator.*'returns_array'/)
     generate :returns_array
   end
 
