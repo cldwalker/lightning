@@ -13,18 +13,19 @@ context "Generator" do
     FileUtils.rm_f new_config_file
   end
 
-  def generate(*bolts)
-    Generator.run bolts
+  def generate(*args)
+    args[-1].is_a?(Hash) ? args.pop : {}
+    Generator.run args, {}
   end
 
   test "loads plugin file if it exists" do
     mock(File).exists?(anything) {true}
     mock(Generator).load anything
-    Generator.setup
+    Generator.load_plugin
   end
 
   test "generates default generators when none given" do
-    stub.instance_of(Generator).` { "path1:path2" } #`
+    stub.instance_of(Generator).call_generator { { }}
     temporary_config_file do |config_file|
       generate
       config = YAML::load_file(config_file)
@@ -33,12 +34,12 @@ context "Generator" do
   end
 
   test "generates given generators" do
-    mock(Generator).generate_bolts(['gem'])
+    mock.instance_of(Generator).generate_bolts('gem'=>'gem')
     generate 'gem'
   end
 
   test "prints nonexistant generators while continuing with good generators" do
-    stub.instance_of(Generator).` { {} } #`
+    stub.instance_of(Underling).` { {} } #`
     capture_stdout {
       generate :gem, :bad
     }.should =~ /^Generator 'bad' failed/
@@ -52,7 +53,7 @@ context "Generator" do
   end
 
   test "handles unexpected error while generating bolts" do
-    mock(Generator).generate_bolts(anything) { raise "Totally unexpected" }
+    mock.instance_of(Generator).generate_bolts(anything) { raise "Totally unexpected" }
     mock($stderr).puts(/Error: Totally/)
     generate :gem
   end

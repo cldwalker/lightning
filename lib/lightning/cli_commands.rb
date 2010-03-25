@@ -65,7 +65,6 @@ module Lightning
 
     usage 'generators', '', 'Lists available generators.'
     def generators_command(argv)
-      Generator.setup
       puts Generator.generators.sort
     end
 
@@ -89,7 +88,7 @@ module Lightning
       when 'add'      then    Lightning.config.add_bolt(argv.shift, argv)
       when 'alias'    then    Lightning.config.alias_bolt(argv[0], argv[1])
       when 'delete'   then    Lightning.config.delete_bolt(argv[0])
-      when 'generate' then    Generator.run_once(argv[0], argv[1])
+      when 'generate' then    Generator.run(argv[0], :once=>argv[1])
       when 'show'     then    Lightning.config.show_bolt(argv[0])
       else puts "Invalid subcommand '#{subcommand}'", command_usage
       end
