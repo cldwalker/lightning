@@ -22,6 +22,8 @@ module Lightning
 
     # Runs builder
     def run(source_file)
+      return puts("No builder exists for #{Builder.shell} shell") unless Builder.can_build?
+      Lightning.setup
       commands = Lightning.commands.values
       check_for_existing_commands(commands)
       output = build(commands)

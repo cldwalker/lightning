@@ -25,24 +25,17 @@ module Lightning
       puts translate(argv.shift, argv) if argv.size != 1
     end
 
-    usage 'build', "[source_file]", 'Builds a shell file to be sourced based on '+
-      '~/.lightning.yml. Uses default file if none given.'
-    # Runs lightning build
-    def build_command(argv)
-      Lightning.setup
-      Builder.can_build? ? Builder.run(argv[0]) :
-        puts("No builder exists for #{Builder.shell} shell")
-    end
-
-    usage 'install', "[generators]", "Installs lightning for first-time users. " +
-      "Bolts are generated with default generators if none given."
+    usage 'install', "[--generators=GENERATORS] [--source_file=SOURCE_FILE] [--shell=SHELL]",
+      "Optionally builds a config file and then builds a SOURCE_FILE from the config file."
     # Runs lightning install
     def install_command(argv)
       first_install = !File.exists?(Lightning::Config.config_file)
       args, options = parse_args(argv)
       Generator.run(options[:generators]) if first_install || options[:generators]
       puts "Created ~/.lightning.yml" if first_install
-      build_command([])
+
+      Lightning.config[:shell] = options[:shell] if options[:shell]
+      Builder.run(options[:source_file])
       puts "Created #{Lightning.config[:source_file]}" if first_install
     end
 

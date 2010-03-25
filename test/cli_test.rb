@@ -34,16 +34,6 @@ context "Cli Commands:" do
     capture_stdout { run_command(:translate, %w{invalid blah}) }.should =~ /#Error/
   end
 
-  test "builder prints error when unable to build" do
-    Lightning.config[:shell] = 'blah'
-    capture_stdout { run_command(:build) }.should =~ /No.*exists.*blah shell/
-    Lightning.config[:shell] = nil
-  end
-
-  test "builder prints usage with -h" do
-    capture_stdout { run_command :build, ['-h'] }.should =~ /^Usage/
-  end
-
   test "install prints usage with -h" do
     capture_stdout { run_command :install, ['-h'] }.should =~ /^Usage/
   end
@@ -54,8 +44,8 @@ context "Cli Commands:" do
   end
 
   test "run with aliased command executes correct command" do
-    mock(Cli).run_command('build', [])
-    Cli.run ['bu']
+    mock(Cli).run_command('bolt', [])
+    Cli.run ['b']
   end
 
   test "run with -h prints usage" do

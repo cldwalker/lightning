@@ -84,8 +84,7 @@ module Lightning
     end
 
     def parse_args(args)
-      options = args.select { |piece| piece =~ /^-/ }
-      args   -= options
+      options, args = args.partition {|e| e =~ /^-/ }
       options = options.inject({}) do |hash, flag|
         key, value = flag.split('=')
         hash[key.sub(/^--?/,'').intern] = value.nil? ? true : value

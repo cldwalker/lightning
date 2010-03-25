@@ -2,11 +2,17 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 
 context "Builder" do
   def build
-    run_command :build, [source_file]
+    Builder.run source_file
   end
 
   def source_file
     @source_file ||= File.dirname(__FILE__) + '/lightning_completions'
+  end
+
+  test "prints error when unable to build" do
+    Lightning.config[:shell] = 'blah'
+    capture_stdout { build }.should =~ /No.*exists.*blah shell/
+    Lightning.config[:shell] = nil
   end
 
   test "with non-default shell builds" do
