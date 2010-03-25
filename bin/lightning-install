@@ -1,4 +1,0 @@
-#!/bin/bash
-
-lightning install
-source $(lightning source_file)

@@ -4,10 +4,17 @@ module Lightning
   module Builder
     extend self
 
-    HEADER = <<-INIT.gsub(/^\s+/,'')
+    HEADER = <<-INIT.gsub(/^\s{4}/,'')
     #### This file was built by lightning-build. ####
     #LBIN_PATH="$PWD/bin/" #only use for development
     LBIN_PATH=""
+
+    lightning-reload() {
+      lightning install $@
+      source_file=$(lightning source_file)
+      source $source_file
+      echo Loaded $source_file
+    }
     INIT
 
     # Determines if Builder can build a file for its current shell
