@@ -1,4 +1,4 @@
 #!/bin/sh
 
-lightning install $@
+lightning install
 source $(lightning source_file)

@@ -5,14 +5,14 @@ module Lightning
   module Generators
     def gem
       {
-        :paths=>`gem environment path`.split(":").map {|e| e +"/gems/*" },
+        :paths=>`gem environment path`.chomp.split(":").map {|e| e +"/gems/*" },
         :desc=>"source code of gems"
       }
     end
 
     def gem_doc
       {
-        :paths=>`gem environment path`.split(":").map {|e| e +"/doc/*" },
+        :paths=>`gem environment path`.chomp.split(":").map {|e| e +"/doc/*" },
         :commands=>[ {'shell_command'=>'open', 'desc'=>"open a gem's documentation in a browser",
           'post_path'=>'/rdoc/index.html' }]
       }
