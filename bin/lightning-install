@@ -1,0 +1,4 @@
+#!/bin/sh
+
+lightning install $@
+source $(lightning source_file)

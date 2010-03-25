@@ -20,6 +20,8 @@ module Lightning
     def run(argv=ARGV)
       if (command = argv.shift) && (actual_command = commands.sort.find {|e| e[/^#{command}/] })
         run_command(actual_command, argv)
+      elsif respond_to?("#{command}_command")
+        run_command(command, argv)
       elsif %w{-v --version}.include?(command)
         puts VERSION
       else

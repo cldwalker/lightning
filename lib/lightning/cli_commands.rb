@@ -69,6 +69,10 @@ module Lightning
       puts Generator.generators.sort
     end
 
+    def source_file_command(argv)
+      puts Lightning.config[:source_file]
+    end
+
     protected
     def shell_command_subcommand(subcommand, argv)
       case subcommand
