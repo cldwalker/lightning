@@ -36,7 +36,7 @@ module Lightning
 
       Lightning.config[:shell] = options[:shell] if options[:shell]
       Builder.run(options[:source_file])
-      puts "Created #{Lightning.config[:source_file]}" if first_install
+      puts "Created #{Lightning.config[:source_file]}"
     end
 
     usage 'bolt', "(list [-a|--alias] | add BOLT GLOBS | alias BOLT ALIAS | "+

@@ -22,6 +22,8 @@ module Lightning
       setup
       @generator = self.new
       generate_bolts(bolt=>generator || bolt)
+      puts "Generated following paths for bolt '#{bolt}':"
+      puts Lightning.config.bolts[bolt][:paths].map {|e| "  "+e }
     end
 
     # Available generators
