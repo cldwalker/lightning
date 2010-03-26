@@ -1,7 +1,7 @@
 require 'shellwords'
 
 module Lightning
-  # This class handles completions given the text already typed and a Command object.
+  # This class handles completions given the text already typed and a Function object.
   # Inspired loosely by http://github.com/ryanb/dotfiles/tree/master/bash/completion_scripts/project_completion
   class Completion
     # @return [Array]

@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 context "Completion" do
   before {
     @command = 'blah';
-    cmd = Command.new 'name'=>@command, 'bolt'=>Bolt.new('blah')
+    cmd = Function.new 'name'=>@command, 'bolt'=>Bolt.new('blah')
     stub(cmd).completions { ['at', 'ap', 'blah.rb', 'has space'] }
     Lightning.commands[@command] = cmd
   }

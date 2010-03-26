@@ -4,7 +4,7 @@ require 'lightning/cli'
 require 'lightning/cli_commands'
 require 'lightning/completion'
 require 'lightning/config'
-require 'lightning/command'
+require 'lightning/function'
 require 'lightning/completion_map'
 require 'lightning/builder'
 require 'lightning/generators'
@@ -26,7 +26,7 @@ module Lightning
       @bolts ||= Hash.new {|h,k| h[k] = Bolt.new(k) }
     end
 
-    # Maps command names to Command objects
+    # Maps command names to Function objects
     # @return [Hash]
     def commands
       @commands ||= {}
@@ -41,7 +41,7 @@ module Lightning
 
     protected
     def create_commands(hash_array)
-      hash_array.each {|e| commands[e['name']] = Command.new(e) }
+      hash_array.each {|e| commands[e['name']] = Function.new(e) }
     end
   end
 end

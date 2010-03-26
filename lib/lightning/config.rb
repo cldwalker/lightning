@@ -21,7 +21,7 @@ module Lightning
       replace(hash)
     end
 
-    # Global shell commands used to generate Commands for all Bolts.
+    # Global shell commands used to generate Functions for all Bolts.
     # @return [Hash]
     # Maps shell command names to their aliases using @config[:shell_commands]
     def shell_commands

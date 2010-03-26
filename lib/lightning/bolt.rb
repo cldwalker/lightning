@@ -1,5 +1,5 @@
 module Lightning
-  # A bolt is a group of globbable paths (Dir.glob) used by a Command object
+  # A bolt is a group of globbable paths (Dir.glob) used by a Function object
   # to generate a CompletionMap.
   class Bolt
     attr_reader :name, :aliases, :desc

@@ -38,7 +38,7 @@ module Lightning
       output
     end
 
-    # @param [Array] Command objects
+    # @param [Array] Function objects
     # @return [String] Shell file string to be saved and sourced
     def build(*args)
       HEADER + "\n\n" + send("#{shell}_builder", *args)

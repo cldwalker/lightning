@@ -1,12 +1,12 @@
 module Lightning
-  # A Command wraps around a shell command and provides autocompletion and
+  # A Function wraps around a shell command and provides autocompletion and
   # translation of basenames to full path names. It depends on a Bolt object for
   # the globbable paths and a CompletionMap object to map basenames to full paths.
-  class Command
+  class Function
     ATTRIBUTES = :name, :post_path, :shell_command, :bolt
     attr_accessor *ATTRIBUTES
     def initialize(hash)
-      raise ArgumentError, "Command must have a name and bolt" unless hash['name'] && hash['bolt']
+      raise ArgumentError, "Function must have a name and bolt" unless hash['name'] && hash['bolt']
       hash.each do |k,v|
         instance_variable_set("@#{k}", v)
       end
