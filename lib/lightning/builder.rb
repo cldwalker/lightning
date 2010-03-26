@@ -34,7 +34,7 @@ module Lightning
       commands = Lightning.functions.values
       check_for_existing_commands(commands)
       output = build(commands)
-      File.open(source_file || Lightning.config[:source_file], 'w'){|f| f.write(output) }
+      File.open(source_file || Lightning.config.source_file, 'w') {|f| f.write(output) }
       output
     end
 

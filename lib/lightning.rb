@@ -38,6 +38,14 @@ module Lightning
       }
     end
 
+    def dir
+      @dir ||= begin
+        require 'fileutils'
+        FileUtils.mkdir_p File.join(Util.find_home, '.lightning')
+        File.join(Util.find_home, '.lightning')
+      end
+    end
+
     protected
     def create_functions(hash_array)
       hash_array.each {|e| functions[e['name']] = Function.new(e) }

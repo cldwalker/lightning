@@ -11,6 +11,6 @@ module Lightning::Commands
   end
 
   def source_file_command(argv)
-    puts Lightning.config[:source_file]
+    puts Lightning.config.source_file
   end
 end

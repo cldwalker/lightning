@@ -36,7 +36,7 @@ module Lightning
 
       Lightning.config[:shell] = options[:shell] if options[:shell]
       Builder.run(options[:source_file])
-      puts "Created #{Lightning.config[:source_file]}"
+      puts "Created #{Lightning.config.source_file}"
     end
 
     protected

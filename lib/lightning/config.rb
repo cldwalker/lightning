@@ -12,13 +12,15 @@ module Lightning
       end
     end
 
-    DEFAULT = {:complete_regex=>true, :bolts=>{}, :shell_commands=>{'cd'=>'cd', 'ls'=>'ls'},
-      :source_file=>File.join(Util.find_home, '.lightning_completions') }
-
+    DEFAULT = {:complete_regex=>true, :bolts=>{}, :shell_commands=>{'cd'=>'cd', 'ls'=>'ls'} }
     def initialize(hash=read_config_file)
       hash = DEFAULT.merge hash
       super
       replace(hash)
+    end
+
+    def source_file
+      @source_file ||= self[:source_file] || File.join(Lightning.dir, 'functions.sh')
     end
 
     # Global shell commands used to generate Functions for all Bolts.
