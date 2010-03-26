@@ -57,8 +57,8 @@ module Lightning
       shell_command_subcommand(subcommand, argv) if subcommand_has_required_args(subcommand, argv)
     end
 
-    usage 'commands', '', 'Lists commands generated from shell_commands and bolts.'
-    def commands_command(argv)
+    usage 'functions', '', 'Lists functions generated from shell_commands and bolts.'
+    def functions_command(argv)
       Lightning.setup
       puts Lightning.functions.keys.sort
     end
