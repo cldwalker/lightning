@@ -1,4 +1,3 @@
-$:.unshift(File.dirname(__FILE__)) unless $:.include? File.expand_path(File.dirname(__FILE__))
 require 'lightning/bolt'
 require 'lightning/util'
 require 'lightning/cli'

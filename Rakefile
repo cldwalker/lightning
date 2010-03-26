@@ -38,5 +38,5 @@ task :default => :test
 
 desc 'Run specs with unit test style output'
 task :test do |t|
-  sh 'bacon -q test/*_test.rb'
+  sh 'bacon -q -Ilib test/*_test.rb'
 end

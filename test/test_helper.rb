@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'bacon'
 require 'rr'
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'lightning'
 #set up valid global config file
 Lightning::Config.config_file = File.join(File.dirname(__FILE__), 'lightning.yml')
