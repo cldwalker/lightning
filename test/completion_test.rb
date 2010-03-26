@@ -5,7 +5,7 @@ context "Completion" do
     @command = 'blah';
     cmd = Function.new 'name'=>@command, 'bolt'=>Bolt.new('blah')
     stub(cmd).completions { ['at', 'ap', 'blah.rb', 'has space'] }
-    Lightning.commands[@command] = cmd
+    Lightning.functions[@command] = cmd
   }
 
   def tab(input, expected, complete_regex=false)

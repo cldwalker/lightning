@@ -18,7 +18,7 @@ module Lightning
 
     # Creates a command name from its shell command and bolt i.e. "#{command}-#{bolt}".
     # Uses aliases for either if they exist.
-    def create_command_name(shell_command)
+    def create_function_name(shell_command)
       cmd = only_command shell_command
       "#{Lightning.config.shell_commands[cmd] || cmd}-#{alias_or_name}"
     end
@@ -28,8 +28,8 @@ module Lightning
       shell_command[/\w+/]
     end
 
-    # Generates commands from a bolt's commands and global shell commands
-    def generate_commands
+    # Generates functions from a bolt's commands and global shell commands
+    def generate_functions
       unique_commands = commands.inject({}) {|acc, e|
         cmd = e.is_a?(Hash) ? e : {'shell_command'=>e}
         acc[only_command(cmd['shell_command'])] ||= cmd if cmd['shell_command']
@@ -37,7 +37,7 @@ module Lightning
       }.values
       unique_commands.map! do |cmd|
         cmd['bolt'] = self
-        cmd['name'] ||= create_command_name(cmd['shell_command'])
+        cmd['name'] ||= create_function_name(cmd['shell_command'])
         cmd
       end
     end

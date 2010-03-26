@@ -6,14 +6,14 @@ module Lightning
     def complete_command(argv)
       return print_command_help if argv.empty?
       # this arg is needed by zsh in Complete
-      command = argv[0]
+      function = argv[0]
       # bash hack: read ENV here because passing $COMP_LINE from the shell
       # is a different incorrect buffer
       buffer = ENV["COMP_LINE"] || argv.join(' ')
       # zsh hack: when tabbing on blank space $@ is empty
       # this ensures all completions
       buffer += " " if argv.size == 1
-      puts complete(command, buffer)
+      puts complete(function, buffer)
     end
 
     usage 'translate', "COMMAND [arguments]",
@@ -60,7 +60,7 @@ module Lightning
     usage 'commands', '', 'Lists commands generated from shell_commands and bolts.'
     def commands_command(argv)
       Lightning.setup
-      puts Lightning.commands.keys.sort
+      puts Lightning.functions.keys.sort
     end
 
     usage 'generators', '', 'Lists available generators.'
@@ -107,15 +107,15 @@ module Lightning
       end
     end
 
-    def complete(command, text_to_complete)
+    def complete(function, text_to_complete)
       Lightning.setup
-      Completion.complete(text_to_complete, Lightning.commands[command])
+      Completion.complete(text_to_complete, Lightning.functions[function])
     end
 
-    def translate(command, argv)
+    def translate(function, argv)
       Lightning.setup
-      (cmd = Lightning.commands[command]) ? cmd.translate_completion(argv) :
-        '#Error-no_command_found_to_translate'
+      (cmd = Lightning.functions[function]) ? cmd.translate_completion(argv) :
+        '#Error-no_function_found_to_translate'
     end
   end
 end

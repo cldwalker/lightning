@@ -31,7 +31,7 @@ module Lightning
     def run(source_file)
       return puts("No builder exists for #{Builder.shell} shell") unless Builder.can_build?
       Lightning.setup
-      commands = Lightning.commands.values
+      commands = Lightning.functions.values
       check_for_existing_commands(commands)
       output = build(commands)
       File.open(source_file || Lightning.config[:source_file], 'w'){|f| f.write(output) }

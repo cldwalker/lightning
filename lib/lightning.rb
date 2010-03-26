@@ -28,20 +28,20 @@ module Lightning
 
     # Maps command names to Function objects
     # @return [Hash]
-    def commands
-      @commands ||= {}
+    def functions
+      @functions ||= {}
     end
 
-    # Sets up lightning by generating bolts and commands from config
+    # Sets up lightning by generating bolts and functions from config
     def setup
       config.bolts.each {|k,v|
-        create_commands bolts[k].generate_commands
+        create_functions bolts[k].generate_functions
       }
     end
 
     protected
-    def create_commands(hash_array)
-      hash_array.each {|e| commands[e['name']] = Function.new(e) }
+    def create_functions(hash_array)
+      hash_array.each {|e| functions[e['name']] = Function.new(e) }
     end
   end
 end
