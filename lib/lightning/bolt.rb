@@ -32,7 +32,7 @@ module Lightning
     def generate_commands
       unique_commands = commands.inject({}) {|acc, e|
         cmd = e.is_a?(Hash) ? e : {'shell_command'=>e}
-        acc[only_command(cmd['shell_command'])] ||= cmd
+        acc[only_command(cmd['shell_command'])] ||= cmd if cmd['shell_command']
         acc
       }.values
       unique_commands.map! do |cmd|
