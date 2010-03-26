@@ -35,6 +35,12 @@ module Lightning
       @usage.keys
     end
 
+    def load_plugin(file)
+        require file
+    rescue Exception => e
+      puts "Error: Command plugin '#{file}' failed to load:", e.message
+    end
+
     private
     def subcommand_required_args
       Array(@usage[@command])[0].split('|').inject({}) {|a,e|
@@ -97,5 +103,23 @@ module Lightning
       end
       [args, options]
     end
+
+    def list_subcommand(list_type, argv)
+      if %w{-a --alias}.include?(argv[0])
+        puts Lightning.config.send(list_type).keys.sort.map {|e|
+          list_type == :shell_commands ?
+            "#{e}: #{Lightning.config.send(list_type)[e]}" :
+            "#{e}: #{Lightning.config.send(list_type)[e]['alias']}"
+        }
+      else
+        puts Lightning.config.send(list_type).keys.sort
+      end
+    end
+  end
+end
+
+if File.exists?(dir = File.join(File.dirname(__FILE__), 'commands'))
+  Dir[dir + '/*.rb'].each do |file|
+    Lightning::Commands.load_plugin(file)
   end
 end
