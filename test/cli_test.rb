@@ -26,10 +26,6 @@ context "Commands Commands:" do
     capture_stdout { run_command(:translate, []) }.should =~ /^Usage/
   end
 
-  test "translate prints nothing for command with no arguments" do
-    capture_stdout { run_command(:translate, ['one']) }.should == ''
-  end
-
   test "translate prints error for invalid command" do
     capture_stdout { run_command(:translate, %w{invalid blah}) }.should =~ /#Error/
   end

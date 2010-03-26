@@ -52,8 +52,12 @@ module Lightning
 
     def subcommand_has_required_args(subcommand, argv)
       return true if argv.size >= (subcommand_required_args[subcommand] || 0)
-      puts "'lightning #{@command} #{subcommand}' was called incorrectly."
-      puts command_usage
+      puts "'lightning #{@command} #{subcommand}' was called incorrectly.", command_usage
+    end
+
+    def command_has_required_args(argv, required)
+      return true if argv.size >= required
+      puts "'lightning #{@command}' was called incorrectly.", command_usage
     end
 
     def print_help

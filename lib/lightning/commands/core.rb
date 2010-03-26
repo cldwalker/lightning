@@ -1,10 +1,10 @@
 module Lightning
   module Commands
-    usage 'complete', "COMMAND [arguments]",
-      "Prints a command's completions based on the last argument."
+    usage 'complete', "FUNCTION [arguments]",
+      "Prints a function's completions based on the last argument."
     # Runs lightning complete
     def complete_command(argv)
-      return print_command_help if argv.empty?
+      return unless command_has_required_args(argv, 1)
       # this arg is needed by zsh in Complete
       function = argv[0]
       # bash hack: read ENV here because passing $COMP_LINE from the shell
@@ -16,13 +16,12 @@ module Lightning
       puts complete(function, buffer)
     end
 
-    usage 'translate', "COMMAND [arguments]",
+    usage 'translate', "FUNCTION ARGUMENTS",
       "Translates each argument and prints it on a separate line."
     # Runs lightning translate
     def translate_command(argv)
-      return print_command_help if argv.empty?
-      # for one argument do nothing since no translation line was given
-      puts translate(argv.shift, argv) if argv.size != 1
+      return unless command_has_required_args(argv, 2)
+      puts translate(argv.shift, argv)
     end
 
     usage 'install', "[--generators=GENERATORS] [--source_file=SOURCE_FILE] [--shell=SHELL]",
