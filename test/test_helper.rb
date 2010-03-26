@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'bacon'
 require 'rr'
 require 'lightning'
