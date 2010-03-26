@@ -18,13 +18,14 @@ module Lightning
 
     # Executes a command with given arguments
     def run(argv=ARGV)
-      if (command = argv.shift) && (actual_command = commands.sort.find {|e| e[/^#{command}/] })
+      if (command = argv.shift) && (actual_command = unalias_command(command))
         run_command(actual_command, argv)
       elsif respond_to?("#{command}_command")
         run_command(command, argv)
       elsif %w{-v --version}.include?(command)
         puts "lightning #{VERSION}"
       else
+        load_user_commands
         puts "Command '#{command}' not found.","\n" if command && !%w{-h --help}.include?(command)
         print_help
       end
@@ -42,6 +43,21 @@ module Lightning
     end
 
     private
+    def unalias_command(command)
+      actual_command = commands.sort.find {|e| e[/^#{command}/] }
+      # don't load plugin commands for faster completion/translation
+      load_user_commands unless %w{translate complete}.include?(actual_command)
+      actual_command
+    end
+
+    def load_user_commands
+      @loaded_user_commands ||= begin
+        if File.exists?(dir = File.join(Lightning.dir, 'commands'))
+          Dir[dir + '/*.rb'].each {|file| load_plugin(file) }
+        end
+      end
+    end
+
     def subcommand_required_args
       Array(@usage[@command])[0].split('|').inject({}) {|a,e|
         cmd, *args = e.strip.split(/\s+/)
