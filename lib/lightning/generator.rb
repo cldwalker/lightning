@@ -33,16 +33,23 @@ module Lightning
 
     def run(gens, options)
       if options.key?(:once)
-        bolt = gens
-        if generate_bolts(bolt=>options[:once] || bolt)
-          puts "Generated following paths for bolt '#{bolt}':"
-          puts Lightning.config.bolts[bolt][:paths].map {|e| "  "+e }
-        end
+        run_once(gens, options)
       else
         # @silent = true
         gens = DEFAULT_GENERATORS if Array(gens).empty?
         gens = Hash[*gens.zip(gens).flatten] if gens.is_a?(Array)
         generate_bolts gens
+      end
+    end
+
+    def run_once(bolt, options)
+      if options[:test]
+        (result = call_generator(bolt)) && puts(result[:paths])
+      else
+        if generate_bolts(bolt=>options[:once] || bolt)
+          puts "Generated following paths for bolt '#{bolt}':"
+          puts Lightning.config.bolts[bolt][:paths].map {|e| "  "+e }
+        end
       end
     end
 
