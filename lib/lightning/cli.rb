@@ -23,7 +23,7 @@ module Lightning
       elsif respond_to?("#{command}_command")
         run_command(command, argv)
       elsif %w{-v --version}.include?(command)
-        puts VERSION
+        puts "lightning #{VERSION}"
       else
         puts "Command '#{command}' not found.","\n" if command && !%w{-h --help}.include?(command)
         print_help
