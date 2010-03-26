@@ -7,11 +7,13 @@ module Lightning
     def initialize(name)
       @name = name
       @paths = []
-      @commands = []
+      @add_commands = []
       @aliases = {}
       (Lightning.config.bolts[@name] || {}).each do |k,v|
         instance_variable_set("@#{k}", v)
       end
+      @commands ||= Lightning.config.shell_commands.keys
+      @commands = @add_commands + @commands
     end
 
     # Creates a command name from its shell command and bolt i.e. "#{command}-#{bolt}".
@@ -28,7 +30,7 @@ module Lightning
 
     # Generates commands from a bolt's commands and global shell commands
     def generate_commands
-      unique_commands = (@commands + Lightning.config.shell_commands.keys).inject({}) {|acc, e|
+      unique_commands = commands.inject({}) {|acc, e|
         cmd = e.is_a?(Hash) ? e : {'shell_command'=>e}
         acc[only_command(cmd['shell_command'])] ||= cmd
         acc

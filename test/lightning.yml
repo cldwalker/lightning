@@ -7,7 +7,7 @@ ignore_paths:
 
 bolts: 
   app:
-    commands:
+    add_commands:
     - shell_command: more
       name: bling
     - less
