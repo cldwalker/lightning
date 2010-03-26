@@ -15,13 +15,12 @@ context "Command" do
   end
 
   before_all do
-    Lightning.config[:aliases] = {'g2'=>'/dir/g2', 'a2'=>'/dir/g2'}
     create_command
     @map = @cmd.completion_map
   end
 
   test "has correct completions" do
-    assert_arrays_equal %w{a1 a2}+['file 1']+%w{g2 path1 path2 path3}, @cmd.completions
+    assert_arrays_equal %w{a1 a2}+['file 1']+%w{path1 path2 path3}, @cmd.completions
   end
 
   test "has bolt's paths" do
@@ -72,16 +71,8 @@ context "Command" do
     translate 'path3', '/dir/path3'
   end
 
-  test "translates alias over global alias" do
-    translate 'a2', '/dir/a2'
-  end
-
   test "translates alias" do
     translate 'a1', @map['a1']
-  end
-
-  test "translates global alias" do
-    translate 'g2', @map['g2']
   end
 
   after_all { Lightning.config[:aliases] = {}}

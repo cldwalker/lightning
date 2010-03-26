@@ -18,7 +18,7 @@ module Lightning
       options = globs[-1].is_a?(Hash) ? globs.pop : {}
       globs.flatten!
       @map = create_globbed_map(globs)
-      @alias_map = (Lightning.config[:aliases]).merge(options[:aliases] || {})
+      @alias_map = options[:aliases] || {}
     end
 
     # Look up a full path given a basename

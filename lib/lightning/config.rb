@@ -12,7 +12,7 @@ module Lightning
       end
     end
 
-    DEFAULT = {:complete_regex=>true, :bolts=>{}, :aliases=>{}, :shell_commands=>{'cd'=>'cd', 'ls'=>'ls'},
+    DEFAULT = {:complete_regex=>true, :bolts=>{}, :shell_commands=>{'cd'=>'cd', 'ls'=>'ls'},
       :source_file=>File.join(Util.find_home, '.lightning_completions') }
 
     def initialize(hash=read_config_file)
