@@ -5,7 +5,7 @@ module Lightning
     extend self
 
     HEADER = <<-INIT.gsub(/^\s{4}/,'')
-    #### This file was built by lightning-build. ####
+    #### This file was built by lightning. ####
     #LBIN_PATH="$PWD/bin/" #only use for development
     LBIN_PATH=""
 
