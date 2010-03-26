@@ -21,7 +21,7 @@ module Lightning
 
     def self.load_plugin
       @loaded ||= begin
-        plugin_file = File.join(Util.find_home, '.lightning.rb')
+        plugin_file = File.join(Lightning.home, '.lightning.rb')
         load plugin_file if File.exists? plugin_file
         true
       end

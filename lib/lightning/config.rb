@@ -8,7 +8,7 @@ module Lightning
       # Defaults to a local lightning.yml if it exists. Otherwise a global ~/.lightning.yml.
       def config_file
         @config_file ||= File.exists?('lightning.yml') ? 'lightning.yml' :
-          File.join(Util.find_home,".lightning.yml")
+          File.join(Lightning.home,".lightning.yml")
       end
     end
 

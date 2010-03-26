@@ -31,13 +31,11 @@ module Lightning
 
     # Cross-platform way to determine a user's home. From Rubygems.
     def find_home
-      @find_home ||= begin
-        ['HOME', 'USERPROFILE'].each {|e| return ENV[e] if ENV[e] }
-        return "#{ENV['HOMEDRIVE']}#{ENV['HOMEPATH']}" if ENV['HOMEDRIVE'] && ENV['HOMEPATH']
-        File.expand_path("~")
-      rescue
-        File::ALT_SEPARATOR ? "C:/" : "/"
-      end
+      ['HOME', 'USERPROFILE'].each {|e| return ENV[e] if ENV[e] }
+      return "#{ENV['HOMEDRIVE']}#{ENV['HOMEPATH']}" if ENV['HOMEDRIVE'] && ENV['HOMEPATH']
+      File.expand_path("~")
+    rescue
+      File::ALT_SEPARATOR ? "C:/" : "/"
     end
 
     # Determines if a shell command exists by searching for it in ENV['PATH'].

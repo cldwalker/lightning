@@ -41,9 +41,13 @@ module Lightning
     def dir
       @dir ||= begin
         require 'fileutils'
-        FileUtils.mkdir_p File.join(Util.find_home, '.lightning')
-        File.join(Util.find_home, '.lightning')
+        FileUtils.mkdir_p File.join(home, '.lightning')
+        File.join(home, '.lightning')
       end
+    end
+
+    def home
+      @home ||= Util.find_home
     end
 
     protected
