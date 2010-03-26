@@ -5,18 +5,18 @@ module Lightning
   # Inspired loosely by http://github.com/ryanb/dotfiles/tree/master/bash/completion_scripts/project_completion
   class Completion
     # @return [Array]
-    def self.complete(text_to_complete, command, shellescape=true)
-      return error_array("No command found to complete.") unless command
-      new(text_to_complete, command, shellescape).matches
+    def self.complete(text_to_complete, function, shellescape=true)
+      return error_array("No function found to complete.") unless function
+      new(text_to_complete, function, shellescape).matches
     end
       
     def self.error_array(message)
       ["#Error: #{message}", "Please open an issue."]
     end
 
-    def initialize(text_typed, command, shellescape=true)
+    def initialize(text_typed, function, shellescape=true)
       @text_typed = text_typed
-      @command = command
+      @function = function
       @shellescape = shellescape
     end
   
@@ -48,7 +48,7 @@ module Lightning
         matched = possible_completions.grep(/^#{top_dir}/)
 
         # for typed = some/dir/file, top_dir = path and translated_dir = /full/bolt/path
-        if matched.size == 1 && (translated_dir = @command.translate_completion([top_dir]))
+        if matched.size == 1 && (translated_dir = @function.translate_completion([top_dir]))
           short_dir = typed.sub(/\/([^\/]+)?$/, '')  # some/dir
           completed_dir = short_dir.sub(top_dir, translated_dir) #/full/bolt/path/some/dir
           completed_dir = File.expand_path(completed_dir) if completed_dir[/\/\.\.($|\/)/]
@@ -76,7 +76,7 @@ module Lightning
 
     protected
     def possible_completions
-      @command.completions
+      @function.completions
     end
   end
 end
