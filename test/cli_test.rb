@@ -1,16 +1,16 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-context "Cli Commands:" do
+context "Commands Commands:" do
   # this test seems to run much longer than expected i.e. 0.02
   # rr and raising?
   test "run_command handles unexpected error" do
     mock($stderr).puts(/^Error: Unexpected/)
-    mock(Cli).complete_command(anything) { raise "Unexpected" }
+    mock(Commands).complete_command(anything) { raise "Unexpected" }
     run_command :complete
   end
 
   test "complete defaults to ARGV if no ENV['COMP_LINE']" do
-    mock(Cli).complete('o-a', 'o-a Col')
+    mock(Commands).complete('o-a', 'o-a Col')
     capture_stdout { run_command(:complete, ['o-a', 'Col']) }
   end
 
@@ -39,28 +39,28 @@ context "Cli Commands:" do
   end
 
   test "run with no command prints usage" do
-    mock(Cli).print_help
-    Cli.run []
+    mock(Commands).print_help
+    Commands.run []
   end
 
   test "run with aliased command executes correct command" do
-    mock(Cli).run_command('bolt', [])
-    Cli.run ['b']
+    mock(Commands).run_command('bolt', [])
+    Commands.run ['b']
   end
 
   test "run with -h prints usage" do
-    mock(Cli).print_help
-    Cli.run ['-h']
+    mock(Commands).print_help
+    Commands.run ['-h']
   end
 
   test "run with invalid command prints messaged and usage" do
-    mock(Cli).print_help
-    capture_stdout { Cli.run ['blah'] }.should =~ /Command 'blah'/
+    mock(Commands).print_help
+    capture_stdout { Commands.run ['blah'] }.should =~ /Command 'blah'/
   end
 
   test "command should be able to take -h as argument" do
-    mock(Cli).print_command_help.never
-    mock(Cli).complete_command(['blah', '-h'])
-    Cli.run(['complete', 'blah', '-h'])
+    mock(Commands).print_command_help.never
+    mock(Commands).complete_command(['blah', '-h'])
+    Commands.run(['complete', 'blah', '-h'])
   end
 end

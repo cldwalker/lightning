@@ -7,7 +7,7 @@ include Lightning
 
 module Helpers
   def run_command(command, args=[])
-    Cli.run([command] + args)
+    Commands.run([command] + args)
   end
   
   def assert_arrays_equal(a1, a2)

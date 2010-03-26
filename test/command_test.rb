@@ -10,7 +10,7 @@ context "Function" do
 
   def translate(input, *expected)
     Lightning.functions['blah'] = @cmd
-    mock(Cli).puts(expected.join("\n"))
+    mock(Commands).puts(expected.join("\n"))
     run_command :translate, ['blah'] + input.split(' ')
   end
 

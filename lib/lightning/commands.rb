@@ -1,6 +1,6 @@
 module Lightning
   # Runs bin/* commands, handling setup and execution.
-  module Cli
+  module Commands
     @usage = {}
     extend self
 

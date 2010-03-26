@@ -1,5 +1,5 @@
 module Lightning
-  module Cli
+  module Commands
     usage 'complete', "COMMAND [arguments]",
       "Prints a command's completions based on the last argument."
     # Runs lightning complete
