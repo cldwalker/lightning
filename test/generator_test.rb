@@ -18,12 +18,6 @@ context "Generator" do
     Generator.run args, {}
   end
 
-  test "loads plugin file if it exists" do
-    mock(File).exists?(anything) {true}
-    mock(Generator).load anything
-    Generator.load_plugin
-  end
-
   test "generates default generators when none given" do
     stub.instance_of(Generator).call_generator { { }}
     temporary_config_file do |config_file|
@@ -38,12 +32,12 @@ context "Generator" do
     generate 'gem'
   end
 
-  test "prints nonexistant generators while continuing with good generators" do
-    stub.instance_of(Underling).` { {} } #`
-    capture_stdout {
-      generate :gem, :bad
-    }.should =~ /^Generator 'bad' failed/
-  end
+  # test "prints nonexistant generators while continuing with good generators" do
+  #   stub.instance_of(Generator).underling.stub(send) { {} } #`
+  #   capture_stdout {
+  #     generate :gem, :bad
+  #   }.should =~ /^Generator 'bad' failed/
+  # end
 
   test "handles invalid bolt returned by generator" do
     Generators.send(:define_method, :returns_array) { ['not valid bolt']}

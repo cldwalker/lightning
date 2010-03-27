@@ -6,29 +6,30 @@ module Lightning
 
     # Available generators
     def self.generators
-      load_plugin
+      load_plugins
       Generators.instance_methods(false)
     end
 
     # Runs generator
     # @param [Array] String which point to instance methods in Generators
     def self.run(gens=[], options={})
-      load_plugin
+      load_plugins
       new.run(gens, options)
     rescue
       $stderr.puts "Error: #{$!.message}"
     end
 
-    def self.load_plugin
+    def self.load_plugins
       @loaded ||= begin
-        plugin_file = File.join(Lightning.home, '.lightning.rb')
-        load plugin_file if File.exists? plugin_file
+        Util.load_plugins File.dirname(__FILE__), 'generators'
+        Util.load_plugins Lightning.dir, 'generators'
         true
       end
     end
 
+    attr_reader :underling
     def initialize
-      @underling = Underling.new
+      @underling = Object.new.extend(Generators)
     end
 
     def run(gens, options)
@@ -69,19 +70,6 @@ module Lightning
         $stdout.puts("Generator '#{gen}' did not return a hash as required.") unless @silent
     rescue
       $stdout.puts "Generator '#{gen}' failed with: #{$!.message}" unless @silent
-    end
-  end
-
-  class Underling
-    include Generators
-
-    def `(*args)
-      cmd = args[0].split(/\s+/)[0] || ''
-      if Util.shell_command_exists?(cmd)
-        Kernel.`(*args)
-      else
-        raise "Command '#{cmd}' doesn't exist."
-      end
     end
   end
 end
