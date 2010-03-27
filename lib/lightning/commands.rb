@@ -47,7 +47,7 @@ module Lightning
       actual_command = commands.sort.find {|e| e[/^#{command}/] }
       # don't load plugin commands for faster completion/translation
       load_user_commands unless %w{translate complete}.include?(actual_command)
-      actual_command
+      actual_command || commands.sort.find {|e| e[/^#{command}/] }
     end
 
     def load_user_commands
