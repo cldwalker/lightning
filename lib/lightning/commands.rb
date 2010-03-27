@@ -51,10 +51,11 @@ module Lightning
     end
 
     def load_user_commands
-      @loaded_user_commands ||= begin
+      @load_user_commands ||= begin
         if File.exists?(dir = File.join(Lightning.dir, 'commands'))
           Dir[dir + '/*.rb'].each {|file| load_plugin(file) }
         end
+        true
       end
     end
 
