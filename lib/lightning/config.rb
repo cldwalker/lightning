@@ -54,7 +54,7 @@ module Lightning
     end
 
     def add_bolt(bolt, globs)
-      bolts[bolt] = { 'paths'=>globs.map {|e| File.expand_path(e) } }
+      bolts[bolt] = { 'paths'=>globs.map {|e| e.sub(/^~/, Lightning.home) } }
       save_and_say "Added bolt '#{bolt}'"
     end
 
