@@ -50,5 +50,19 @@ module Lightning
         h[key.to_sym] = value; h
       end
     end
+
+    def load_plugins(base_dir, sub_dir)
+      if File.exists?(dir = File.join(base_dir, sub_dir))
+        plugin_type = sub_dir.sub(/s$/, '')
+        Dir[dir + '/*.rb'].each {|file| load_plugin(file, plugin_type) }
+      end
+    end
+
+    def load_plugin(file, plugin_type)
+      require file
+    rescue Exception => e
+      puts "Error: #{plugin_type.capitalize} plugin '#{File.basename(file)}'"+
+        " failed to load:", e.message
+    end
   end
 end

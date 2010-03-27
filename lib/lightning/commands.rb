@@ -36,12 +36,6 @@ module Lightning
       @usage.keys
     end
 
-    def load_plugin(file)
-        require file
-    rescue Exception => e
-      puts "Error: Command plugin '#{file}' failed to load:", e.message
-    end
-
     private
     def unalias_command(command)
       actual_command = commands.sort.find {|e| e[/^#{command}/] }
@@ -51,12 +45,7 @@ module Lightning
     end
 
     def load_user_commands
-      @load_user_commands ||= begin
-        if File.exists?(dir = File.join(Lightning.dir, 'commands'))
-          Dir[dir + '/*.rb'].each {|file| load_plugin(file) }
-        end
-        true
-      end
+      @load_user_commands ||= Util.load_plugins(Lightning.dir, 'commands') || true
     end
 
     def subcommand_required_args
@@ -139,8 +128,4 @@ module Lightning
   end
 end
 
-if File.exists?(dir = File.join(File.dirname(__FILE__), 'commands'))
-  Dir[dir + '/*.rb'].each do |file|
-    Lightning::Commands.load_plugin(file)
-  end
-end
+Lightning::Util.load_plugins File.dirname(__FILE__), 'commands'
