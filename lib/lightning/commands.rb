@@ -1,7 +1,7 @@
 module Lightning
   # Runs bin/* commands, handling setup and execution.
   module Commands
-    @usage = {}
+    @meta = {}
     extend self
 
     # Used by bin/* to run commands
@@ -10,7 +10,7 @@ module Lightning
       if %w{-h --help}.include?(args[0])
         print_command_help
       else
-        send("#{command}_command", args)
+        send(command, args)
       end
     rescue StandardError, SyntaxError
       $stderr.puts "Error: "+ $!.message
@@ -20,7 +20,7 @@ module Lightning
     def run(argv=ARGV)
       if (command = argv.shift) && (actual_command = unalias_command(command))
         run_command(actual_command, argv)
-      elsif respond_to?("#{command}_command")
+      elsif command && respond_to?(command)
         run_command(command, argv)
       elsif %w{-v --version}.include?(command)
         puts "lightning #{VERSION}"
@@ -33,7 +33,7 @@ module Lightning
 
     # Array of valid commands
     def commands
-      @usage.keys
+      @meta.keys
     end
 
     private
@@ -49,7 +49,7 @@ module Lightning
     end
 
     def subcommand_required_args
-      Array(@usage[@command])[0].split('|').inject({}) {|a,e|
+      meta_array[0].split('|').inject({}) {|a,e|
         cmd, *args = e.strip.split(/\s+/)
         a[cmd] = args.select {|e| e[/^[A-Z]/]}.size
         a
@@ -82,25 +82,25 @@ module Lightning
     def print_command_table
       offset = commands.map {|e| e.size }.max + 2
       offset += 1 unless offset % 2 == 0
-      @usage.sort.each do |command, (usage, desc)|
+      @meta.sort.each do |command, (usage, desc)|
         puts "  #{command}" << ' ' * (offset - command.size) << desc
       end
     end
 
     def command_usage
-      "Usage: lightning #{@command} #{usage_array[0]}"
+      "Usage: lightning #{@command} #{meta_array[0]}"
     end
 
-    def usage_array
-      Array(@usage[@command])
+    def meta_array
+      Array(@meta[@command])
     end
 
     def print_command_help
-      puts [command_usage, '', usage_array[1]]
+      puts [command_usage, '', meta_array[1]]
     end
 
-    def usage(command, *args)
-      @usage[command] = args
+    def meta(*args)
+      @next_meta = args
     end
 
     def parse_args(args)
@@ -124,6 +124,11 @@ module Lightning
       else
         puts Lightning.config.send(list_type).keys.sort
       end
+    end
+
+    def method_added(meth)
+      @meta[meth.to_s] = @next_meta if @next_meta
+      @next_meta = nil
     end
   end
 end

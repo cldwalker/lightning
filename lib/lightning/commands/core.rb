@@ -1,9 +1,8 @@
 module Lightning
   module Commands
-    usage 'complete', "FUNCTION [arguments]",
-      "Prints a function's completions based on the last argument."
+    meta "FUNCTION [arguments]", "Prints a function's completions based on the last argument."
     # Runs lightning complete
-    def complete_command(argv)
+    def complete(argv)
       return unless command_has_required_args(argv, 1)
       # this arg is needed by zsh in Complete
       function = argv[0]
@@ -13,18 +12,17 @@ module Lightning
       # zsh hack: when tabbing on blank space $@ is empty
       # this ensures all completions
       buffer += " " if argv.size == 1
-      puts complete(function, buffer)
+      puts _complete(function, buffer)
     end
 
-    usage 'translate', "FUNCTION ARGUMENTS",
-      "Translates each argument and prints it on a separate line."
+    meta "FUNCTION ARGUMENTS", "Translates each argument and prints it on a separate line."
     # Runs lightning translate
-    def translate_command(argv)
+    def translate(argv)
       return unless command_has_required_args(argv, 2)
-      puts translate(argv.shift, argv)
+      puts _translate(argv.shift, argv)
     end
 
-    usage 'install', "[--generators=GENERATORS] [--source_file=SOURCE_FILE] [--shell=SHELL]",
+    meta "[--generators=GENERATORS] [--source_file=SOURCE_FILE] [--shell=SHELL]",
       "Optionally builds a config file and then builds a SOURCE_FILE from the config file."
     # Runs lightning install
     def install_command(argv)
@@ -39,12 +37,12 @@ module Lightning
     end
 
     protected
-    def complete(function, text_to_complete)
+    def _complete(function, text_to_complete)
       Lightning.setup
       Completion.complete(text_to_complete, Lightning.functions[function])
     end
 
-    def translate(function, argv)
+    def _translate(function, argv)
       Lightning.setup
       (cmd = Lightning.functions[function]) ? cmd.translate_completion(argv) :
         '#Error-no_function_found_to_translate'

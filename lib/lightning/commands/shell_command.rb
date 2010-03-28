@@ -1,8 +1,7 @@
 module Lightning::Commands
-  usage 'shell_command',
-    '(list [-a|--alias] | add SHELL_COMMAND [alias]| delete SHELL_COMMAND)',
+  meta '(list [-a|--alias] | add SHELL_COMMAND [alias]| delete SHELL_COMMAND)',
     'Commands for managing shell commands. Defaults to listing them.'
-  def shell_command_command(argv)
+  def shell_command(argv)
     subcommand = argv.shift || 'list'
     subcommand = %w{add delete list}.find {|e| e[/^#{subcommand}/]} || subcommand
     shell_command_subcommand(subcommand, argv) if subcommand_has_required_args(subcommand, argv)

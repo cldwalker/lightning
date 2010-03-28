@@ -1,8 +1,8 @@
 module Lightning::Commands
-  usage 'bolt', "(list [-a|--alias] | add BOLT GLOBS | alias BOLT ALIAS | "+
+  meta "(list [-a|--alias] | add BOLT GLOBS | alias BOLT ALIAS | "+
     "delete BOLT | generate BOLT [generator] [-t|--test] | show BOLT)",
     "Commands for managing bolts. Defaults to listing them."
-  def bolt_command(argv)
+  def bolt(argv)
     subcommand = argv.shift || 'list'
     subcommand = %w{add alias delete generate list show}.find {|e| e[/^#{subcommand}/]} || subcommand
     bolt_subcommand(subcommand, argv) if subcommand_has_required_args(subcommand, argv)

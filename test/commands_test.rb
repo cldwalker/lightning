@@ -5,12 +5,12 @@ context "Commands Commands:" do
   # rr and raising?
   test "run_command handles unexpected error" do
     mock($stderr).puts(/^Error: Unexpected/)
-    mock(Commands).complete_command(anything) { raise "Unexpected" }
+    mock(Commands).complete(anything) { raise "Unexpected" }
     run_command :complete
   end
 
   test "complete defaults to ARGV if no ENV['COMP_LINE']" do
-    mock(Commands).complete('o-a', 'o-a Col')
+    mock(Commands)._complete('o-a', 'o-a Col')
     capture_stdout { run_command(:complete, ['o-a', 'Col']) }
   end
 
@@ -56,7 +56,7 @@ context "Commands Commands:" do
 
   test "command should be able to take -h as argument" do
     mock(Commands).print_command_help.never
-    mock(Commands).complete_command(['blah', '-h'])
+    mock(Commands).complete(['blah', '-h'])
     Commands.run(['complete', 'blah', '-h'])
   end
 end
