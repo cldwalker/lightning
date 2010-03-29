@@ -50,6 +50,7 @@ module Lightning
         new_arg << @post_path if @post_path && new_arg != arg
         if new_arg == arg && (dir = new_arg[/^([^\/]+)\//,1]) && (full_dir = completion_map[dir])
           new_arg.sub!(dir, full_dir)
+          new_arg = File.expand_path(new_arg)
         end
         new_arg
       }.join("\n")

@@ -67,6 +67,11 @@ context "Function" do
     translate '-r path1/sub/dir', "-r", "#{@map['path1']}/sub/dir"
   end
 
+  test "translates completion with a superdirectory" do
+    mock(File).expand_path("#{@map['path1']}/../file1") { '/dir/file1' }
+    translate 'path1/../file1', '/dir/file1'
+  end
+
   test "translates completion over alias" do
     translate 'path3', '/dir/path3'
   end
