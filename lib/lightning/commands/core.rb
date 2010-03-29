@@ -25,7 +25,7 @@ module Lightning
     meta "[--generators=GENERATORS] [--source_file=SOURCE_FILE] [--shell=SHELL]",
       "Optionally builds a config file and then builds a SOURCE_FILE from the config file."
     # Runs lightning install
-    def install_command(argv)
+    def install(argv)
       first_install = !File.exists?(Config.config_file)
       args, options = parse_args(argv)
       Generator.run(options[:generators]) if first_install || options[:generators]
