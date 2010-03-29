@@ -10,12 +10,8 @@ module Lightning::Generators
         'post_path'=>'/rdoc/index.html' }]  }
   end
 
-  def system_ruby_file
+  def ruby
     { :paths=>system_ruby.map {|e| e +"/**/*.{rb,bundle,so,c}"} }
-  end
-
-  def system_ruby_dir
-    { :paths=>system_ruby.map {|e| e +"/**/"} }
   end
 
   def local_ruby
