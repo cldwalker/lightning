@@ -12,7 +12,7 @@ module Lightning
       end
     end
 
-    DEFAULT = {:complete_regex=>true, :bolts=>{}, :shell_commands=>{'cd'=>'cd', 'ls'=>'ls'} }
+    DEFAULT = {:complete_regex=>true, :bolts=>{}, :shell_commands=>{'cd'=>'cd', 'echo'=>'echo'} }
     def initialize(hash=read_config_file)
       hash = DEFAULT.merge hash
       super

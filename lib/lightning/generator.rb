@@ -2,7 +2,7 @@ module Lightning
   # Generates hashes of bolt attributes using methods defined in Generators.
   # Bolt hashes are inserted under config[:bolts] and Config.config_file is saved.
   class Generator
-    DEFAULT_GENERATORS = %w{gem gem_doc system_ruby_file system_ruby_dir local_ruby wild wild_dir}
+    DEFAULT_GENERATORS = %w{gem gem_doc ruby local_ruby wild bin}
 
     # Available generators
     def self.generators
