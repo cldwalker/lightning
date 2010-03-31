@@ -76,7 +76,7 @@ module Lightning
       puts "  -h, --help     Show this help and exit"
       puts "  -v, --version  Print current version and exit"
       puts "", "Commands and subcommands can be abbreviated."
-      puts "For example, 'lightning b a gem path1' is short for 'lightning bolt add gem path1'."
+      puts "For example, 'lightning b c gem path1' is short for 'lightning bolt create gem path1'."
     end
 
     def print_command_table

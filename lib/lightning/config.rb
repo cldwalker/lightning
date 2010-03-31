@@ -30,7 +30,7 @@ module Lightning
       self[:shell_commands]
     end
 
-    def add_shell_command(scmd, scmd_alias=nil)
+    def create_shell_command(scmd, scmd_alias=nil)
       scmd_alias ||= scmd
       if shell_commands.values.include?(scmd_alias)
         puts "Alias '#{scmd_alias}' already exists for shell command '#{shell_commands.invert[scmd_alias]}'"
@@ -53,9 +53,9 @@ module Lightning
       self[:bolts]
     end
 
-    def add_bolt(bolt, globs)
+    def create_bolt(bolt, globs)
       bolts[bolt] = { 'paths'=>globs.map {|e| e.sub(/^~/, Lightning.home) } }
-      save_and_say "Added bolt '#{bolt}'"
+      save_and_say "Created bolt '#{bolt}'"
     end
 
     def alias_bolt(bolt, bolt_alias)
