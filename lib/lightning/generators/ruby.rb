@@ -7,7 +7,7 @@ module Lightning::Generators
   def gem_doc
     { :paths=>`gem environment path`.chomp.split(":").map {|e| e +"/doc/*" },
       :commands=>[ {'shell_command'=>'open', 'desc'=>"open a gem's documentation in a browser",
-        'post_path'=>'/rdoc/index.html' }]  }
+        'post_path'=>'/rdoc/index.html', 'name'=>'gem-doc' } ] }
   end
 
   def ruby
