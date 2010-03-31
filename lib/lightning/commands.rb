@@ -12,7 +12,7 @@ module Lightning
       else
         send(command, args)
       end
-    rescue StandardError, SyntaxError
+    rescue StandardError
       $stderr.puts "Error: "+ $!.message
     end
 
