@@ -53,35 +53,40 @@ module Lightning
       self[:bolts]
     end
 
+    def create_function(scmd, bolt, options={})
+      options[:name] ||= "#{scmd}-#{bolt}"
+      if_bolt_found(bolt) {
+        func = {'shell_command'=>scmd, 'name'=>options[:name]}
+        (bolts[bolt]['add_commands'] ||= []) << func
+        save_and_say "Created function '#{options[:name]}'"
+      }
+    end
+
     def create_bolt(bolt, globs)
       bolts[bolt] = { 'paths'=>globs.map {|e| e.sub(/^~/, Lightning.home) } }
       save_and_say "Created bolt '#{bolt}'"
     end
 
+    def if_bolt_found(bolt)
+      bolts[bolt] ? yield : puts("Can't find bolt '#{bolt}'")
+    end
+
     def alias_bolt(bolt, bolt_alias)
-      if bolts[bolt]
+      if_bolt_found(bolt) do
         bolts[bolt]['alias'] = bolt_alias
         save_and_say "Aliased bolt '#{bolt}' to '#{bolt_alias}'"
-      else
-        puts "Couldn't find bolt '#{bolt}'"
       end
     end
 
     def delete_bolt(bolt)
-      if bolts[bolt]
+      if_bolt_found(bolt) do
         bolts.delete(bolt)
         save_and_say "Deleted bolt '#{bolt}'"
-      else
-        puts "Can't find bolt '#{bolt}'"
       end
     end
 
     def show_bolt(bolt)
-      if bolts[bolt]
-        puts bolts[bolt].to_yaml.sub("--- \n", '')
-      else
-        puts "Can't find bolt '#{bolt}'"
-      end
+      if_bolt_found(bolt) { puts bolts[bolt].to_yaml.sub("--- \n", '') }
     end
 
     # Saves config to Config.config_file

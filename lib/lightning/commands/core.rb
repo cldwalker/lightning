@@ -36,6 +36,16 @@ module Lightning
       puts "Created #{Lightning.config.source_file}"
     end
 
+    meta '', 'Lists available generators.'
+    def generator(argv)
+      puts Generator.generators.sort
+    end
+
+    # silent command needed for lightning-reload
+    def source_file(argv)
+      puts Lightning.config.source_file
+    end
+
     protected
     def _complete(function, text_to_complete)
       Lightning.setup
