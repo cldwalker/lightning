@@ -23,9 +23,9 @@ context "Function" do
     assert_arrays_equal %w{a1 a2}+['file 1']+%w{path1 path2 path3}, @cmd.completions
   end
 
-  test "has bolt's paths" do
-    @cmd.paths.should.not.be.empty?
-    @cmd.paths.should == @cmd.bolt.paths
+  test "has bolt's globs" do
+    @cmd.globs.should.not.be.empty?
+    @cmd.globs.should == @cmd.bolt.globs
   end
 
   test "has bolt's aliases" do

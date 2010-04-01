@@ -63,7 +63,7 @@ module Lightning
     end
 
     def create_bolt(bolt, globs)
-      bolts[bolt] = { 'paths'=>globs.map {|e| e.sub(/^~/, Lightning.home) } }
+      bolts[bolt] = { 'globs'=>globs.map {|e| e.sub(/^~/, Lightning.home) } }
       save_and_say "Created bolt '#{bolt}'"
     end
 

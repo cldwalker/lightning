@@ -18,8 +18,8 @@ module Lightning
     end
 
     # @return [Array] Globs used by completion_map
-    def paths
-      @paths ||= @bolt.paths
+    def globs
+      @globs ||= @bolt.globs
     end
 
     # Custom aliases in case a basename is too long. Defaults to a bolt's aliases.
@@ -37,7 +37,7 @@ module Lightning
     # Used to match a given basename with its full path
     # @return [CompletionMap]
     def completion_map
-      @completion_map ||= CompletionMap.new(paths, :aliases=>aliases)
+      @completion_map ||= CompletionMap.new(globs, :aliases=>aliases)
     end
 
     # Translates each element in an array of completions.

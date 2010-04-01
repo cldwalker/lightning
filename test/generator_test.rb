@@ -54,23 +54,24 @@ context "Generator" do
 
   context "generates" do
     before_all {
-      Lightning.config[:bolts]['wild_dir'] = {:paths=>['overwrite me']}
-      Generators.send(:define_method, :user_bolt) { {:paths=>['glob1', 'glob2']} }
+      Lightning.config[:bolts]['overwrite'] = {:globs=>['overwrite me']}
+      Generators.send(:define_method, :user_bolt) { {:globs=>['glob1', 'glob2']} }
+      Generators.send(:define_method, :overwrite) { {:globs=>['overwritten']} }
       mock(Lightning.config).save
-      generate 'wild', 'user_bolt', 'wild_dir'
+      generate 'wild', 'user_bolt', 'overwrite'
     }
 
     test "a default bolt" do
-      Lightning.config[:bolts]['wild'][:paths].should == ['**/*']
+      Lightning.config[:bolts]['wild'][:globs].should == ['**/*']
       Lightning.config[:bolts]['wild'][:desc].should =~ /files/
     end
 
     test "a user-specified bolt" do
-      Lightning.config[:bolts]['user_bolt'][:paths].should == ['glob1', 'glob2']
+      Lightning.config[:bolts]['user_bolt'][:globs].should == ['glob1', 'glob2']
     end
 
     test "and overwrites existing bolts" do
-      Lightning.config[:bolts]['wild_dir'][:paths].should == ["**/"]
+      Lightning.config[:bolts]['overwrite'][:globs].should == ["overwritten"]
     end
 
     test "and preserves bolts that aren't being generated" do

@@ -1,6 +1,6 @@
 module Lightning
   # This module contains methods which are used to generate bolts with 'lightning bolt generate'.
-  # Each method should return a hash of bolt attributes. A bolt hash should at least have a paths
+  # Each method should return a hash of bolt attributes. A bolt hash should at least have a globs
   # attribute. The name of the method is the name given to the bolt.
   module Generators
     private

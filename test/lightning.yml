@@ -21,7 +21,7 @@ bolts:
       a2: /dir/a2
       path3: /dir/a3
     desc: Desktop applications
-    paths:
+    globs:
       - /Applications/*.app
       - /Applications/Utilities/*.app
 shell_commands:

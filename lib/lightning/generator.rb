@@ -45,11 +45,11 @@ module Lightning
 
     def run_once(bolt, options)
       if options[:test]
-        (result = call_generator(bolt)) && puts(result[:paths])
+        (result = call_generator(bolt)) && puts(result[:globs])
       else
         if generate_bolts(bolt=>options[:once] || bolt)
-          puts "Generated following paths for bolt '#{bolt}':"
-          puts Lightning.config.bolts[bolt][:paths].map {|e| "  "+e }
+          puts "Generated following globs for bolt '#{bolt}':"
+          puts Lightning.config.bolts[bolt][:globs].map {|e| "  "+e }
         end
       end
     end
