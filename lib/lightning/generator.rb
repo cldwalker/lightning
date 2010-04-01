@@ -51,6 +51,7 @@ module Lightning
         if generate_bolts(bolt=>generator)
           puts "Generated following globs for bolt '#{bolt}':"
           puts Lightning.config.bolts[bolt][:globs].map {|e| "  "+e }
+          true
         end
       end
     end
