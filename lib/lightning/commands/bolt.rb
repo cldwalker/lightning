@@ -1,22 +1,23 @@
 module Lightning::Commands
-  meta "(list [-a|--alias] | create BOLT GLOBS | alias BOLT ALIAS | "+
+  meta "(list [-a|--alias] | alias BOLT ALIAS | create BOLT GLOBS | "+
     "delete BOLT | generate BOLT [generator] [-t|--test] | show BOLT)",
     "Commands for managing bolts. Defaults to listing them."
   def bolt(argv)
     subcommand = argv.shift || 'list'
-    subcommand = %w{create alias delete generate list show}.find {|e| e[/^#{subcommand}/]} || subcommand
+    subcommand = %w{alias create delete generate list show}.find {|e| e[/^#{subcommand}/]} || subcommand
     bolt_subcommand(subcommand, argv) if subcommand_has_required_args(subcommand, argv)
   end
 
   def bolt_subcommand(subcommand, argv)
     case subcommand
     when 'list'     then    list_subcommand(:bolts, argv)
-    when 'create'      then    Lightning.config.create_bolt(argv.shift, argv)
+    when 'create'   then    Lightning.config.create_bolt(argv.shift, argv)
     when 'alias'    then    Lightning.config.alias_bolt(argv[0], argv[1])
     when 'delete'   then    Lightning.config.delete_bolt(argv[0])
     when 'show'     then    Lightning.config.show_bolt(argv[0])
     when 'generate'
-      Lightning::Generator.run(argv[0], :once=>argv[1], :test=>!(argv & %w{-t --test}).empty?)
+      args, options = parse_args argv
+      Lightning::Generator.run(args[0], :once=>args[1], :test=>options[:test] || options[:t])
     else puts "Invalid subcommand '#{subcommand}'", command_usage
     end
   end
