@@ -3,16 +3,16 @@ module Lightning
   # to generate a CompletionMap.
   class Bolt
     attr_reader :name, :aliases
-    attr_accessor :globs, :commands
+    attr_accessor :globs, :functions
     def initialize(name)
       @name = name
       @globs = []
-      @commands = []
+      @functions = []
       @aliases = {}
       (Lightning.config.bolts[@name] || {}).each do |k,v|
         instance_variable_set("@#{k}", v)
       end
-      @commands += Lightning.config.shell_commands.keys if @global
+      @functions += Lightning.config.shell_commands.keys if @global
     end
 
     # Creates a command name from its shell command and bolt i.e. "#{command}-#{bolt}".
@@ -29,12 +29,12 @@ module Lightning
 
     # Generates functions from a bolt's commands and global shell commands
     def generate_functions
-      unique_commands = commands.inject({}) {|acc, e|
+      unique_functions = functions.inject({}) {|acc, e|
         cmd = e.is_a?(Hash) ? e : {'shell_command'=>e}
         acc[only_command(cmd['shell_command'])] ||= cmd if cmd['shell_command']
         acc
       }.values
-      unique_commands.map! do |cmd|
+      unique_functions.map! do |cmd|
         cmd['bolt'] = self
         cmd['name'] ||= create_function_name(cmd['shell_command'])
         cmd

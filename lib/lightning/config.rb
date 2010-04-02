@@ -61,7 +61,7 @@ module Lightning
       options[:name] ||= "#{scmd}-#{bolt}"
       if_bolt_found(bolt) do |bolt|
         func = {'shell_command'=>scmd, 'name'=>options[:name]}
-        (bolts[bolt]['add_commands'] ||= []) << func
+        (bolts[bolt]['functions'] ||= []) << func
         save_and_say "Created function '#{options[:name]}'"
       end
     end
