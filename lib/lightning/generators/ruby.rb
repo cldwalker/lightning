@@ -1,26 +1,22 @@
 module Lightning::Generators
+  desc "Directories of gems"
   def gem
-    { :globs=>`gem environment path`.chomp.split(":").map {|e| e +"/gems/*" },
-      :desc=>"source code of gems" }
+    { :globs=>`gem environment path`.chomp.split(":").map {|e| e +"/gems/*" } }
   end
 
-  def gem_doc
-    { :globs=>`gem environment path`.chomp.split(":").map {|e| e +"/doc/*" },
-      :commands=>[ {'shell_command'=>'open', 'desc'=>"open a gem's documentation in a browser",
-        'post_path'=>'/rdoc/index.html', 'name'=>'gem-doc' } ] }
-  end
-
+  desc "System ruby files"
   def ruby
     { :globs=>system_ruby.map {|e| e +"/**/*.{rb,bundle,so,c}"} }
   end
 
+  desc "*ALL* local ruby files in a ruby project. Careful where you do this."
   def local_ruby
-    { :globs=>["**/*.rb", "bin/**"], :desc=>"local files in a ruby project i.e. a gem" }
+    { :globs=>["**/*.rb", "bin/*"] }
   end
 
+  desc "Test or spec files in a ruby project"
   def test_ruby
-    { :globs=>['{spec,test}/**/*_{test,spec}.rb', '{spec,test}/**/{test,spec}_*.rb', 'spec/**/*.spec'],
-    :desc=>"test or spec files in a test suite"}
+    { :globs=>['{spec,test}/**/*_{test,spec}.rb', '{spec,test}/**/{test,spec}_*.rb', 'spec/**/*.spec'] }
   end
 
   private

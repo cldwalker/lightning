@@ -7,7 +7,7 @@ module Lightning
     # Available generators
     def self.generators
       load_plugins
-      Generators.instance_methods(false)
+      Generators.generators
     end
 
     # Runs generator

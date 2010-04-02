@@ -63,7 +63,6 @@ context "Generator" do
 
     test "a default bolt" do
       Lightning.config[:bolts]['wild'][:globs].should == ['**/*']
-      Lightning.config[:bolts]['wild'][:desc].should =~ /files/
     end
 
     test "a user-specified bolt" do

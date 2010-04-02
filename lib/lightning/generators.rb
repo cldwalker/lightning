@@ -12,5 +12,20 @@ module Lightning
         raise "Command '#{cmd}' doesn't exist."
       end
     end
+
+    public
+    def self.generators
+      (@desc ||= {}).keys
+    end
+
+    def self.desc(arg)
+      @desc ||= {}
+      @next_desc = arg
+    end
+
+    def self.method_added(meth)
+      @desc[meth.to_s] = @next_desc if @next_desc
+      @next_desc = nil
+    end
   end
 end
