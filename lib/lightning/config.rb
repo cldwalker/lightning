@@ -10,6 +10,10 @@ module Lightning
         @config_file ||= File.exists?('lightning.yml') ? 'lightning.yml' :
           File.join(Lightning.home,".lightning.yml")
       end
+
+      def bolt(globs)
+        {'globs'=>globs.map {|e| e.sub(/^~/, Lightning.home) }}
+      end
     end
 
     DEFAULT = {:complete_regex=>true, :bolts=>{}, :shell_commands=>{'cd'=>'cd', 'echo'=>'echo'} }
@@ -63,7 +67,7 @@ module Lightning
     end
 
     def create_bolt(bolt, globs)
-      bolts[bolt] = { :globs=>globs.map {|e| e.sub(/^~/, Lightning.home) } }
+      bolts[bolt] = self.class.bolt(globs)
       save_and_say "Created bolt '#{bolt}'"
     end
 
