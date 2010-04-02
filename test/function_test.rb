@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 context "Function" do
   def create_command(attributes={})
     # bolt, path and aliases depend on test/lightning.yml
-    @cmd = Function.new({'name'=>'blah', 'bolt'=>Bolt.new('app')}.merge(attributes))
+    @cmd = Function.new({'name'=>'blah', 'bolt'=>Bolt.new('app'), 'desc'=>'blah'}.merge(attributes))
     @cmd.completion_map.map = {'path1'=>'/dir/path1','path2'=>'/dir/path2',
       'path3'=>'/dir/path3', 'file 1'=>'/dir/file 1'}
   end
@@ -33,9 +33,8 @@ context "Function" do
     @cmd.aliases.should == @cmd.bolt.aliases
   end
 
-  test "has bolt's desc" do
+  test "can have a desc" do
     @cmd.desc.should.not.be.empty?
-    @cmd.desc.should == @cmd.bolt.desc
   end
 
   test "translates a completion" do

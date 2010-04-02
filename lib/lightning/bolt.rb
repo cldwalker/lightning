@@ -2,7 +2,7 @@ module Lightning
   # A bolt is a group of file globs (Dir.glob) used by a Function object
   # to generate a CompletionMap.
   class Bolt
-    attr_reader :name, :aliases, :desc
+    attr_reader :name, :aliases
     attr_accessor :globs, :commands
     def initialize(name)
       @name = name

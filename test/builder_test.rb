@@ -38,7 +38,6 @@ context "Builder" do
     # depends on test/lightning.yml
     test "builds expected output for a command" do
       expected = <<-EOS.gsub(/^\s{6}/,'')
-      #open mac applications
       oa () {
         local IFS=$'\\n'
         local arr=( $(${LBIN_PATH}lightning-translate oa $@) )

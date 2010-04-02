@@ -45,13 +45,8 @@ module Lightning
     end
 
     protected
-    def command_header(command)
-      (command.desc ? "##{command.desc}\n" : "")
-    end
-
     def bash_builder(commands)
       commands.map do |e|
-        command_header(e) +
         <<-EOS.gsub(/^\s{10}/,'')
           #{e.name} () {
             local IFS=$'\\n'
@@ -65,7 +60,6 @@ module Lightning
 
     def zsh_builder(commands)
       commands.map do |e|
-        command_header(e) +
         <<-EOS.gsub(/^\s{10}/,'')
           #{e.name} () {
             local IFS=$'\\n'

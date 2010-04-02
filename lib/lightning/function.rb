@@ -3,7 +3,7 @@ module Lightning
   # translation of basenames to full path names. It depends on a Bolt object for
   # the globbable paths and a CompletionMap object to map basenames to full paths.
   class Function
-    ATTRIBUTES = :name, :post_path, :shell_command, :bolt
+    ATTRIBUTES = :name, :post_path, :shell_command, :bolt, :desc
     attr_accessor *ATTRIBUTES
     def initialize(hash)
       raise ArgumentError, "Function must have a name and bolt" unless hash['name'] && hash['bolt']
@@ -26,12 +26,6 @@ module Lightning
     # @return [Hash] Maps aliases to full paths
     def aliases
       @aliases ||= @bolt.aliases
-    end
-
-    # A brief description that's put above the command's shell function in the shell file.
-    # Defaults to a bolt's description.
-    def desc
-      @desc ||= @bolt.desc
     end
 
     # Used to match a given basename with its full path
