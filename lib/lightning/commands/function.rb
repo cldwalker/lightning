@@ -1,5 +1,5 @@
 module Lightning::Commands
-  meta '(list | create SHELL_COMMAND BOLT [name])',
+  meta '(list [--command=SHELL_COMMAND] [--bolt=BOLT] | create SHELL_COMMAND BOLT [name])',
     'Commands for managing functions. Defaults to listing them.'
   def function(argv)
     subcommand = argv.shift || 'list'
@@ -9,7 +9,17 @@ module Lightning::Commands
 
   def function_subcommand(subcommand, argv)
     case subcommand
-    when 'list'    then Lightning.setup; puts Lightning.functions.keys.sort
+    when 'list'
+      Lightning.setup
+      args, options = parse_args argv
+      functions = if options[:bolt]
+        Lightning.functions.values.select {|e| e.bolt.name == options[:bolt] }.map {|e| e.name}
+      elsif options[:command]
+        Lightning.functions.values.select {|e| e.shell_command == options[:command] }.map {|e| e.name}
+      else
+        Lightning.functions.keys
+      end
+      puts functions.sort
     when 'create'
       if Lightning.config.bolts[argv[1]] || Lightning::Generator.run(argv[1], :once=>argv[1])
         Lightning.config.create_function(argv[0], argv[1], :name=>argv[2])
