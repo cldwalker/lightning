@@ -1,40 +1,40 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
 context "Function" do
-  def create_command(attributes={})
+  def create_function(attributes={})
     # bolt, path and aliases depend on test/lightning.yml
-    @cmd = Function.new({'name'=>'blah', 'bolt'=>Bolt.new('app'), 'desc'=>'blah'}.merge(attributes))
-    @cmd.completion_map.map = {'path1'=>'/dir/path1','path2'=>'/dir/path2',
+    @fn = Function.new({'name'=>'blah', 'bolt'=>Bolt.new('app'), 'desc'=>'blah'}.merge(attributes))
+    @fn.completion_map.map = {'path1'=>'/dir/path1','path2'=>'/dir/path2',
       'path3'=>'/dir/path3', 'file 1'=>'/dir/file 1'}
   end
 
   def translate(input, *expected)
-    Lightning.functions['blah'] = @cmd
+    Lightning.functions['blah'] = @fn
     mock(Commands).puts(expected.join("\n"))
     run_command :translate, ['blah'] + input.split(' ')
   end
 
   before_all do
-    create_command
-    @map = @cmd.completion_map
+    create_function
+    @map = @fn.completion_map
   end
 
   test "has correct completions" do
-    assert_arrays_equal %w{a1 a2}+['file 1']+%w{path1 path2 path3}, @cmd.completions
+    assert_arrays_equal %w{a1 a2}+['file 1']+%w{path1 path2 path3}, @fn.completions
   end
 
   test "has bolt's globs" do
-    @cmd.globs.should.not.be.empty?
-    @cmd.globs.should == @cmd.bolt.globs
+    @fn.globs.should.not.be.empty?
+    @fn.globs.should == @fn.bolt.globs
   end
 
   test "has bolt's aliases" do
-    @cmd.aliases.should.not.be.empty?
-    @cmd.aliases.should == @cmd.bolt.aliases
+    @fn.aliases.should.not.be.empty?
+    @fn.aliases.should == @fn.bolt.aliases
   end
 
   test "can have a desc" do
-    @cmd.desc.should.not.be.empty?
+    @fn.desc.should.not.be.empty?
   end
 
   test "translates a completion" do
@@ -81,9 +81,9 @@ context "Function" do
 
   after_all { Lightning.config[:aliases] = {}}
 
-  context "command attributes:" do
+  context "function attributes:" do
     test "post_path added after each translation" do
-      create_command 'post_path'=>'/rdoc/index.html'
+      create_function 'post_path'=>'/rdoc/index.html'
       translate '-r path1 path2', "-r", "/dir/path1/rdoc/index.html", "/dir/path2/rdoc/index.html"
     end
   end

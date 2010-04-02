@@ -31,9 +31,9 @@ module Lightning
     def run(source_file)
       return puts("No builder exists for #{Builder.shell} shell") unless Builder.can_build?
       Lightning.setup
-      commands = Lightning.functions.values
-      check_for_existing_commands(commands)
-      output = build(commands)
+      functions = Lightning.functions.values
+      check_for_existing_commands(functions)
+      output = build(functions)
       File.open(source_file || Lightning.config.source_file, 'w') {|f| f.write(output) }
       output
     end
@@ -45,8 +45,8 @@ module Lightning
     end
 
     protected
-    def bash_builder(commands)
-      commands.map do |e|
+    def bash_builder(functions)
+      functions.map do |e|
         <<-EOS.gsub(/^\s{10}/,'')
           #{e.name} () {
             local IFS=$'\\n'
@@ -58,8 +58,8 @@ module Lightning
       end.join("\n")
     end
 
-    def zsh_builder(commands)
-      commands.map do |e|
+    def zsh_builder(functions)
+      functions.map do |e|
         <<-EOS.gsub(/^\s{10}/,'')
           #{e.name} () {
             local IFS=$'\\n'
@@ -76,8 +76,8 @@ module Lightning
       end.join("\n")
     end
 
-    def check_for_existing_commands(commands)
-      if !(existing_commands = commands.select {|e| Util.shell_command_exists?(e.name) }).empty?
+    def check_for_existing_commands(functions)
+      if !(existing_commands = functions.select {|e| Util.shell_command_exists?(e.name) }).empty?
         puts "The following commands already exist in $PATH and are being generated: "+
           "#{existing_commands.map {|e| e.name}.join(', ')}"
       end
