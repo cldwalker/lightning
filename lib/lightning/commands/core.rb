@@ -38,7 +38,7 @@ module Lightning
 
     meta '', 'Lists available generators.'
     def generator(argv)
-      puts Generator.generators.sort
+      print_sorted_hash Generator.generators
     end
 
     # silent command needed for lightning-reload

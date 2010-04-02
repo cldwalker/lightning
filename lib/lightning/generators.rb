@@ -15,16 +15,15 @@ module Lightning
 
     public
     def self.generators
-      (@desc ||= {}).keys
+      @desc ||= {}
     end
 
     def self.desc(arg)
-      @desc ||= {}
       @next_desc = arg
     end
 
     def self.method_added(meth)
-      @desc[meth.to_s] = @next_desc if @next_desc
+      generators[meth.to_s] = @next_desc if @next_desc
       @next_desc = nil
     end
   end

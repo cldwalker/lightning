@@ -69,7 +69,7 @@ module Lightning
     def print_help
       puts "lightning COMMAND [arguments]", ""
       puts "Available commands:"
-      print_command_table
+      print_sorted_hash @meta.inject({}) {|a,(k,v)| a[k] = v[1]; a }, true
       puts "", "For more information on a command use:"
       puts "  lightning COMMAND -h", ""
       puts "Options: "
@@ -79,11 +79,12 @@ module Lightning
       puts "For example, 'lightning b c gem path1' is short for 'lightning bolt create gem path1'."
     end
 
-    def print_command_table
-      offset = commands.map {|e| e.size }.max + 2
+    def print_sorted_hash(hash, indent=false)
+      offset = hash.keys.map {|e| e.size }.max + 2
       offset += 1 unless offset % 2 == 0
-      @meta.sort.each do |command, (usage, desc)|
-        puts "  #{command}" << ' ' * (offset - command.size) << desc
+      indent_char = indent ? '  ' : ''
+      hash.sort.each do |k,v|
+        puts "#{indent_char}#{k}" << ' ' * (offset - k.size) << (v || '')
       end
     end
 

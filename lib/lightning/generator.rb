@@ -4,7 +4,7 @@ module Lightning
   class Generator
     DEFAULT_GENERATORS = %w{gem gem_doc ruby local_ruby wild bin}
 
-    # Available generators
+    # Hash of generators and their descriptions
     def self.generators
       load_plugins
       Generators.generators
