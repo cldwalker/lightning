@@ -117,11 +117,9 @@ module Lightning
 
     def list_subcommand(list_type, argv)
       if %w{-a --alias}.include?(argv[0])
-        puts Lightning.config.send(list_type).keys.sort.map {|e|
-          list_type == :shell_commands ?
-            "#{e}: #{Lightning.config.send(list_type)[e]}" :
-            "#{e}: #{Lightning.config.send(list_type)[e]['alias']}"
-        }
+        hash = Lightning.config.send(list_type)
+        hash = hash.inject({}) {|a,(k,v)| a[k] = v['alias']; a } if list_type == :bolts
+        print_sorted_hash hash
       else
         puts Lightning.config.send(list_type).keys.sort
       end
