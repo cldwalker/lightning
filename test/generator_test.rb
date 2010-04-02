@@ -39,13 +39,6 @@ context "Generator" do
   #   }.should =~ /^Generator 'bad' failed/
   # end
 
-  test "handles invalid bolt returned by generator" do
-    Generators.send(:define_method, :returns_array) { ['not valid bolt']}
-    mock(Lightning.config).save.never
-    mock($stdout).puts(/^Generator.*'returns_array'/)
-    generate :returns_array
-  end
-
   test "handles unexpected error while generating bolts" do
     mock.instance_of(Generator).generate_bolts(anything) { raise "Totally unexpected" }
     mock($stderr).puts(/Error: Totally/)
@@ -54,23 +47,23 @@ context "Generator" do
 
   context "generates" do
     before_all {
-      Lightning.config[:bolts]['overwrite'] = {:globs=>['overwrite me']}
-      Generators.send(:define_method, :user_bolt) { {:globs=>['glob1', 'glob2']} }
-      Generators.send(:define_method, :overwrite) { {:globs=>['overwritten']} }
+      Lightning.config[:bolts]['overwrite'] = {'globs'=>['overwrite me']}
+      Generators.send(:define_method, :user_bolt) { ['glob1', 'glob2'] }
+      Generators.send(:define_method, :overwrite) { ['overwritten'] }
       mock(Lightning.config).save
       generate 'wild', 'user_bolt', 'overwrite'
     }
 
     test "a default bolt" do
-      Lightning.config[:bolts]['wild'][:globs].should == ['**/*']
+      Lightning.config[:bolts]['wild']['globs'].should == ['**/*']
     end
 
     test "a user-specified bolt" do
-      Lightning.config[:bolts]['user_bolt'][:globs].should == ['glob1', 'glob2']
+      Lightning.config[:bolts]['user_bolt']['globs'].should == ['glob1', 'glob2']
     end
 
     test "and overwrites existing bolts" do
-      Lightning.config[:bolts]['overwrite'][:globs].should == ["overwritten"]
+      Lightning.config[:bolts]['overwrite']['globs'].should == ["overwritten"]
     end
 
     test "and preserves bolts that aren't being generated" do

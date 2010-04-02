@@ -46,11 +46,11 @@ module Lightning
     def run_once(bolt, options)
       generator = options[:once] || bolt
       if options[:test]
-        (result = call_generator(generator)) && puts(result[:globs])
+        puts call_generator(generator)
       else
         if generate_bolts(bolt=>generator)
           puts "Generated following globs for bolt '#{bolt}':"
-          puts Lightning.config.bolts[bolt][:globs].map {|e| "  "+e }
+          puts Lightning.config.bolts[bolt]['globs'].map {|e| "  "+e }
           true
         end
       end
@@ -59,8 +59,7 @@ module Lightning
     protected
     def generate_bolts(bolts)
       results = bolts.map {|bolt, gen|
-        (bolt_attributes = call_generator(gen)) &&
-          Lightning.config.bolts[bolt.to_s] = bolt_attributes
+        (globs = call_generator(gen)) && Lightning.config.bolts[bolt.to_s] = {'globs'=>globs}
       }
       Lightning.config.save if results.any?
       results.all?
@@ -68,8 +67,7 @@ module Lightning
 
     def call_generator(gen)
       raise "Generator method doesn't exist." unless @underling.respond_to?(gen)
-      (result = @underling.send(gen)).is_a?(Hash) ? result :
-        $stdout.puts("Generator '#{gen}' did not return a hash as required.") unless @silent
+      Array(@underling.send(gen)).map {|e| e.to_s }
     rescue
       $stdout.puts "Generator '#{gen}' failed with: #{$!.message}" unless @silent
     end
