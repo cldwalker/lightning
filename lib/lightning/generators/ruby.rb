@@ -9,6 +9,11 @@ module Lightning::Generators
     system_ruby.map {|e| e +"/**/*.{rb,bundle,so,c}"}
   end
 
+  desc "Files in a rails project"
+  def rails
+    ["{app,config,lib}/**/*", "{db}/**/*.rb"]
+  end
+
   desc "*ALL* local ruby files. Careful where you do this."
   def local_ruby
     ["**/*.rb", "bin/*"]
