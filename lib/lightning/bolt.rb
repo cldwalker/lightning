@@ -7,13 +7,12 @@ module Lightning
     def initialize(name)
       @name = name
       @globs = []
-      @add_commands = []
+      @commands = []
       @aliases = {}
       (Lightning.config.bolts[@name] || {}).each do |k,v|
         instance_variable_set("@#{k}", v)
       end
-      @commands ||= Lightning.config.shell_commands.keys
-      @commands = @add_commands + @commands
+      @commands += Lightning.config.shell_commands.keys if @global
     end
 
     # Creates a command name from its shell command and bolt i.e. "#{command}-#{bolt}".
