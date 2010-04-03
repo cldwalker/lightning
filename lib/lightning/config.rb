@@ -97,11 +97,11 @@ module Lightning
     def globalize_bolts(boolean, arr)
       return puts("First argument must be 'on' or 'off'") unless %w{on off}.include?(boolean)
       if boolean == 'on'
-        arr.each {|b| if_bolt_found(b) {|bolt| bolts[bolt]['global'] = true } }
-        save_and_say "Global on for bolts #{arr.join(', ')}"
+        valid = arr.select {|b| if_bolt_found(b) {|bolt| bolts[bolt]['global'] = true } }
+        save_and_say "Global on for bolts #{valid.join(', ')}"
       else
-        arr.each {|b| if_bolt_found(b) {|bolt| bolts[bolt].delete('global') } }
-        save_and_say "Global off for bolts #{arr.join(', ')}"
+        valid = arr.select {|b| if_bolt_found(b) {|bolt| bolts[bolt].delete('global') ; true } }
+        save_and_say "Global off for bolts #{valid.join(', ')}"
       end
     end
 
