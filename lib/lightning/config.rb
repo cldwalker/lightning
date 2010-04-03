@@ -94,6 +94,17 @@ module Lightning
       if_bolt_found(bolt) {|b| puts bolts[b].to_yaml.sub("--- \n", '') }
     end
 
+    def globalize_bolts(boolean, arr)
+      return puts("First argument must be 'on' or 'off'") unless %w{on off}.include?(boolean)
+      if boolean == 'on'
+        arr.each {|b| if_bolt_found(b) {|bolt| bolts[bolt]['global'] = true } }
+        save_and_say "Global on for bolts #{arr.join(', ')}"
+      else
+        arr.each {|b| if_bolt_found(b) {|bolt| bolts[bolt].delete('global') } }
+        save_and_say "Global off for bolts #{arr.join(', ')}"
+      end
+    end
+
     # Saves config to Config.config_file
     def save
       File.open(self.class.config_file, "w") {|f| f.puts Hash.new.replace(self).to_yaml }
