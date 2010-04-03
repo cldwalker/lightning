@@ -2,7 +2,7 @@ module Lightning
   # A bolt is a group of file globs (Dir.glob) used by a Function object
   # to generate a CompletionMap.
   class Bolt
-    attr_reader :name, :aliases
+    attr_reader :name, :aliases, :global
     attr_accessor :globs, :functions
     def initialize(name)
       @name = name
@@ -30,7 +30,7 @@ module Lightning
     # Generates functions from a bolt's commands and global shell commands
     def generate_functions
       unique_functions = functions.inject({}) {|acc, e|
-        cmd = e.is_a?(Hash) ? e : {'shell_command'=>e}
+        cmd = e.is_a?(Hash) ? e.dup : {'shell_command'=>e}
         acc[only_command(cmd['shell_command'])] ||= cmd if cmd['shell_command']
         acc
       }.values
