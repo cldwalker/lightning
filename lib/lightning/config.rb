@@ -70,8 +70,23 @@ module Lightning
       end
     end
 
+    # Extracts shell command from a shell_command string
+    def only_command(shell_command)
+      shell_command[/\w+/]
+    end
+
+    # Creates a command name from its shell command and bolt i.e. "#{command}-#{bolt}".
+    # Uses aliases for either if they exist.
+    def create_function_name(shell_command, bolt)
+      cmd = only_command shell_command
+      "#{shell_commands[cmd] || cmd}-#{bolt}"
+    end
+
     def find_function(functions, attribute, query)
-      Array(functions).find {|e| e.is_a?(Hash) ? e[attribute] == query : e == query}
+      Array(functions).find {|e|
+        attribute != 'shell_command' ? (e.is_a?(Hash) && e[attribute] == query) :
+          only_command(e.is_a?(Hash) ? e['shell_command'] : e) == query
+      }
     end
 
     def delete_function(fn)

@@ -15,28 +15,16 @@ module Lightning
       @functions += Lightning.config.shell_commands.keys if @global
     end
 
-    # Creates a command name from its shell command and bolt i.e. "#{command}-#{bolt}".
-    # Uses aliases for either if they exist.
-    def create_function_name(shell_command)
-      cmd = only_command shell_command
-      "#{Lightning.config.shell_commands[cmd] || cmd}-#{alias_or_name}"
-    end
-
-    # Extracts shell command from a shell_command string
-    def only_command(shell_command)
-      shell_command[/\w+/]
-    end
-
     # Generates functions from a bolt's commands and global shell commands
     def generate_functions
       unique_functions = functions.inject({}) {|acc, e|
         cmd = e.is_a?(Hash) ? e.dup : {'shell_command'=>e}
-        acc[only_command(cmd['shell_command'])] ||= cmd if cmd['shell_command']
+        acc[Lightning.config.only_command(cmd['shell_command'])] ||= cmd if cmd['shell_command']
         acc
       }.values
       unique_functions.map! do |cmd|
         cmd['bolt'] = self
-        cmd['name'] ||= create_function_name(cmd['shell_command'])
+        cmd['name'] ||= Lightning.config.create_function_name(cmd['shell_command'], alias_or_name)
         cmd
       end
     end
