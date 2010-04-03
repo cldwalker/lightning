@@ -20,13 +20,8 @@ module Lightning::Commands
         Lightning.functions.keys
       end
       puts functions.sort
-    when 'create'
-      if Lightning.config.bolts[argv[1]] || Lightning::Generator.run(argv[1], :once=>argv[1])
-        Lightning.config.create_function(argv[0], argv[1], :name=>argv[2])
-      end
-    when 'delete'
-      Lightning.setup
-      Lightning.config.delete_function argv.shift
+    when 'create'  then Lightning.config.create_function_and_bolt(argv)
+    when 'delete'  then Lightning.setup; Lightning.config.delete_function argv.shift
     else puts "Invalid subcommand '#{subcommand}'", command_usage
     end
   end

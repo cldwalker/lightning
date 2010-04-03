@@ -12,7 +12,7 @@ module Lightning
       (Lightning.config.bolts[@name] || {}).each do |k,v|
         instance_variable_set("@#{k}", v)
       end
-      @functions += Lightning.config.shell_commands.keys if @global
+      @functions += Lightning.config.global_commands if @global
     end
 
     # Generates functions from a bolt's commands and global shell commands
@@ -24,12 +24,11 @@ module Lightning
       }.values
       unique_functions.map! do |cmd|
         cmd['bolt'] = self
-        cmd['name'] ||= Lightning.config.create_function_name(cmd['shell_command'], alias_or_name)
+        cmd['name'] ||= Lightning.config.function_name(cmd['shell_command'], alias_or_name)
         cmd
       end
     end
 
-    protected
     def alias_or_name
       @alias || @name
     end
