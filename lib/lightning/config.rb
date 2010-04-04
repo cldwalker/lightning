@@ -56,7 +56,7 @@ module Lightning
     def delete_shell_command(scmd)
       if shell_commands[scmd]
         shell_commands.delete scmd
-        save_and_say "Deleted shell command '#{scmd}'"
+        save_and_say "Deleted shell command '#{scmd}' and its functions"
       else
         puts "Can't find shell command '#{scmd}'"
       end
@@ -143,7 +143,7 @@ module Lightning
     def delete_bolt(bolt)
       if_bolt_found(bolt) do |bolt|
         bolts.delete(bolt)
-        save_and_say "Deleted bolt '#{bolt}'"
+        save_and_say "Deleted bolt '#{bolt}' and its functions"
       end
     end
 
