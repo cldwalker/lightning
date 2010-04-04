@@ -20,8 +20,8 @@ module Lightning::Commands
         Lightning.functions.keys
       end
       puts functions.sort
-    when 'create'  then Lightning.config.create_function_and_bolt(argv)
-    when 'delete'  then Lightning.setup; Lightning.config.delete_function argv.shift
+    when 'create'  then config.create_function_and_bolt(argv)
+    when 'delete'  then Lightning.setup; config.delete_function argv.shift
     else puts "Invalid subcommand '#{subcommand}'", command_usage
     end
   end

@@ -11,8 +11,8 @@ module Lightning::Commands
   def shell_command_subcommand(subcommand, argv)
     case subcommand
     when 'list'   then   list_subcommand(:shell_commands, argv)
-    when 'create'    then   Lightning.config.create_shell_command(argv[0], argv[1])
-    when 'delete' then   Lightning.config.delete_shell_command(argv[0])
+    when 'create' then   config.create_shell_command(argv[0], argv[1])
+    when 'delete' then   config.delete_shell_command(argv[0])
     else  puts "Invalid subcommand '#{subcommand}'", command_usage
     end
   end

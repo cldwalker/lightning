@@ -31,9 +31,9 @@ module Lightning
       Generator.run(options[:generators]) if first_install || options[:generators]
       puts "Created ~/.lightning.yml" if first_install
 
-      Lightning.config[:shell] = options[:shell] if options[:shell]
+      config[:shell] = options[:shell] if options[:shell]
       Builder.run(options[:source_file])
-      puts "Created #{Lightning.config.source_file}"
+      puts "Created #{config.source_file}"
     end
 
     meta '', 'Lists available generators.'
@@ -43,7 +43,7 @@ module Lightning
 
     # silent command needed for lightning-reload
     def source_file(argv)
-      puts Lightning.config.source_file
+      puts config.source_file
     end
 
     protected

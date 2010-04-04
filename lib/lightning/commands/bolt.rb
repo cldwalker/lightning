@@ -11,11 +11,11 @@ module Lightning::Commands
   def bolt_subcommand(subcommand, argv)
     case subcommand
     when 'list'     then    list_subcommand(:bolts, argv)
-    when 'create'   then    Lightning.config.create_bolt(argv.shift, argv)
-    when 'alias'    then    Lightning.config.alias_bolt(argv[0], argv[1])
-    when 'delete'   then    Lightning.config.delete_bolt(argv[0])
-    when 'show'     then    Lightning.config.show_bolt(argv[0])
-    when 'global'   then    Lightning.config.globalize_bolts(argv.shift, argv)
+    when 'create'   then    config.create_bolt(argv.shift, argv)
+    when 'alias'    then    config.alias_bolt(argv[0], argv[1])
+    when 'delete'   then    config.delete_bolt(argv[0])
+    when 'show'     then    config.show_bolt(argv[0])
+    when 'global'   then    config.globalize_bolts(argv.shift, argv)
     when 'generate'
       args, options = parse_args argv
       Lightning::Generator.run(args[0], :once=>args[1], :test=>options[:test] || options[:t])
