@@ -1,60 +1,55 @@
-== Description
+== Demo
+Lightning provides shell functions which can interpret paths by their basenames. So instead of carpal-typing
 
-Autocomplete a group of files and directories simply by listing their globbable paths
-in a config file. Generate completions from your config, source them into your shell
-and you're ready to rock.
+  $ less /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/irb.rb
 
-So instead of carpal-typing
+just type
 
-    bash> vim /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/irb.rb
+  $ less-ruby irb.rb
 
-you type or complete
+less-ruby is a lightning function which wraps `less` with the ability to refer to system ruby files by their basenames. Being a lightning function, it can also autocomplete system ruby files:
 
-    bash> rvim irb.rb
+  # 1112 available system ruby files
+  $ less-ruby [TAB]
+  Display all 1112 possibilities? (y or n)
 
-Uneasy about what lightning will execute? Test/print it out with a -test flag
+  $ less-ruby a[TAB]
+  abbrev.rb                  abstract.rb                abstract_index_builder.rb
+  $ less-ruby abb[TAB]
+  $ less-ruby abbrev.rb
+  # Pages /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/abbrev.rb ...
 
-    bash> rvim -test irb.rb
-    rvim '/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/irb.rb'
-
-Want to autocomplete but don't remember how the basename starts? Just use a ruby regular expression:
-
-    # *'s are converted to .*'s for convience sakes
-    bash> rvim *dialog [TAB TAB]
-    canvasprintdialog.rb
-    extfileselectiondialog.rb
-    dialog.rb//System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/tk
-    fileselectiondialog.rb
-    dialog.rb//System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/tkextlib/bwidget
-    finddialog.rb
-
-    #re-edit your line to narrow down your completion to one entry
-    bash> rvim ca*dialog [TAB TAB]
-
-    #once the basename completes, you can execute your command
-    bash> rvim canvasprintdialog.rb
-
-As you can see, you only need to autocomplete the basenames of paths and lightning will resolve their
-full paths.  In these examples, rvim is a lightning command configured to autocomplete a certain group of paths for vim.
-In my case, rvim is configured to complete my ruby core and standard library files.
-
+  # Autocompletion works regardless of the number of arguments
+  $ less-ruby -I abbrev.rb y[TAB]
+  yaml.rb      yamlnode.rb  ypath.rb
+  $ less-ruby -I abbrev.rb yp[TAB]
+  $ less-ruby -I abbrev.rb ypath.rb
+  # Pages /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/abbrev.rb and
+    /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/yaml/ypath.rb ...
 
 == Install
 
-For newcomers to github, install this gem with: `gem install lightning`
+Install with either rip or rubygems:
+  $ rip install git://github.com/cldwalker/lightning.git
+  # OR
+  $ sudo gem install lightning
 
-To make your own commands, you'll need to:
+If you've installed with rubygems and `time lightning` takes longer than 0.05 seconds, I *strongly recommend* installing with rip. Your startup time directly effects your autocompletion speed with lightning.
 
-1. Create ~/.lightning.yml or a lightning.yml in the current directory.
-   Use the Configuration section below and the provided lightning.yml.example as guides.
+Once lightning is installed, we need to do a one-time setup:
 
-2. Execute `lightning-install` to generate ~/.lightning_completions from your config.
-   There is a config option for changing the location of the generated file. See Configuration
-   below. See lightning_completions.example for what would be generated for the enclosed example
-   config.
+  # To see available install options
+  $ lightning install -h
 
-3. Source the generated file in your bashrc ie `source ~/.lightning_completions`.
+  # Installs lightning's core files and sources the needed lightning functions
+  $ lightning install && source ~/.lightning/functions.sh
+  Created ~/.lightning_yml
+  Created ~/.lightning/functions.sh
 
+  # To have lightning's functionality loaded when your shell starts up
+  echo source ~/.lightning/functions.sh >> ~/.bashrc
+  # or for zsh
+  echo source ~/.lightning/functions.sh >> ~/.zshrc
 
 == Globbable Paths
 
@@ -74,77 +69,39 @@ Since the globbable paths are interpreted by ruby's Dir.glob(), you can:
 
 `ri Dir.glob` for more examples.
 
-== Aliases
-
-Lightning supports custom aliases for any path, globally and per command. So if there is some
-path that you access often but that's still too slow with completion, alias it away!
-
 == Configuration
-
 It helps to look at lightning.yml.example while reading this.
 
 Configuration options are:
 
-* generated_file: Location of shell script file generated from config. Defaults to
-  ~/.lightning_completions.
+* source_file: Location of shell script file generated from config. Defaults to
+  ~/.lightning/functions.sh
 * ignore_paths: List of paths to globally ignore when listing completions.
 * complete_regex: true or false (default is true)
-  Turns on/off Ruby regular expression matching when completing. One convience
+  Turns on/off Ruby regular expression matching when completing. One convenience
   is that a '*' is converted to '.*' ie glob-like behavior.
 
   Note: Realize your regular expression normally just match the basename. However, since duplicates
   list their full paths, their full paths are subject to regex matching.
 * shell: Specifies shell script generator used for generating completions. Defaults to bash.
-* aliases: A hash (pairs) of custom aliases pointing to full paths. These aliases will be globally
-  recognized by any lightning command.
-* commands: A list of lightning commands. A lightning command is just a shell function
-  which executes a specified shell function with a defined set of paths to autocomplete on.
-  A command consists of the following options/keys:
-  
-  * name (required): Name of the lightning command you'll be typing.
-  * map_to (required): Shell command which the lightning command passes arguments to.
-  * description: Description which is placed as a comment in the generated shell script.
-  * paths (required): A list of globbable paths, whose basenames are autocompleted. You can also
-    pass this a path name that has been defined in the paths option. 
-  * aliases: A hash (pairs) of custom aliases and full paths only for this command.
-
-* paths: This takes a hash (pairs) of path names and globbable paths. This should be used when
-  you have a group of paths that are used in multiple commands. When doing that, you would specify
-  the path name defined here in the command's paths key.
-  Note: path names should only be alphanumeric
-
-* post_path: Text to add immediately after a resolved path. lightning.yml.example contains
-  an example used for opening gem documentation in your browser.
-
-== Duplicate Basenames
-
-So what happens when their are multiple matches for the same basename?
-Lightning appends a '/' + the full directory to each of the basenames.
-
-For example, if I autocomplete button.rb for my ruby standard libraries I get:
-
-      bash> rvim button.rb
-      button.rb//System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/tk
-      button.rb//System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/tkextlib/bwidget
-      button.rb//System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/tkextlib/blt/tile
-
-This isn't the prettiest completion but it resolves duplicates, displays the path differences
-between each and easily autocompletes. I'm open to suggestions on this syntax.
+* bolts: Array of bolts with each bolt being a hash with the following keys:
+  * name(required): Unique name
+  * globs(required): Array of globs which defines group of paths bolt handles
+  * post_path: Text to add immediately after a resolved path
+  * functions: A list of lightning functions. A lightning function is just a shell function
+    which executes a shell command with a defined set of paths to autocomplete on.
+    A function consists of the following options/keys:
+    * name: Name of the lightning function you'll be typing.
+    * shell_command(required): Shell command which the lightning command passes arguments to.
+    * aliases: A hash (pairs) of custom aliases and full paths only for this command.
 
 == Limitations
-* The generated shell scripts default to bash but could easily be extended for other shell languages. Patches welcome.
-* All arguments passed to a lightning command are considered part of the basename to resolve. So
-  it's not yet possible to resolve some arguments and not others.
+Only bash and zsh shells are supported. Patches are welcome to extend support to other shells.
 
-== Motivation
-
-I've seen dotfiles on github and on blogs which accomplish this kind of autocompletion for gem
-documentation. There's even a gem just for gem editing: http://gemedit.rubyforge.org/.
-But once I saw how easy it was to manipulate completion through ruby,
-http://github.com/ryanb/dotfiles/blob/master/bash/completion_scripts/project_completion,
-I had to do something.
+== Credits
+* ryanb's dotfiles inspired tinkering with autocompletion in ruby: http://github.com/ryanb/dotfiles/blob/master/bash/completion_scripts/project_completion
+* defunkt's rip, http://github.com/defunkt/rip, was inflential in designing plugins
 
 == Todo
-* Binary to interact with common config operations including add/remove current directory or globs from a command
-* Allow lightning commands to only path-resolve one of multiple arguments given.
-* An irb generator
+* Manpage
+* An irb builder with bond
