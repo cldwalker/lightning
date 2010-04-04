@@ -1,3 +1,12 @@
+== 0.3.0
+* Major refactoring
+* Added pluggable commands and generators
+* Added several commands to completely configure lightning from commandline
+* Improved autocompletion including white space escaping and remote completion
+* Added support for zsh
+* Added more thorough error handling
+* Switched to yardoc and bacon for docs + tests
+
 == 0.2.1
 * Rubyforge release
 * Removed monkey patches
