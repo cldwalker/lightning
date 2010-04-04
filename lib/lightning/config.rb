@@ -73,13 +73,17 @@ module Lightning
     end
 
     def create_function(scmd, bolt, options={})
-      if_bolt_found(bolt) do |bolt|
-        func = {'shell_command'=>scmd}
-        options[:name] ||= function_name(scmd, bolt) unless global_commands.include?(scmd)
-        func['name'] = options[:name] if options[:name]
-        (bolts[bolt]['functions'] ||= []) << func
-        function = options[:name] || function_name(scmd, Lightning.bolts[bolt].alias_or_name)
-        save_and_say "Created function '#{function}'"
+      options[:name] ||= function_name(scmd, Lightning.bolts[bolt].alias_or_name) unless global_commands.include?(scmd)
+      function = options[:name] || function_name(scmd, Lightning.bolts[bolt].alias_or_name)
+
+      if find_function(bolts[bolt]['functions'], 'shell_command', scmd)
+        puts("Function '#{function}' already exists")
+      else
+        if_bolt_found(bolt) do |bolt|
+          fn = options[:name] ? {'name'=>options[:name],'shell_command'=>scmd} : scmd
+          (bolts[bolt]['functions'] ||= []) << fn
+          save_and_say "Created function '#{function}'"
+        end
       end
     end
 
