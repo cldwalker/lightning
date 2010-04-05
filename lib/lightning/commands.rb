@@ -64,6 +64,12 @@ module Lightning
       puts message
     end
 
+    # Command helper which yields a block for an existing bolt or prints an error message
+    def if_bolt_found(bolt)
+      bolt = config.unalias_bolt(bolt)
+      config.bolts[bolt] ? yield(bolt) : puts("Can't find bolt '#{bolt}'")
+    end
+
     # @return [String] Command usage for current command
     def command_usage
       "Usage: lightning #{@command} #{meta_array[0]}"
