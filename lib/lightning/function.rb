@@ -1,7 +1,7 @@
 module Lightning
-  # A Function wraps around a shell command and provides autocompletion and
-  # translation of basenames to full path names. It depends on a Bolt object for
-  # the globbable paths and a CompletionMap object to map basenames to full paths.
+  # A Function object represents a shell function which wraps around a shell command and bolt.
+  # This shell function autocompletes bolt paths by their basenames and translates arguments that
+  # are these basenames to their full paths.
   class Function
     ATTRIBUTES = :name, :post_path, :shell_command, :bolt, :desc
     attr_accessor *ATTRIBUTES
@@ -12,29 +12,28 @@ module Lightning
       end
     end
 
-    # @return [Array]
+    # @return [Array] All possible completions
     def completions
       completion_map.keys
     end
 
-    # @return [Array] Globs used by completion_map
+    # @return [Array] Globs used to create {Function#completion_map completion_map}
     def globs
       @globs ||= @bolt.globs
     end
 
-    # Custom aliases in case a basename is too long. Defaults to a bolt's aliases.
+    # User-defined aliases for any path. Defaults to its bolt's aliases.
     # @return [Hash] Maps aliases to full paths
     def aliases
       @aliases ||= @bolt.aliases
     end
 
-    # Used to match a given basename with its full path
-    # @return [CompletionMap]
+    # @return [CompletionMap] Map of basenames to full paths used in completion
     def completion_map
       @completion_map ||= CompletionMap.new(globs, :aliases=>aliases)
     end
 
-    # Translates each element in an array of completions.
+    # @return [Array] Translates function's arguments
     def translate_completion(args)
       translated = Array(args).map {|arg|
         !completion_map[arg] && (new_arg = arg[/^(.*)\.\.$/,1]) ?

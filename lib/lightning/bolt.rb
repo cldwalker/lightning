@@ -1,5 +1,5 @@
 module Lightning
-  # A bolt is a user-defined set of globs that a Function object needs to translate paths.
+  # A Bolt object is a user-defined set of globs that a Function object needs to translate paths.
   class Bolt
     # @return [String] Unique alphanumeric name
     attr_reader :name
