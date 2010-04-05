@@ -48,7 +48,7 @@ module Lightning
         matched = possible_completions.grep(/^#{top_dir}/)
 
         # for typed = some/dir/file, top_dir = path and translated_dir = /full/bolt/path
-        if matched.size == 1 && (translated_dir = @function.translate_completion([top_dir]))
+        if matched.size == 1 && (translated_dir = @function.translate([top_dir])[0])
           short_dir = typed.sub(/\/([^\/]+)?$/, '')  # some/dir
           completed_dir = short_dir.sub(top_dir, translated_dir) #/full/bolt/path/some/dir
           completed_dir = File.expand_path(completed_dir) if completed_dir[/\/\.\.($|\/)/]

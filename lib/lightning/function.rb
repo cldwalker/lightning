@@ -34,7 +34,7 @@ module Lightning
     end
 
     # @return [Array] Translates function's arguments
-    def translate_completion(args)
+    def translate(args)
       translated = Array(args).map {|arg|
         !completion_map[arg] && (new_arg = arg[/^(.*)\.\.$/,1]) ?
           Completion.complete(new_arg, self, false) : arg
@@ -46,7 +46,7 @@ module Lightning
           new_arg = File.expand_path(new_arg)
         end
         new_arg
-      }.join("\n")
+      }
     end
   end
 end

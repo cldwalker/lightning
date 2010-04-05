@@ -12,14 +12,18 @@ module Lightning
       # zsh hack: when tabbing on blank space $@ is empty
       # this ensures all completions
       buffer += " " if argv.size == 1
-      puts _complete(function, buffer)
+      Lightning.setup
+      puts Completion.complete(buffer, Lightning.functions[function])
     end
 
     meta "FUNCTION ARGUMENTS", "Translates each argument and prints it on a separate line."
     # Runs lightning translate
     def translate(argv)
       return unless command_has_required_args(argv, 2)
-      puts _translate(argv.shift, argv)
+      Lightning.setup
+      translations = (fn = Lightning.functions[argv.shift]) ?
+        fn.translate(argv).join("\n") : '#Error-no_function_found_to_translate'
+      puts translations
     end
 
     meta "[--generators=GENERATORS] [--source_file=SOURCE_FILE] [--shell=SHELL]",
@@ -44,18 +48,6 @@ module Lightning
     # silent command needed for lightning-reload
     def source_file(argv)
       puts config.source_file
-    end
-
-    protected
-    def _complete(function, text_to_complete)
-      Lightning.setup
-      Completion.complete(text_to_complete, Lightning.functions[function])
-    end
-
-    def _translate(function, argv)
-      Lightning.setup
-      (cmd = Lightning.functions[function]) ? cmd.translate_completion(argv) :
-        '#Error-no_function_found_to_translate'
     end
   end
 end
