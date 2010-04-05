@@ -1,9 +1,17 @@
 module Lightning
-  # A bolt is a group of file globs (Dir.glob) used by a Function object
-  # to generate a CompletionMap.
+  # A bolt is a user-defined set of globs that a Function object needs to translate paths.
   class Bolt
-    attr_reader :name, :aliases, :global
-    attr_accessor :globs, :functions
+    # @return [String] Unique alphanumeric name
+    attr_reader :name
+    # @return [Hash] Maps aliases to full paths. Aliases are valid for a bolt's functions
+    attr_reader :aliases
+    # @return [Boolean] When true adds global commands to list of commands used to generate a bolt's functions
+    attr_reader :global
+    # @return [Array] User-defined globs that are translated by Dir.glob().
+    attr_accessor :globs
+    # Used to generate functions.
+    # @return [Array<Hash, String>] An array element can be a hash of function attributes or a shell command
+    attr_accessor :functions
     def initialize(name)
       @name = name
       @globs = []
@@ -14,7 +22,8 @@ module Lightning
       end
     end
 
-    # Generates functions from a bolt's commands and global shell commands
+    # Generates functions from a bolt's functions and global shell commands
+    # @return [Array]
     def generate_functions
       @functions += Lightning.config.global_commands if @global
       @functions.inject({}) {|acc, e|
@@ -26,6 +35,7 @@ module Lightning
       }.values
     end
 
+    # Creates function name for a bolt given a shell command
     def function_name(scmd)
       Lightning.config.function_name(scmd, alias_or_name)
     end

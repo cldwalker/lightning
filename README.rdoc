@@ -1,4 +1,7 @@
-== Demo
+== Description
+TODO
+
+== Intro
 Lightning provides shell functions which can interpret paths by their basenames. So instead of carpal-typing
 
   $ less /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/irb.rb
