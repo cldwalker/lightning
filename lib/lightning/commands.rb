@@ -1,7 +1,7 @@
 module Lightning
   # Runs lightning commands.
   module Commands
-    @meta = {}
+    @desc = {}
     extend self
     extend CommandsUtil
 
@@ -22,7 +22,7 @@ module Lightning
 
     # @return [Array] Available lightning commands
     def commands
-      @meta.keys
+      @desc.keys
     end
 
     # Calls proper lightning command with remaining commandline arguments
@@ -39,23 +39,23 @@ module Lightning
 
     # @return [String] Command usage for current command
     def command_usage
-      "Usage: lightning #{@command} #{meta_array[0]}"
+      "Usage: lightning #{@command} #{desc_array[0]}"
     end
 
-    # Placed before a command method to set its usage and description
-    def meta(*args)
-      @next_meta = args
+    # Place before a command method to set its usage and description
+    def desc(*args)
+      @next_desc = args
     end
 
     private
     def print_command_help
-      puts [command_usage, '', meta_array[1]]
+      puts [command_usage, '', desc_array[1]]
     end
 
     def print_help
       puts "lightning COMMAND [arguments]", ""
       puts "Available commands:"
-      print_sorted_hash @meta.inject({}) {|a,(k,v)| a[k] = v[1]; a }, true
+      print_sorted_hash @desc.inject({}) {|a,(k,v)| a[k] = v[1]; a }, true
       puts "", "For more information on a command use:"
       puts "  lightning COMMAND -h", ""
       puts "Options: "
@@ -65,8 +65,8 @@ module Lightning
       puts "For example, 'lightning b c gem path1' is short for 'lightning bolt create gem path1'."
     end
 
-    def meta_array
-      Array(@meta[@command])
+    def desc_array
+      Array(@desc[@command])
     end
 
     def unalias_command(command)
@@ -81,8 +81,8 @@ module Lightning
     end
 
     def method_added(meth)
-      @meta[meth.to_s] = @next_meta if @next_meta
-      @next_meta = nil
+      @desc[meth.to_s] = @next_desc if @next_desc
+      @next_desc = nil
     end
   end
 end

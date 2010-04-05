@@ -6,7 +6,7 @@ module Lightning
     end
 
     protected
-    meta "FUNCTION [arguments]", "Prints a function's completions based on the last argument."
+    desc "FUNCTION [arguments]", "Prints a function's completions based on the last argument."
     def complete(argv)
       return unless command_has_required_args(argv, 1)
       # this arg is needed by zsh in Complete
@@ -21,7 +21,7 @@ module Lightning
       puts Completion.complete(buffer, Lightning.functions[function])
     end
 
-    meta "FUNCTION ARGUMENTS", "Translates each argument and prints it on a separate line."
+    desc "FUNCTION ARGUMENTS", "Translates each argument and prints it on a separate line."
     def translate(argv)
       return unless command_has_required_args(argv, 2)
       Lightning.setup
@@ -30,7 +30,7 @@ module Lightning
       puts translations
     end
 
-    meta "[--generators=GENERATORS] [--source_file=SOURCE_FILE] [--shell=SHELL]",
+    desc "[--generators=GENERATORS] [--source_file=SOURCE_FILE] [--shell=SHELL]",
       "Optionally builds a config file and then builds a SOURCE_FILE from the config file."
     def install(argv)
       first_install = !File.exists?(Config.config_file)
@@ -43,7 +43,7 @@ module Lightning
       puts "Created #{config.source_file}"
     end
 
-    meta '', 'Lists available generators.'
+    desc '', 'Lists available generators.'
     def generator(argv)
       print_sorted_hash Generator.generators
     end

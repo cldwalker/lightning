@@ -66,7 +66,7 @@ module Lightning
 
     private
     def subcommand_required_args
-      meta_array[0].split('|').inject({}) {|a,e|
+      desc_array[0].split('|').inject({}) {|a,e|
         cmd, *args = e.strip.split(/\s+/)
         a[cmd] = args.select {|e| e[/^[A-Z]/]}.size
         a

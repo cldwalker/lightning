@@ -1,6 +1,6 @@
 module Lightning::Commands
   protected
-  meta '(list [-a|--alias] | create SHELL_COMMAND [alias]| delete SHELL_COMMAND)',
+  desc '(list [-a|--alias] | create SHELL_COMMAND [alias]| delete SHELL_COMMAND)',
     'Commands for managing shell commands. Defaults to listing them.'
   def shell_command(argv)
     subcommand = argv.shift || 'list'
