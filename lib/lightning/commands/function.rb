@@ -54,7 +54,7 @@ module Lightning::Commands
   def find_function(functions, attribute, query)
     Array(functions).find {|e|
       attribute != 'shell_command' ? (e.is_a?(Hash) && e[attribute] == query) :
-        only_command(e.is_a?(Hash) ? e['shell_command'] : e) == query
+        config.only_command(e.is_a?(Hash) ? e['shell_command'] : e) == query
     }
   end
 
