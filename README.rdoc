@@ -2,7 +2,7 @@
 TODO
 
 == Intro
-Lightning provides shell functions which can interpret paths by their basenames. So instead of carpal-typing
+Lightning generates shell functions which can interpret paths by their basenames. So instead of carpal-typing
 
   $ less /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/irb.rb
 
@@ -29,6 +29,10 @@ less-ruby is a lightning function which wraps `less` with the ability to refer t
   $ less-ruby -I abbrev.rb ypath.rb
   # Pages /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/abbrev.rb and
     /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/yaml/ypath.rb ...
+
+And here's the one-liner that creates this function:
+
+  $ lightning function create less ruby && lightning-reload
 
 == Install
 
