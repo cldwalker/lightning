@@ -54,7 +54,7 @@ module Lightning
     def run_once(bolt, options)
       generator = options[:once] || bolt
       if options[:test]
-        puts Config.bolt(call_generator(generator))['globs']
+        puts Config.bolt(Array(call_generator(generator)))['globs']
       else
         if generate_bolts(bolt=>generator)
           puts "Generated following globs for bolt '#{bolt}':"
