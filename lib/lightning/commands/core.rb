@@ -17,14 +17,13 @@ module Lightning
       # zsh hack: when tabbing on blank space $@ is empty
       # this ensures all completions
       buffer += " " if argv.size == 1
-      Lightning.setup
+
       puts Completion.complete(buffer, Lightning.functions[function])
     end
 
     desc "FUNCTION ARGUMENTS", "Translates each argument and prints it on a separate line."
     def translate(argv)
       return unless command_has_required_args(argv, 2)
-      Lightning.setup
       translations = (fn = Lightning.functions[argv.shift]) ?
         fn.translate(argv).join("\n") : '#Error-no_function_found_to_translate'
       puts translations

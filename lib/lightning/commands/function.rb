@@ -18,7 +18,6 @@ module Lightning::Commands
   end
 
   def list_function(argv)
-    Lightning.setup
     args, options = parse_args argv
     functions = if options[:bolt]
       Lightning.functions.values.select {|e| e.bolt.name == options[:bolt] }.map {|e| e.name}
@@ -59,7 +58,6 @@ module Lightning::Commands
   end
 
   def delete_function(fn)
-    Lightning.setup
     if (function = Lightning.functions[fn])
       cmd = config.unaliased_command(fn.split('-')[0])
       if_bolt_found(function.bolt.name) {|bolt|

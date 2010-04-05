@@ -27,14 +27,7 @@ module Lightning
 
     # @return [Hash] Maps function names to Function objects
     def functions
-      @functions ||= {}
-    end
-
-    # Sets up lightning by generating bolts and functions from config
-    def setup
-      config.bolts.each {|k,v|
-        create_functions bolts[k].generate_functions
-      }
+      @functions ||= create_functions
     end
 
     # @return [String] Directory for most of lightning's files, ~/.lightning
@@ -52,8 +45,10 @@ module Lightning
     end
 
     protected
-    def create_functions(hash_array)
-      hash_array.each {|e| functions[e['name']] = Function.new(e) }
+    def create_functions
+      config.bolts.inject({}) {|h,(k,v)|
+        bolts[k].generate_functions.each {|f| h[f['name']] = Function.new(f) } ; h
+      }
     end
   end
 end

@@ -2,8 +2,6 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 
 # depends on test/lightning.yml
 context "Bolt generates correct command from" do
-  before_all { Lightning.setup }
-
   assert "shell command" do
     Lightning.functions['less-app'].is_a?(Function)
   end
