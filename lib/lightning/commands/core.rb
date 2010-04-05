@@ -1,7 +1,12 @@
 module Lightning
   module Commands
+    # Silent command used by `lightning-reload` which prints Builder's shell file
+    def source_file(argv)
+      puts config.source_file
+    end
+
+    private
     meta "FUNCTION [arguments]", "Prints a function's completions based on the last argument."
-    # Runs lightning complete
     def complete(argv)
       return unless command_has_required_args(argv, 1)
       # this arg is needed by zsh in Complete
@@ -17,7 +22,6 @@ module Lightning
     end
 
     meta "FUNCTION ARGUMENTS", "Translates each argument and prints it on a separate line."
-    # Runs lightning translate
     def translate(argv)
       return unless command_has_required_args(argv, 2)
       Lightning.setup
@@ -28,7 +32,6 @@ module Lightning
 
     meta "[--generators=GENERATORS] [--source_file=SOURCE_FILE] [--shell=SHELL]",
       "Optionally builds a config file and then builds a SOURCE_FILE from the config file."
-    # Runs lightning install
     def install(argv)
       first_install = !File.exists?(Config.config_file)
       args, options = parse_args(argv)
@@ -43,11 +46,6 @@ module Lightning
     meta '', 'Lists available generators.'
     def generator(argv)
       print_sorted_hash Generator.generators
-    end
-
-    # silent command needed for lightning-reload
-    def source_file(argv)
-      puts config.source_file
     end
   end
 end

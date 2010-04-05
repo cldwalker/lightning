@@ -1,4 +1,5 @@
 module Lightning::Commands
+  private
   meta '(list [--command=SHELL_COMMAND] [--bolt=BOLT] | create SHELL_COMMAND BOLT [function] | delete FUNCTION)',
     'Commands for managing functions. Defaults to listing them.'
   def function(argv)
