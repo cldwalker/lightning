@@ -4,10 +4,9 @@ module Lightning
   class Config < ::Hash
     class <<self
       attr_accessor :config_file
-      # @return [String] Defaults to a local lightning.yml if it exists. Otherwise a global ~/.lightning.yml.
+      # @return [String] ~/.lightningrc
       def config_file
-        @config_file ||= File.exists?('lightning.yml') ? 'lightning.yml' :
-          File.join(Lightning.home,".lightning.yml")
+        @config_file ||= File.join(Lightning.home,".lightningrc")
       end
 
       # @return [Hash] Creates a bolt hash given globs

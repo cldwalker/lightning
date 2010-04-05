@@ -36,7 +36,7 @@ module Lightning
       first_install = !File.exists?(Config.config_file)
       args, options = parse_args(argv)
       Generator.run(options[:generators]) if first_install || options[:generators]
-      puts "Created ~/.lightning.yml" if first_install
+      puts "Created ~/.lightningrc" if first_install
 
       config[:shell] = options[:shell] if options[:shell]
       Builder.run(options[:source_file])
