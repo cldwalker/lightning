@@ -29,7 +29,7 @@ module Lightning
       end
     end
 
-    # Cross-platform way to determine a user's home. From Rubygems.
+    # @return [String] Cross-platform way to determine a user's home. From Rubygems.
     def find_home
       ['HOME', 'USERPROFILE'].each {|e| return ENV[e] if ENV[e] }
       return "#{ENV['HOMEDRIVE']}#{ENV['HOMEPATH']}" if ENV['HOMEDRIVE'] && ENV['HOMEPATH']
@@ -38,19 +38,20 @@ module Lightning
       File::ALT_SEPARATOR ? "C:/" : "/"
     end
 
-    # Determines if a shell command exists by searching for it in ENV['PATH'].
+    # @return [Boolean] Determines if a shell command exists by searching for it in ENV['PATH'].
     def shell_command_exists?(command)
       (@path ||= ENV['PATH'].split(File::PATH_SEPARATOR)).
         any? {|d| File.exists? File.join(d, command) }
     end
 
-    # Symbolizes keys of given hash
+    # @return [Hash] Symbolizes keys of given hash
     def symbolize_keys(hash)
       hash.inject({}) do |h, (key, value)|
         h[key.to_sym] = value; h
       end
     end
 
+    # Loads *.rb plugins in given directory and sub directory under it
     def load_plugins(base_dir, sub_dir)
       if File.exists?(dir = File.join(base_dir, sub_dir))
         plugin_type = sub_dir.sub(/s$/, '')
@@ -58,6 +59,7 @@ module Lightning
       end
     end
 
+    protected
     def load_plugin(file, plugin_type)
       require file
     rescue Exception => e

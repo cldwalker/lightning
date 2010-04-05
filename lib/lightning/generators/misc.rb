@@ -1,4 +1,5 @@
 module Lightning::Generators
+  protected
   desc "*ALL* files and directories under the current directory. Careful where you do this."
   def wild
     ["**/*"]

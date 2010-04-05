@@ -1,4 +1,5 @@
 module Lightning::Generators
+  protected
   desc "Directories of gems"
   def gem
     `gem environment path`.chomp.split(":").map {|e| e +"/gems/*" }
@@ -24,7 +25,6 @@ module Lightning::Generators
     ['{spec,test}/**/*_{test,spec}.rb', '{spec,test}/**/{test,spec}_*.rb', 'spec/**/*.spec']
   end
 
-  private
   def system_ruby
     require 'rbconfig'
     [RbConfig::CONFIG['rubylibdir'], RbConfig::CONFIG['sitelibdir']].compact.uniq
