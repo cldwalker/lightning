@@ -28,7 +28,7 @@ module Lightning
       Lightning.config[:shell] || 'bash'
     end
 
-    # @return [nil, true] Builds shell file
+    # @return [String] Builds shell file
     def run(source_file)
       return puts("No builder exists for #{Builder.shell} shell") unless Builder.can_build?
       Lightning.setup
@@ -36,7 +36,7 @@ module Lightning
       check_for_existing_commands(functions)
       output = build(functions)
       File.open(source_file || Lightning.config.source_file, 'w') {|f| f.write(output) }
-      true
+      output
     end
 
     # @param [Array] Function objects

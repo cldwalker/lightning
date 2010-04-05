@@ -1,17 +1,21 @@
 module Lightning
-  # Generates hashes of bolt attributes using methods defined in Generators.
-  # Bolt hashes are inserted under config[:bolts] and Config.config_file is saved.
+  # Generates globs for bolts using methods defined in Generators.
+  # Generated bolts are inserted under Lightning.config[:bolts]
   class Generator
     DEFAULT_GENERATORS = %w{gem gem_doc ruby local_ruby wild bin}
 
-    # Hash of generators and their descriptions
+    # @return [Hash] Maps generators to their descriptions
     def self.generators
       load_plugins
       Generators.generators
     end
 
-    # Runs generator
-    # @param [Array] String which point to instance methods in Generators
+    # Runs generators
+    # @param [Array<String>] Generators instance methods
+    # @param [Hash] options
+    # @option options [String] :once Generator to run once
+    # @option options [Boolean] :test Runs generators in test mode which only displays
+    #   generated globs and doesn't save them
     def self.run(gens=[], options={})
       load_plugins
       new.run(gens, options)
@@ -19,6 +23,7 @@ module Lightning
       $stderr.puts "Error: #{$!.message}"
     end
 
+    # Loads default and user generator plugins
     def self.load_plugins
       @loaded ||= begin
         Util.load_plugins File.dirname(__FILE__), 'generators'
@@ -27,11 +32,13 @@ module Lightning
       end
     end
 
+    # Object used to call generator(s)
     attr_reader :underling
     def initialize
       @underling = Object.new.extend(Generators)
     end
 
+    # @return [nil, true] Main method which runs generators
     def run(gens, options)
       if options.key?(:once)
         run_once(gens, options)
@@ -43,6 +50,7 @@ module Lightning
       end
     end
 
+    protected
     def run_once(bolt, options)
       generator = options[:once] || bolt
       if options[:test]
@@ -56,7 +64,6 @@ module Lightning
       end
     end
 
-    protected
     def generate_bolts(bolts)
       results = bolts.map {|bolt, gen|
         (globs = call_generator(gen)) && Lightning.config.bolts[bolt.to_s] = Config.bolt(globs)
