@@ -14,19 +14,17 @@ module Lightning
   class<<self
     attr_accessor :config
 
-    # @return [Config]
+    # @return [Config] Contains all user configuration
     def config
       @config ||= Config.new
     end
 
-    # Maps bolt names to Bolt objects
-    # @return [Hash]
+    # @return [Hash] Maps bolt names to Bolt objects
     def bolts
       @bolts ||= Hash.new {|h,k| h[k] = Bolt.new(k) }
     end
 
-    # Maps command names to Function objects
-    # @return [Hash]
+    # @return [Hash] Maps function names to Function objects
     def functions
       @functions ||= {}
     end
@@ -38,6 +36,7 @@ module Lightning
       }
     end
 
+    # @return [String] Directory for most of lightning's files, ~/.lightning
     def dir
       @dir ||= begin
         require 'fileutils'
@@ -46,6 +45,7 @@ module Lightning
       end
     end
 
+    # @return [String] User's home directory, ~
     def home
       @home ||= Util.find_home
     end

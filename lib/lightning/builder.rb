@@ -1,14 +1,15 @@
 module Lightning
-  # Builds a shell file from bolts and shell commands in the config file. This file
-  # should be source in a user's shell. Currently supports bash and zsh shells.
+  # Builds shell file ~/.lightning/functions.sh from the config file. This file
+  # is built and sourced into a user's shell using `lightning-reload`. Currently supports bash and zsh shells.
   module Builder
     extend self
 
+    # @private
     HEADER = <<-INIT.gsub(/^\s{4}/,'')
     #### This file was built by lightning. ####
     #LBIN_PATH="$PWD/bin/" #only use for development
     LBIN_PATH=""
-
+    
     lightning-reload() {
       lightning install $@
       source_file=$(lightning source_file)
@@ -17,17 +18,17 @@ module Lightning
     }
     INIT
 
-    # Determines if Builder can build a file for its current shell
+    # @return [Boolean] Determines if Builder can build a file for its current shell
     def can_build?
       respond_to? "#{shell}_builder"
     end
 
-    # Current shell, defaulting to 'bash'
+    # @return [String] Current shell, defaults to 'bash'
     def shell
       Lightning.config[:shell] || 'bash'
     end
 
-    # Runs builder
+    # @return [nil, true] Builds shell file
     def run(source_file)
       return puts("No builder exists for #{Builder.shell} shell") unless Builder.can_build?
       Lightning.setup
@@ -35,13 +36,13 @@ module Lightning
       check_for_existing_commands(functions)
       output = build(functions)
       File.open(source_file || Lightning.config.source_file, 'w') {|f| f.write(output) }
-      output
+      true
     end
 
     # @param [Array] Function objects
     # @return [String] Shell file string to be saved and sourced
-    def build(*args)
-      HEADER + "\n\n" + send("#{shell}_builder", *args)
+    def build(args)
+      HEADER + "\n\n" + send("#{shell}_builder", *[args])
     end
 
     protected
