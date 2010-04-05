@@ -58,6 +58,12 @@ module Lightning
       end
     end
 
+    # Command helper which saves config and prints message
+    def save_and_say(message)
+      config.save
+      puts message
+    end
+
     # @return [String] Command usage for current command
     def command_usage
       "Usage: lightning #{@command} #{meta_array[0]}"

@@ -43,25 +43,6 @@ module Lightning
       shell_commands.invert[cmd] || cmd
     end
 
-    def create_shell_command(scmd, scmd_alias=nil)
-      scmd_alias ||= scmd
-      if shell_commands.values.include?(scmd_alias)
-        puts "Alias '#{scmd_alias}' already exists for shell command '#{unaliased_command(scmd_alias)}'"
-      else
-        shell_commands[scmd] = scmd_alias
-        save_and_say "Added shell command '#{scmd}'"
-      end
-    end
-
-    def delete_shell_command(scmd)
-      if shell_commands[scmd]
-        shell_commands.delete scmd
-        save_and_say "Deleted shell command '#{scmd}' and its functions"
-      else
-        puts "Can't find shell command '#{scmd}'"
-      end
-    end
-
     def bolts
       self[:bolts]
     end
