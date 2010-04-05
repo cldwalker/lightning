@@ -1,5 +1,6 @@
 require 'lightning/bolt'
 require 'lightning/util'
+require 'lightning/commands_util'
 require 'lightning/commands'
 require 'lightning/completion'
 require 'lightning/config'
