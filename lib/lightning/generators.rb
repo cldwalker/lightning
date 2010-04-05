@@ -1,7 +1,6 @@
 module Lightning
   # This module contains methods which are used to generate bolts with 'lightning bolt generate'.
-  # Each method should return a hash of bolt attributes. A bolt hash should at least have a globs
-  # attribute. The name of the method is the name given to the bolt.
+  # Each method should return an array of bolt globs. The name of the method is the name given to the bolt.
   module Generators
     # @return [Hash] Maps generators to their descriptions
     def self.generators

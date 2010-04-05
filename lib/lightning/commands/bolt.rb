@@ -1,5 +1,5 @@
 module Lightning::Commands
-  private
+  protected
   meta "(list [-a|--alias] | alias BOLT ALIAS | create BOLT GLOBS | delete BOLT |\n#{' '*22} "+
     "generate BOLT [generator] [-t|--test] | global ON_OR_OFF BOLTS | show BOLT)",
     "Commands for managing bolts. Defaults to listing them."

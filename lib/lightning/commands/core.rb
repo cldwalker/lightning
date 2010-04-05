@@ -5,7 +5,7 @@ module Lightning
       puts config.source_file
     end
 
-    private
+    protected
     meta "FUNCTION [arguments]", "Prints a function's completions based on the last argument."
     def complete(argv)
       return unless command_has_required_args(argv, 1)
