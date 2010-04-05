@@ -1,15 +1,17 @@
 require 'shellwords'
 
 module Lightning
-  # This class handles completions given the text already typed and a Function object.
+  # This class returns completions for the last word typed for a given lightning function and its Function object.
   # Inspired loosely by http://github.com/ryanb/dotfiles/tree/master/bash/completion_scripts/project_completion
   class Completion
-    # @return [Array]
+    # @return [Array] Returns completions that match last word typed
     def self.complete(text_to_complete, function, shellescape=true)
       return error_array("No function found to complete.") unless function
       new(text_to_complete, function, shellescape).matches
     end
-      
+
+    # @return [Array] Constructs completion error message. More than one element long to ensure error message
+    # gets displayed and not completed
     def self.error_array(message)
       ["#Error: #{message}", "Please open an issue."]
     end
@@ -20,7 +22,7 @@ module Lightning
       @shellescape = shellescape
     end
   
-    # Main method used to find matches
+    # @return [Array] Main method to determine and return completions that match
     def matches
       matched = get_matches(possible_completions)
       matched = match_when_completing_subdirectories(matched)
@@ -31,18 +33,15 @@ module Lightning
       self.class.error_array("Invalid regular expression.")
     end
 
-    # Filters array of possible matches using typed()
     # @param [Array]
-    # @return [Array]
+    # @return [Array] Selects possible completions that match using {Completion#typed typed}
     def get_matches(possible)
-      if Lightning.config[:complete_regex]
-          possible.grep(/^#{blob_to_regex(typed)}/)
-      else
+      Lightning.config[:complete_regex] ? possible.grep(/^#{blob_to_regex(typed)}/) :
         possible.select {|e| e[0, typed.length] == typed }
-      end
     end
 
-    # Used to match when completing under a basename directory
+    # @param [Array]
+    # @return [Array] Generates completions when completing a directory above or below a basename
     def match_when_completing_subdirectories(matched)
       if matched.empty? && (top_dir = typed[/^([^\/]+)\//,1]) && !typed.include?('//')
         matched = possible_completions.grep(/^#{top_dir}/)
@@ -61,7 +60,7 @@ module Lightning
       matched
     end
 
-    # Last word typed by user
+    # @return [String] Last word typed by user
     def typed
       @typed ||= begin
         args = Shellwords.shellwords(@text_typed)
@@ -69,7 +68,7 @@ module Lightning
       end
     end
 
-    # Converts * to .*  to make a glob-like regex when in regex completion mode
+    # @private Converts * to .*  to make a glob-like regex when in regex completion mode
     def blob_to_regex(string)
       string.gsub(/^\*|([^\.])\*/) {|e| $1 ? $1 + ".*" : ".*" }
     end

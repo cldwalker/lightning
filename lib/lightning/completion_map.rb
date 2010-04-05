@@ -2,16 +2,19 @@ module Lightning
   # Maps completions (file basenames) and aliases to their full paths.
   class CompletionMap
     DUPLICATE_DELIMITER = '//'
-    # Regular expression paths to ignore. By default paths ending in . or .. are ignored.
+    # @return [Array] Regular expression paths to ignore. By default paths ending in . or .. are ignored.
     def self.ignore_paths
       @ignore_paths ||= (Lightning.config[:ignore_paths] || []) + %w{\.\.?$}
     end
 
+    # Sets ignore_paths
     def self.ignore_paths=(val)
       @ignore_paths = val
     end
 
+    # @return [Hash] Maps file basenames to full paths
     attr_accessor :map
+    # @return [Hash] Maps aliases to full paths
     attr_reader :alias_map
     
     def initialize(*globs)
@@ -21,12 +24,12 @@ module Lightning
       @alias_map = options[:aliases] || {}
     end
 
-    # Look up a full path given a basename
+    # @return [String] Fetches full path of file or alias
      def [](completion)
        @map[completion] || @alias_map[completion]
      end
 
-     # Lists all unique basenames.
+     # @return [Array] List of unique basenames and aliases
      def keys
        (@map.keys + @alias_map.keys).uniq
      end
