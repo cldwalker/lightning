@@ -19,12 +19,12 @@ begin
     s.name = "lightning"
     s.version = Lightning::VERSION
     s.executables = ['lightning', 'lightning-complete', 'lightning-translate']
-    s.summary = "Autocomplete paths and execute commands at the speed of light-ning."
-    s.description = "Lightning creates shell commands that autocomplete and alias configured group of files and directories. Autocompleting is quick since you only need to type the basename."
+    s.summary = "Lightning is a commandline framework that generates shell functions which wrap around commands to autocomplete and translate full paths by their basenames."
+    s.description = "Lightning is a commandline framework that changes how you use paths in your filesystem. Lightning generates shell functions which wrap any command with the ability to autocomplete and interpret paths simply by their basenames. These features and others allow the most remote files to be treated as if they were in the current directory."
     s.email = "gabriel.horner@gmail.com"
-    s.homepage = "http://github.com/cldwalker/lightning"
+    s.homepage = "http://tagaholic.me/lightning"
     s.authors = ["Gabriel Horner"]
-    s.files =  FileList["CHANGELOG.rdoc", "Rakefile", "lightning.yml.example","README.rdoc", "LICENSE.txt", "{bin,lib,test}/**/*"]
+    s.files =  FileList["CHANGELOG.rdoc", "Rakefile","README.rdoc", "LICENSE.txt", "{bin,lib,test}/**/*"]
     s.has_rdoc = true
     s.rubyforge_project = 'tagaholic'
     s.extra_rdoc_files = ["README.rdoc", "LICENSE.txt"]

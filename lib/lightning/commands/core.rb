@@ -30,7 +30,7 @@ module Lightning
     end
 
     desc "[--generators=GENERATORS] [--source_file=SOURCE_FILE] [--shell=SHELL]",
-      "Optionally builds a config file and then builds a SOURCE_FILE from the config file."
+      "Builds a SOURCE_FILE from the config file."
     def install(argv)
       first_install = !File.exists?(Config.config_file)
       args, options = parse_args(argv)
