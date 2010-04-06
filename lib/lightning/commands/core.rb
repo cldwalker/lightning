@@ -39,7 +39,7 @@ module Lightning
 
       config[:shell] = options[:shell] if options[:shell]
       Builder.run(options[:source_file])
-      puts "Created #{config.source_file}"
+      puts "Created #{options[:source_file] || config.source_file}"
     end
 
     desc '', 'Lists available generators.'

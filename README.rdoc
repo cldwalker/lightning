@@ -1,5 +1,8 @@
 == Description
-TODO
+Lightning is a commandline framework that changes how you use paths in your filesystem. Lightning
+generates shell functions which wrap any command with the ability to autocomplete and interpret
+paths simply by their basenames. These features and others allow the most remote files to be treated
+as if they were in the current directory.
 
 == Intro
 Lightning generates shell functions which can interpret paths by their basenames. So instead of carpal-typing
@@ -103,12 +106,14 @@ Configuration options are:
     * aliases: A hash (pairs) of custom aliases and full paths only for this command.
 
 == Limitations
-Only bash and zsh shells are supported. Patches are welcome to extend support to other shells.
+Only bash and zsh shells are supported. Patches are welcome to support other shells.
 
 == Credits
 * ryanb's dotfiles inspired tinkering with autocompletion in ruby: http://github.com/ryanb/dotfiles/blob/master/bash/completion_scripts/project_completion
 * defunkt's rip, http://github.com/defunkt/rip, was inflential in designing plugins
 
 == Todo
+* More tests
+* Consider underscore anchored autocompletion i.e. textmate style file search
 * Manpage
 * An irb builder with bond
