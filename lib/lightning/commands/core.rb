@@ -38,6 +38,7 @@ module Lightning
       puts "Created ~/.lightningrc" if first_install
 
       config[:shell] = options[:shell] if options[:shell]
+      config.save if options[:shell] && first_install
       Builder.run(options[:source_file])
       puts "Created #{options[:source_file] || config.source_file}"
     end
