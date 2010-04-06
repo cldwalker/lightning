@@ -1,5 +1,28 @@
 module Lightning
-  # Runs lightning commands.
+  # Runs lightning commands which are methods in this namespace.
+  #
+  # == Command Basics
+  # To get a list of commands and their description: +lightning -h+. To get usage and description on
+  # a command +lightning COMMAND -h+ i.e +lightning bolt -h+. Any command and subcommand can be abbreviated.
+  # For example, +lightning b c gem path1+ is short for +lightning bolt create gem path1+.
+  #
+  # == Command plugins
+  # Lightning looks for command plugins or ruby files in ~/.lightning/commands/. Each plugin can have multiple
+  # commands since a command is just a method in Lightning::Commands.
+  #
+  # A sample command plugin looks like this:
+  #   module Lightning::Commands
+  #     desc 'COMMAND', 'Prints hello'
+  #     def hello(argv)
+  #       puts 'hello'
+  #     end
+  #   end
+  #
+  # Note that a command's usage and description are set with {Commands#desc desc}. +desc+ is required. A command
+  # receives commandline arguments as an array. See {CommandsUtil} for helper methods to be used inside a command.
+  #
+  # For command plugin examples
+  # {read the source}[http://github.com/cldwalker/lightning/tree/master/lib/lightning/commands/].
   module Commands
     @desc = {}
     extend self
