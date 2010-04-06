@@ -79,34 +79,9 @@ Since the globbable paths are interpreted by ruby's Dir.glob(), you can:
 
 `ri Dir.glob` for more examples.
 
-== Configuration
-It helps to look at lightning.yml.example while reading this.
-
-Configuration options are:
-
-* source_file: Location of shell script file generated from config. Defaults to
-  ~/.lightning/functions.sh
-* ignore_paths: List of paths to globally ignore when listing completions.
-* complete_regex: true or false (default is true)
-  Turns on/off Ruby regular expression matching when completing. One convenience
-  is that a '*' is converted to '.*' ie glob-like behavior.
-
-  Note: Realize your regular expression normally just match the basename. However, since duplicates
-  list their full paths, their full paths are subject to regex matching.
-* shell: Specifies shell script generator used for generating completions. Defaults to bash.
-* bolts: Array of bolts with each bolt being a hash with the following keys:
-  * name(required): Unique name
-  * globs(required): Array of globs which defines group of paths bolt handles
-  * post_path: Text to add immediately after a resolved path
-  * functions: A list of lightning functions. A lightning function is just a shell function
-    which executes a shell command with a defined set of paths to autocomplete on.
-    A function consists of the following options/keys:
-    * name: Name of the lightning function you'll be typing.
-    * shell_command(required): Shell command which the lightning command passes arguments to.
-    * aliases: A hash (pairs) of custom aliases and full paths only for this command.
-
 == Limitations
-Only bash and zsh shells are supported. Patches are welcome to support other shells.
+* Completions that are a directory above or below a basename don't work for zsh.
+* Only bash and zsh shells are supported. Patches are welcome to support other shells.
 
 == Credits
 * ryanb's dotfiles inspired tinkering with autocompletion in ruby: http://github.com/ryanb/dotfiles/blob/master/bash/completion_scripts/project_completion
@@ -114,6 +89,7 @@ Only bash and zsh shells are supported. Patches are welcome to support other she
 
 == Todo
 * More tests
-* Consider underscore anchored autocompletion i.e. textmate style file search
 * Manpage
-* An irb builder with bond
+* Consider underscore anchored autocompletion i.e. textmate style file search
+* Possible aliasing of paths per function, bolt or global
+* Possible irb builder using bond
