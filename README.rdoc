@@ -1,8 +1,7 @@
 == Description
-Lightning is a commandline framework that changes how you use paths in your filesystem. Lightning
-generates shell functions which wrap any command with the ability to autocomplete and interpret
-paths simply by their basenames. These features and others allow the most remote files to be treated
-as if they were in the current directory.
+Lightning is a commandline framework that revolutionizes how fast you are on the commandline. Lightning let's
+you define and generate shell functions which autocomplete and interpret paths by their basenames.
+The end result is that for any command and any file, you will never have to type its full path again.
 
 == Intro
 Lightning generates shell functions which can interpret paths by their basenames. So instead of carpal-typing
