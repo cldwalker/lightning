@@ -42,6 +42,7 @@ And here's the one-liner that creates this function:
 Install with either rip or rubygems:
   $ rip install git://github.com/cldwalker/lightning.git
   # OR
+  $ sudo gem install yard # if you want lightning's documentation generated correctly
   $ sudo gem install lightning
 
 If you've installed with rubygems and `time lightning` takes longer than 0.05 seconds, I *strongly recommend* installing with rip. Your startup time directly effects your autocompletion speed with lightning.
