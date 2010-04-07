@@ -62,6 +62,9 @@ Once lightning is installed, we need to do a one-time setup:
   # or for zsh
   echo source ~/.lightning/functions.sh >> ~/.zshrc
 
+== Bugs/Issues
+Please report them {on github}[http://github.com/cldwalker/lightning/issues].
+
 == Limitations
 * Completions that are a directory above or below a basename don't work for zsh.
 * Only bash and zsh shells are supported. Patches are welcome to support other shells.

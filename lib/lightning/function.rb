@@ -2,6 +2,22 @@ module Lightning
   # A Function object represents a shell function which wraps around a shell command and a {Bolt}.
   # This shell function autocompletes bolt paths by their basenames and translates arguments that
   # are these basenames to their full paths.
+  #
+  # == Argument Translation
+  # Before executing its shell command, a function checks each argument to see if it can translate it.
+  # Translation is done if the argument matches the basename of one its bolt's paths.
+  #   $echo-ruby irb.rb
+  #   /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/irb.rb.
+  #
+  # For translation to occur, the full basename must match. The only exception to this is when using
+  # lightning's own filename expansion syntax: a '..' at the end of an argument expands the argument
+  # with all completions that matched up to '..'. For example:
+  #   $echo-ruby ad..
+  #   /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/osx/addressbook.rb
+  #   /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/wsdl/soap/address.rb
+  #
+  # This expansion of any bolt paths combined with regex completion makes for a powerfully quick
+  # way of typing paths.
   class Function
     ATTRIBUTES = :name, :post_path, :shell_command, :bolt, :desc
     attr_accessor *ATTRIBUTES

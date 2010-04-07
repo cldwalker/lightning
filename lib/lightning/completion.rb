@@ -3,6 +3,12 @@ require 'shellwords'
 module Lightning
   # This class returns completions for the last word typed for a given lightning function and its {Function} object.
   # Inspired loosely by ryanb[http://github.com/ryanb/dotfiles/tree/master/bash/completion_scripts/project_completion].
+  #
+  # == Regex Completion
+  # By default, regular expressions can be used while completing to filter/match possible completions. For duplicate
+  # paths that offer their full paths in completion, this means their full paths can also match. One non-regexp
+  # shorthand is that a '*' is converted to '.*' for glob-like behavior.To revert to standard completion, toggle
+  # Lightning.config[:complete_regex].
   class Completion
     # @return [Array] Returns completions that match last word typed
     def self.complete(text_to_complete, function, shellescape=true)
