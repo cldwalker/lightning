@@ -7,19 +7,21 @@ module Lightning
   # For example, +lightning b c gem path1+ is short for +lightning bolt create gem path1+.
   #
   # == Command plugins
-  # Lightning looks for command plugins or ruby files in ~/.lightning/commands/. Each plugin can have multiple
+  # Command plugins are a way for users to define their own lightning commands.
+  # A command plugin is a .rb file in ~/.lightning/commands/. Each plugin can have multiple
   # commands since a command is just a method in Lightning::Commands.
   #
   # A sample command plugin looks like this:
   #   module Lightning::Commands
   #     desc 'COMMAND', 'Prints hello'
   #     def hello(argv)
-  #       puts 'hello'
+  #       puts "Hello with #{argv.size} arguments"
   #     end
   #   end
   #
-  # Note that a command's usage and description are set with {Commands#desc desc}. +desc+ is required. A command
-  # receives commandline arguments as an array. See {CommandsUtil} for helper methods to be used inside a command.
+  # To register a command, {Commands#desc desc} must be placed before a method, describing the command's
+  # usage and description. Note that a command receives commandline arguments as an array. See
+  # {CommandsUtil} for helper methods to be used inside a command.
   #
   # For command plugin examples
   # {read the source}[http://github.com/cldwalker/lightning/tree/master/lib/lightning/commands/].
