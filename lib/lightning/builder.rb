@@ -1,6 +1,7 @@
 module Lightning
   # Builds shell file ~/.lightning/functions.sh from the config file. This file
-  # is built and sourced into a user's shell using `lightning-reload`. Currently supports bash and zsh shells.
+  # is built and sourced into a user's shell using `lightning-reload`.
+  # Currently supports bash and zsh shells.
   module Builder
     extend self
 

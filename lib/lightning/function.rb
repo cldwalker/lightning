@@ -1,5 +1,5 @@
 module Lightning
-  # A Function object represents a shell function which wraps around a shell command and bolt.
+  # A Function object represents a shell function which wraps around a shell command and a {Bolt}.
   # This shell function autocompletes bolt paths by their basenames and translates arguments that
   # are these basenames to their full paths.
   class Function

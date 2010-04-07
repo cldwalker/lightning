@@ -1,5 +1,5 @@
 module Lightning
-  # Utility methods to be used inside commands
+  # Utility methods to be used inside lightning commands.
   module CommandsUtil
     # Yields a block for an existing bolt or prints an error message
     def if_bolt_found(bolt)

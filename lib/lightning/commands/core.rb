@@ -1,6 +1,6 @@
 module Lightning
   module Commands
-    # Silent command used by `lightning-reload` which prints Builder's shell file
+    # Silent command used by `lightning-reload` which prints {Builder}'s shell file
     def source_file(argv)
       puts config.source_file
     end

@@ -2,7 +2,6 @@ module Lightning
   # Generates globs for bolts using methods defined in {Generators}.
   # Generated bolts are inserted under Lightning.config[:bolts].
   # Users can define their own generators with {Generators generator plugins}.
-  #
   class Generator
     DEFAULT_GENERATORS = %w{gem gem_doc ruby local_ruby wild bin}
 

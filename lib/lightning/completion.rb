@@ -1,8 +1,8 @@
 require 'shellwords'
 
 module Lightning
-  # This class returns completions for the last word typed for a given lightning function and its Function object.
-  # Inspired loosely by http://github.com/ryanb/dotfiles/tree/master/bash/completion_scripts/project_completion
+  # This class returns completions for the last word typed for a given lightning function and its {Function} object.
+  # Inspired loosely by ryanb[http://github.com/ryanb/dotfiles/tree/master/bash/completion_scripts/project_completion].
   class Completion
     # @return [Array] Returns completions that match last word typed
     def self.complete(text_to_complete, function, shellescape=true)
