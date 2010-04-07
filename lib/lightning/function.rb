@@ -6,13 +6,15 @@ module Lightning
   # == Argument Translation
   # Before executing its shell command, a function checks each argument to see if it can translate it.
   # Translation is done if the argument matches the basename of one its bolt's paths.
-  #   $echo-ruby irb.rb
+  #   $ echo-ruby irb.rb
   #   /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/irb.rb.
   #
   # For translation to occur, the full basename must match. The only exception to this is when using
   # lightning's own filename expansion syntax: a '..' at the end of an argument expands the argument
   # with all completions that matched up to '..'. For example:
-  #   $echo-ruby ad..
+  #   $ echo-ruby ad[TAB]
+  #     address.rb  addressbook.rb
+  #   $ echo-ruby ad..
   #   /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/osx/addressbook.rb
   #   /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/wsdl/soap/address.rb
   #
