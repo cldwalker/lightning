@@ -1,5 +1,5 @@
 module Lightning
-  # Maps completions (file basenames) and aliases to their full paths.
+  # Maps completions (file basenames) and aliases to their full paths given a {Bolt} object's globs.
   class CompletionMap
     DUPLICATE_DELIMITER = '//'
     # @return [Array] Regular expression paths to ignore. By default paths ending in . or .. are ignored.

@@ -1,5 +1,17 @@
 module Lightning
-  # A Bolt object is a user-defined set of globs that a {Function} object needs to translate paths.
+  # A Bolt object is mainly a user-defined set of globs required by a {Function} object to translate paths.
+  #
+  # == Globs
+  # Globs are interpreted by Dir.glob and are fairly similar to shell globs. Some glob examples:
+  #
+  # * Files ending with specific file extensions for a given directory.
+  #    "/some/path/*.{rb,erb}"-> Matches files ending with .rb or .erb
+  #
+  # * Files and directories that don't start with specific letters.
+  #    "[^ls]*" -> Matches anything not starting with l or s
+  #
+  # * All directories, however many levels deep, under the current directory.
+  #    "**/"
   class Bolt
     # @return [String] Unique alphanumeric name
     attr_reader :name
