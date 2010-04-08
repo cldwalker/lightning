@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
-context "Commands Commands:" do
+context "Commands:" do
   # this test seems to run much longer than expected i.e. 0.02
   # rr and raising?
   test "run_command handles unexpected error" do
@@ -10,7 +10,7 @@ context "Commands Commands:" do
   end
 
   test "complete defaults to ARGV if no ENV['COMP_LINE']" do
-    mock(Commands)._complete('o-a', 'o-a Col')
+    mock(Completion).complete('o-a Col', anything)
     capture_stdout { run_command(:complete, ['o-a', 'Col']) }
   end
 
@@ -30,33 +30,35 @@ context "Commands Commands:" do
     capture_stdout { run_command(:translate, %w{invalid blah}) }.should =~ /#Error/
   end
 
-  test "install prints usage with -h" do
+  test "command prints usage with -h" do
     capture_stdout { run_command :install, ['-h'] }.should =~ /^Usage/
   end
 
-  test "run with no command prints usage" do
-    mock(Commands).print_help
-    Commands.run []
-  end
+  context "run" do
+    test "with no command prints usage" do
+      mock(Commands).print_help
+      Commands.run []
+    end
 
-  test "run with aliased command executes correct command" do
-    mock(Commands).run_command('bolt', [])
-    Commands.run ['b']
-  end
+    test "with aliased command executes correct command" do
+      mock(Commands).run_command('bolt', [])
+      Commands.run ['b']
+    end
 
-  test "run with -h prints usage" do
-    mock(Commands).print_help
-    Commands.run ['-h']
-  end
+    test "with -h prints usage" do
+      mock(Commands).print_help
+      Commands.run ['-h']
+    end
 
-  test "run with invalid command prints messaged and usage" do
-    mock(Commands).print_help
-    capture_stdout { Commands.run ['blah'] }.should =~ /Command 'blah'/
-  end
+    test "with invalid command prints messaged and usage" do
+      mock(Commands).print_help
+      capture_stdout { Commands.run ['blah'] }.should =~ /Command 'blah'/
+    end
 
-  test "command should be able to take -h as argument" do
-    mock(Commands).print_command_help.never
-    mock(Commands).complete(['blah', '-h'])
-    Commands.run(['complete', 'blah', '-h'])
+    test "passes -h as command argument" do
+      mock(Commands).print_command_help.never
+      mock(Commands).complete(['blah', '-h'])
+      Commands.run(['complete', 'blah', '-h'])
+    end
   end
 end
