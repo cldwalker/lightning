@@ -43,8 +43,7 @@ module Lightning
       options, args = args.partition {|e| e =~ /^-/ }
       options = options.inject({}) do |hash, flag|
         key, value = flag.split('=')
-        value = true if value.nil?
-        hash[key.sub(/^--?/,'').intern] = value.to_s[/,/] ? value.split(',') : value
+        hash[key.sub(/^--?/,'').intern] = value.nil? ? true : value
         hash
       end
       [args, options]
