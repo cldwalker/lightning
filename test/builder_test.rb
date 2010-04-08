@@ -26,7 +26,7 @@ context "Builder" do
   test "warns about existing commands being overridden" do
     mock(Util).shell_command_exists?('bling') { true }
     stub(Util).shell_command_exists?(anything) { false }
-    capture_stdout { build } =~ /following.*exist.*: bling$/
+    capture_stdout { build }.should =~ /following.*exist.*: bling$/
   end
 
   context "with default shell" do

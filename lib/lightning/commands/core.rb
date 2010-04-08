@@ -44,7 +44,7 @@ module Lightning
       end
 
       Builder.run
-      puts "Created #{config.source_file}"
+      puts "Created #{config.source_file}"+ (first_install? ? " for #{Builder.shell}" : '')
     end
 
     def first_install?; !File.exists?(Config.config_file); end

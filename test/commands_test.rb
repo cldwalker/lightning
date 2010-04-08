@@ -42,7 +42,7 @@ context "Commands:" do
       Lightning.functions = nil
 
       mock(Lightning.config).save.times(2)
-      mock(Commands).first_install? { true }
+      mock(Commands).first_install? { true }.times(2)
       stub.instance_of(Generator).call_generator { [] }
       mock(File).open(anything, 'w')
       @stdout = capture_stdout { run_command :install }
@@ -62,7 +62,7 @@ context "Commands:" do
     end
 
     test "prints correct install message" do
-      @stdout.should =~ /^Created.*lightningrc\nCreated.*functions\.sh/m
+      @stdout.should =~ /^Created.*lightningrc\nCreated.*functions\.sh for bash/m
     end
 
     after_all { Lightning.config = @old_config; Lightning.functions = @old_functions }
