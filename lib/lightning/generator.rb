@@ -3,7 +3,7 @@ module Lightning
   # Generated bolts are inserted under Lightning.config[:bolts].
   # Users can define their own generators with {Generators generator plugins}.
   class Generator
-    DEFAULT_GENERATORS = %w{gem gem_doc ruby local_ruby wild bin}
+    DEFAULT_GENERATORS = %w{gem ruby local_ruby wild}
 
     # @return [Hash] Maps generators to their descriptions
     def self.generators

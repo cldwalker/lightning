@@ -29,19 +29,24 @@ module Lightning
       puts translations
     end
 
-    desc "[--generators=GENERATORS] [--source_file=SOURCE_FILE] [--shell=SHELL]",
-      "Builds a SOURCE_FILE from the config file."
+    desc "[--file=FILE] [--shell=SHELL]",
+      "Builds shell functions and installs them into FILE to be sourced by shell."
     def install(argv)
-      first_install = !File.exists?(Config.config_file)
       args, options = parse_args(argv)
-      Generator.run(options[:generators]) if first_install || options[:generators]
-      puts "Created ~/.lightningrc" if first_install
-
       config[:shell] = options[:shell] if options[:shell]
-      config.save if options[:shell] && first_install
-      Builder.run(options[:source_file])
-      puts "Created #{options[:source_file] || config.source_file}"
+
+      if first_install?
+        Generator.run
+        puts "Created ~/.lightningrc"
+        config.bolts.each {|k,v| v['global'] = true }
+        config.save
+      end
+
+      Builder.run(options[:file])
+      puts "Created #{options[:file] || config.source_file}"
     end
+
+    def first_install?; !File.exists?(Config.config_file); end
 
     desc '', 'Lists available generators.'
     def generator(argv)

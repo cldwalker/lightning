@@ -13,7 +13,7 @@ require 'lightning/version'
 
 module Lightning
   class<<self
-    attr_accessor :config
+    attr_accessor :config, :functions
 
     # @return [Config] Contains all user configuration
     def config

@@ -19,7 +19,7 @@ context "Generator" do
   end
 
   test "generates default generators when none given" do
-    stub.instance_of(Generator).call_generator { { }}
+    stub.instance_of(Generator).call_generator { [] }
     temporary_config_file do |config_file|
       generate
       config = YAML::load_file(config_file)

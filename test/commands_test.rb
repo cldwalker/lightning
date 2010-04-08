@@ -34,6 +34,40 @@ context "Commands:" do
     capture_stdout { run_command :install, ['-h'] }.should =~ /^Usage/
   end
 
+  context "first install" do
+    before_all {
+      @old_config = Lightning.config
+      Lightning.config = Lightning::Config.new({})
+      @old_functions = Lightning.functions
+      Lightning.functions = nil
+
+      mock(Lightning.config).save.times(2)
+      mock(Commands).first_install? { true }
+      stub.instance_of(Generator).call_generator { [] }
+      mock(File).open(anything, 'w')
+      @stdout = capture_stdout { run_command :install }
+    }
+
+    assert "generates default bolts" do
+      Generator::DEFAULT_GENERATORS.all? {|e| Lightning.config[:bolts].key?(e) }
+    end
+
+    assert "default bolts are global" do
+      Generator::DEFAULT_GENERATORS.all? {|e| Lightning.config[:bolts][e]['global'] }
+    end
+
+    test "builds 8 default functions" do
+      expected = %w{echo-gem cd-wild echo-wild echo-local_ruby cd-gem cd-local_ruby cd-ruby echo-ruby}
+      Lightning.functions.keys.should == expected
+    end
+
+    test "prints correct install message" do
+      @stdout.should =~ /^Created.*lightningrc\nCreated.*functions\.sh/m
+    end
+
+    after_all { Lightning.config = @old_config; Lightning.functions = @old_functions }
+  end
+
   context "run" do
     test "with no command prints usage" do
       mock(Commands).print_help
