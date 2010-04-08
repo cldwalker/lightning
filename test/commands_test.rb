@@ -57,8 +57,8 @@ context "Commands:" do
     end
 
     test "builds 8 default functions" do
-      expected = %w{echo-gem cd-wild echo-wild echo-local_ruby cd-gem cd-local_ruby cd-ruby echo-ruby}
-      Lightning.functions.keys.should == expected
+      expected = %w{cd-gem cd-local_ruby cd-ruby cd-wild echo-gem echo-local_ruby echo-ruby echo-wild}
+      Lightning.functions.keys.sort.should == expected
     end
 
     test "prints correct install message" do
