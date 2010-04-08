@@ -34,6 +34,7 @@ module Lightning
     def install(argv)
       args, options = parse_args(argv)
       config[:shell] = options[:shell] if options[:shell]
+      config.source_file = options[:file] if options[:file]
 
       if first_install?
         Generator.run
@@ -42,8 +43,8 @@ module Lightning
         config.save
       end
 
-      Builder.run(options[:file])
-      puts "Created #{options[:file] || config.source_file}"
+      Builder.run
+      puts "Created #{config.source_file}"
     end
 
     def first_install?; !File.exists?(Config.config_file); end

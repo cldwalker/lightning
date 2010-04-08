@@ -1,7 +1,7 @@
 module Lightning
   # Builds shell file ~/.lightning/functions.sh from the config file. This file
   # is built and sourced into a user's shell using `lightning-reload`.
-  # Currently supports bash and zsh shells.
+  # Currently supports bash and zsh shells. Defaults to building for bash.
   module Builder
     extend self
 
@@ -30,12 +30,12 @@ module Lightning
     end
 
     # @return [String] Builds shell file
-    def run(source_file)
+    def run
       return puts("No builder exists for #{Builder.shell} shell") unless Builder.can_build?
       functions = Lightning.functions.values
       check_for_existing_commands(functions)
       output = build(functions)
-      File.open(source_file || Lightning.config.source_file, 'w') {|f| f.write(output) }
+      File.open(Lightning.config.source_file, 'w') {|f| f.write(output) }
       output
     end
 

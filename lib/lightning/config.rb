@@ -42,6 +42,7 @@ module Lightning
     end
 
     DEFAULT = {:complete_regex=>true, :bolts=>{}, :shell_commands=>{'cd'=>'cd', 'echo'=>'echo'} }
+    attr_accessor :source_file
     def initialize(hash=read_config_file)
       hash = DEFAULT.merge hash
       super

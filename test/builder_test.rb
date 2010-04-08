@@ -2,7 +2,8 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 
 context "Builder" do
   def build
-    Builder.run source_file
+    Lightning.config.source_file = source_file
+    Builder.run
   end
 
   def source_file
