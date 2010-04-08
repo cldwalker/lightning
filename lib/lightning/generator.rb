@@ -44,7 +44,6 @@ module Lightning
       if options.key?(:once)
         run_once(gens, options)
       else
-        # @silent = true
         gens = DEFAULT_GENERATORS if Array(gens).empty?
         gens = Hash[*gens.zip(gens).flatten] if gens.is_a?(Array)
         generate_bolts gens
@@ -77,7 +76,7 @@ module Lightning
       raise "Generator method doesn't exist." unless @underling.respond_to?(gen)
       Array(@underling.send(gen)).map {|e| e.to_s }
     rescue
-      $stdout.puts "Generator '#{gen}' failed with: #{$!.message}" unless @silent
+      $stdout.puts "Generator '#{gen}' failed with: #{$!.message}"
     end
   end
 end
