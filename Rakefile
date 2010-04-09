@@ -20,7 +20,7 @@ begin
     s.version = Lightning::VERSION
     s.executables = ['lightning', 'lightning-complete', 'lightning-translate']
     s.summary = "Lightning is a commandline framework that generates shell functions which wrap around commands to autocomplete and translate full paths by their basenames."
-    s.description = "Lightning is a commandline framework that changes how you use paths in your filesystem. Lightning generates shell functions which wrap any command with the ability to autocomplete and interpret paths simply by their basenames. These features and others allow the most remote files to be treated as if they were in the current directory."
+    s.description = "Lightning is a commandline framework that changes how you use paths in your filesystem. Lightning generates shell functions which wrap any command with the ability to autocomplete and interpret paths simply by their basenames. With these functions you don't have to ever type the full path to any file for any command again."
     s.email = "gabriel.horner@gmail.com"
     s.homepage = "http://tagaholic.me/lightning"
     s.authors = ["Gabriel Horner"]
