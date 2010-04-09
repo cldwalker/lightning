@@ -1,0 +1,781 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=UTF-8" />
+<title>Class: Lightning::Completion</title>
+<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (C)</a> &raquo; 
+    <a href="../Lightning.html" title="Lightning">Lightning</a>
+     &raquo; 
+    <span class="title">Completion</span>
+  
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Namespace List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: Lightning::Completion 
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Lightning::Completion</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/lightning/completion.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>
+This class returns completions for the last word typed for a given
+lightning function and its <tt><a href="Function.html" title="Function">Function</a></tt> object. Inspired loosely by <a
+href="http://github.com/ryanb/dotfiles/tree/master/bash/completion_scripts/project_completion">ryanb</a>.
+</p>
+<h2>Regex Completion</h2>
+<p>
+By default, regular expressions can be used while completing to
+filter/match possible completions. For duplicate paths that offer their
+full paths in completion, this means their full paths can also match. One
+non-regexp shorthand is that a &#8217;*&#8217; is converted to
+&#8217;.*&#8217; for glob-like behavior.To revert to standard completion,
+toggle Lightning.config[:complete_regex].
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div>
+
+
+  <h2>Class Method Summary</h2>
+
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#complete-class_method" title="complete (class method)">+ (Array) <strong>complete</strong>(text_to_complete, function, shellescape = true) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Returns completions that match last word typed.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#error_array-class_method" title="error_array (class method)">+ (Array) <strong>error_array</strong>(message) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Constructs completion error message.
+
+</span>
+  
+</li>
+
+    
+  </ul>
+
+  <h2>Instance Method Summary</h2>
+
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_matches-instance_method" title="#get_matches (instance method)">- (Array) <strong>get_matches</strong>(possible) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Selects possible completions that match using <tt><a href="#typed-instance_method" title="typed">typed</a></tt>.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Completion) <strong>initialize</strong>(text_typed, function, shellescape = true) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+A new instance of Completion.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#match_when_completing_subdirectories-instance_method" title="#match_when_completing_subdirectories (instance method)">- (Array) <strong>match_when_completing_subdirectories</strong>(matched) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Generates completions when completing a directory above or below a
+basename.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#matches-instance_method" title="#matches (instance method)">- (Array) <strong>matches</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Main method to determine and return completions that match.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#typed-instance_method" title="#typed (instance method)">- (String) <strong>typed</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Last word typed by user.
+
+</span>
+  
+</li>
+
+    
+  </ul>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><a href="" title="Completion">Completion</a></tt>) <strong>initialize</strong>(text_typed, function, shellescape = true) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A new instance of Completion
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+25
+26
+27
+28
+29</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/completion.rb', line 25</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='text_typed identifier id'>text_typed</span><span class='comma token'>,</span> <span class='function identifier id'>function</span><span class='comma token'>,</span> <span class='shellescape identifier id'>shellescape</span><span class='assign token'>=</span><span class='true true kw'>true</span><span class='rparen token'>)</span>
+  <span class='@text_typed ivar id'>@text_typed</span> <span class='assign token'>=</span> <span class='text_typed identifier id'>text_typed</span>
+  <span class='@function ivar id'>@function</span> <span class='assign token'>=</span> <span class='function identifier id'>function</span>
+  <span class='@shellescape ivar id'>@shellescape</span> <span class='assign token'>=</span> <span class='shellescape identifier id'>shellescape</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="complete-class_method">
+  
+    + (<tt>Array</tt>) <strong>complete</strong>(text_to_complete, function, shellescape = true) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns completions that match last word typed
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Returns completions that match last word typed
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+14
+15
+16
+17</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/completion.rb', line 14</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='complete identifier id'>complete</span><span class='lparen token'>(</span><span class='text_to_complete identifier id'>text_to_complete</span><span class='comma token'>,</span> <span class='function identifier id'>function</span><span class='comma token'>,</span> <span class='shellescape identifier id'>shellescape</span><span class='assign token'>=</span><span class='true true kw'>true</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='error_array identifier id'>error_array</span><span class='lparen token'>(</span><span class='string val'>&quot;No function found to complete.&quot;</span><span class='rparen token'>)</span> <span class='unless unless_mod kw'>unless</span> <span class='function identifier id'>function</span>
+  <span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='text_to_complete identifier id'>text_to_complete</span><span class='comma token'>,</span> <span class='function identifier id'>function</span><span class='comma token'>,</span> <span class='shellescape identifier id'>shellescape</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='matches identifier id'>matches</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="error_array-class_method">
+  
+    + (<tt>Array</tt>) <strong>error_array</strong>(message) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Constructs completion error message. More than one element long to ensure
+error message gets displayed and not completed
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Constructs completion error message. More than one element long to ensure
+error message gets displayed and not completed
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+21
+22
+23</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/completion.rb', line 21</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='error_array identifier id'>error_array</span><span class='lparen token'>(</span><span class='message identifier id'>message</span><span class='rparen token'>)</span>
+  <span class='lbrack token'>[</span><span class='dstring node'>&quot;#Error: #{message}&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;Please open an issue.&quot;</span><span class='rbrack token'>]</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="get_matches-instance_method">
+  
+    - (<tt>Array</tt>) <strong>get_matches</strong>(possible) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Selects possible completions that match using <tt><a href="#typed-instance_method" title="typed">typed</a></tt>
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <span class='name'></span>
+      
+      
+      
+    </li>
+  
+</ul>
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Selects possible completions that match using <tt><a href="#typed-instance_method" title="typed">typed</a></tt>
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46
+47</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/completion.rb', line 44</span>
+
+<span class='def def kw'>def</span> <span class='get_matches identifier id'>get_matches</span><span class='lparen token'>(</span><span class='possible identifier id'>possible</span><span class='rparen token'>)</span>
+  <span class='Lightning constant id'>Lightning</span><span class='dot token'>.</span><span class='config identifier id'>config</span><span class='lbrack token'>[</span><span class='symbol val'>:complete_regex</span><span class='rbrack token'>]</span> <span class='question op'>?</span> <span class='possible identifier id'>possible</span><span class='dot token'>.</span><span class='grep identifier id'>grep</span><span class='lparen token'>(</span><span class='dregexp node'>/^#{blob_to_regex(typed)}/</span><span class='rparen token'>)</span> <span class='colon op'>:</span>
+    <span class='possible identifier id'>possible</span><span class='dot token'>.</span><span class='select identifier id'>select</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='e identifier id'>e</span><span class='bitor op'>|</span> <span class='e identifier id'>e</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='comma token'>,</span> <span class='typed identifier id'>typed</span><span class='dot token'>.</span><span class='length identifier id'>length</span><span class='rbrack token'>]</span> <span class='eq op'>==</span> <span class='typed identifier id'>typed</span> <span class='rbrace token'>}</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="match_when_completing_subdirectories-instance_method">
+  
+    - (<tt>Array</tt>) <strong>match_when_completing_subdirectories</strong>(matched) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Generates completions when completing a directory above or below a basename
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <span class='name'></span>
+      
+      
+      
+    </li>
+  
+</ul>
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Generates completions when completing a directory above or below a basename
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/completion.rb', line 51</span>
+
+<span class='def def kw'>def</span> <span class='match_when_completing_subdirectories identifier id'>match_when_completing_subdirectories</span><span class='lparen token'>(</span><span class='matched identifier id'>matched</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='matched identifier id'>matched</span><span class='dot token'>.</span><span class='empty? fid id'>empty?</span> <span class='andop op'>&amp;&amp;</span> <span class='lparen token'>(</span><span class='top_dir identifier id'>top_dir</span> <span class='assign token'>=</span> <span class='typed identifier id'>typed</span><span class='lbrack token'>[</span><span class='regexp val'>/^([^\/]+)\//</span><span class='comma token'>,</span><span class='integer val'>1</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='andop op'>&amp;&amp;</span> <span class='notop op'>!</span><span class='typed identifier id'>typed</span><span class='dot token'>.</span><span class='include? fid id'>include?</span><span class='lparen token'>(</span><span class='string val'>'//'</span><span class='rparen token'>)</span>
+    <span class='matched identifier id'>matched</span> <span class='assign token'>=</span> <span class='possible_completions identifier id'>possible_completions</span><span class='dot token'>.</span><span class='grep identifier id'>grep</span><span class='lparen token'>(</span><span class='dregexp node'>/^#{top_dir}/</span><span class='rparen token'>)</span>
+
+    <span class='comment val'># for typed = some/dir/file, top_dir = path and translated_dir = /full/bolt/path</span>
+    <span class='if if kw'>if</span> <span class='matched identifier id'>matched</span><span class='dot token'>.</span><span class='size identifier id'>size</span> <span class='eq op'>==</span> <span class='integer val'>1</span> <span class='andop op'>&amp;&amp;</span> <span class='lparen token'>(</span><span class='translated_dir identifier id'>translated_dir</span> <span class='assign token'>=</span> <span class='@function ivar id'>@function</span><span class='dot token'>.</span><span class='translate identifier id'>translate</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='top_dir identifier id'>top_dir</span><span class='rbrack token'>]</span><span class='rparen token'>)</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+      <span class='short_dir identifier id'>short_dir</span> <span class='assign token'>=</span> <span class='typed identifier id'>typed</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='regexp val'>/\/([^\/]+)?$/</span><span class='comma token'>,</span> <span class='string val'>''</span><span class='rparen token'>)</span>  <span class='comment val'># some/dir</span>
+      <span class='completed_dir identifier id'>completed_dir</span> <span class='assign token'>=</span> <span class='short_dir identifier id'>short_dir</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='top_dir identifier id'>top_dir</span><span class='comma token'>,</span> <span class='translated_dir identifier id'>translated_dir</span><span class='rparen token'>)</span> <span class='comment val'>#/full/bolt/path/some/dir</span>
+      <span class='completed_dir identifier id'>completed_dir</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='expand_path identifier id'>expand_path</span><span class='lparen token'>(</span><span class='completed_dir identifier id'>completed_dir</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='completed_dir identifier id'>completed_dir</span><span class='lbrack token'>[</span><span class='regexp val'>/\/\.\.($|\/)/</span><span class='rbrack token'>]</span>
+      <span class='matched identifier id'>matched</span> <span class='assign token'>=</span> <span class='Dir constant id'>Dir</span><span class='dot token'>.</span><span class='entries identifier id'>entries</span><span class='lparen token'>(</span><span class='completed_dir identifier id'>completed_dir</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='delete_if identifier id'>delete_if</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='e identifier id'>e</span><span class='bitor op'>|</span> <span class='dstring node'>%w{. ..}</span><span class='dot token'>.</span><span class='include? fid id'>include?</span><span class='lparen token'>(</span><span class='e identifier id'>e</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='f identifier id'>f</span><span class='bitor op'>|</span>
+        <span class='File constant id'>File</span><span class='dot token'>.</span><span class='directory? fid id'>directory?</span><span class='lparen token'>(</span><span class='completed_dir identifier id'>completed_dir</span><span class='plus op'>+</span><span class='string val'>'/'</span><span class='plus op'>+</span><span class='f identifier id'>f</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='short_dir identifier id'>short_dir</span><span class='comma token'>,</span><span class='f identifier id'>f</span><span class='rparen token'>)</span> <span class='plus op'>+</span><span class='string val'>'/'</span> <span class='colon op'>:</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='short_dir identifier id'>short_dir</span><span class='comma token'>,</span><span class='f identifier id'>f</span><span class='rparen token'>)</span>
+      <span class='rbrace token'>}</span>
+      <span class='matched identifier id'>matched</span> <span class='assign token'>=</span> <span class='get_matches identifier id'>get_matches</span><span class='lparen token'>(</span><span class='matched identifier id'>matched</span><span class='rparen token'>)</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+  <span class='matched identifier id'>matched</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="matches-instance_method">
+  
+    - (<tt>Array</tt>) <strong>matches</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Main method to determine and return completions that match
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Main method to determine and return completions that match
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+32
+33
+34
+35
+36
+37
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/completion.rb', line 32</span>
+
+<span class='def def kw'>def</span> <span class='matches identifier id'>matches</span>
+  <span class='matched identifier id'>matched</span> <span class='assign token'>=</span> <span class='get_matches identifier id'>get_matches</span><span class='lparen token'>(</span><span class='possible_completions identifier id'>possible_completions</span><span class='rparen token'>)</span>
+  <span class='matched identifier id'>matched</span> <span class='assign token'>=</span> <span class='match_when_completing_subdirectories identifier id'>match_when_completing_subdirectories</span><span class='lparen token'>(</span><span class='matched identifier id'>matched</span><span class='rparen token'>)</span>
+  <span class='@shellescape ivar id'>@shellescape</span> <span class='question op'>?</span> <span class='matched identifier id'>matched</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='e identifier id'>e</span><span class='bitor op'>|</span> <span class='Util constant id'>Util</span><span class='dot token'>.</span><span class='shellescape identifier id'>shellescape</span><span class='lparen token'>(</span><span class='e identifier id'>e</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span> <span class='colon op'>:</span> <span class='matched identifier id'>matched</span>
+<span class='rescue rescue kw'>rescue</span> <span class='SystemCallError constant id'>SystemCallError</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='dot token'>.</span><span class='error_array identifier id'>error_array</span><span class='lparen token'>(</span><span class='string val'>&quot;Nonexistent directory.&quot;</span><span class='rparen token'>)</span>
+<span class='rescue rescue kw'>rescue</span> <span class='RegexpError constant id'>RegexpError</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='dot token'>.</span><span class='error_array identifier id'>error_array</span><span class='lparen token'>(</span><span class='string val'>&quot;Invalid regular expression.&quot;</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="typed-instance_method">
+  
+    - (<tt>String</tt>) <strong>typed</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Last word typed by user
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Last word typed by user
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+70
+71
+72
+73
+74
+75</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/completion.rb', line 70</span>
+
+<span class='def def kw'>def</span> <span class='typed identifier id'>typed</span>
+  <span class='@typed ivar id'>@typed</span> <span class='opasgn op'>||=</span> <span class='begin begin kw'>begin</span>
+    <span class='args identifier id'>args</span> <span class='assign token'>=</span> <span class='Shellwords constant id'>Shellwords</span><span class='dot token'>.</span><span class='shellwords identifier id'>shellwords</span><span class='lparen token'>(</span><span class='@text_typed ivar id'>@text_typed</span><span class='rparen token'>)</span>
+    <span class='notop op'>!</span><span class='args identifier id'>args</span><span class='lbrack token'>[</span><span class='integer val'>-1</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='regexp val'>/\s+/</span><span class='rbrack token'>]</span> <span class='andop op'>&amp;&amp;</span> <span class='@text_typed ivar id'>@text_typed</span><span class='lbrack token'>[</span><span class='regexp val'>/\s+$/</span><span class='rbrack token'>]</span> <span class='question op'>?</span> <span class='string val'>''</span> <span class='colon op'>:</span> <span class='args identifier id'>args</span><span class='lbrack token'>[</span><span class='integer val'>-1</span><span class='rbrack token'>]</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Fri Apr  9 04:53:31 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.2 (ruby-1.8.6).
+</div>
+
+  </body>
+</html>

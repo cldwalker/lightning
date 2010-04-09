@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=UTF-8" />
+<title>Lightning 0.3.0 Documentation</title>
+<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html" title="Index">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Namespace List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><div id='filecontents'><h2>Description</h2>
+<p>
+Lightning is a commandline framework that could revolutionize how fast you
+are on the commandline. Lightning let’s you easily define and generate
+shell functions which autocomplete and interpret paths (files and
+directories) by their basenames. With these functions you don’t have to
+ever type the full path to any file for any command again.
+</p>
+<h2>Intro</h2>
+<p>
+Lightning generates shell functions which can interpret paths by their
+basenames. So instead of carpal-typing
+</p>
+<pre class="code">
+  $ <span class='less identifier id'>less</span> <span class='div op'>/</span><span class='System constant id'>System</span><span class='div op'>/</span><span class='Library constant id'>Library</span><span class='div op'>/</span><span class='Frameworks constant id'>Frameworks</span><span class='div op'>/</span><span class='Ruby constant id'>Ruby</span><span class='dot token'>.</span><span class='framework identifier id'>framework</span><span class='div op'>/</span><span class='Versions constant id'>Versions</span><span class='div op'>/</span><span class='float val'>1.8</span><span class='div op'>/</span><span class='usr identifier id'>usr</span><span class='div op'>/</span><span class='lib identifier id'>lib</span><span class='div op'>/</span><span class='ruby identifier id'>ruby</span><span class='div op'>/</span><span class='float val'>1.8</span><span class='div op'>/</span><span class='irb identifier id'>irb</span><span class='dot token'>.</span><span class='rb identifier id'>rb</span>
+</pre>
+<p>
+just type
+</p>
+<pre class="code">
+  $ <span class='less identifier id'>less</span><span class='minus op'>-</span><span class='ruby identifier id'>ruby</span> <span class='irb identifier id'>irb</span><span class='dot token'>.</span><span class='rb identifier id'>rb</span>
+</pre>
+<p>
+less-ruby is a lightning function which wraps `less` with the ability to
+refer to system ruby files by their basenames. Being a lightning function,
+it can also autocomplete system ruby files:
+</p>
+<pre class="code">
+  <span class='comment val'># 1112 available system ruby files</span>
+  $ <span class='less identifier id'>less</span><span class='minus op'>-</span><span class='ruby identifier id'>ruby</span> <span class='lbrack token'>[</span><span class='TAB constant id'>TAB</span><span class='rbrack token'>]</span>
+  <span class='Display constant id'>Display</span> <span class='all identifier id'>all</span> <span class='integer val'>1112</span> <span class='possibilities? fid id'>possibilities?</span> <span class='lparen token'>(</span><span class='y identifier id'>y</span> <span class='or or kw'>or</span> <span class='n identifier id'>n</span><span class='rparen token'>)</span>
+
+  $ <span class='less identifier id'>less</span><span class='minus op'>-</span><span class='ruby identifier id'>ruby</span> <span class='a identifier id'>a</span><span class='lbrack token'>[</span><span class='TAB constant id'>TAB</span><span class='rbrack token'>]</span>
+  <span class='abbrev identifier id'>abbrev</span><span class='dot token'>.</span><span class='rb identifier id'>rb</span>                  <span class='abstract identifier id'>abstract</span><span class='dot token'>.</span><span class='rb identifier id'>rb</span>                <span class='abstract_index_builder identifier id'>abstract_index_builder</span><span class='dot token'>.</span><span class='rb identifier id'>rb</span>
+  $ <span class='less identifier id'>less</span><span class='minus op'>-</span><span class='ruby identifier id'>ruby</span> <span class='abb identifier id'>abb</span><span class='lbrack token'>[</span><span class='TAB constant id'>TAB</span><span class='rbrack token'>]</span>
+  $ <span class='less identifier id'>less</span><span class='minus op'>-</span><span class='ruby identifier id'>ruby</span> <span class='abbrev identifier id'>abbrev</span><span class='dot token'>.</span><span class='rb identifier id'>rb</span>
+  <span class='comment val'># Pages /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/abbrev.rb ...</span>
+
+  <span class='comment val'># Autocompletion works regardless of the number of arguments</span>
+  $ <span class='less identifier id'>less</span><span class='minus op'>-</span><span class='ruby identifier id'>ruby</span> <span class='minus op'>-</span><span class='I constant id'>I</span> <span class='abbrev identifier id'>abbrev</span><span class='dot token'>.</span><span class='rb identifier id'>rb</span> <span class='y identifier id'>y</span><span class='lbrack token'>[</span><span class='TAB constant id'>TAB</span><span class='rbrack token'>]</span>
+  <span class='yaml identifier id'>yaml</span><span class='dot token'>.</span><span class='rb identifier id'>rb</span>      <span class='yamlnode identifier id'>yamlnode</span><span class='dot token'>.</span><span class='rb identifier id'>rb</span>  <span class='ypath identifier id'>ypath</span><span class='dot token'>.</span><span class='rb identifier id'>rb</span>
+  $ <span class='less identifier id'>less</span><span class='minus op'>-</span><span class='ruby identifier id'>ruby</span> <span class='minus op'>-</span><span class='I constant id'>I</span> <span class='abbrev identifier id'>abbrev</span><span class='dot token'>.</span><span class='rb identifier id'>rb</span> <span class='yp identifier id'>yp</span><span class='lbrack token'>[</span><span class='TAB constant id'>TAB</span><span class='rbrack token'>]</span>
+  $ <span class='less identifier id'>less</span><span class='minus op'>-</span><span class='ruby identifier id'>ruby</span> <span class='minus op'>-</span><span class='I constant id'>I</span> <span class='abbrev identifier id'>abbrev</span><span class='dot token'>.</span><span class='rb identifier id'>rb</span> <span class='ypath identifier id'>ypath</span><span class='dot token'>.</span><span class='rb identifier id'>rb</span>
+  <span class='comment val'># Pages /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/abbrev.rb and</span>
+    <span class='regexp val'>/System/</span><span class='Library constant id'>Library</span><span class='div op'>/</span><span class='Frameworks constant id'>Frameworks</span><span class='div op'>/</span><span class='Ruby constant id'>Ruby</span><span class='dot token'>.</span><span class='framework identifier id'>framework</span><span class='div op'>/</span><span class='Versions constant id'>Versions</span><span class='div op'>/</span><span class='float val'>1.8</span><span class='div op'>/</span><span class='usr identifier id'>usr</span><span class='div op'>/</span><span class='lib identifier id'>lib</span><span class='div op'>/</span><span class='ruby identifier id'>ruby</span><span class='div op'>/</span><span class='float val'>1.8</span><span class='div op'>/</span><span class='yaml identifier id'>yaml</span><span class='div op'>/</span><span class='ypath identifier id'>ypath</span><span class='dot token'>.</span><span class='rb identifier id'>rb</span> <span class='dot3 op'>...</span>
+</pre>
+<p>
+And here&#8217;s the one-liner that creates this function:
+</p>
+<pre class="code">
+  $ <span class='lightning identifier id'>lightning</span> <span class='function identifier id'>function</span> <span class='create identifier id'>create</span> <span class='less identifier id'>less</span> <span class='ruby identifier id'>ruby</span> <span class='andop op'>&amp;&amp;</span> <span class='lightning identifier id'>lightning</span><span class='minus op'>-</span><span class='reload identifier id'>reload</span>
+</pre>
+<h2>Install</h2>
+<p>
+Install with either rip or rubygems:
+</p>
+<pre class="code">
+  $ <span class='rip identifier id'>rip</span> <span class='install identifier id'>install</span> <span class='git identifier id'>git</span><span class='symbol val'>:/</span><span class='regexp val'>/github.com/</span><span class='cldwalker identifier id'>cldwalker</span><span class='div op'>/</span><span class='lightning identifier id'>lightning</span><span class='dot token'>.</span><span class='git identifier id'>git</span>
+  <span class='comment val'># OR</span>
+  $ <span class='sudo identifier id'>sudo</span> <span class='gem identifier id'>gem</span> <span class='install identifier id'>install</span> <span class='yard identifier id'>yard</span> <span class='comment val'># if you want lightning's documentation generated correctly</span>
+  $ <span class='sudo identifier id'>sudo</span> <span class='gem identifier id'>gem</span> <span class='install identifier id'>install</span> <span class='lightning identifier id'>lightning</span>
+</pre>
+<p>
+If you&#8217;ve installed with rubygems and `time lightning` takes longer
+than 0.05 seconds, I *strongly recommend* installing with rip. Your startup
+time directly effects your autocompletion speed with lightning.
+</p>
+<p>
+Once lightning is installed, we need to do a one-time setup:
+</p>
+<pre class="code">
+  <span class='comment val'># To see available install options</span>
+  $ <span class='lightning identifier id'>lightning</span> <span class='install identifier id'>install</span> <span class='minus op'>-</span><span class='h identifier id'>h</span>
+
+  <span class='comment val'># Installs lightning's core files and sources the needed lightning functions</span>
+  $ <span class='lightning identifier id'>lightning</span> <span class='install identifier id'>install</span> <span class='andop op'>&amp;&amp;</span> <span class='source identifier id'>source</span> <span class='bitnot op'>~</span><span class='regexp val'>/.lightning/</span><span class='functions identifier id'>functions</span><span class='dot token'>.</span><span class='sh identifier id'>sh</span>
+  <span class='Created constant id'>Created</span> <span class='bitnot op'>~</span><span class='regexp val'>/.lightning_yml
+  Created ~/</span><span class='dot token'>.</span><span class='lightning identifier id'>lightning</span><span class='div op'>/</span><span class='functions identifier id'>functions</span><span class='dot token'>.</span><span class='sh identifier id'>sh</span>
+
+  <span class='comment val'># To have lightning's functionality loaded when your shell starts up</span>
+  <span class='echo identifier id'>echo</span> <span class='source identifier id'>source</span> <span class='bitnot op'>~</span><span class='regexp val'>/.lightning/</span><span class='functions identifier id'>functions</span><span class='dot token'>.</span><span class='sh identifier id'>sh</span> <span class='rshft op'>&gt;&gt;</span> <span class='bitnot op'>~</span><span class='regexp val'>/.bashrc
+  # or for zsh
+  echo source ~/</span><span class='dot token'>.</span><span class='lightning identifier id'>lightning</span><span class='div op'>/</span><span class='functions identifier id'>functions</span><span class='dot token'>.</span><span class='sh identifier id'>sh</span> <span class='rshft op'>&gt;&gt;</span> <span class='bitnot op'>~</span><span class='regexp val'>/.zshrc
+</span></pre>
+<h2>Bugs/Issues</h2>
+<p>
+Please report them <a
+href="http://github.com/cldwalker/lightning/issues">on github</a>.
+</p>
+<h2>Limitations</h2>
+<ul>
+<li>Completions that are a directory above or below a basename don&#8217;t work
+for zsh.
+
+</li>
+<li>Only bash and zsh shells are supported. Patches are welcome to support
+other shells.
+
+</li>
+</ul>
+<h2>Credits</h2>
+<ul>
+<li>ryanb&#8217;s dotfiles inspired tinkering with autocompletion in ruby: <a
+href="http://github.com/ryanb/dotfiles/blob/master/bash/completion_scripts/project_completion">github.com/ryanb/dotfiles/blob/master/bash/completion_scripts/project_completion</a>
+
+</li>
+<li>defunkt&#8217;s rip, <a
+href="http://github.com/defunkt/rip">github.com/defunkt/rip</a>, was
+inflential in designing plugins
+
+</li>
+</ul>
+<h2>Todo</h2>
+<ul>
+<li>More tests
+
+</li>
+<li>Manpage
+
+</li>
+<li>Consider underscore anchored autocompletion i.e. textmate style file search
+
+</li>
+<li>Possible aliasing of paths per function, bolt or global
+
+</li>
+<li>Possible irb builder using bond
+
+</li>
+</ul>
+</div></div>
+    
+    <div id="footer">
+  Generated on Fri Apr  9 04:53:29 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.2 (ruby-1.8.6).
+</div>
+
+  </body>
+</html>

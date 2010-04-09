@@ -1,0 +1,592 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=UTF-8" />
+<title>Module: Lightning::Commands</title>
+<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (C)</a> &raquo; 
+    <a href="../Lightning.html" title="Lightning">Lightning</a>
+     &raquo; 
+    <span class="title">Commands</span>
+  
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Namespace List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: Lightning::Commands 
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+      <dt class="r1">Extends:</dt>
+      <dd class="r1"><a href="" title="Lightning::Commands">Lightning::Commands</a>, <a href="CommandsUtil.html" title="Lightning::CommandsUtil">Lightning::CommandsUtil</a></dd>
+      
+    
+  
+    
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/lightning/commands.rb<span class="defines">,<br />
+  lib/lightning/commands/core.rb,<br /> lib/lightning/commands/bolt.rb,<br /> lib/lightning/commands/function.rb,<br /> lib/lightning/commands/shell_command.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>
+Runs lightning commands which are methods in this namespace.
+</p>
+<h2>Command Basics</h2>
+<p>
+To get a list of commands and their description: <tt>lightning -h</tt>. To
+get usage and description on a command <tt>lightning COMMAND -h</tt> i.e
+<tt>lightning bolt -h</tt>. Any command and subcommand can be abbreviated.
+For example, <tt>lightning b c gem path1</tt> is short for <tt>lightning
+bolt create gem path1</tt>.
+</p>
+<h2>Command Plugins</h2>
+<p>
+Command plugins are a way for users to define their own lightning commands.
+A command plugin is a .rb file in ~/.lightning/commands/. Each plugin can
+have multiple commands since a command is just a method in
+Lightning::Commands.
+</p>
+<p>
+A sample command plugin looks like this:
+</p>
+<pre class="code">
+  <span class='module module kw'>module</span> <span class='Lightning constant id'>Lightning</span><span class='colon2 op'>::</span><span class='Commands constant id'>Commands</span>
+    <span class='desc identifier id'>desc</span> <span class='string val'>'COMMAND'</span><span class='comma token'>,</span> <span class='string val'>'Prints hello'</span>
+    <span class='def def kw'>def</span> <span class='hello identifier id'>hello</span><span class='lparen token'>(</span><span class='argv identifier id'>argv</span><span class='rparen token'>)</span>
+      <span class='puts identifier id'>puts</span> <span class='dstring node'>&quot;Hello with #{argv.size} arguments&quot;</span>
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+</pre>
+<p>
+To register a command, <tt><a href="#desc-instance_method" title="desc">desc</a></tt> must be placed before a method,
+describing the command&#8217;s usage and description. Note that a command
+receives commandline arguments as an array. See <tt><a href="CommandsUtil.html" title="CommandsUtil">CommandsUtil</a></tt> for helper
+methods to be used inside a command.
+</p>
+<p>
+For command plugin examples <a
+href="http://github.com/cldwalker/lightning/tree/master/lib/lightning/commands/">read
+the source</a>.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div>
+
+
+  <h2>Instance Method Summary</h2>
+
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#command_usage-instance_method" title="#command_usage (instance method)">- (String) <strong>command_usage</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Command usage for current command.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#commands-instance_method" title="#commands (instance method)">- (Array) <strong>commands</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Available lightning commands.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#desc-instance_method" title="#desc (instance method)">- (Object) <strong>desc</strong>(*args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Place before a command method to set its usage and description.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#run-instance_method" title="#run (instance method)">- (Object) <strong>run</strong>(argv = ARGV) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Called by `lightning` to call proper lightning command, print help or print
+version.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#run_command-instance_method" title="#run_command (instance method)">- (Object) <strong>run_command</strong>(command, args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Calls proper lightning command with remaining commandline arguments.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#source_file-instance_method" title="#source_file (instance method)">- (Object) <strong>source_file</strong>(argv) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Silent command used by `lightning-reload` which prints <tt><a href="Builder.html" title="Builder">Builder</a></tt>&#8217;s
+shell file.
+
+</span>
+  
+</li>
+
+    
+  </ul>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="command_usage-instance_method">
+  
+    - (<tt>String</tt>) <strong>command_usage</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Command usage for current command
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Command usage for current command
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+66
+67
+68</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands.rb', line 66</span>
+
+<span class='def def kw'>def</span> <span class='command_usage identifier id'>command_usage</span>
+  <span class='dstring node'>&quot;Usage: lightning #{@command} #{desc_array[0]}&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="commands-instance_method">
+  
+    - (<tt>Array</tt>) <strong>commands</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Available lightning commands
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Available lightning commands
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands.rb', line 49</span>
+
+<span class='def def kw'>def</span> <span class='commands identifier id'>commands</span>
+  <span class='@desc ivar id'>@desc</span><span class='dot token'>.</span><span class='keys identifier id'>keys</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="desc-instance_method">
+  
+    - (<tt>Object</tt>) <strong>desc</strong>(*args) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Place before a command method to set its usage and description
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+71
+72
+73</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands.rb', line 71</span>
+
+<span class='def def kw'>def</span> <span class='desc identifier id'>desc</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='@next_desc ivar id'>@next_desc</span> <span class='assign token'>=</span> <span class='args identifier id'>args</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="run-instance_method">
+  
+    - (<tt>Object</tt>) <strong>run</strong>(argv = ARGV) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Called by `lightning` to call proper lightning command, print help or print
+version
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands.rb', line 34</span>
+
+<span class='def def kw'>def</span> <span class='run identifier id'>run</span><span class='lparen token'>(</span><span class='argv identifier id'>argv</span><span class='assign token'>=</span><span class='ARGV constant id'>ARGV</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='lparen token'>(</span><span class='command identifier id'>command</span> <span class='assign token'>=</span> <span class='argv identifier id'>argv</span><span class='dot token'>.</span><span class='shift identifier id'>shift</span><span class='rparen token'>)</span> <span class='andop op'>&amp;&amp;</span> <span class='lparen token'>(</span><span class='actual_command identifier id'>actual_command</span> <span class='assign token'>=</span> <span class='unalias_command identifier id'>unalias_command</span><span class='lparen token'>(</span><span class='command identifier id'>command</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+    <span class='run_command identifier id'>run_command</span><span class='lparen token'>(</span><span class='actual_command identifier id'>actual_command</span><span class='comma token'>,</span> <span class='argv identifier id'>argv</span><span class='rparen token'>)</span>
+  <span class='elsif elsif kw'>elsif</span> <span class='command identifier id'>command</span> <span class='andop op'>&amp;&amp;</span> <span class='respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='command identifier id'>command</span><span class='rparen token'>)</span>
+    <span class='run_command identifier id'>run_command</span><span class='lparen token'>(</span><span class='command identifier id'>command</span><span class='comma token'>,</span> <span class='argv identifier id'>argv</span><span class='rparen token'>)</span>
+  <span class='elsif elsif kw'>elsif</span> <span class='dstring node'>%w{-v --version}</span><span class='dot token'>.</span><span class='include? fid id'>include?</span><span class='lparen token'>(</span><span class='command identifier id'>command</span><span class='rparen token'>)</span>
+    <span class='puts identifier id'>puts</span> <span class='dstring node'>&quot;lightning #{VERSION}&quot;</span>
+  <span class='else else kw'>else</span>
+    <span class='load_user_commands identifier id'>load_user_commands</span>
+    <span class='puts identifier id'>puts</span> <span class='dstring node'>&quot;Command '#{command}' not found.&quot;</span><span class='comma token'>,</span><span class='string val'>&quot;\n&quot;</span> <span class='if if_mod kw'>if</span> <span class='command identifier id'>command</span> <span class='andop op'>&amp;&amp;</span> <span class='notop op'>!</span><span class='dstring node'>%w{-h --help}</span><span class='dot token'>.</span><span class='include? fid id'>include?</span><span class='lparen token'>(</span><span class='command identifier id'>command</span><span class='rparen token'>)</span>
+    <span class='print_help identifier id'>print_help</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="run_command-instance_method">
+  
+    - (<tt>Object</tt>) <strong>run_command</strong>(command, args) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Calls proper lightning command with remaining commandline arguments
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands.rb', line 54</span>
+
+<span class='def def kw'>def</span> <span class='run_command identifier id'>run_command</span><span class='lparen token'>(</span><span class='command identifier id'>command</span><span class='comma token'>,</span> <span class='args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='@command ivar id'>@command</span> <span class='assign token'>=</span> <span class='command identifier id'>command</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
+  <span class='if if kw'>if</span> <span class='dstring node'>%w{-h --help}</span><span class='dot token'>.</span><span class='include? fid id'>include?</span><span class='lparen token'>(</span><span class='args identifier id'>args</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+    <span class='print_command_help identifier id'>print_command_help</span>
+  <span class='else else kw'>else</span>
+    <span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='command identifier id'>command</span><span class='comma token'>,</span> <span class='args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='rescue rescue kw'>rescue</span> <span class='StandardError constant id'>StandardError</span>
+  <span class='$stderr gvar id'>$stderr</span><span class='dot token'>.</span><span class='puts identifier id'>puts</span> <span class='string val'>&quot;Error: &quot;</span><span class='plus op'>+</span> <span class='$! gvar id'>$!</span><span class='dot token'>.</span><span class='message identifier id'>message</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="source_file-instance_method">
+  
+    - (<tt>Object</tt>) <strong>source_file</strong>(argv) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Silent command used by `lightning-reload` which prints <tt><a href="Builder.html" title="Builder">Builder</a></tt>&#8217;s
+shell file
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+4
+5
+6</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands/core.rb', line 4</span>
+
+<span class='def def kw'>def</span> <span class='source_file identifier id'>source_file</span><span class='lparen token'>(</span><span class='argv identifier id'>argv</span><span class='rparen token'>)</span>
+  <span class='puts identifier id'>puts</span> <span class='config identifier id'>config</span><span class='dot token'>.</span><span class='source_file identifier id'>source_file</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Fri Apr  9 04:53:29 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.2 (ruby-1.8.6).
+</div>
+
+  </body>
+</html>

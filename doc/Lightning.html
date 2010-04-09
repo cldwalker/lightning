@@ -1,0 +1,551 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=UTF-8" />
+<title>Module: Lightning</title>
+<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (L)</a> &raquo; 
+    
+    
+    <span class="title">Lightning</span>
+  
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Namespace List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: Lightning 
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/lightning.rb<span class="defines">,<br />
+  lib/lightning/util.rb,<br /> lib/lightning/bolt.rb,<br /> lib/lightning/config.rb,<br /> lib/lightning/builder.rb,<br /> lib/lightning/version.rb,<br /> lib/lightning/function.rb,<br /> lib/lightning/commands.rb,<br /> lib/lightning/generator.rb,<br /> lib/lightning/generators.rb,<br /> lib/lightning/completion.rb,<br /> lib/lightning/commands_util.rb,<br /> lib/lightning/commands/core.rb,<br /> lib/lightning/completion_map.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+      <strong class="modules">Modules:</strong> <a href="Lightning/Builder.html" title="Builder">Builder</a>, <a href="Lightning/Commands.html" title="Commands">Commands</a>, <a href="Lightning/CommandsUtil.html" title="CommandsUtil">CommandsUtil</a>, <a href="Lightning/Generators.html" title="Generators">Generators</a>, <a href="Lightning/Util.html" title="Util">Util</a>
+    
+   
+    
+      <strong class="classes">Classes:</strong> <a href="Lightning/Bolt.html" title="Bolt">Bolt</a>, <a href="Lightning/Completion.html" title="Completion">Completion</a>, <a href="Lightning/CompletionMap.html" title="CompletionMap">CompletionMap</a>, <a href="Lightning/Config.html" title="Config">Config</a>, <a href="Lightning/Function.html" title="Function">Function</a>, <a href="Lightning/Generator.html" title="Generator">Generator</a>
+    
+  
+</p>
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="VERSION-constant ">VERSION =
+            <span class="summary_desc"></span>
+        </dt>
+        <dd><pre class="code"><span class='string val'>'0.3.0'</span>
+</pre></dd>
+      
+    </dl>
+  
+
+
+  <h2>Class Attribute Summary</h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#config-class_method" title="config (class method)">+ (Config) <strong>config</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Contains all user configuration.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#functions-class_method" title="functions (class method)">+ (Hash) <strong>functions</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Maps function names to Function objects.
+
+</span>
+  
+</li>
+
+    
+  </ul>
+
+
+  <h2>Class Method Summary</h2>
+
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bolts-class_method" title="bolts (class method)">+ (Hash) <strong>bolts</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Maps bolt names to Bolt objects.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#dir-class_method" title="dir (class method)">+ (String) <strong>dir</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Directory for most of lightning&#8217;s files, ~/.lightning.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#home-class_method" title="home (class method)">+ (String) <strong>home</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+User&#8217;s home directory, ~.
+
+</span>
+  
+</li>
+
+    
+  </ul>
+
+  <div id="class_attr_details" class="attr_details">
+    <h2>Class Attribute Details</h2>
+    
+      
+      <span id="config=-class_method"></span>
+      <span id="config-class_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="config-class_method">
+  
+    + (<tt><a href="Lightning/Config.html" title="Config">Config</a></tt>) <strong>config</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Contains all user configuration
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt><a href="Lightning/Config.html" title="Config">Config</a></tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Contains all user configuration
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19
+20
+21</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning.rb', line 19</span>
+
+<span class='def def kw'>def</span> <span class='config identifier id'>config</span>
+  <span class='@config ivar id'>@config</span> <span class='opasgn op'>||=</span> <span class='Config constant id'>Config</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="functions=-class_method"></span>
+      <span id="functions-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="functions-class_method">
+  
+    + (<tt>Hash</tt>) <strong>functions</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Maps function names to Function objects
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Maps function names to Function objects
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning.rb', line 29</span>
+
+<span class='def def kw'>def</span> <span class='functions identifier id'>functions</span>
+  <span class='@functions ivar id'>@functions</span> <span class='opasgn op'>||=</span> <span class='create_functions identifier id'>create_functions</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="bolts-class_method">
+  
+    + (<tt>Hash</tt>) <strong>bolts</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Maps bolt names to Bolt objects
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Maps bolt names to Bolt objects
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning.rb', line 24</span>
+
+<span class='def def kw'>def</span> <span class='bolts identifier id'>bolts</span>
+  <span class='@bolts ivar id'>@bolts</span> <span class='opasgn op'>||=</span> <span class='Hash constant id'>Hash</span><span class='dot token'>.</span><span class='new identifier id'>new</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='h identifier id'>h</span><span class='comma token'>,</span><span class='k identifier id'>k</span><span class='bitor op'>|</span> <span class='h identifier id'>h</span><span class='lbrack token'>[</span><span class='k identifier id'>k</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='Bolt constant id'>Bolt</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='k identifier id'>k</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="dir-class_method">
+  
+    + (<tt>String</tt>) <strong>dir</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Directory for most of lightning&#8217;s files, ~/.lightning
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Directory for most of lightning&#8217;s files, ~/.lightning
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36
+37
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning.rb', line 34</span>
+
+<span class='def def kw'>def</span> <span class='dir identifier id'>dir</span>
+  <span class='@dir ivar id'>@dir</span> <span class='opasgn op'>||=</span> <span class='begin begin kw'>begin</span>
+    <span class='require identifier id'>require</span> <span class='string val'>'fileutils'</span>
+    <span class='FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='mkdir_p identifier id'>mkdir_p</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='home identifier id'>home</span><span class='comma token'>,</span> <span class='string val'>'.lightning'</span><span class='rparen token'>)</span>
+    <span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='home identifier id'>home</span><span class='comma token'>,</span> <span class='string val'>'.lightning'</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="home-class_method">
+  
+    + (<tt>String</tt>) <strong>home</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+User&#8217;s home directory, ~
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+User&#8217;s home directory, ~
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+43
+44
+45</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning.rb', line 43</span>
+
+<span class='def def kw'>def</span> <span class='home identifier id'>home</span>
+  <span class='@home ivar id'>@home</span> <span class='opasgn op'>||=</span> <span class='Util constant id'>Util</span><span class='dot token'>.</span><span class='find_home identifier id'>find_home</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Fri Apr  9 04:53:30 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.2 (ruby-1.8.6).
+</div>
+
+  </body>
+</html>

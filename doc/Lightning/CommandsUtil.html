@@ -1,0 +1,711 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=UTF-8" />
+<title>Module: Lightning::CommandsUtil</title>
+<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (C)</a> &raquo; 
+    <a href="../Lightning.html" title="Lightning">Lightning</a>
+     &raquo; 
+    <span class="title">CommandsUtil</span>
+  
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Namespace List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: Lightning::CommandsUtil 
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/lightning/commands_util.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>
+Utility methods to be used inside lightning commands.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div>
+
+
+  <h2>Instance Method Summary</h2>
+
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#command_has_required_args-instance_method" title="#command_has_required_args (instance method)">- (nil, true) <strong>command_has_required_args</strong>(argv, required) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Determines if command has required arguments.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#config-instance_method" title="#config (instance method)">- (Object) <strong>config</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Shortcut to Lightning.config.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#if_bolt_found-instance_method" title="#if_bolt_found (instance method)">- (Object) <strong>if_bolt_found</strong>(bolt) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Yields a block for an existing bolt or prints an error message.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#list_subcommand-instance_method" title="#list_subcommand (instance method)">- (Object) <strong>list_subcommand</strong>(list_type, argv) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Lists a bolt or shell_command with optional --alias.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#parse_args-instance_method" title="#parse_args (instance method)">- (Array&lt;Array, Hash&gt;) <strong>parse_args</strong>(args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Parses arguments into non-option arguments and hash of options.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#print_sorted_hash-instance_method" title="#print_sorted_hash (instance method)">- (Object) <strong>print_sorted_hash</strong>(hash, indent = false) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Prints a hash as a 2 column table sorted by keys.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#save_and_say-instance_method" title="#save_and_say (instance method)">- (Object) <strong>save_and_say</strong>(message) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Saves config and prints message.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#subcommand_has_required_args-instance_method" title="#subcommand_has_required_args (instance method)">- (nil, true) <strong>subcommand_has_required_args</strong>(subcommand, argv) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Determines if subcommand has required arguments.
+
+</span>
+  
+</li>
+
+    
+  </ul>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="command_has_required_args-instance_method">
+  
+    - (<tt>nil</tt>, <tt>true</tt>) <strong>command_has_required_args</strong>(argv, required) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Determines if command has required arguments
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>nil</tt>, <tt>true</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Determines if command has required arguments
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29
+30</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands_util.rb', line 27</span>
+
+<span class='def def kw'>def</span> <span class='command_has_required_args identifier id'>command_has_required_args</span><span class='lparen token'>(</span><span class='argv identifier id'>argv</span><span class='comma token'>,</span> <span class='required identifier id'>required</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='true true kw'>true</span> <span class='if if_mod kw'>if</span> <span class='argv identifier id'>argv</span><span class='dot token'>.</span><span class='size identifier id'>size</span> <span class='geq op'>&gt;=</span> <span class='required identifier id'>required</span>
+  <span class='puts identifier id'>puts</span> <span class='dstring node'>&quot;'lightning #{@command}' was called incorrectly.&quot;</span><span class='comma token'>,</span> <span class='command_usage identifier id'>command_usage</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="config-instance_method">
+  
+    - (<tt>Object</tt>) <strong>config</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Shortcut to Lightning.config
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+53</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands_util.rb', line 53</span>
+
+<span class='def def kw'>def</span> <span class='config identifier id'>config</span><span class='semicolon token'>;</span> <span class='Lightning constant id'>Lightning</span><span class='dot token'>.</span><span class='config identifier id'>config</span> <span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="if_bolt_found-instance_method">
+  
+    - (<tt>Object</tt>) <strong>if_bolt_found</strong>(bolt) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Yields a block for an existing bolt or prints an error message
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+5
+6
+7
+8</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands_util.rb', line 5</span>
+
+<span class='def def kw'>def</span> <span class='if_bolt_found identifier id'>if_bolt_found</span><span class='lparen token'>(</span><span class='bolt identifier id'>bolt</span><span class='rparen token'>)</span>
+  <span class='bolt identifier id'>bolt</span> <span class='assign token'>=</span> <span class='config identifier id'>config</span><span class='dot token'>.</span><span class='unalias_bolt identifier id'>unalias_bolt</span><span class='lparen token'>(</span><span class='bolt identifier id'>bolt</span><span class='rparen token'>)</span>
+  <span class='config identifier id'>config</span><span class='dot token'>.</span><span class='bolts identifier id'>bolts</span><span class='lbrack token'>[</span><span class='bolt identifier id'>bolt</span><span class='rbrack token'>]</span> <span class='question op'>?</span> <span class='yield yield kw'>yield</span><span class='lparen token'>(</span><span class='bolt identifier id'>bolt</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='puts identifier id'>puts</span><span class='lparen token'>(</span><span class='dstring node'>&quot;Can't find bolt '#{bolt}'&quot;</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="list_subcommand-instance_method">
+  
+    - (<tt>Object</tt>) <strong>list_subcommand</strong>(list_type, argv) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Lists a bolt or shell_command with optional --alias
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+56
+57
+58
+59
+60
+61
+62
+63
+64</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands_util.rb', line 56</span>
+
+<span class='def def kw'>def</span> <span class='list_subcommand identifier id'>list_subcommand</span><span class='lparen token'>(</span><span class='list_type identifier id'>list_type</span><span class='comma token'>,</span> <span class='argv identifier id'>argv</span><span class='rparen token'>)</span>
+  <span class='if if kw'>if</span> <span class='dstring node'>%w{-a --alias}</span><span class='dot token'>.</span><span class='include? fid id'>include?</span><span class='lparen token'>(</span><span class='argv identifier id'>argv</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+    <span class='hash identifier id'>hash</span> <span class='assign token'>=</span> <span class='config identifier id'>config</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='list_type identifier id'>list_type</span><span class='rparen token'>)</span>
+    <span class='hash identifier id'>hash</span> <span class='assign token'>=</span> <span class='hash identifier id'>hash</span><span class='dot token'>.</span><span class='inject identifier id'>inject</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='a identifier id'>a</span><span class='comma token'>,</span><span class='lparen token'>(</span><span class='k identifier id'>k</span><span class='comma token'>,</span><span class='v identifier id'>v</span><span class='rparen token'>)</span><span class='bitor op'>|</span> <span class='a identifier id'>a</span><span class='lbrack token'>[</span><span class='k identifier id'>k</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='v identifier id'>v</span><span class='lbrack token'>[</span><span class='string val'>'alias'</span><span class='rbrack token'>]</span><span class='semicolon token'>;</span> <span class='a identifier id'>a</span> <span class='rbrace token'>}</span> <span class='if if_mod kw'>if</span> <span class='list_type identifier id'>list_type</span> <span class='eq op'>==</span> <span class='symbol val'>:bolts</span>
+    <span class='print_sorted_hash identifier id'>print_sorted_hash</span> <span class='hash identifier id'>hash</span>
+  <span class='else else kw'>else</span>
+    <span class='puts identifier id'>puts</span> <span class='config identifier id'>config</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='list_type identifier id'>list_type</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='keys identifier id'>keys</span><span class='dot token'>.</span><span class='sort identifier id'>sort</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="parse_args-instance_method">
+  
+    - (<tt>Array&lt;Array, Hash&gt;</tt>) <strong>parse_args</strong>(args) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Parses arguments into non-option arguments and hash of options. Options can
+have values with an equal sign i.e. &#8217;--option=value&#8217;.
+Options without a value are set to true.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <span class='name'></span>
+      
+      
+      
+    </li>
+  
+</ul>
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Array&lt;Array, Hash&gt;</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Hash of options has symbolic keys
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44
+45
+46
+47
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands_util.rb', line 42</span>
+
+<span class='def def kw'>def</span> <span class='parse_args identifier id'>parse_args</span><span class='lparen token'>(</span><span class='args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='options identifier id'>options</span><span class='comma token'>,</span> <span class='args identifier id'>args</span> <span class='assign token'>=</span> <span class='args identifier id'>args</span><span class='dot token'>.</span><span class='partition identifier id'>partition</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='e identifier id'>e</span><span class='bitor op'>|</span> <span class='e identifier id'>e</span> <span class='match op'>=~</span> <span class='regexp val'>/^-/</span> <span class='rbrace token'>}</span>
+  <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='inject identifier id'>inject</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='hash identifier id'>hash</span><span class='comma token'>,</span> <span class='flag identifier id'>flag</span><span class='bitor op'>|</span>
+    <span class='key identifier id'>key</span><span class='comma token'>,</span> <span class='value identifier id'>value</span> <span class='assign token'>=</span> <span class='flag identifier id'>flag</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='string val'>'='</span><span class='rparen token'>)</span>
+    <span class='hash identifier id'>hash</span><span class='lbrack token'>[</span><span class='key identifier id'>key</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='regexp val'>/^--?/</span><span class='comma token'>,</span><span class='string val'>''</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='intern identifier id'>intern</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='value identifier id'>value</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span> <span class='integer val'>? </span><span class='true true kw'>true</span> <span class='colon op'>:</span> <span class='value identifier id'>value</span>
+    <span class='hash identifier id'>hash</span>
+  <span class='end end kw'>end</span>
+  <span class='lbrack token'>[</span><span class='args identifier id'>args</span><span class='comma token'>,</span> <span class='options identifier id'>options</span><span class='rbrack token'>]</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="print_sorted_hash-instance_method">
+  
+    - (<tt>Object</tt>) <strong>print_sorted_hash</strong>(hash, indent = false) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Prints a hash as a 2 column table sorted by keys
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+11
+12
+13
+14
+15
+16
+17
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands_util.rb', line 11</span>
+
+<span class='def def kw'>def</span> <span class='print_sorted_hash identifier id'>print_sorted_hash</span><span class='lparen token'>(</span><span class='hash identifier id'>hash</span><span class='comma token'>,</span> <span class='indent identifier id'>indent</span><span class='assign token'>=</span><span class='false false kw'>false</span><span class='rparen token'>)</span>
+  <span class='offset identifier id'>offset</span> <span class='assign token'>=</span> <span class='hash identifier id'>hash</span><span class='dot token'>.</span><span class='keys identifier id'>keys</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='e identifier id'>e</span><span class='bitor op'>|</span> <span class='e identifier id'>e</span><span class='dot token'>.</span><span class='size identifier id'>size</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='max identifier id'>max</span> <span class='plus op'>+</span> <span class='integer val'>2</span>
+  <span class='offset identifier id'>offset</span> <span class='opasgn op'>+=</span> <span class='integer val'>1</span> <span class='unless unless_mod kw'>unless</span> <span class='offset identifier id'>offset</span> <span class='mod op'>%</span> <span class='integer val'>2</span> <span class='eq op'>==</span> <span class='integer val'>0</span>
+  <span class='indent_char identifier id'>indent_char</span> <span class='assign token'>=</span> <span class='indent identifier id'>indent</span> <span class='integer val'>? </span><span class='string val'>'  '</span> <span class='colon op'>:</span> <span class='string val'>''</span>
+  <span class='hash identifier id'>hash</span><span class='dot token'>.</span><span class='sort identifier id'>sort</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='k identifier id'>k</span><span class='comma token'>,</span><span class='v identifier id'>v</span><span class='bitor op'>|</span>
+    <span class='puts identifier id'>puts</span> <span class='dstring node'>&quot;#{indent_char}#{k}&quot;</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>' '</span> <span class='mult op'>*</span> <span class='lparen token'>(</span><span class='offset identifier id'>offset</span> <span class='minus op'>-</span> <span class='k identifier id'>k</span><span class='dot token'>.</span><span class='size identifier id'>size</span><span class='rparen token'>)</span> <span class='lshft op'>&lt;&lt;</span> <span class='lparen token'>(</span><span class='v identifier id'>v</span> <span class='orop op'>||</span> <span class='string val'>''</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="save_and_say-instance_method">
+  
+    - (<tt>Object</tt>) <strong>save_and_say</strong>(message) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Saves config and prints message
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+21
+22
+23
+24</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands_util.rb', line 21</span>
+
+<span class='def def kw'>def</span> <span class='save_and_say identifier id'>save_and_say</span><span class='lparen token'>(</span><span class='message identifier id'>message</span><span class='rparen token'>)</span>
+  <span class='config identifier id'>config</span><span class='dot token'>.</span><span class='save identifier id'>save</span>
+  <span class='puts identifier id'>puts</span> <span class='message identifier id'>message</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="subcommand_has_required_args-instance_method">
+  
+    - (<tt>nil</tt>, <tt>true</tt>) <strong>subcommand_has_required_args</strong>(subcommand, argv) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Determines if subcommand has required arguments
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>nil</tt>, <tt>true</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Determines if subcommand has required arguments
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+33
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands_util.rb', line 33</span>
+
+<span class='def def kw'>def</span> <span class='subcommand_has_required_args identifier id'>subcommand_has_required_args</span><span class='lparen token'>(</span><span class='subcommand identifier id'>subcommand</span><span class='comma token'>,</span> <span class='argv identifier id'>argv</span><span class='rparen token'>)</span>
+  <span class='return return kw'>return</span> <span class='true true kw'>true</span> <span class='if if_mod kw'>if</span> <span class='argv identifier id'>argv</span><span class='dot token'>.</span><span class='size identifier id'>size</span> <span class='geq op'>&gt;=</span> <span class='lparen token'>(</span><span class='subcommand_required_args identifier id'>subcommand_required_args</span><span class='lbrack token'>[</span><span class='subcommand identifier id'>subcommand</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='integer val'>0</span><span class='rparen token'>)</span>
+  <span class='puts identifier id'>puts</span> <span class='dstring node'>&quot;'lightning #{@command} #{subcommand}' was called incorrectly.&quot;</span><span class='comma token'>,</span> <span class='command_usage identifier id'>command_usage</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Fri Apr  9 04:53:31 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.2 (ruby-1.8.6).
+</div>
+
+  </body>
+</html>

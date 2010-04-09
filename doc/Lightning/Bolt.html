@@ -1,0 +1,824 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=UTF-8" />
+<title>Class: Lightning::Bolt</title>
+<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (B)</a> &raquo; 
+    <a href="../Lightning.html" title="Lightning">Lightning</a>
+     &raquo; 
+    <span class="title">Bolt</span>
+  
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Namespace List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: Lightning::Bolt 
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Lightning::Bolt</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/lightning/bolt.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>
+A Bolt object is mainly a user-defined set of globs required by a
+<tt><a href="Function.html" title="Function">Function</a></tt> object to translate paths.
+</p>
+<h2>Globs</h2>
+<p>
+Globs are interpreted by Dir.glob and are fairly similar to shell globs.
+Some glob examples:
+</p>
+<ul>
+<li>Files ending with specific file extensions for a given directory.
+
+<pre class="code">
+ <span class='string val'>&quot;/some/path/*.{rb,erb}&quot;</span><span class='minus op'>-</span><span class='gt op'>&gt;</span> <span class='Matches constant id'>Matches</span> <span class='files identifier id'>files</span> <span class='ending identifier id'>ending</span> <span class='with identifier id'>with</span> <span class='dot token'>.</span><span class='rb identifier id'>rb</span> <span class='or or kw'>or</span> <span class='dot token'>.</span><span class='erb identifier id'>erb</span>
+</pre>
+</li>
+<li>Files and directories that don&#8217;t start with specific letters.
+
+<pre class="code">
+ <span class='string val'>&quot;[^ls]*&quot;</span> <span class='minus op'>-</span><span class='gt op'>&gt;</span> <span class='Matches constant id'>Matches</span> <span class='anything identifier id'>anything</span> <span class='not not kw'>not</span> <span class='starting identifier id'>starting</span> <span class='with identifier id'>with</span> <span class='l identifier id'>l</span> <span class='or or kw'>or</span> <span class='s identifier id'>s</span>
+</pre>
+</li>
+<li>All directories, however many levels deep, under the current directory.
+
+<pre class="code">
+ <span class='string val'>&quot;**/&quot;</span>
+</pre>
+</li>
+</ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div>
+
+  <h2>Instance Attribute Summary</h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#aliases-instance_method" title="#aliases (instance method)">- (Hash) <strong>aliases</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Maps aliases to full paths.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#functions-instance_method" title="#functions (instance method)">- (Array&lt;Hash, String&gt;) <strong>functions</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Used to generate functions.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#global-instance_method" title="#global (instance method)">- (Boolean) <strong>global</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+When true adds global commands to list of commands used to generate a
+bolt&#8217;s functions.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#globs-instance_method" title="#globs (instance method)">- (Array) <strong>globs</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+User-defined globs that are translated by Dir.glob().
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#name-instance_method" title="#name (instance method)">- (String) <strong>name</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Unique alphanumeric name.
+
+</span>
+  
+</li>
+
+    
+  </ul>
+
+
+  <h2>Instance Method Summary</h2>
+
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#function_name-instance_method" title="#function_name (instance method)">- (Object) <strong>function_name</strong>(scmd) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Creates function name for a bolt given a shell command.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#generate_functions-instance_method" title="#generate_functions (instance method)">- (Array) <strong>generate_functions</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Generates functions from a bolt&#8217;s functions and global shell
+commands.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Bolt) <strong>initialize</strong>(name) </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+A new instance of Bolt.
+
+</span>
+  
+</li>
+
+    
+  </ul>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><a href="" title="Bolt">Bolt</a></tt>) <strong>initialize</strong>(name) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+A new instance of Bolt
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29
+30
+31
+32
+33
+34
+35</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/bolt.rb', line 27</span>
+
+<span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='name identifier id'>name</span>
+  <span class='@globs ivar id'>@globs</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='@functions ivar id'>@functions</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='@aliases ivar id'>@aliases</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='lparen token'>(</span><span class='Lightning constant id'>Lightning</span><span class='dot token'>.</span><span class='config identifier id'>config</span><span class='dot token'>.</span><span class='bolts identifier id'>bolts</span><span class='lbrack token'>[</span><span class='@name ivar id'>@name</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='k identifier id'>k</span><span class='comma token'>,</span><span class='v identifier id'>v</span><span class='bitor op'>|</span>
+    <span class='instance_variable_set identifier id'>instance_variable_set</span><span class='lparen token'>(</span><span class='dstring node'>&quot;@#{k}&quot;</span><span class='comma token'>,</span> <span class='v identifier id'>v</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <span id="aliases-instance_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="aliases-instance_method">
+  
+    - (<tt>Hash</tt>) <strong>aliases</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Maps aliases to full paths. Aliases are valid for a bolt&#8217;s functions
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Maps aliases to full paths. Aliases are valid for a bolt&#8217;s functions
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19
+20
+21</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/bolt.rb', line 19</span>
+
+<span class='def def kw'>def</span> <span class='aliases identifier id'>aliases</span>
+  <span class='@aliases ivar id'>@aliases</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="functions=-instance_method"></span>
+      <span id="functions-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="functions-instance_method">
+  
+    - (<tt>Array&lt;Hash, String&gt;</tt>) <strong>functions</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Used to generate functions.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Array&lt;Hash, String&gt;</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+An array element can be a hash of function attributes or a shell command
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/bolt.rb', line 26</span>
+
+<span class='def def kw'>def</span> <span class='functions identifier id'>functions</span>
+  <span class='@functions ivar id'>@functions</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="global-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="global-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>global</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+When true adds global commands to list of commands used to generate a
+bolt&#8217;s functions
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+When true adds global commands to list of commands used to generate a
+bolt&#8217;s functions
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+21
+22
+23</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/bolt.rb', line 21</span>
+
+<span class='def def kw'>def</span> <span class='global identifier id'>global</span>
+  <span class='@global ivar id'>@global</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="globs=-instance_method"></span>
+      <span id="globs-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="globs-instance_method">
+  
+    - (<tt>Array</tt>) <strong>globs</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+User-defined globs that are translated by Dir.glob().
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+User-defined globs that are translated by Dir.glob().
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/bolt.rb', line 23</span>
+
+<span class='def def kw'>def</span> <span class='globs identifier id'>globs</span>
+  <span class='@globs ivar id'>@globs</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="name-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="name-instance_method">
+  
+    - (<tt>String</tt>) <strong>name</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Unique alphanumeric name
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Unique alphanumeric name
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+17
+18
+19</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/bolt.rb', line 17</span>
+
+<span class='def def kw'>def</span> <span class='name identifier id'>name</span>
+  <span class='@name ivar id'>@name</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="function_name-instance_method">
+  
+    - (<tt>Object</tt>) <strong>function_name</strong>(scmd) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Creates function name for a bolt given a shell command
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+51
+52
+53</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/bolt.rb', line 51</span>
+
+<span class='def def kw'>def</span> <span class='function_name identifier id'>function_name</span><span class='lparen token'>(</span><span class='scmd identifier id'>scmd</span><span class='rparen token'>)</span>
+  <span class='Lightning constant id'>Lightning</span><span class='dot token'>.</span><span class='config identifier id'>config</span><span class='dot token'>.</span><span class='function_name identifier id'>function_name</span><span class='lparen token'>(</span><span class='scmd identifier id'>scmd</span><span class='comma token'>,</span> <span class='alias_or_name identifier id'>alias_or_name</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="generate_functions-instance_method">
+  
+    - (<tt>Array</tt>) <strong>generate_functions</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Generates functions from a bolt&#8217;s functions and global shell commands
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/bolt.rb', line 39</span>
+
+<span class='def def kw'>def</span> <span class='generate_functions identifier id'>generate_functions</span>
+  <span class='@functions ivar id'>@functions</span> <span class='opasgn op'>+=</span> <span class='Lightning constant id'>Lightning</span><span class='dot token'>.</span><span class='config identifier id'>config</span><span class='dot token'>.</span><span class='global_commands identifier id'>global_commands</span> <span class='if if_mod kw'>if</span> <span class='@global ivar id'>@global</span>
+  <span class='@functions ivar id'>@functions</span><span class='dot token'>.</span><span class='inject identifier id'>inject</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='acc identifier id'>acc</span><span class='comma token'>,</span> <span class='e identifier id'>e</span><span class='bitor op'>|</span>
+    <span class='cmd identifier id'>cmd</span> <span class='assign token'>=</span> <span class='e identifier id'>e</span><span class='dot token'>.</span><span class='is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='Hash constant id'>Hash</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='e identifier id'>e</span><span class='dot token'>.</span><span class='dup identifier id'>dup</span> <span class='colon op'>:</span> <span class='lbrace token'>{</span><span class='string val'>'shell_command'</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='e identifier id'>e</span><span class='rbrace token'>}</span>
+    <span class='cmd identifier id'>cmd</span><span class='lbrack token'>[</span><span class='string val'>'bolt'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='self self kw'>self</span>
+    <span class='cmd identifier id'>cmd</span><span class='lbrack token'>[</span><span class='string val'>'name'</span><span class='rbrack token'>]</span> <span class='opasgn op'>||=</span> <span class='function_name identifier id'>function_name</span><span class='lparen token'>(</span><span class='cmd identifier id'>cmd</span><span class='lbrack token'>[</span><span class='string val'>'shell_command'</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+    <span class='acc identifier id'>acc</span><span class='lbrack token'>[</span><span class='cmd identifier id'>cmd</span><span class='lbrack token'>[</span><span class='string val'>'name'</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span> <span class='opasgn op'>||=</span> <span class='cmd identifier id'>cmd</span> <span class='if if_mod kw'>if</span> <span class='cmd identifier id'>cmd</span><span class='lbrack token'>[</span><span class='string val'>'shell_command'</span><span class='rbrack token'>]</span>
+    <span class='acc identifier id'>acc</span>
+  <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='values identifier id'>values</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Fri Apr  9 04:53:30 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.2 (ruby-1.8.6).
+</div>
+
+  </body>
+</html>

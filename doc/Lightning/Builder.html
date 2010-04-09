@@ -1,0 +1,463 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=UTF-8" />
+<title>Module: Lightning::Builder</title>
+<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (B)</a> &raquo; 
+    <a href="../Lightning.html" title="Lightning">Lightning</a>
+     &raquo; 
+    <span class="title">Builder</span>
+  
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Namespace List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: Lightning::Builder 
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+      <dt class="r1">Extends:</dt>
+      <dd class="r1"><a href="" title="Lightning::Builder">Lightning::Builder</a></dd>
+      
+    
+  
+    
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/lightning/builder.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>
+Builds shell file ~/.lightning/functions.sh from the config file. This file
+is built and sourced into a user&#8217;s shell using `lightning-reload`.
+Currently supports bash and zsh shells. Defaults to building for bash.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div>
+  <h2>Constant Summary</h2>
+  
+
+
+
+  <h2>Instance Method Summary</h2>
+
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#build-instance_method" title="#build (instance method)">- (String) <strong>build</strong>(args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Shell file string to be saved and sourced.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#can_build%3F-instance_method" title="#can_build? (instance method)">- (Boolean) <strong>can_build?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Determines if Builder can build a file for its current shell.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#run-instance_method" title="#run (instance method)">- (String) <strong>run</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Builds shell file.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#shell-instance_method" title="#shell (instance method)">- (String) <strong>shell</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Current shell, defaults to &#8216;bash&#8217;.
+
+</span>
+  
+</li>
+
+    
+  </ul>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="build-instance_method">
+  
+    - (<tt>String</tt>) <strong>build</strong>(args) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Shell file string to be saved and sourced
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <span class='name'>Function</span>
+      
+      
+      
+        &mdash;
+        
+objects
+
+
+      
+    </li>
+  
+</ul>
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Shell file string to be saved and sourced
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+45
+46
+47</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/builder.rb', line 45</span>
+
+<span class='def def kw'>def</span> <span class='build identifier id'>build</span><span class='lparen token'>(</span><span class='args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='HEADER constant id'>HEADER</span> <span class='plus op'>+</span> <span class='string val'>&quot;\n\n&quot;</span> <span class='plus op'>+</span> <span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{shell}_builder&quot;</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='lbrack token'>[</span><span class='args identifier id'>args</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="can_build?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>can_build?</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Determines if Builder can build a file for its current shell
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Determines if Builder can build a file for its current shell
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/builder.rb', line 24</span>
+
+<span class='def def kw'>def</span> <span class='can_build? fid id'>can_build?</span>
+  <span class='respond_to? fid id'>respond_to?</span> <span class='dstring node'>&quot;#{shell}_builder&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="run-instance_method">
+  
+    - (<tt>String</tt>) <strong>run</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Builds shell file
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Builds shell file
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36
+37
+38
+39
+40
+41</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/builder.rb', line 34</span>
+
+<span class='def def kw'>def</span> <span class='run identifier id'>run</span>
+  <span class='return return kw'>return</span> <span class='puts identifier id'>puts</span><span class='lparen token'>(</span><span class='dstring node'>&quot;No builder exists for #{Builder.shell} shell&quot;</span><span class='rparen token'>)</span> <span class='unless unless_mod kw'>unless</span> <span class='Builder constant id'>Builder</span><span class='dot token'>.</span><span class='can_build? fid id'>can_build?</span>
+  <span class='functions identifier id'>functions</span> <span class='assign token'>=</span> <span class='Lightning constant id'>Lightning</span><span class='dot token'>.</span><span class='functions identifier id'>functions</span><span class='dot token'>.</span><span class='values identifier id'>values</span>
+  <span class='check_for_existing_commands identifier id'>check_for_existing_commands</span><span class='lparen token'>(</span><span class='functions identifier id'>functions</span><span class='rparen token'>)</span>
+  <span class='output identifier id'>output</span> <span class='assign token'>=</span> <span class='build identifier id'>build</span><span class='lparen token'>(</span><span class='functions identifier id'>functions</span><span class='rparen token'>)</span>
+  <span class='File constant id'>File</span><span class='dot token'>.</span><span class='open identifier id'>open</span><span class='lparen token'>(</span><span class='Lightning constant id'>Lightning</span><span class='dot token'>.</span><span class='config identifier id'>config</span><span class='dot token'>.</span><span class='source_file identifier id'>source_file</span><span class='comma token'>,</span> <span class='string val'>'w'</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='f identifier id'>f</span><span class='bitor op'>|</span> <span class='f identifier id'>f</span><span class='dot token'>.</span><span class='write identifier id'>write</span><span class='lparen token'>(</span><span class='output identifier id'>output</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span>
+  <span class='output identifier id'>output</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="shell-instance_method">
+  
+    - (<tt>String</tt>) <strong>shell</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Current shell, defaults to &#8216;bash&#8217;
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        
+Current shell, defaults to &#8216;bash&#8217;
+
+
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/builder.rb', line 29</span>
+
+<span class='def def kw'>def</span> <span class='shell identifier id'>shell</span>
+  <span class='Lightning constant id'>Lightning</span><span class='dot token'>.</span><span class='config identifier id'>config</span><span class='lbrack token'>[</span><span class='symbol val'>:shell</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='string val'>'bash'</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Fri Apr  9 04:53:30 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.2 (ruby-1.8.6).
+</div>
+
+  </body>
+</html>
