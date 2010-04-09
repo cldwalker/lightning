@@ -36,7 +36,7 @@ module Lightning::Commands
   end
 
   def create_function(scmd, bolt, options={})
-    options[:name] ||= Lightning.bolts[bolt].function_name(scmd) unless global_commands.include?(scmd)
+    options[:name] ||= Lightning.bolts[bolt].function_name(scmd) unless config.global_commands.include?(scmd)
     function = options[:name] || Lightning.bolts[bolt].function_name(scmd)
 
     if find_function(config.bolts[bolt]['functions'], 'shell_command', scmd)
