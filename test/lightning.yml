@@ -6,6 +6,10 @@ ignore_paths:
 - .git
 
 bolts: 
+  wild_dir:
+    globs: 
+    - **/
+    alias: w
   app:
     global: true
     functions:

@@ -100,6 +100,8 @@ context "Completion" do
       tab '[]', Completion.error_array('Invalid regular expression.'), true
     end
   end
+
+  after_all { Lightning.functions.delete('blah') }
 end
 
 context "Completion misc" do
