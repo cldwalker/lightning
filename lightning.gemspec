@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{lightning}
-  s.version = "0.3.0"
+  s.version = "0.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Gabriel Horner"]
@@ -57,7 +57,7 @@ Gem::Specification.new do |s|
   ]
   s.has_rdoc = %q{yard}
   s.homepage = %q{http://tagaholic.me/lightning}
-  s.rdoc_options = ["--title", "Lightning 0.3.0 Documentation"]
+  s.rdoc_options = ["--title", "Lightning 0.3.1 Documentation"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{tagaholic}
   s.rubygems_version = %q{1.3.6}
