@@ -69,6 +69,7 @@ Please report them {on github}[http://github.com/cldwalker/lightning/issues].
 == Credits
 * ryanb's dotfiles inspired tinkering with autocompletion in ruby: http://github.com/ryanb/dotfiles/blob/master/bash/completion_scripts/project_completion
 * defunkt's rip, http://github.com/defunkt/rip, was inflential in designing plugins
+* Bug fixes: ljsc
 
 == Todo
 * More tests
