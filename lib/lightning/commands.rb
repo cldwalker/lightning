@@ -6,7 +6,7 @@ module Lightning
   # a command +lightning COMMAND -h+ i.e +lightning bolt -h+. Any command and subcommand can be abbreviated.
   # For example, +lightning b c gem path1+ is short for +lightning bolt create gem path1+.
   #
-  # == Command plugins
+  # == Command Plugins
   # Command plugins are a way for users to define their own lightning commands.
   # A command plugin is a .rb file in ~/.lightning/commands/. Each plugin can have multiple
   # commands since a command is just a method in Lightning::Commands.
