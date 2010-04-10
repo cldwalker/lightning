@@ -38,12 +38,6 @@ module Lightning
       puts "'lightning #{@command}' was called incorrectly.", command_usage
     end
 
-    # @return [nil, true] Determines if subcommand has required arguments
-    def subcommand_has_required_args(subcommand, argv)
-      return true if argv.size >= (subcommand_required_args[subcommand] || 0)
-      puts "'lightning #{@command} #{subcommand}' was called incorrectly.", command_usage
-    end
-
     # Parses arguments into non-option arguments and hash of options. Options can have
     # values with an equal sign i.e. '--option=value'. Options without a value are set to true.
     # @param [Array]
@@ -73,6 +67,11 @@ module Lightning
     end
 
     private
+    def subcommand_has_required_args(subcommand, argv)
+      return true if argv.size >= (subcommand_required_args[subcommand] || 0)
+      puts "'lightning #{@command} #{subcommand}' was called incorrectly.", command_usage
+    end
+
     def subcommand_required_args
       desc_array[0].split('|').inject({}) {|a,e|
         cmd, *args = e.strip.split(/\s+/)

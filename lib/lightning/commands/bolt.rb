@@ -4,21 +4,16 @@ module Lightning::Commands
     "generate BOLT [generator] [-t|--test] | global ON_OR_OFF BOLTS | show BOLT)",
     "Commands for managing bolts. Defaults to listing them."
   def bolt(argv)
-    subcommand = argv.shift || 'list'
-    subcommand = %w{alias create delete generate global list show}.find {|e| e[/^#{subcommand}/]} || subcommand
-    bolt_subcommand(subcommand, argv) if subcommand_has_required_args(subcommand, argv)
-  end
-
-  def bolt_subcommand(subcommand, argv)
-    case subcommand
-    when 'list'     then  list_subcommand(:bolts, argv)
-    when 'create'   then  create_bolt(argv.shift, argv)
-    when 'alias'    then  alias_bolt(argv[0], argv[1])
-    when 'delete'   then  delete_bolt(argv[0])
-    when 'show'     then  show_bolt(argv[0])
-    when 'global'   then  globalize_bolts(argv.shift, argv)
-    when 'generate' then  generate_bolt(argv)
-    else puts "Invalid subcommand '#{subcommand}'", command_usage
+    call_subcommand(argv, %w{alias create delete generate global list show}) do |scmd, argv|
+      case scmd
+      when 'list'     then  list_subcommand(:bolts, argv)
+      when 'create'   then  create_bolt(argv.shift, argv)
+      when 'alias'    then  alias_bolt(argv[0], argv[1])
+      when 'delete'   then  delete_bolt(argv[0])
+      when 'show'     then  show_bolt(argv[0])
+      when 'global'   then  globalize_bolts(argv.shift, argv)
+      when 'generate' then  generate_bolt(argv)
+      end
     end
   end
 
