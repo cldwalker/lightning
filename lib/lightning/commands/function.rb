@@ -3,17 +3,12 @@ module Lightning::Commands
   desc '(list [--command=SHELL_COMMAND] [--bolt=BOLT] | create SHELL_COMMAND BOLT [function] | delete FUNCTION)',
     'Commands for managing functions. Defaults to listing them.'
   def function(argv)
-    subcommand = argv.shift || 'list'
-    subcommand = %w{create delete list}.find {|e| e[/^#{subcommand}/]} || subcommand
-    function_subcommand(subcommand, argv) if subcommand_has_required_args(subcommand, argv)
-  end
-
-  def function_subcommand(subcommand, argv)
-    case subcommand
-    when 'list'    then list_function(argv)
-    when 'create'  then create_function_and_bolt(argv)
-    when 'delete'  then delete_function argv.shift
-    else puts "Invalid subcommand '#{subcommand}'", command_usage
+    call_subcommand(argv, %w{create delete list}) do |subcommand, argv|
+      case subcommand
+      when 'list'    then list_function(argv)
+      when 'create'  then create_function_and_bolt(argv)
+      when 'delete'  then delete_function argv.shift
+      end
     end
   end
 

@@ -23,6 +23,15 @@ module Lightning
       puts message
     end
 
+    # Handles abbreviated subcommands and printing errors for invalid subcommands.
+    # Defaults to 'list' subcommand if none given.
+    def call_subcommand(argv, cmds)
+      subcommand = argv.shift || 'list'
+      (subcmd = cmds.find {|e| e[/^#{subcommand}/]}) ?
+        subcommand_has_required_args(subcmd, argv) && yield(subcmd, argv) :
+        puts("Invalid subcommand '#{subcommand}'", command_usage)
+    end
+
     # @return [nil, true] Determines if command has required arguments
     def command_has_required_args(argv, required)
       return true if argv.size >= required

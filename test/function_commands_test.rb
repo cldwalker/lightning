@@ -30,7 +30,7 @@ context "function command" do
   end
 
   test "can take abbreviated subcommand" do
-    mock(Commands).function_subcommand('list', [])
+    mock(Commands).list_function(anything)
     function('l')
   end
 
