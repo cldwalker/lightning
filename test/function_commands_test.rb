@@ -24,16 +24,6 @@ context "function command" do
     function('list', '--command=less')
   end
 
-  test "prints error if invalid subcommand" do
-    mock(Commands).puts /Invalid.*'blah'/, anything
-    function('blah')
-  end
-
-  test "can take abbreviated subcommand" do
-    mock(Commands).list_function(anything)
-    function('l')
-  end
-
   context "create:" do
     test "creates a function" do
       command_should_print 'Created', 'cp-app'

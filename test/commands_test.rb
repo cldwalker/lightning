@@ -1,71 +1,24 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
 context "Commands:" do
-  # this test seems to run much longer than expected i.e. 0.02
-  # rr and raising?
   test "run_command handles unexpected error" do
     mock($stderr).puts(/^Error: Unexpected/)
     mock(Commands).complete(anything) { raise "Unexpected" }
     run_command :complete
   end
 
-  test "complete defaults to ARGV if no ENV['COMP_LINE']" do
-    mock(Completion).complete('o-a Col', anything)
-    capture_stdout { run_command(:complete, ['o-a', 'Col']) }
-  end
-
-  test "complete prints usage for no arguments" do
-    capture_stdout { run_command(:complete, []) }.should =~ /^Usage/
-  end
-
-  test "complete prints error for invalid command" do
-    capture_stdout { run_command(:complete, ['invalid','invalid']) }.should =~ /^#Error.*Please/m
-  end
-
-  test "translate prints usage for no arguments" do
-    capture_stdout { run_command(:translate, []) }.should =~ /^Usage/
-  end
-
-  test "translate prints error for invalid command" do
-    capture_stdout { run_command(:translate, %w{invalid blah}) }.should =~ /#Error/
-  end
-
-  test "command prints usage with -h" do
+  test "generic command prints usage with -h" do
     capture_stdout { run_command :install, ['-h'] }.should =~ /^Usage/
   end
 
-  context "first install" do
-    before_all {
-      @old_config = Lightning.config
-      Lightning.config = Lightning::Config.new({})
-      @old_functions = Lightning.functions
-      Lightning.functions = nil
+  test "generic command prints error if invalid subcommand" do
+    mock(Commands).puts /Invalid.*'blah'/, anything
+    run_command 'function', ['blah']
+  end
 
-      mock(Lightning.config).save.times(2)
-      mock(Commands).first_install? { true }.times(2)
-      stub.instance_of(Generator).call_generator { [] }
-      mock(File).open(anything, 'w')
-      @stdout = capture_stdout { run_command :install }
-    }
-
-    assert "generates default bolts" do
-      Generator::DEFAULT_GENERATORS.all? {|e| Lightning.config[:bolts].key?(e) }
-    end
-
-    assert "default bolts are global" do
-      Generator::DEFAULT_GENERATORS.all? {|e| Lightning.config[:bolts][e]['global'] }
-    end
-
-    test "builds 8 default functions" do
-      expected = %w{cd-gem cd-local_ruby cd-ruby cd-wild echo-gem echo-local_ruby echo-ruby echo-wild}
-      Lightning.functions.keys.sort.should == expected
-    end
-
-    test "prints correct install message" do
-      @stdout.should =~ /^Created.*lightningrc\nCreated.*functions\.sh for bash/m
-    end
-
-    after_all { Lightning.config = @old_config; Lightning.functions = @old_functions }
+  test "generic command can take abbreviated subcommand" do
+    mock(Commands).list_function(anything)
+    run_command 'function', ['l']
   end
 
   context "run" do
