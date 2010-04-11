@@ -13,6 +13,16 @@ context "bolt command" do
     Lightning.config.bolts[bolt] = Lightning::Config.bolt(['/a/b/c/d'])
   end
 
+  test 'list lists bolts' do
+    mock(Commands).puts Lightning.config.bolts.keys.sort
+    bolt 'list'
+  end
+
+  test 'list lists bolts and aliases with --alias' do
+    mock(Commands).print_sorted_hash({"app"=>nil, "wild_dir"=>"w"})
+    bolt 'list', '--alias'
+  end
+
   test 'alias aliases a bolt' do
     create_bolt
     mock(Commands).save_and_say /Aliased.*'abcd'.*'ab'/

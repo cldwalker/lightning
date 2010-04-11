@@ -9,17 +9,17 @@ context "function command" do
     mock(Commands).save_and_say("#{action} function '#{fn}'")
   end
 
-  test "lists functions" do
+  test "list lists functions" do
     mock(Commands).puts Lightning.functions.keys.sort
     function('list')
   end
 
-  test "lists functions with --bolt" do
+  test "list lists functions with --bolt" do
     mock(Commands).puts Lightning.functions.keys.sort
     function('list', '--bolt=app')
   end
 
-  test "lists functions with --command" do
+  test "list lists functions with --command" do
     mock(Commands).puts ['less-app']
     function('list', '--command=less')
   end
