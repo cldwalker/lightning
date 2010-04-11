@@ -18,7 +18,7 @@ module Lightning::Commands
       puts "Alias '#{scmd_alias}' already exists for shell command '#{config.unaliased_command(scmd_alias)}'"
     else
       config.shell_commands[scmd] = scmd_alias
-      save_and_say "Added shell command '#{scmd}'"
+      save_and_say "Created shell command '#{scmd}'"
     end
   end
 
