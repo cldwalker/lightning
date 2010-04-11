@@ -124,7 +124,7 @@ context "function command" do
       function 'delete', 'grep-app'
     end
 
-    test "prints error for nonexistant function" do
+    test "prints error for nonexistent function" do
       mock(Commands).puts /Can't.*'zzz'/
       function 'delete', 'zzz'
     end

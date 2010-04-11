@@ -32,7 +32,7 @@ context "Generator" do
     generate 'gem'
   end
 
-  # test "prints nonexistant generators while continuing with good generators" do
+  # test "prints nonexistent generators while continuing with good generators" do
   #   stub.instance_of(Generator).underling.stub(send) { {} } #`
   #   capture_stdout {
   #     generate :gem, :bad
