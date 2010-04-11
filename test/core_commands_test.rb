@@ -15,7 +15,8 @@ context "Core commands" do
   end
 
   test "translate prints usage for no arguments" do
-    capture_stdout { run_command(:translate, []) }.should =~ /^Usage/
+    capture_stdout { run_command(:translate, [])
+      }.should =~ /'lightning translate'.*incorrectly.*Usage:/m
   end
 
   test "translate prints error for invalid command" do

@@ -1,7 +1,14 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
 # depends on test/lightning.yml
-context "Bolt generates correct command from" do
+context "Bolt generates functions from" do
+  test "non-global bolt" do
+    config.bolts['wild_dir']['functions'] = ['mv']
+    Lightning.functions['mv-w'].is_a?(Function).should == true
+    Lightning.functions.delete('mv-w')
+    config.bolts['wild_dir'].delete('functions')
+  end
+
   assert "shell command" do
     Lightning.functions['less-app'].is_a?(Function)
   end
