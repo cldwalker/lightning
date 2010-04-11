@@ -9,7 +9,7 @@ context "Completion" do
   }
 
   def tab(input, expected, complete_regex=false)
-    Lightning.config[:complete_regex] = complete_regex
+    config[:complete_regex] = complete_regex
     mock(Commands).puts(expected)
     run_command :complete, [@command, 'cd-test '+ input]
   end

@@ -24,12 +24,12 @@ context "Core commands" do
 
   context "first install" do
     before_all {
-      @old_config = Lightning.config
+      @old_config = config
       Lightning.config = Lightning::Config.new({})
       @old_functions = Lightning.functions
       Lightning.functions = nil
 
-      mock(Lightning.config).save.times(2)
+      mock(config).save.times(2)
       mock(Commands).first_install? { true }.times(2)
       stub.instance_of(Generator).call_generator { [] }
       mock(File).open(anything, 'w')
@@ -37,11 +37,11 @@ context "Core commands" do
     }
 
     assert "generates default bolts" do
-      Generator::DEFAULT_GENERATORS.all? {|e| Lightning.config[:bolts].key?(e) }
+      Generator::DEFAULT_GENERATORS.all? {|e| config[:bolts].key?(e) }
     end
 
     assert "default bolts are global" do
-      Generator::DEFAULT_GENERATORS.all? {|e| Lightning.config[:bolts][e]['global'] }
+      Generator::DEFAULT_GENERATORS.all? {|e| config[:bolts][e]['global'] }
     end
 
     test "builds 8 default functions" do

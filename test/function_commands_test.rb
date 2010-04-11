@@ -28,31 +28,31 @@ context "function command" do
     test "creates a function" do
       command_should_print 'Created', 'cp-app'
       function 'create', 'cp', 'app'
-      Lightning.config.bolts['app']['functions'][-1].should == {'name'=>'cp-app', 'shell_command'=>'cp'}
+      config.bolts['app']['functions'][-1].should == {'name'=>'cp-app', 'shell_command'=>'cp'}
     end
 
     test "creates a function with an aliased bolt" do
       command_should_print 'Created', 'grep-w'
       function 'create', 'grep', 'w'
-      Lightning.config.bolts['wild_dir']['functions'][-1].should == 'grep'
+      config.bolts['wild_dir']['functions'][-1].should == 'grep'
     end
 
     test "creates a function with an aliased global command" do
       command_should_print 'Created', 'v-w'
       function 'create', 'vim', 'wild_dir'
-      Lightning.config.bolts['wild_dir']['functions'][-1].should == 'vim'
+      config.bolts['wild_dir']['functions'][-1].should == 'vim'
     end
 
     test "creates a function similar to a global function" do
       command_should_print 'Created', 'vapp'
       function 'create', 'vim', 'app', 'vapp'
-      Lightning.config.bolts['app']['functions'][-1].should == {"name"=>"vapp", "shell_command"=>"vim"}
+      config.bolts['app']['functions'][-1].should == {"name"=>"vapp", "shell_command"=>"vim"}
     end
 
     test "creates a function with explicit function name" do
       command_should_print 'Created', 'eap'
       function 'create', 'emacs', 'app', 'eap'
-      Lightning.config.bolts['app']['functions'][-1].should == {"name"=>"eap", "shell_command"=>"emacs"}
+      config.bolts['app']['functions'][-1].should == {"name"=>"eap", "shell_command"=>"emacs"}
     end
 
     test "fails to generate a bolt and doesn't create a function" do
@@ -79,7 +79,7 @@ context "function command" do
     before_all { Lightning.functions = nil; Lightning.bolts.delete_if { true } }
 
     def function_count(bolt)
-      Lightning.config.bolts[bolt]['functions'].size
+      config.bolts[bolt]['functions'].size
     end
 
     context "deletes" do

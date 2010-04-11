@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 
 context "Builder" do
   def build
-    Lightning.config.source_file = source_file
+    config.source_file = source_file
     Builder.run
   end
 
@@ -11,16 +11,16 @@ context "Builder" do
   end
 
   test "prints error when unable to build" do
-    Lightning.config[:shell] = 'blah'
+    config[:shell] = 'blah'
     capture_stdout { build }.should =~ /No.*exists.*blah shell/
-    Lightning.config[:shell] = nil
+    config[:shell] = nil
   end
 
   test "with non-default shell builds" do
-    Lightning.config[:shell] = 'zsh'
+    config[:shell] = 'zsh'
     mock(Builder).zsh_builder(anything) { '' }
     build
-    Lightning.config[:shell] = nil
+    config[:shell] = nil
   end
 
   test "warns about existing commands being overridden" do

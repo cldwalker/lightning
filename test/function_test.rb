@@ -79,7 +79,7 @@ context "Function" do
     translate 'a1', @map['a1']
   end
 
-  after_all { Lightning.config[:aliases] = {}}
+  after_all { config[:aliases] = {}}
 
   context "function attributes:" do
     test "post_path added after each translation" do

@@ -6,6 +6,10 @@ Lightning::Config.config_file = File.join(File.dirname(__FILE__), 'lightning.yml
 include Lightning
 
 module Helpers
+  def config
+    Lightning.config
+  end
+
   def run_command(command, args=[])
     Commands.run([command] + args)
   end
