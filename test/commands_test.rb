@@ -21,6 +21,25 @@ context "Commands:" do
     run_command 'function', ['l']
   end
 
+  def bolt_expects_subcommand_args(bolt, expected)
+    Commands.instance_variable_set "@command", bolt
+    actual = Commands.send(:subcommand_required_args)
+    expected.all? {|k,v| actual[k] == v }.should == true
+  end
+
+  test "has correct number of subcommands for bolt" do
+    bolt_expects_subcommand_args 'function', {"delete"=>1, "create"=>2}
+  end
+
+  test "has correct number of subcommands for shell_command" do
+    bolt_expects_subcommand_args 'shell_command', {"delete"=>1, "create"=>1}
+  end
+
+  test "has correct number of subcommands for bolt" do
+    bolt_expects_subcommand_args 'bolt', {"alias"=>2, 'create'=>2, 'delete'=>1,
+      'generate'=>1, 'global'=>2, 'show'=>1}
+  end
+
   context "run" do
     test "with no command prints usage" do
       mock(Commands).print_help
