@@ -6,7 +6,7 @@ module Lightning::Commands
   def bolt(argv)
     call_subcommand(argv, %w{alias create delete generate global list show}) do |scmd, argv|
       case scmd
-      when 'list'     then  list_subcommand(:bolts, argv)
+      when 'list'     then  list_bolts(argv)
       when 'create'   then  create_bolt(argv.shift, argv)
       when 'alias'    then  alias_bolt(argv[0], argv[1])
       when 'delete'   then  delete_bolt(argv[0])
@@ -15,6 +15,12 @@ module Lightning::Commands
       when 'generate' then  generate_bolt(argv)
       end
     end
+  end
+
+  def list_bolts(argv)
+    args, options = parse_args argv, %w{alias}
+    options[:alias] ? print_sorted_hash(config.bolts.inject({}) {|a,(k,v)| a[k] = v['alias']; a }) :
+      puts(config.bolts.keys.sort)
   end
 
   def generate_bolt(argv)

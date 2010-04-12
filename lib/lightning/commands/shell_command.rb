@@ -5,11 +5,16 @@ module Lightning::Commands
   def shell_command(argv)
     call_subcommand(argv, %w{create delete list}) do |scmd, argv|
       case scmd
-      when 'list'   then   list_subcommand(:shell_commands, argv)
+      when 'list'   then   list_shell_commands(argv)
       when 'create' then   create_shell_command(argv[0], argv[1])
       when 'delete' then   delete_shell_command(argv[0])
       end
     end
+  end
+
+  def list_shell_commands(argv)
+    args, options = parse_args argv, %w{alias}
+    options[:alias] ? print_sorted_hash(config.shell_commands) : puts(config.shell_commands.keys.sort)
   end
 
   def create_shell_command(scmd, scmd_alias=nil)
