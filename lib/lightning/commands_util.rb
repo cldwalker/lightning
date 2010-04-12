@@ -39,14 +39,17 @@ module Lightning
     end
 
     # Parses arguments into non-option arguments and hash of options. Options can have
-    # values with an equal sign i.e. '--option=value'. Options without a value are set to true.
+    # values with an equal sign i.e. '--option=value'. Options can be abbreviated with
+    # their first letter. Options without a value are set to true.
     # @param [Array]
     # @return [Array<Array, Hash>] Hash of options has symbolic keys
-    def parse_args(args)
+    def parse_args(args, names=[])
       options, args = args.partition {|e| e =~ /^-/ }
       options = options.inject({}) do |hash, flag|
         key, value = flag.split('=')
-        hash[key.sub(/^--?/,'').intern] = value.nil? ? true : value
+        name = key.sub(/^--?/,'')
+        name = names.sort.find {|e| e[/^#{name}/] } || name
+        hash[name.intern] = value.nil? ? true : value
         hash
       end
       [args, options]

@@ -18,8 +18,8 @@ module Lightning::Commands
   end
 
   def generate_bolt(argv)
-    args, options = parse_args argv
-    Lightning::Generator.run(args[0], :once=>args[1], :test=>options[:test] || options[:t])
+    args, options = parse_args argv, %w{test}
+    Lightning::Generator.run(args[0], :once=>args[1], :test=>options[:test])
   end
 
   def create_bolt(bolt, globs)

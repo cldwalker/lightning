@@ -13,9 +13,10 @@ module Lightning::Commands
   end
 
   def list_function(argv)
-    args, options = parse_args argv
+    args, options = parse_args argv, %w{bolt command}
     functions = if options[:bolt]
-      Lightning.functions.values.select {|e| e.bolt.name == options[:bolt] }.map {|e| e.name}
+      bolt = config.unalias_bolt(options[:bolt])
+      Lightning.functions.values.select {|e| e.bolt.name == bolt }.map {|e| e.name}
     elsif options[:command]
       Lightning.functions.values.select {|e| e.shell_command == options[:command] }.map {|e| e.name}
     else

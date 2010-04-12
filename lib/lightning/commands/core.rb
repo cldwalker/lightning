@@ -32,7 +32,7 @@ module Lightning
     desc "[--file=FILE] [--shell=SHELL]",
       "Builds shell functions and installs them into FILE to be sourced by shell."
     def install(argv)
-      args, options = parse_args(argv)
+      args, options = parse_args(argv, %w{file shell})
       config[:shell] = options[:shell] if options[:shell]
       config.source_file = options[:file] if options[:file]
 
