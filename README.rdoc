@@ -1,5 +1,5 @@
 == Description
-Lightning is a commandline framework that could revolutionize how fast you are on the commandline. Lightning let’s you easily define and generate shell functions which autocomplete and interpret paths (files and directories) by their basenames. With these functions you don’t have to ever type the full path to any file for any command again.
+Lightning is a commandline framework that could revolutionize how fast you are on the commandline. Lightning lets you easily define and generate shell functions which autocomplete and interpret paths (files and directories) by their basenames. With these functions you don’t have to ever type the full path to any file for any command again.
 
 == Intro
 Lightning generates shell functions which can interpret paths by their basenames. So instead of carpal-typing
@@ -68,12 +68,14 @@ Please report them {on github}[http://github.com/cldwalker/lightning/issues].
 
 == Credits
 * ryanb's dotfiles inspired tinkering with autocompletion in ruby: http://github.com/ryanb/dotfiles/blob/master/bash/completion_scripts/project_completion
-* defunkt's rip, http://github.com/defunkt/rip, was inflential in designing plugins
+* defunkt's rip, http://github.com/defunkt/rip, was influential in designing plugins
 * Bug fixes: ljsc
 
+== Links
+* http://tagaholic.me/2010/04/08/lightning-speed-for-your-shell.html
+* http://tagaholic.me/2010/04/09/lightning-speed-for-the-user.html
+
 == Todo
-* More tests
 * Manpage
-* Consider underscore anchored autocompletion i.e. textmate style file search
 * Possible aliasing of paths per function, bolt or global
 * Possible irb builder using bond
