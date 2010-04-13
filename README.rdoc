@@ -76,6 +76,5 @@ Please report them {on github}[http://github.com/cldwalker/lightning/issues].
 * http://tagaholic.me/2010/04/09/lightning-speed-for-the-user.html
 
 == Todo
-* Manpage
 * Possible aliasing of paths per function, bolt or global
 * Possible irb builder using bond

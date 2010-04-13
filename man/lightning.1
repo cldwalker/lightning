@@ -1,0 +1,200 @@
+.\" generated with Ronn/v0.4.1
+.\" http://github.com/rtomayko/ronn/
+.
+.TH "LIGHTNING" "1" "April 2010" "CLDWALKER" "Lightning Manual"
+.
+.SH "NAME"
+\fBlightning\fR \-\- Speed for your shell
+.
+.SH "SYNOPSIS"
+.
+.nf
+lightning [\-h|\-\-help] [\-v|\-\-version] COMMAND [ARGS]
+.
+.fi
+.
+.SH "DESCRIPTION"
+\fBlightning\fR is a commandline framework that lets users wrap commands with shell functions that are able to refer to any filesystem path by its basename. To achieve this a user defines a \fIbolt\fR with shell globs and then applies it to commands to produce functions. In addition to translating basenames to full paths, lightning \fIfunctions\fR can autocomplete these basenames, resolve conflicts if they have the same name, leave any non\-basename arguments untouched, and autocomplete directories above and below a basename.
+.
+.P
+To make bolts shareable between users and functions easier to create, \fBlightning\fR has \fIgenerators\fR. A \fIgenerator\fR generates filesystem\-specific globs for a bolt. \fBlightning\fR comes with some default generators. Users can make their own generators with generator plugins placed under ~/.lightning/generators/.
+.
+.SH "COMMANDS"
+\fBlightning\fR comes with the following commands, some which have subcommands. Commands and subcommands can be abbreviated i.e. 'function create grep ruby' \-> 'f c grep ruby'. Users can define their own commands by placing command plugins under ~/.lightning/commands/.
+.
+.TP
+\fBbolt\fR
+Commands for managing bolts. Defaults to listing them.
+.
+.TP
+\fBcomplete\fR
+Prints a function's completions based on the last argument.
+.
+.TP
+\fBfunction\fR
+Commands for managing functions. Defaults to listing them.
+.
+.TP
+\fBgenerator\fR
+Lists available generators.
+.
+.TP
+\fBinstall\fR
+Builds shell functions and installs them into FILE to be sourced by shell.
+.
+.TP
+\fBshell_command\fR
+Commands for managing shell commands. Defaults to listing them.
+.
+.TP
+\fBtranslate\fR
+Translates each argument and prints it on a separate line.
+.
+.SH "CREATE FUNCTIONS"
+There are two ways of creating functions. The first involves combining bolts with individual shell commands. Here are the steps involved:
+.
+.IP "\(bu" 4
+Create a bolt giving it shell globs. This step can be skipped if a bolt has a generator with the same name.
+  # Globs are quoted to prevent filename expansion.
+  $ lightning bolt create code '~/code/fork/*' '~/code/gems/*'
+  Created bolt 'code'
+.
+.IP "\(bu" 4
+Create function(s) for that bolt by applying to shell commands.
+  $ lightning function create cd code
+  Created function 'cd\-code'
+  $ lightning function create grep code
+  Created function 'grep\-code'
+.
+.IP "\(bu" 4
+Generate and load functions into shell
+  $ lightning\-reload
+  Created ~/.lightning/function.sh
+  Loaded ~/.lightning/function.sh
+.
+.IP "" 0
+.
+.P
+The second, more brute\-force way of creating functions is to make global functions. Global functions are made from combining each global bolt with each global shell command. For example, 4 global bolts and 7 global commands will make 28 functions.
+.
+.P
+  # First make bolts global since bolts aren't global by default
+  $ lg bolt global on python clojure ruby
+  Global on for bolts python, clojure, ruby
+.
+.P
+  # Then add the global commands
+  $ lg shell_command create vim
+  Created shell command 'vim'
+  $ lg shell_command create grep
+  Created shell command 'grep'
+  $ lightning\-reload
+.
+.P
+  $ lightning function list
+  grep\-clojure
+  grep\-python
+  grep\-ruby
+  vim\-clojure
+  vim\-python
+  vim\-ruby
+.
+.SH "INSTALLATION"
+Install with either rip or rubygems:
+  $ rip install git://github.com/cldwalker/lightning.git
+  # OR
+  $ sudo gem install yard # to install documentation correctly
+  $ sudo gem install lightning
+.
+.P
+If you've installed with rubygems and the command \fBtime lightning\fR takes longer than 0.05 seconds, I \fIstrongly recommend\fR installing with rip, http://hellorip.com. Your startup time directly effects your autocompletion speed with lightning.
+.
+.P
+Once lightning is installed, we need to do a one\-time setup:
+.
+.P
+  # To see available install options
+  $ lightning install \-h
+.
+.P
+  # Installs lightning's core files
+  $ lightning install && source ~/.lightning/functions.sh
+  Created ~/.lightning_yml
+  Created ~/.lightning/functions.sh
+.
+.P
+  # To have lightning's functionality loaded when your shell starts up
+  echo source ~/.lightning/functions.sh >> ~/.bashrc
+  # or for zsh
+  echo source ~/.lightning/functions.sh >> ~/.zshrc
+.
+.SH "EXAMPLES"
+Get help on any command:
+.
+.P
+  $ lightning function \-h
+  $ lightning bolt \-h
+.
+.P
+List functions:
+.
+.P
+  # All functions
+  $ lightning function list
+  # All functions from ruby bolt
+  $ lightning function list \-\-bolt=ruby
+  # All functions from global command echo
+  $ lightning function list \-\-command=echo
+.
+.P
+Regenerate functions and source them into the shell:
+.
+.P
+  # Call for changes to bolts and functions to take effect
+  $ lightning\-reload
+.
+.P
+Manage global shell commands:
+.
+.P
+  $ lightning shell_command list
+  $ lightning shell_command create cd
+  $ lightning shell_command delete cd
+.
+.P
+Manage/edit bolts:
+.
+.P
+  $ lightning bolt list
+  $ lightning bolt delete ruby
+  $ lightning bolt alias ruby r
+  $ lightning bolt global off ruby gem local_ruby
+.
+.P
+Generate a bolt using a generator:
+.
+.P
+  # Generates ruby bolt with ruby generator
+  $ lightning bolt generate ruby
+  # Generates ruby19 bolt with ruby generator
+  $ lightning bolt generate ruby19 ruby
+  # Test what ruby bolt generates
+  $ lightning bolt generate ruby \-\-test
+.
+.P
+Test what a function will execute:
+.
+.P
+  # Normal execution
+  $ cp\-gem \-r rubygems\-update\-1.3.6 .
+  # Prints cp\-gem's translated arguments, one per line
+  $ lightning translate cp\-gem \-r rubygems\-update\-1.3.6 .
+  \-r
+  /Library/Ruby/Gems/1.8/gems/rubygems\-update\-1.3.6
+  .
+.
+.SH "COPYRIGHT"
+\fBlightning\fR is Copyright (C) 2010 Gabriel Horner
+.
+.SH "SEE ALSO"
+\fIhttp://tagaholic.me/lightning\fR, \fIhttp://tagaholic.me/lightning/doc/\fR, \fIhttp://github.com/cldwalker/lightning\fR
