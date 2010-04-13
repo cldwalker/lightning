@@ -24,7 +24,7 @@ begin
     s.email = "gabriel.horner@gmail.com"
     s.homepage = "http://tagaholic.me/lightning"
     s.authors = ["Gabriel Horner"]
-    s.files =  FileList["CHANGELOG.rdoc", "Rakefile","README.rdoc", "LICENSE.txt", "{bin,lib,test}/**/*"]
+    s.files =  FileList["CHANGELOG.rdoc", "Rakefile","README.rdoc", "LICENSE.txt", "{bin,lib,test,man}/**/*"]
     s.has_rdoc = 'yard'
     s.rdoc_options = ['--title', "Lightning #{Lightning::VERSION} Documentation"]
     s.rubyforge_project = 'tagaholic'

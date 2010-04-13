@@ -1,5 +1,5 @@
 == Description
-Lightning is a commandline framework that could revolutionize how fast you are on the commandline. Lightning lets you easily define and generate shell functions which autocomplete and interpret paths (files and directories) by their basenames. With these functions you don’t have to ever type the full path to any file for any command again.
+Lightning is a commandline framework that lets users wrap commands with shell functions that are able to refer to any filesystem path by its basename. To achieve this a user defines a _bolt_ with shell globs and then applies it to commands to produce functions. In addition to translating basenames to full paths, lightning _functions_ can autocomplete these basenames, resolve conflicts if they have the same name, leave any non-basename arguments untouched, and autocomplete directories above and below a basename. To make bolts shareable between users and functions easier to create, lightning has _generators_. A _generator_ generates filesystem-specific globs for a bolt. Lightning comes with some default generators. Users can make their own generators with generator plugins placed under ~/.lightning/generators/.
 
 == Intro
 Lightning generates shell functions which can interpret paths by their basenames. So instead of carpal-typing
@@ -58,6 +58,18 @@ Once lightning is installed, we need to do a one-time setup:
   echo source ~/.lightning/functions.sh >> ~/.bashrc
   # or for zsh
   echo source ~/.lightning/functions.sh >> ~/.zshrc
+
+To install and view lightning's man page:
+
+  # If installed with rip
+  $ LDIR=`ruby -rrip -e 'puts Rip::PackageManager.new.package("lightning").cache_path'`
+  # Assumes /usr/local/man is in $MANPATH
+  $ cp $LDIR/man/lightning.1 /usr/local/man/man1/
+  $ man lightning
+
+  # If installed with rubygems
+  $ sudo gem install gem-man
+  $ gem man lightning
 
 == Bugs/Issues
 Please report them {on github}[http://github.com/cldwalker/lightning/issues].
