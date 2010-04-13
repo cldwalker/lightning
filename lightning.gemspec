@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{lightning}
-  s.version = "0.3.1"
+  s.version = "0.3.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Gabriel Horner"]
-  s.date = %q{2010-04-09}
-  s.description = %q{Lightning is a commandline framework that changes how you use paths in your filesystem. Lightning generates shell functions which wrap any command with the ability to autocomplete and interpret paths simply by their basenames. With these functions you don't have to ever type the full path to any file for any command again.}
+  s.date = %q{2010-04-13}
+  s.description = %q{Lightning is a commandline framework that lets users wrap commands with shell functions that are able to refer to any filesystem path by its basename. To achieve this, a group of paths to be translated are defined with shell globs. These shell globs, known as a lightning _bolt_, are then applied to commands to produce functions. In addition to translating basenames to full paths, lightning _functions_ can autocomplete these basenames, resolve conflicts if they have the same name, leave any non-basename arguments untouched, and autocomplete directories above and below a basename.}
   s.email = %q{gabriel.horner@gmail.com}
   s.executables = ["lightning", "lightning-complete", "lightning-translate"]
   s.extra_rdoc_files = [
@@ -44,33 +44,43 @@ Gem::Specification.new do |s|
      "lib/lightning/generators/ruby.rb",
      "lib/lightning/util.rb",
      "lib/lightning/version.rb",
+     "man/lightning.1",
+     "man/lightning.1.ronn",
+     "test/bolt_commands_test.rb",
      "test/bolt_test.rb",
      "test/builder_test.rb",
      "test/commands_test.rb",
      "test/completion_map_test.rb",
      "test/completion_test.rb",
      "test/config_test.rb",
+     "test/core_commands_test.rb",
+     "test/function_commands_test.rb",
      "test/function_test.rb",
      "test/generator_test.rb",
      "test/lightning.yml",
+     "test/shell_command_commands_test.rb",
      "test/test_helper.rb"
   ]
   s.has_rdoc = %q{yard}
   s.homepage = %q{http://tagaholic.me/lightning}
-  s.rdoc_options = ["--title", "Lightning 0.3.1 Documentation"]
+  s.rdoc_options = ["--title", "Lightning 0.3.2 Documentation"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{tagaholic}
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{Lightning is a commandline framework that generates shell functions which wrap around commands to autocomplete and translate full paths by their basenames.}
   s.test_files = [
-    "test/bolt_test.rb",
+    "test/bolt_commands_test.rb",
+     "test/bolt_test.rb",
      "test/builder_test.rb",
      "test/commands_test.rb",
      "test/completion_map_test.rb",
      "test/completion_test.rb",
      "test/config_test.rb",
+     "test/core_commands_test.rb",
+     "test/function_commands_test.rb",
      "test/function_test.rb",
      "test/generator_test.rb",
+     "test/shell_command_commands_test.rb",
      "test/test_helper.rb"
   ]
 
