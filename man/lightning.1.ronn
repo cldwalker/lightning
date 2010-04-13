@@ -7,7 +7,7 @@ lightning(1) -- Speed for your shell
 
 ## DESCRIPTION
 
-`lightning` is a commandline framework that lets users wrap commands with shell functions that are able to refer to any filesystem path by its basename. To achieve this a user defines a _bolt_ with shell globs and then applies it to commands to produce functions. In addition to translating basenames to full paths, lightning _functions_ can autocomplete these basenames, resolve conflicts if they have the same name, leave any non-basename arguments untouched, and autocomplete directories above and below a basename.
+`lightning` is a commandline framework that lets users wrap commands with shell functions that are able to refer (translate) to any filesystem path by its basename. To achieve this, a group of paths to be translated are defined with shell globs. These shell globs, known as a lightning _bolt_, are then applied to commands to produce functions. In addition to translating basenames to full paths, lightning _functions_ can autocomplete these basenames, resolve conflicts if they have the same name, leave any non-basename arguments untouched, and autocomplete directories above and below a basename.
 
 To make bolts shareable between users and functions easier to create, `lightning` has _generators_. A _generator_ generates filesystem-specific globs for a bolt. `lightning` comes with some default generators. Users can make their own generators with generator plugins placed under ~/.lightning/generators/.
 
@@ -33,9 +33,9 @@ To make bolts shareable between users and functions easier to create, `lightning
 
 ## CREATE FUNCTIONS
 
-There are two ways of creating functions. The first involves combining bolts with individual shell commands. Here are the steps involved:
+There are two nonexclusive ways of creating functions. The first involves combining bolts with individual shell commands. Here are the steps involved:
 
-* Create a bolt giving it shell globs. This step can be skipped if a bolt has a generator with the same name.
+* Create a bolt with shell globs. This step can be skipped if a bolt has a generator with the same name.
     # Globs are quoted to prevent filename expansion.
     $ lightning bolt create code '~/code/fork/\*' '~/code/gems/\*'
     Created bolt 'code'
@@ -50,7 +50,7 @@ There are two ways of creating functions. The first involves combining bolts wit
     Created ~/.lightning/function.sh
     Loaded ~/.lightning/function.sh
 
-The second, more brute-force way of creating functions is to make global functions. Global functions are made from combining each global bolt with each global shell command. For example, 4 global bolts and 7 global commands will make 28 functions.
+The second, more brute-force way of creating functions is to make global functions. Global functions are made from combining each global bolt with each global shell command. For example, 4 global bolts combined with 7 global commands will make 28 global functions.
 
   # First make bolts global since bolts aren't global by default
   $ lg bolt global on python clojure ruby
@@ -63,6 +63,7 @@ The second, more brute-force way of creating functions is to make global functio
   Created shell command 'grep'
   $ lightning-reload
 
+  # Verify global functions
   $ lightning function list
   grep-clojure
   grep-python
@@ -70,6 +71,10 @@ The second, more brute-force way of creating functions is to make global functio
   vim-clojure
   vim-python
   vim-ruby
+
+## LIGHTNINGRC
+
+`lightning`'s configuration is stored in ~/.lightningrc as YAML. Since it's human readable it's easy to modify. However, `lightning` depends on this file to function and will fail if the file has a syntax error. Modifying this file is only recommended if you need to modify existing functions, bolts or global commands in a way that the lightning commands can't. To read up on the config file format see _http://tagaholic.me/lightning/doc/Lightning/Config.html_.
 
 ## INSTALLATION
 
@@ -114,7 +119,7 @@ List functions:
 
 Regenerate functions and source them into the shell:
 
-  # Call for changes to bolts and functions to take effect
+  # Call every time for changes to bolts and functions to take effect
   $ lightning-reload
 
 Manage global shell commands:
@@ -148,6 +153,10 @@ Test what a function will execute:
   -r
   /Library/Ruby/Gems/1.8/gems/rubygems-update-1.3.6
   .
+
+## BUGS
+
+Please report bugs at _http://github.com/cldwalker/lightning/issues_.
 
 ## COPYRIGHT
 
