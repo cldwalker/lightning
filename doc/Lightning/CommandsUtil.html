@@ -77,6 +77,30 @@ Utility methods to be used inside lightning commands.
       <li class="public ">
   <span class="summary_signature">
     
+      <a href="#call_subcommand-instance_method" title="#call_subcommand (instance method)">- (Object) <strong>call_subcommand</strong>(argv, cmds) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+Handles abbreviated subcommands and printing errors for invalid
+subcommands.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#command_has_required_args-instance_method" title="#command_has_required_args (instance method)">- (nil, true) <strong>command_has_required_args</strong>(argv, required) </a>
     
 
@@ -146,30 +170,7 @@ Yields a block for an existing bolt or prints an error message.
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#list_subcommand-instance_method" title="#list_subcommand (instance method)">- (Object) <strong>list_subcommand</strong>(list_type, argv) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc">
-Lists a bolt or shell_command with optional --alias.
-
-</span>
-  
-</li>
-
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#parse_args-instance_method" title="#parse_args (instance method)">- (Array&lt;Array, Hash&gt;) <strong>parse_args</strong>(args) </a>
+      <a href="#parse_args-instance_method" title="#parse_args (instance method)">- (Array&lt;Array, Hash&gt;) <strong>parse_args</strong>(args, names = []) </a>
     
 
     
@@ -235,29 +236,6 @@ Saves config and prints message.
 </li>
 
     
-      <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#subcommand_has_required_args-instance_method" title="#subcommand_has_required_args (instance method)">- (nil, true) <strong>subcommand_has_required_args</strong>(subcommand, argv) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc">
-Determines if subcommand has required arguments.
-
-</span>
-  
-</li>
-
-    
   </ul>
 
 
@@ -266,7 +244,54 @@ Determines if subcommand has required arguments.
     
     
       <div class="method_details first">
-  <p class="signature first" id="command_has_required_args-instance_method">
+  <p class="signature first" id="call_subcommand-instance_method">
+  
+    - (<tt>Object</tt>) <strong>call_subcommand</strong>(argv, cmds) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Handles abbreviated subcommands and printing errors for invalid
+subcommands. Defaults to &#8216;list&#8217; subcommand if none given.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+28
+29
+30
+31
+32
+33</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands_util.rb', line 28</span>
+
+<span class='def def kw'>def</span> <span class='call_subcommand identifier id'>call_subcommand</span><span class='lparen token'>(</span><span class='argv identifier id'>argv</span><span class='comma token'>,</span> <span class='cmds identifier id'>cmds</span><span class='rparen token'>)</span>
+  <span class='subcommand identifier id'>subcommand</span> <span class='assign token'>=</span> <span class='argv identifier id'>argv</span><span class='dot token'>.</span><span class='shift identifier id'>shift</span> <span class='orop op'>||</span> <span class='string val'>'list'</span>
+  <span class='lparen token'>(</span><span class='subcmd identifier id'>subcmd</span> <span class='assign token'>=</span> <span class='cmds identifier id'>cmds</span><span class='dot token'>.</span><span class='find identifier id'>find</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='e identifier id'>e</span><span class='bitor op'>|</span> <span class='e identifier id'>e</span><span class='lbrack token'>[</span><span class='dregexp node'>/^#{subcommand}/</span><span class='rbrack token'>]</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='question op'>?</span>
+    <span class='subcommand_has_required_args identifier id'>subcommand_has_required_args</span><span class='lparen token'>(</span><span class='subcmd identifier id'>subcmd</span><span class='comma token'>,</span> <span class='argv identifier id'>argv</span><span class='rparen token'>)</span> <span class='andop op'>&amp;&amp;</span> <span class='yield yield kw'>yield</span><span class='lparen token'>(</span><span class='subcmd identifier id'>subcmd</span><span class='comma token'>,</span> <span class='argv identifier id'>argv</span><span class='rparen token'>)</span> <span class='colon op'>:</span>
+    <span class='puts identifier id'>puts</span><span class='lparen token'>(</span><span class='dstring node'>&quot;Invalid subcommand '#{subcommand}'&quot;</span><span class='comma token'>,</span> <span class='command_usage identifier id'>command_usage</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="command_has_required_args-instance_method">
   
     - (<tt>nil</tt>, <tt>true</tt>) <strong>command_has_required_args</strong>(argv, required) 
   
@@ -308,13 +333,13 @@ Determines if command has required arguments
       <pre class="lines">
 
 
-27
-28
-29
-30</pre>
+36
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lightning/commands_util.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands_util.rb', line 36</span>
 
 <span class='def def kw'>def</span> <span class='command_has_required_args identifier id'>command_has_required_args</span><span class='lparen token'>(</span><span class='argv identifier id'>argv</span><span class='comma token'>,</span> <span class='required identifier id'>required</span><span class='rparen token'>)</span>
   <span class='return return kw'>return</span> <span class='true true kw'>true</span> <span class='if if_mod kw'>if</span> <span class='argv identifier id'>argv</span><span class='dot token'>.</span><span class='size identifier id'>size</span> <span class='geq op'>&gt;=</span> <span class='required identifier id'>required</span>
@@ -350,10 +375,10 @@ Shortcut to Lightning.config
       <pre class="lines">
 
 
-53</pre>
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lightning/commands_util.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands_util.rb', line 59</span>
 
 <span class='def def kw'>def</span> <span class='config identifier id'>config</span><span class='semicolon token'>;</span> <span class='Lightning constant id'>Lightning</span><span class='dot token'>.</span><span class='config identifier id'>config</span> <span class='end end kw'>end</span>
 </pre>
@@ -405,61 +430,9 @@ Yields a block for an existing bolt or prints an error message
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="list_subcommand-instance_method">
-  
-    - (<tt>Object</tt>) <strong>list_subcommand</strong>(list_type, argv) 
-  
-
-  
-</p><div class="docstring">
-  <div class="discussion">
-    <p>
-Lists a bolt or shell_command with optional --alias
-</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-56
-57
-58
-59
-60
-61
-62
-63
-64</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/lightning/commands_util.rb', line 56</span>
-
-<span class='def def kw'>def</span> <span class='list_subcommand identifier id'>list_subcommand</span><span class='lparen token'>(</span><span class='list_type identifier id'>list_type</span><span class='comma token'>,</span> <span class='argv identifier id'>argv</span><span class='rparen token'>)</span>
-  <span class='if if kw'>if</span> <span class='dstring node'>%w{-a --alias}</span><span class='dot token'>.</span><span class='include? fid id'>include?</span><span class='lparen token'>(</span><span class='argv identifier id'>argv</span><span class='lbrack token'>[</span><span class='integer val'>0</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
-    <span class='hash identifier id'>hash</span> <span class='assign token'>=</span> <span class='config identifier id'>config</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='list_type identifier id'>list_type</span><span class='rparen token'>)</span>
-    <span class='hash identifier id'>hash</span> <span class='assign token'>=</span> <span class='hash identifier id'>hash</span><span class='dot token'>.</span><span class='inject identifier id'>inject</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='a identifier id'>a</span><span class='comma token'>,</span><span class='lparen token'>(</span><span class='k identifier id'>k</span><span class='comma token'>,</span><span class='v identifier id'>v</span><span class='rparen token'>)</span><span class='bitor op'>|</span> <span class='a identifier id'>a</span><span class='lbrack token'>[</span><span class='k identifier id'>k</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='v identifier id'>v</span><span class='lbrack token'>[</span><span class='string val'>'alias'</span><span class='rbrack token'>]</span><span class='semicolon token'>;</span> <span class='a identifier id'>a</span> <span class='rbrace token'>}</span> <span class='if if_mod kw'>if</span> <span class='list_type identifier id'>list_type</span> <span class='eq op'>==</span> <span class='symbol val'>:bolts</span>
-    <span class='print_sorted_hash identifier id'>print_sorted_hash</span> <span class='hash identifier id'>hash</span>
-  <span class='else else kw'>else</span>
-    <span class='puts identifier id'>puts</span> <span class='config identifier id'>config</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='list_type identifier id'>list_type</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='keys identifier id'>keys</span><span class='dot token'>.</span><span class='sort identifier id'>sort</span>
-  <span class='end end kw'>end</span>
-<span class='end end kw'>end</span>
-</pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
   <p class="signature " id="parse_args-instance_method">
   
-    - (<tt>Array&lt;Array, Hash&gt;</tt>) <strong>parse_args</strong>(args) 
+    - (<tt>Array&lt;Array, Hash&gt;</tt>) <strong>parse_args</strong>(args, names = []) 
   
 
   
@@ -468,7 +441,8 @@ Lists a bolt or shell_command with optional --alias
     <p>
 Parses arguments into non-option arguments and hash of options. Options can
 have values with an equal sign i.e. &#8217;--option=value&#8217;.
-Options without a value are set to true.
+Options can be abbreviated with their first letter. Options without a value
+are set to true.
 </p>
 
 
@@ -516,24 +490,28 @@ Hash of options has symbolic keys
       <pre class="lines">
 
 
-42
-43
-44
-45
 46
 47
 48
 49
-50</pre>
+50
+51
+52
+53
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/lightning/commands_util.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/lightning/commands_util.rb', line 46</span>
 
-<span class='def def kw'>def</span> <span class='parse_args identifier id'>parse_args</span><span class='lparen token'>(</span><span class='args identifier id'>args</span><span class='rparen token'>)</span>
+<span class='def def kw'>def</span> <span class='parse_args identifier id'>parse_args</span><span class='lparen token'>(</span><span class='args identifier id'>args</span><span class='comma token'>,</span> <span class='names identifier id'>names</span><span class='assign token'>=</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
   <span class='options identifier id'>options</span><span class='comma token'>,</span> <span class='args identifier id'>args</span> <span class='assign token'>=</span> <span class='args identifier id'>args</span><span class='dot token'>.</span><span class='partition identifier id'>partition</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='e identifier id'>e</span><span class='bitor op'>|</span> <span class='e identifier id'>e</span> <span class='match op'>=~</span> <span class='regexp val'>/^-/</span> <span class='rbrace token'>}</span>
   <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='options identifier id'>options</span><span class='dot token'>.</span><span class='inject identifier id'>inject</span><span class='lparen token'>(</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='hash identifier id'>hash</span><span class='comma token'>,</span> <span class='flag identifier id'>flag</span><span class='bitor op'>|</span>
     <span class='key identifier id'>key</span><span class='comma token'>,</span> <span class='value identifier id'>value</span> <span class='assign token'>=</span> <span class='flag identifier id'>flag</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='string val'>'='</span><span class='rparen token'>)</span>
-    <span class='hash identifier id'>hash</span><span class='lbrack token'>[</span><span class='key identifier id'>key</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='regexp val'>/^--?/</span><span class='comma token'>,</span><span class='string val'>''</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='intern identifier id'>intern</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='value identifier id'>value</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span> <span class='integer val'>? </span><span class='true true kw'>true</span> <span class='colon op'>:</span> <span class='value identifier id'>value</span>
+    <span class='name identifier id'>name</span> <span class='assign token'>=</span> <span class='key identifier id'>key</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='regexp val'>/^--?/</span><span class='comma token'>,</span><span class='string val'>''</span><span class='rparen token'>)</span>
+    <span class='name identifier id'>name</span> <span class='assign token'>=</span> <span class='names identifier id'>names</span><span class='dot token'>.</span><span class='sort identifier id'>sort</span><span class='dot token'>.</span><span class='find identifier id'>find</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='e identifier id'>e</span><span class='bitor op'>|</span> <span class='e identifier id'>e</span><span class='lbrack token'>[</span><span class='dregexp node'>/^#{name}/</span><span class='rbrack token'>]</span> <span class='rbrace token'>}</span> <span class='orop op'>||</span> <span class='name identifier id'>name</span>
+    <span class='hash identifier id'>hash</span><span class='lbrack token'>[</span><span class='name identifier id'>name</span><span class='dot token'>.</span><span class='intern identifier id'>intern</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='value identifier id'>value</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span> <span class='integer val'>? </span><span class='true true kw'>true</span> <span class='colon op'>:</span> <span class='value identifier id'>value</span>
     <span class='hash identifier id'>hash</span>
   <span class='end end kw'>end</span>
   <span class='lbrack token'>[</span><span class='args identifier id'>args</span><span class='comma token'>,</span> <span class='options identifier id'>options</span><span class='rbrack token'>]</span>
@@ -636,73 +614,12 @@ Saves config and prints message
 </table>
 </div>
     
-      <div class="method_details ">
-  <p class="signature " id="subcommand_has_required_args-instance_method">
-  
-    - (<tt>nil</tt>, <tt>true</tt>) <strong>subcommand_has_required_args</strong>(subcommand, argv) 
-  
-
-  
-</p><div class="docstring">
-  <div class="discussion">
-    <p>
-Determines if subcommand has required arguments
-</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <h3>Returns:</h3>
-<ul class="return">
-  
-    <li>
-      
-        <span class='type'>(<tt>nil</tt>, <tt>true</tt>)</span>
-      
-      
-      
-      
-        &mdash;
-        
-Determines if subcommand has required arguments
-
-
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-33
-34
-35
-36</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/lightning/commands_util.rb', line 33</span>
-
-<span class='def def kw'>def</span> <span class='subcommand_has_required_args identifier id'>subcommand_has_required_args</span><span class='lparen token'>(</span><span class='subcommand identifier id'>subcommand</span><span class='comma token'>,</span> <span class='argv identifier id'>argv</span><span class='rparen token'>)</span>
-  <span class='return return kw'>return</span> <span class='true true kw'>true</span> <span class='if if_mod kw'>if</span> <span class='argv identifier id'>argv</span><span class='dot token'>.</span><span class='size identifier id'>size</span> <span class='geq op'>&gt;=</span> <span class='lparen token'>(</span><span class='subcommand_required_args identifier id'>subcommand_required_args</span><span class='lbrack token'>[</span><span class='subcommand identifier id'>subcommand</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='integer val'>0</span><span class='rparen token'>)</span>
-  <span class='puts identifier id'>puts</span> <span class='dstring node'>&quot;'lightning #{@command} #{subcommand}' was called incorrectly.&quot;</span><span class='comma token'>,</span> <span class='command_usage identifier id'>command_usage</span>
-<span class='end end kw'>end</span>
-</pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
   </div>
 
 </div>
     
     <div id="footer">
-  Generated on Fri Apr  9 04:53:31 2010 by 
+  Generated on Tue Apr 13 18:23:38 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
   0.5.2 (ruby-1.8.6).
 </div>

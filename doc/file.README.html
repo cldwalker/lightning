@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta name="Content-Type" content="text/html; charset=UTF-8" />
-<title>Lightning 0.3.0 Documentation</title>
+<title>Lightning 0.3.2 Documentation</title>
 <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
 
@@ -37,11 +37,19 @@
     
     <div id="content"><div id='filecontents'><h2>Description</h2>
 <p>
-Lightning is a commandline framework that could revolutionize how fast you
-are on the commandline. Lightning let’s you easily define and generate
-shell functions which autocomplete and interpret paths (files and
-directories) by their basenames. With these functions you don’t have to
-ever type the full path to any file for any command again.
+Lightning is a commandline framework that lets users wrap commands with
+shell functions that are able to refer to any filesystem path by its
+basename. To achieve this, a group of paths to be translated are defined
+with shell globs. These shell globs, known as a lightning <em>bolt</em>,
+are then applied to commands to produce functions. In addition to
+translating basenames to full paths, lightning <em>functions</em> can
+autocomplete these basenames, resolve conflicts if they have the same name,
+leave any non-basename arguments untouched, and autocomplete directories
+above and below a basename. To make bolts shareable between users and
+functions easier to create, lightning has <em>generators</em>. A
+<em>generator</em> generates filesystem-specific globs for a bolt.
+Lightning comes with some default generators. Users can make their own
+generators with generator plugins placed under ~/.lightning/generators/.
 </p>
 <h2>Intro</h2>
 <p>
@@ -119,6 +127,20 @@ Once lightning is installed, we need to do a one-time setup:
   # or for zsh
   echo source ~/</span><span class='dot token'>.</span><span class='lightning identifier id'>lightning</span><span class='div op'>/</span><span class='functions identifier id'>functions</span><span class='dot token'>.</span><span class='sh identifier id'>sh</span> <span class='rshft op'>&gt;&gt;</span> <span class='bitnot op'>~</span><span class='regexp val'>/.zshrc
 </span></pre>
+<p>
+To install and view lightning&#8217;s man page:
+</p>
+<pre class="code">
+  <span class='comment val'># If installed with rip</span>
+  $ <span class='LDIR constant id'>LDIR</span><span class='assign token'>=</span><span class='xstring val'>`ruby -rrip -e 'puts Rip::PackageManager.new.package(&quot;lightning&quot;).cache_path'`</span>
+  <span class='comment val'># Assumes /usr/local/man is in $MANPATH</span>
+  $ <span class='cp identifier id'>cp</span> <span class='$LDIR gvar id'>$LDIR</span><span class='div op'>/</span><span class='man identifier id'>man</span><span class='div op'>/</span><span class='lightning identifier id'>lightning</span><span class='integer val'>.1</span> <span class='div op'>/</span><span class='usr identifier id'>usr</span><span class='div op'>/</span><span class='local identifier id'>local</span><span class='div op'>/</span><span class='man identifier id'>man</span><span class='div op'>/</span><span class='man1 identifier id'>man1</span><span class='div op'>/</span>
+  $ <span class='man identifier id'>man</span> <span class='lightning identifier id'>lightning</span>
+
+  <span class='comment val'># If installed with rubygems</span>
+  $ <span class='sudo identifier id'>sudo</span> <span class='gem identifier id'>gem</span> <span class='install identifier id'>install</span> <span class='gem identifier id'>gem</span><span class='minus op'>-</span><span class='man identifier id'>man</span>
+  $ <span class='gem identifier id'>gem</span> <span class='man identifier id'>man</span> <span class='lightning identifier id'>lightning</span>
+</pre>
 <h2>Bugs/Issues</h2>
 <p>
 Please report them <a
@@ -143,21 +165,26 @@ href="http://github.com/ryanb/dotfiles/blob/master/bash/completion_scripts/proje
 </li>
 <li>defunkt&#8217;s rip, <a
 href="http://github.com/defunkt/rip">github.com/defunkt/rip</a>, was
-inflential in designing plugins
+influential in designing plugins
+
+</li>
+<li>Bug fixes: ljsc
+
+</li>
+</ul>
+<h2>Links</h2>
+<ul>
+<li><a
+href="http://tagaholic.me/2010/04/08/lightning-speed-for-your-shell.html">tagaholic.me/2010/04/08/lightning-speed-for-your-shell.html</a>
+
+</li>
+<li><a
+href="http://tagaholic.me/2010/04/09/lightning-speed-for-the-user.html">tagaholic.me/2010/04/09/lightning-speed-for-the-user.html</a>
 
 </li>
 </ul>
 <h2>Todo</h2>
 <ul>
-<li>More tests
-
-</li>
-<li>Manpage
-
-</li>
-<li>Consider underscore anchored autocompletion i.e. textmate style file search
-
-</li>
 <li>Possible aliasing of paths per function, bolt or global
 
 </li>
@@ -168,7 +195,7 @@ inflential in designing plugins
 </div></div>
     
     <div id="footer">
-  Generated on Fri Apr  9 04:53:29 2010 by 
+  Generated on Tue Apr 13 18:23:35 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
   0.5.2 (ruby-1.8.6).
 </div>

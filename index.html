@@ -8,9 +8,9 @@
     
       <meta name="keywords" content="" />
       <meta name="description" content="<p>
-Lightning is a commandline framework that could revolutionize how fast you
-are on the commandline. Lightning let’s you easily define and generate
-shell fu" />
+Lightning is a commandline framework that lets users wrap commands with
+shell functions that are able to refer to any filesystem path by its
+basename. To ac" />
     
     <link rel="stylesheet" href="http://tagaholic.me/stylesheets/master.css" type="text/css" media="screen" charset="utf-8"/>
     <link rel="stylesheet" href="http://tagaholic.me/stylesheets/syntax.css" type="text/css" />
@@ -76,11 +76,19 @@ shell fu" />
 <h2>Description</h2>
 <p>
   <p>
-Lightning is a commandline framework that could revolutionize how fast you
-are on the commandline. Lightning let’s you easily define and generate
-shell functions which autocomplete and interpret paths (files and
-directories) by their basenames. With these functions you don’t have to
-ever type the full path to any file for any command again.
+Lightning is a commandline framework that lets users wrap commands with
+shell functions that are able to refer to any filesystem path by its
+basename. To achieve this, a group of paths to be translated are defined
+with shell globs. These shell globs, known as a lightning <em>bolt</em>,
+are then applied to commands to produce functions. In addition to
+translating basenames to full paths, lightning <em>functions</em> can
+autocomplete these basenames, resolve conflicts if they have the same name,
+leave any non-basename arguments untouched, and autocomplete directories
+above and below a basename. To make bolts shareable between users and
+functions easier to create, lightning has <em>generators</em>. A
+<em>generator</em> generates filesystem-specific globs for a bolt.
+Lightning comes with some default generators. Users can make their own
+generators with generator plugins placed under ~/.lightning/generators/.
 </p>
 
   
