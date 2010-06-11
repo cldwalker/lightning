@@ -2,7 +2,7 @@ class Bacon::Context
   include RR::Adapters::RRMethods
   RR.trim_backtrace = true
   alias_method :old_it, :it
-	def it(description)
+  def it(description)
     old_it(description) do
       begin
         # Add at least one requirement to ensure mock-only tests don't fail
@@ -16,5 +16,5 @@ class Bacon::Context
         RR.reset
       end
     end
-	end
+  end
 end
