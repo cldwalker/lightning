@@ -16,7 +16,8 @@ Gem::Specification.new do |s|
   s.rdoc_options = ['--title', "Lightning #{Lightning::VERSION} Documentation"]
   s.add_development_dependency 'bacon'
   s.add_development_dependency 'rr', '= 0.10.10'
-  s.files = Dir.glob(%w[{lib,test}/**/*.rb bin/* [A-Z]*.{txt,rdoc} ext/**/*.{rb,c}]) + %w{Rakefile gemspec}
+  s.files = Dir.glob(%w[{lib,test}/**/*.rb bin/* [A-Z]*.{txt,rdoc} ext/**/*.{rb,c}]) + %w{Rakefile .gemspec}
   s.files += Dir.glob(['test/*.yml', 'man/*'])
   s.extra_rdoc_files = ["README.rdoc", "LICENSE.txt"]
+  s.license = 'MIT'
 end
