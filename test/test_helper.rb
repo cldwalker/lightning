@@ -1,6 +1,6 @@
 require 'bacon'
+require 'bacon/bits'
 require 'rr'
-require File.dirname(__FILE__)+'/bacon_extensions'
 require File.dirname(__FILE__)+'/bacon_rr'
 require 'lightning'
 #set up valid global config file
@@ -39,7 +39,6 @@ end
 
 class Bacon::Context
   include Helpers
-  include BaconExtensions
 
   def xtest(*args); end
   def xcontext(*args); end
