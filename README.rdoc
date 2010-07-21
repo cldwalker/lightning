@@ -37,7 +37,7 @@ And here's the one-liner that creates this function:
 == Install
 
 Install with either rip or rubygems:
-  $ rip install git://github.com/cldwalker/lightning.git
+  $ rip install lightning
   # OR
   $ sudo gem install yard # if you want lightning's documentation generated correctly
   $ sudo gem install lightning
@@ -61,10 +61,7 @@ Once lightning is installed, we need to do a one-time setup:
 
 To install and view lightning's man page:
 
-  # If installed with rip
-  $ LDIR=`ruby -rrip -e 'puts Rip::PackageManager.new.package("lightning").cache_path'`
-  # Assumes /usr/local/man is in $MANPATH
-  $ cp $LDIR/man/lightning.1 /usr/local/man/man1/
+  # If installed with rip, man pages are automatically installed
   $ man lightning
 
   # If installed with rubygems
