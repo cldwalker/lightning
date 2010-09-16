@@ -1,7 +1,7 @@
 require 'bacon'
 require 'bacon/bits'
 require 'rr'
-require File.dirname(__FILE__)+'/bacon_rr'
+require 'bacon/rr'
 require 'lightning'
 #set up valid global config file
 Lightning::Config.config_file = File.join(File.dirname(__FILE__), 'lightning.yml')
