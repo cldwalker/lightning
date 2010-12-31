@@ -51,7 +51,7 @@ Once lightning is installed, we need to do a one-time setup:
 
   # Installs lightning's core files and sources the needed lightning functions
   $ lightning install && source ~/.lightning/functions.sh
-  Created ~/.lightning_yml
+  Created ~/.lightningrc
   Created ~/.lightning/functions.sh
 
   # To have lightning's functionality loaded when your shell starts up
