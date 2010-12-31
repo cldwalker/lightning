@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.description = "Lightning is a commandline framework that lets users wrap commands with shell functions that are able to refer to any filesystem path by its basename. To achieve this, a group of paths to be translated are defined with shell globs. These shell globs, known as a lightning _bolt_, are then applied to commands to produce functions. In addition to translating basenames to full paths, lightning _functions_ can autocomplete these basenames, resolve conflicts if they have the same name, leave any non-basename arguments untouched, and autocomplete directories above and below a basename."
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project = 'tagaholic'
+  s.executables = %w{lightning lightning-complete lightning-translate}
   s.has_rdoc = 'yard'
   s.rdoc_options = ['--title', "Lightning #{Lightning::VERSION} Documentation"]
   s.add_development_dependency 'bacon', '>= 1.1.0'
