@@ -58,7 +58,7 @@ context "Commands:" do
 
     test "with invalid command prints messaged and usage" do
       mock(Commands).print_help
-      capture_stdout { Commands.run ['blah'] }.should =~ /Command 'blah'/
+      capture_stdout { Commands.run ['to_s'] }.should =~ /Command 'to_s'/
     end
 
     test "passes -h as command argument" do
