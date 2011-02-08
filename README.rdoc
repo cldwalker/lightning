@@ -1,5 +1,14 @@
 == Description
-Lightning is a commandline framework that lets users wrap commands with shell functions that are able to refer to any filesystem path by its basename. To achieve this, a group of paths to be translated are defined with shell globs. These shell globs, known as a lightning _bolt_, are then applied to commands to produce functions. In addition to translating basenames to full paths, lightning _functions_ can autocomplete these basenames, resolve conflicts if they have the same name, leave any non-basename arguments untouched, and autocomplete directories above and below a basename. To make bolts shareable between users and functions easier to create, lightning has _generators_. A _generator_ generates filesystem-specific globs for a bolt. Lightning comes with some default generators. Users can make their own generators with generator plugins placed under ~/.lightning/generators/.
+Lightning is a commandline framework that lets users wrap commands with shell functions that are
+able to refer to any filesystem path by its basename. To achieve this, a group of paths to be
+translated are defined with shell globs. These shell globs, known as a lightning _bolt_, are then
+applied to commands to produce functions. In addition to translating basenames to full paths,
+lightning _functions_ can autocomplete these basenames, resolve conflicts if they have the same
+name, leave any non-basename arguments untouched, and autocomplete directories above and below a
+basename. To make bolts shareable between users and functions easier to create, lightning has
+_generators_. A _generator_ generates filesystem-specific globs for a bolt. Lightning comes with
+some default generators. Users can make their own generators with generator plugins placed under
+~/.lightning/generators/.
 
 == Intro
 Lightning generates shell functions which can interpret paths by their basenames. So instead of carpal-typing
@@ -10,7 +19,8 @@ just type
 
   $ less-ruby irb.rb
 
-less-ruby is a lightning function which wraps `less` with the ability to refer to system ruby files by their basenames. Being a lightning function, it can also autocomplete system ruby files:
+less-ruby is a lightning function which wraps `less` with the ability to refer to system ruby files
+by their basenames. Being a lightning function, it can also autocomplete system ruby files:
 
   # 1112 available system ruby files
   $ less-ruby [TAB]
@@ -39,10 +49,12 @@ And here's the one-liner that creates this function:
 Install with either rip or rubygems:
   $ rip install lightning
   # OR
-  $ sudo gem install yard # if you want lightning's documentation generated correctly
-  $ sudo gem install lightning
+  $ gem install yard # if you want lightning's documentation generated correctly
+  $ gem install lightning
 
-If you've installed with rubygems and `time lightning` takes longer than 0.05 seconds, I *strongly recommend* installing with rip. Your startup time directly effects your autocompletion speed with lightning.
+If you've installed with rubygems and `time lightning` takes longer than 0.05 seconds, I *strongly
+recommend* installing with rip. Your startup time directly effects your autocompletion speed with
+lightning.
 
 Once lightning is installed, we need to do a one-time setup:
 
@@ -76,7 +88,8 @@ Please report them {on github}[http://github.com/cldwalker/lightning/issues].
 * Only bash and zsh shells are supported. Patches are welcome to support other shells.
 
 == Credits
-* ryanb's dotfiles inspired tinkering with autocompletion in ruby: http://github.com/ryanb/dotfiles/blob/master/bash/completion_scripts/project_completion
+* ryanb's dotfiles inspired tinkering with autocompletion in ruby:
+  http://github.com/ryanb/dotfiles/blob/master/bash/completion_scripts/project_completion
 * defunkt's rip, http://github.com/defunkt/rip, was influential in designing plugins
 * Bug fixes: ljsc
 
