@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.has_rdoc = 'yard'
   s.rdoc_options = ['--title', "Lightning #{Lightning::VERSION} Documentation"]
   s.add_development_dependency 'bacon', '>= 1.1.0'
-  s.add_development_dependency 'rr', '= 0.10.10'
+  s.add_development_dependency 'rr', '>= 1.0'
   s.add_development_dependency 'bacon-bits'
   s.add_development_dependency 'bacon-rr'
   s.files = Dir.glob(%w[{lib,test}/**/*.rb bin/* [A-Z]*.{txt,rdoc} ext/**/*.{rb,c} **/deps.rip]) + %w{Rakefile .gemspec}
