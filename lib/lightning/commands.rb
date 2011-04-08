@@ -34,7 +34,7 @@ module Lightning
     def run(argv=ARGV)
       if (command = argv.shift) && (actual_command = unalias_command(command))
         run_command(actual_command, argv)
-      elsif command && commands.include?(command)
+      elsif command && (commands << 'source_file').include?(command)
         run_command(command, argv)
       elsif %w{-v --version}.include?(command)
         puts "lightning #{VERSION}"

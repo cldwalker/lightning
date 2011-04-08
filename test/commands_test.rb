@@ -56,6 +56,10 @@ context "Commands:" do
       Commands.run ['-h']
     end
 
+    test "with silent command" do
+      capture_stdout { Commands.run ['source_file'] }.should =~ /lightning_completions/
+    end
+
     test "with invalid command prints messaged and usage" do
       mock(Commands).print_help
       capture_stdout { Commands.run ['to_s'] }.should =~ /Command 'to_s'/
