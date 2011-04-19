@@ -35,6 +35,12 @@ module Helpers
   def slice_hash(*keys)
     keys.shift.reject { |key,| !keys.include?(key) }
   end
+
+  def translate(fn, input, *expected)
+    Lightning.functions['blah'] = fn
+    mock(Commands).puts(expected.join("\n"))
+    run_command :translate, ['blah'] + input.split(' ')
+  end
 end
 
 class Bacon::Context
