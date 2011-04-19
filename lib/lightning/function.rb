@@ -37,13 +37,13 @@ module Lightning
 
     # @return [Array] Globs used to create {Function#completion_map completion_map}
     def globs
-      @globs ||= @bolt.globs
+      @globs ||= @bolt.globs.map {|g| gsub_shell_vars(g) }
     end
 
     # User-defined aliases for any path. Defaults to its bolt's aliases.
     # @return [Hash] Maps aliases to full paths
     def aliases
-      @aliases ||= @bolt.aliases
+      @aliases ||= Hash[@bolt.aliases.map {|k,v| [k, gsub_shell_vars(v)] }]
     end
 
     # @return [CompletionMap] Map of basenames to full paths used in completion
@@ -66,5 +66,11 @@ module Lightning
         new_arg
       }
     end
+
+    private
+    def gsub_shell_vars(str)
+      str.gsub(/\$(\w+)/) {|e| ENV[$1] }
+    end
+
   end
 end

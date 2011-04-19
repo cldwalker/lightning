@@ -79,6 +79,23 @@ context "Function" do
     after_all { config[:aliases] = {}}
   end
 
+  context "function with global variables" do
+    before { @fn = create_function; ENV['MY_HOME'] = '/my/home' }
+    after { ENV.delete 'MY_HOME' }
+
+    test "has globs that expand shell variables" do
+      orig = @fn.bolt.globs.dup
+      @fn.bolt.globs << '$MY_HOME/*.rc'
+      @fn.globs.should == orig << '/my/home/*.rc'
+    end
+
+    test "has aliases that expand shell variables" do
+      orig = @fn.bolt.aliases.dup
+      @fn.bolt.aliases['f'] = '$MY_HOME/file'
+      @fn.aliases.should == orig.merge('f' => '/my/home/file')
+    end
+  end
+
   context "function attributes:" do
     test "post_path added after each translation" do
       @fn = create_function 'post_path'=>'/rdoc/index.html'
