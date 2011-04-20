@@ -77,7 +77,7 @@ To install and view lightning's man page:
   $ man lightning
 
   # If installed with rubygems
-  $ sudo gem install gem-man
+  $ gem install gem-man
   $ gem man lightning
 
 == Bugs/Issues

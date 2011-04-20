@@ -17,6 +17,7 @@ module Lightning
     # @option options [String] :once Generator to run once
     # @option options [Boolean] :test Runs generators in test mode which only displays
     #   generated globs and doesn't save them
+    # @option options [Boolean] :live Generates globs for use at runtime
     def self.run(gens=[], options={})
       load_plugins
       new.run(gens, options)

@@ -19,7 +19,10 @@ module Lightning
   #     over name when generating function names.
   #   * *global*: true or false (default is false). When set, uses bolt to generate functions with each command
   #     in :shell_commands.
-  #   * *globs*(required): Array of globs which defines group of paths bolt handles
+  #   * *globs*(required): Array of globs which defines group of paths bolt handles. A glob can
+  #     any number of shell variables i.e. $HOME which are translated at runtime. If globs is not
+  #     present, lightning will generate them using a Lightning::Generator method with the same name as the
+  #     bolt, if it exists.
   #   * *functions*: Array of lightning functions. A function can either be a string (shell command with default
   #     options) or a hash with the following keys:
   #     * *name*: Name of the lightning function
