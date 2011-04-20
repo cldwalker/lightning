@@ -43,6 +43,8 @@ module Lightning
     def run(gens, options)
       if options.key?(:once)
         run_once(gens, options)
+      elsif options.key?(:live)
+        Array(call_generator(gens, false))
       else
         gens = DEFAULT_GENERATORS if Array(gens).empty?
         gens = Hash[*gens.zip(gens).flatten] if gens.is_a?(Array)
@@ -72,9 +74,12 @@ module Lightning
       results.all?
     end
 
-    def call_generator(gen)
-      raise "Generator method doesn't exist." unless @underling.respond_to?(gen)
-      Array(@underling.send(gen)).map {|e| e.to_s }
+    def call_generator(gen, strict=true)
+      if @underling.respond_to?(gen)
+        Array(@underling.send(gen)).map {|e| e.to_s }
+      elsif strict
+        raise("Generator method doesn't exist.")
+      end
     rescue
       $stdout.puts "Generator '#{gen}' failed with: #{$!.message}"
     end

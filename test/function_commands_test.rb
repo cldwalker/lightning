@@ -15,7 +15,7 @@ context "function command" do
   end
 
   test "list lists functions with --bolt" do
-    mock(Commands).puts Lightning.functions.keys.sort
+    mock(Commands).puts Lightning.functions.keys.delete_if {|e| e[/live_glob/] }.sort
     function('list', '--bolt=app')
   end
 

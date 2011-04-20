@@ -29,6 +29,9 @@ bolts:
     globs:
       - /Applications/*.app
       - /Applications/Utilities/*.app
+  live_glob:
+    functions:
+    - cd
 shell_commands:
   vim: v
   grep: grep

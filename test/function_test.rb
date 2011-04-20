@@ -96,7 +96,13 @@ context "Function" do
     end
   end
 
-  context "function attributes:" do
+  context "with" do
+    test "live globs" do
+      live_globs = %w{one two three}
+      Lightning::Generators.send(:define_method, :live_glob) { live_globs * 2 }
+      @fn = create_function 'bolt' => Bolt.new('live_glob')
+      @fn.globs.should == live_globs * 2
+    end
     test "post_path added after each translation" do
       @fn = create_function 'post_path'=>'/rdoc/index.html'
       @fn.completion_map.map = {'path1'=>'/dir/path1','path2'=>'/dir/path2',

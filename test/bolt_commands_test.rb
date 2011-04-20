@@ -19,7 +19,7 @@ context "bolt command" do
   end
 
   test 'list lists bolts and aliases with --alias' do
-    mock(Commands).print_sorted_hash({"app"=>nil, "wild_dir"=>"w"})
+    mock(Commands).print_sorted_hash({"app"=>nil, "wild_dir"=>"w", 'live_glob' => nil})
     bolt 'list', '--alias'
   end
 

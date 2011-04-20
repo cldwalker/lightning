@@ -29,9 +29,9 @@ module Lightning
       @globs = []
       @functions = []
       @aliases = {}
-      (Lightning.config.bolts[@name] || {}).each do |k,v|
-        instance_variable_set("@#{k}", v)
-      end
+      config = Lightning.config.bolts[@name] || {}
+      config.each { |k,v| instance_variable_set("@#{k}", v) }
+      @globs = Generator.run(@name, :live => true) unless config.key?('globs')
     end
 
     # Generates functions from a bolt's functions and global shell commands
