@@ -42,8 +42,10 @@ context "Function" do
       translate 'path1 path2', map['path1'], map['path2']
     end
 
-    test "translates instant multiple completions (..)" do
-      translate 'path.. blah a1', map['path1'], map['path2'], map['path3'], 'blah', map['a1']
+    if RUBY_VERSION > '1.9.2'
+      test "translates instant multiple completions (..)" do
+        translate 'path.. blah a1', map['path1'], map['path2'], map['path3'], 'blah', map['a1']
+      end
     end
 
     test "translates instant multiple completions containing spaces" do
