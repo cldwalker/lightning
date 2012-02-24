@@ -1,14 +1,12 @@
 ---
 source_file: lightning_completions
-
 ignore_paths:
 - .DS_Store
 - .git
-
-bolts: 
+bolts:
   wild_dir:
-    globs: 
-    - **/
+    globs:
+    - ! '**/'
     alias: w
   app:
     global: true
@@ -17,18 +15,18 @@ bolts:
       name: bling
     - less
     - shell_command: cd
-      name : c
-    - name : oa
-      shell_command : open -a
-      desc : open mac applications
+      name: c
+    - name: oa
+      shell_command: open -a
+      desc: open mac applications
     aliases:
       a1: /dir/a1
       a2: /dir/a2
       path3: /dir/a3
     desc: Desktop applications
     globs:
-      - /Applications/*.app
-      - /Applications/Utilities/*.app
+    - /Applications/*.app
+    - /Applications/Utilities/*.app
   live_glob:
     functions:
     - cd
