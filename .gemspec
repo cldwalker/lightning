@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'bacon-bits'
   s.add_development_dependency 'bacon-rr'
   s.files = Dir.glob(%w[{lib,test}/**/*.rb bin/* [A-Z]*.{txt,rdoc} ext/**/*.{rb,c} **/deps.rip]) + %w{Rakefile .gemspec}
-  s.files += Dir.glob(['test/*.yml', 'man/*'])
+  s.files += Dir.glob(['test/*.yml', 'man/*', '.travis.yml'])
   s.extra_rdoc_files = ["README.rdoc", "LICENSE.txt"]
   s.license = 'MIT'
 end
