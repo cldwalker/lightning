@@ -1,3 +1,6 @@
+== 0.4.1
+* 1.8.7 + 1.9.3 test fixes
+
 == 0.4.0
 * Add shell variables to globs
 * Allow globs to call generators to be used at runtime
