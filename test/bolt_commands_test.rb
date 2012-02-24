@@ -72,7 +72,9 @@ context "bolt command" do
   test 'show shows bolt given alias' do
     create_bolt
     config.bolts['abcd']['alias'] = 'ab'
-    mock(Commands).puts(/globs:.*c\/d.*alias: ab/m)
+    expect = RUBY_VERSION < '1.9.2' ? /alias: ab.*globs:.*c\/d/m :
+      /globs:.*c\/d.*alias: ab/m
+    mock(Commands).puts(expect)
     bolt 'show', 'ab'
   end
 
