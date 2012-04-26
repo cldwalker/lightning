@@ -46,14 +46,12 @@ And here's the one-liner that creates this function:
 
 == Install
 
-Install with either rip or rubygems:
-  $ rip install lightning
-  # OR
-  $ gem install yard # if you want lightning's documentation generated correctly
+Install with rubygems:
   $ gem install lightning
+  $ gem install yard # if you want lightning's documentation generated correctly
 
 If you've installed with rubygems and `time lightning` takes longer than 0.05 seconds, I *strongly
-recommend* installing with rip. Your startup time directly effects your autocompletion speed with
+recommend* installing with ruby 1.9.3. Your startup time directly effects your autocompletion speed with
 lightning.
 
 Once lightning is installed, we need to do a one-time setup:
