@@ -21,7 +21,7 @@ module Lightning
 
     # @return [Boolean] Determines if Builder can build a file for its current shell
     def can_build?
-      respond_to? "#{shell}_builder"
+      respond_to? "#{shell}_builder", true
     end
 
     # @return [String] Current shell, defaults to 'bash'
