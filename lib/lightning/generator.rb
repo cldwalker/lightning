@@ -76,7 +76,7 @@ module Lightning
     end
 
     def call_generator(gen, strict=true)
-      if @underling.respond_to?(gen)
+      if @underling.respond_to? gen, true
         Array(@underling.send(gen)).map {|e| e.to_s }
       elsif strict
         raise("Generator method doesn't exist.")
